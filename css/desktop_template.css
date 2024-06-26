@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+}
+
+p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.sidebar {
+    background-color: red;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 232px;
+    z-index: 10;
+}
+
+header {
+    background-color: green;
+    position: sticky;
+    top: 0;
+    /* height: 96px; */
+    padding: 20px 40px 20px 348px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
