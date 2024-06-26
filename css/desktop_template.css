@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400; /* Standard Regular */
 }
 
 p {
@@ -30,4 +32,10 @@ header {
     justify-content: space-between;
     align-items: center;
     height: 100%;
+}
+
+.header-user-name {
+    height: 56px;
+    width: 56px;
+
 }
