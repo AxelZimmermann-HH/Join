@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Desktop Template</title>
-    <link rel="stylesheet" href="../css/desktop_template.css">
-    <link rel="stylesheet" href="../css/fonts.css">
-</head>
-<body>
-    <div class="sidebar"></div>
-    <header>
-        <div class="header-content">
-            <p>Kanban Project Management Tool</p>
-            <div class="header-icons">
-                <img class="header-help" src="../img/help.svg" alt="questionmark">
-                <div class="header-user-name">SM</div>
-            </div>
+    <link rel="stylesheet" href="../css/desktop_template.css" />
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <script src="../script.js"></script>
+  </head>
+  <body>
+    <div class="sidebar">
+      
+        <img src="../img/logo.svg" alt="" class="sidebar-logo" />
+        <div class="sidebar-menu">
+          <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
+            <img src="../img/sidebar_summary.svg" alt="" />Summary
+          </a>
+          <a href="#" class="sidebar-links" onclick="goToTask()" id="link-task">
+            <img src="../img/edit_square.svg" alt="" />Add Task
+          </a>
+          <a href="#" class="sidebar-links" onclick="goToBoard()" id="link-board">
+            <img src="../img/sidebar_board.svg" alt="" />Board
+          </a>
+          <a href="#" class="sidebar-links" onclick="goToContacts()" id="link-contacts">
+            <img src="../img/sidebar_contacts.svg" alt="" />Contacts
+          </a>
         </div>
+        <div class="sidebar-menu-bottom">
+          <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
+          <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
+        </div>
+      
+    </div>
+
+    <header>
+      <div class="header-content">
+        <p>Kanban Project Management Tool</p>
+        <div class="header-icons">
+          <img class="header-help" src="../img/help.svg" alt="questionmark" />
+          <div class="header-user-name">SM</div>
+        </div>
+      </div>
     </header>
-    
-</body>
+  </body>
 </html>
