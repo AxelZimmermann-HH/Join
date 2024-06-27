@@ -1,0 +1,67 @@
+.headline {
+  position: absolute;
+  top: 206px;
+  left: 328px;
+  font-weight: 700;
+  font-size: 61px;
+  gap: 1px;
+  line-height: 73.2px;
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.left-formular {
+  position: absolute;
+  width: 440px;
+  height: 376px;
+  top: 327px;
+  left: 328px;
+}
+.title p {
+  font-weight: 400;
+  font-size: 20px;
+}
+.title span {
+  color: #ff8190;
+}
+.title input {
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  gap: 4px;
+  padding: 12px 21px 12px 21px;
+  font-size: 20px;
+  line-height: 24px;
+}
+.title input::placeholder {
+  color: #d1d1d1;
+}
+
+.description {
+  position: absolute;
+  top: 112px;
+}
+.description p {
+  margin-bottom: 8px;
+}
+
+.description textarea {
+  width: 408px;
+  height: 84px;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  padding: 18px 16px 18px 16px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.description textarea::placeholder {
+  color: #d1d1d1;
+  font-family: "Inter";
+}
+.assigned {
+  position: absolute;
+  top: 296px;
+}
