@@ -12,33 +12,71 @@
 </head>
 
 <body>
-    <div class="sidebar"></div>
+    <div class="sidebar">
+
+        <img src="../img/logo.svg" alt="" class="sidebar-logo" />
+        <div class="sidebar-menu">
+            <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
+                <img src="../img/sidebar_summary.svg" alt="" />Summary
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToTask()" id="link-task">
+                <img src="../img/edit_square.svg" alt="" />Add Task
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToBoard()" id="link-board">
+                <img src="../img/sidebar_board.svg" alt="" />Board
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToContacts()" id="link-contacts">
+                <img src="../img/sidebar_contacts.svg" alt="" />Contacts
+            </a>
+        </div>
+        <div class="sidebar-menu-bottom">
+            <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
+            <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
+        </div>
+
+    </div>
+
     <header>
         <div class="header-content">
             <p>Kanban Project Management Tool</p>
             <div class="header-icons">
-                <img class="header-help" src="../img/help.svg" alt="questionmark">
+                <img class="header-help" src="../img/help.svg" alt="questionmark" />
                 <div class="header-user-name">SM</div>
             </div>
         </div>
     </header>
-
-    <div class="add-task-section">
-        <p class="headline">Add Task</p>
-        <div class="left-formular">
-            <div class="title">
-                <p>Title<span>*</span></p>
-                <input type="text" placeholder="Enter a title">
-            </div>
-            <div class="description">
-                <p>Description</p>
-                <textarea placeholder="Enter a Description"></textarea>
-            </div>
-            <div class="assigned">
-                <p>Assigned to</p>
-            </div>
-        </div>
+    <div>
+        <h1 class="headline">Add Task</h1>
     </div>
+    <div class="add-task-section">
+        <div class="left-section">
+            <p>Title<span>*</span></p>
+            <input type="text" placeholder="Enter a title">
+            <p class="description">Description</p>
+            <textarea placeholder="Enter a Description" name="" id=""></textarea>
+            <p class="assigned-to">Assigned to</p>
+
+            <select class="select-menu">
+                <option>Select contact to assign</option>
+            </select>
+        </div>
+        <div class="parting-line"></div>
+        <div class="right-section">
+            <p>Due date<span>*</span></p>
+            <input type="date">
+            <p class="prio">Prio</p>
+            <div class="buttons">
+                <button class="urgent">Urgent <img src="add_task img/high.svg" alt=""></button>
+                <button class="medium">Medium <img src="add_task img/medium.svg" alt=""></button>
+                <button class="low">Low <img src="add_task img/low.svg" alt=""></button>
+            </div>
+            <p class="category">Category<span>*</span></p>
+            <select class="category-menu">
+                <option>Select task category</option>
+            </select>
+            <p class="subtasks">Subtasks</p>
+            <input placeholder="Add new subtask" type="text">
+        </div>
 
 </body>
 
