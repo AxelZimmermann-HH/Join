@@ -11,7 +11,6 @@ body {
 }
 .add-task-section {
   display: flex;
-  justify-content: space-evenly;
   margin-left: 324px;
 }
 .left-section {
@@ -69,6 +68,7 @@ body {
   line-height: 24px;
 }
 .parting-line {
+  margin-left: 30px;
   border: 1px solid #d1d1d1;
   height: 424px;
 }
