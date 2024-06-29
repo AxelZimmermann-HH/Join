@@ -2,24 +2,19 @@ body {
   background-color: #f6f7f8;
 }
 .headline {
-  width: fit-content;
   margin-left: 324px;
-  margin-top: 100px;
+  margin-top: 190px;
   font-size: 61px;
-  font-weight: 700;
   line-height: 73.2px;
 }
 .add-task-section {
   display: flex;
   margin-left: 324px;
 }
-.left-section {
-  width: 440px;
-}
 .left-section p {
   margin-bottom: 8px;
 }
-.left-section span {
+.span-red {
   color: #ff8190;
 }
 
@@ -60,26 +55,22 @@ body {
 .select-menu {
   cursor: pointer;
   width: 440px;
-  border-radius: 10px;
-  border: 1px solid #d1d1d1;
   padding: 12px 16px 12px 16px;
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
 }
 .parting-line {
-  margin-left: 30px;
+  margin-left: 40px;
   border: 1px solid #d1d1d1;
   height: 424px;
 }
 .right-section {
+  margin-left: 40px;
   width: 440px;
 }
 .right-section p {
   margin-bottom: 8px;
-}
-.right-section span {
-  color: #ff8190;
 }
 .right-section input {
   cursor: pointer;
@@ -88,8 +79,6 @@ body {
   border: 1px solid #d1d1d1;
   padding: 12px 16px 12px 16px;
   font-size: 20px;
-  font-weight: 400;
-  line-height: 24px;
   font-family: "Inter";
   color: #d1d1d1;
 }
@@ -97,44 +86,11 @@ body {
   margin-top: 40px;
 }
 .buttons {
-  width: 440px;
   display: flex;
-  justify-content: space-between;
   gap: 16px;
 }
-.urgent {
-  cursor: pointer;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 0 4 0 0, 1;
-  border: none;
-  background-color: white;
-  border-radius: 10px;
-  padding: 16px 10px 16px 10px;
-  font-family: "Inter";
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-}
-.medium {
-  cursor: pointer;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  border: none;
-  border-radius: 10px;
-  padding: 16px 10px 16px 10px;
-  font-family: "Inter";
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-}
-.low {
+
+.prio-buttons {
   cursor: pointer;
   width: 100%;
   display: flex;
@@ -146,9 +102,7 @@ body {
   border-radius: 10px;
   padding: 16px 10px 16px 10px;
   font-family: "Inter";
-  font-weight: 400;
   font-size: 20px;
-  line-height: 24px;
 }
 .category {
   margin-top: 28px;
@@ -162,8 +116,6 @@ body {
   border: 1px solid #d1d1d1;
   padding: 12px 16px 12px 16px;
   font-size: 20px;
-  font-weight: 400;
-  line-height: 24px;
 }
 .subtasks {
   margin-top: 28px;
@@ -172,4 +124,48 @@ body {
   border-radius: 10px;
   border: 1px solid #d1d1d1;
   padding: 12px 16px 12px 16px;
+}
+.bottom-buttons {
+  display: flex;
+  justify-content: end;
+  gap: 16px;
+  margin-top: 110px;
+}
+.clear-button {
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 16px;
+  font-size: 20px;
+  line-height: 24px;
+  gap: 4px;
+  cursor: pointer;
+}
+.create-task-button {
+  font-weight: 700 !important;
+  color: white;
+  background-color: #2a3647;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  padding: 16px;
+  font-size: 21px;
+  line-height: 25.2px;
+  gap: 4px;
+  cursor: pointer;
+}
+.required-text {
+  margin-top: 200px;
+}
+.input-fields {
+  border: 1px solid #d1d1d1;
+  border-radius: 10px;
+}
+
+.prio-buttons:hover {
+  box-shadow: 0px 0px 4px 0px #0000001a;
 }
