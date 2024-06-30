@@ -1,11 +1,18 @@
 body {
     margin: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
     max-width: 1440px;
     background-color: #F6F7F8;
 }
 
 .starting-screen {
-    position: relative;
+    position: absolute;
     top: 345px;
     left: 583px;
     animation: moveDiv 3s forwards;
@@ -54,4 +61,67 @@ body {
     100% {
         opacity: 1;
     }
+}
+
+.signup-conteiner {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 35px;
+
+
+    }
+}
+
+.btn {
+
+    width: 91px;
+    height: 48px;
+    border-radius: 8px;
+    padding: 15px, 16px, 15px, 16px;
+    gap: 10px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.login-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 10px 3px #00000014;
+    background-color: #FFFFFF;
+    padding: 48px 115px;
+    gap: 32px;
+}
+
+.blue-underline {
+    width: 150px;
+    height: 3px;
+    background-color: #29ABE2;
+}
+
+h1 {
+    font-family: Inter;
+    font-weight: 700;
+    font-size: 61px;
+    line-height: 73.2px;
+    text-align: center;
+    margin: 0;
+}
+
+.d_none {
+    display: none;
 }

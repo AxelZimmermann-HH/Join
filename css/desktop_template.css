@@ -24,8 +24,78 @@ p {
   height: 100vh;
   width: 232px;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 64px;
+  padding-bottom: 64px;
 }
 
+<<<<<<< HEAD
+=======
+.sidebar img {
+  width: 100px;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 200px;
+}
+
+.sidebar-links {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #cdcdcd;
+  gap: 5px;
+  font-size: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 56px;
+  width: 176px;
+}
+
+.sidebar-links:hover {
+  background-color: #2a3d59;
+}
+
+.sidebar-links img {
+  width: 25px;
+  height: 25px;
+}
+
+.sidebar-menu-bottom {
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.sidebar-menu-bottom a {
+  text-decoration: none;
+  color: #a8a8a8;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 232px;
+
+}
+
+.sidebar-menu-bottom a:hover {
+  color: #29abe2;
+  font-weight: 700;
+}
+
+.active {
+  background-color: #091931;
+}
+
+
+>>>>>>> 40d2085b45ba6f49827e34a8c70ba6003b896be4
 
 header {
   position: sticky;
@@ -62,4 +132,13 @@ header {
   font-weight: 600;
   font-size: 14px;
   color: #29abe2;
+<<<<<<< HEAD
 }
+=======
+}
+
+.header-user-name:hover {
+  cursor: pointer;
+  background-color: rgba(12, 46, 98, 0.12);
+}
+>>>>>>> 40d2085b45ba6f49827e34a8c70ba6003b896be4

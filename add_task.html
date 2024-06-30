@@ -9,67 +9,75 @@
     <link rel="stylesheet" href="css/desktop_template.css">
     <link rel="stylesheet" href="css/add_task.css">
     <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="privacy_policy.css">
     <script src="script.js"></script>
 </head>
 
 <body>
-    <div class="sidebar">
+    <header class="header">
+        <img class="user-logo" src="./img/user-profile-initials.svg" />
+        <span class="header-left">Kanban Project Management Tool</span>
+        <div class="header-right">
+            <div class="help"><a href="#"><img class="help" src="./img/help.svg" />
+                </a>
+            </div>
 
-        <img src="../img/logo.svg" alt="" class="sidebar-logo" />
-        <div class="sidebar-menu">
-            <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
-                <img src="../img/sidebar_summary.svg" alt="" />Summary
-            </a>
-            <a href="#" class="sidebar-links" onclick="goToTask()" id="link-task">
-                <img src="../img/edit_square.svg" alt="" />Add Task
-            </a>
-            <a href="#" class="sidebar-links" onclick="goToBoard()" id="link-board">
-                <img src="../img/sidebar_board.svg" alt="" />Board
-            </a>
-            <a href="#" class="sidebar-links" onclick="goToContacts()" id="link-contacts">
-                <img src="../img/sidebar_contacts.svg" alt="" />Contacts
-            </a>
-        </div>
-        <div class="sidebar-menu-bottom">
-            <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
-            <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
-        </div>
 
-    </div>
-
-    <header>
-        <div class="header-content">
-            <p>Kanban Project Management Tool</p>
-            <div class="header-icons">
-                <img class="header-help" src="../img/help.svg" alt="questionmark" />
-                <div class="header-user-name">SM</div>
+            <div class="user-content">
+                <a href="./legal_notice.html">Legal Notice</a>
+                <a href="./privacy_policy.html">Privacy Policy</a>
+                <a href="index.html">Log Out</a>
             </div>
         </div>
     </header>
+
+
+    <nav class="sidebar">
+        <div class="nav-sidebar">
+            <img class="logo-img" src="./img/logo.svg" alt="Logo">
+            <div id="menu" class="menu">
+                <a class="a-navbar" href="summary.html">
+                    <img class="icons" src="./img/summary.svg" alt="Summary">
+                </a>
+                <a class="a-navbar" href="add_task.html">
+                    <img class="icons" src="./img/add-task.svg" alt="Add Task">
+                </a>
+                <a class="a-navbar" href="board.html">
+                    <img class="icons" src="./img/board.svg" alt="Board">
+                </a>
+                <a class="a-navbar" href="contacts.html">
+                    <img class="icons" src="./img/contacts.svg" alt="Contacts">
+                </a>
+            </div>
+        </div>
+    </nav>
     <div>
         <h1 class="headline">Add Task</h1>
     </div>
     <div class="add-task-section">
         <div class="left-section">
-            <p>Title<span>*</span></p>
+            <p>Title<span class="span-red">*</span></p>
             <input type="text" placeholder="Enter a title">
             <p class="description">Description</p>
             <textarea placeholder="Enter a Description" name="" id=""></textarea>
             <p class="assigned-to">Assigned to</p>
 
-            <select class="select-menu">
+            <select class="select-menu input-fields">
                 <option>Select contact to assign</option>
             </select>
+            <div class="required-text">
+                <p><span class="span-red">*</span>This field is required</p>
+            </div>
         </div>
         <div class="parting-line"></div>
         <div class="right-section">
-            <p>Due date<span>*</span></p>
+            <p>Due date<span class="span-red">*</span></p>
             <input type="date">
             <p class="prio">Prio</p>
             <div class="buttons">
-                <button class="urgent">Urgent <img src="add_task img/high.svg" alt=""></button>
-                <button class="medium">Medium <img src="add_task img/medium.svg" alt=""></button>
-                <button class="low">Low <img src="add_task img/low.svg" alt=""></button>
+                <button class="prio-buttons">Urgent <img src="add_task img/high.svg" alt=""></button>
+                <button class="prio-buttons">Medium <img src="add_task img/medium.svg" alt=""></button>
+                <button class="prio-buttons">Low <img src="add_task img/low.svg" alt=""></button>
             </div>
             <p class="category">Category<span>*</span></p>
             <select class="category-menu">
@@ -77,7 +85,14 @@
             </select>
             <p class="subtasks">Subtasks</p>
             <input placeholder="Add new subtask" type="text">
+            <div class="bottom-buttons">
+                <button class="clear-button">Clear <img src="add_task img/x.svg" alt=""></button>
+                <button class="create-task-button">Create Task <img src="add_task img/check.svg" alt=""></button>
+            </div>
         </div>
+    </div>
+
+
 
 </body>
 
