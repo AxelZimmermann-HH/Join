@@ -11,14 +11,23 @@
 </head>
 
 <body>
+    <script src="privacy_policy.js"></script>
 
     <header class="header">
-        <img class="user-logo" src="./img/user-profile-initials.svg" />
+
         <span class="header-left">Kanban Project Management Tool</span>
         <div class="header-right">
+            <img class="user-logo" id="user-logo" src="./img/user-profile-initials.svg" onclick="toggleMenu()" />
             <div class="help"><a href="#"><img class="help" src="./img/help.svg" />
                 </a>
             </div>
+
+            <div class="user-content" id="user-content">
+                <a href="./legal_notice.html">Legal Notice</a>
+                <a href="./privacy_policy.html">Privacy Policy</a>
+                <a href="index.html">Log Out</a>
+            </div>
+        </div>
     </header>
     <div class="legal-notice">
         <div class="title">

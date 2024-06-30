@@ -1,7 +1,13 @@
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-weight: 400; /* Standard Regular */
+  font-weight: 400;
+  /* Standard Regular */
+}
+
+.sidebar-logo {
+  width: 100.03px;
+  height: 121.97px;
 }
 
 p {
@@ -26,6 +32,8 @@ p {
   padding-bottom: 64px;
 }
 
+<<<<<<< HEAD
+=======
 .sidebar img {
   width: 100px;
 }
@@ -87,6 +95,7 @@ p {
 }
 
 
+>>>>>>> 40d2085b45ba6f49827e34a8c70ba6003b896be4
 
 header {
   position: sticky;
@@ -123,9 +132,13 @@ header {
   font-weight: 600;
   font-size: 14px;
   color: #29abe2;
+<<<<<<< HEAD
+}
+=======
 }
 
 .header-user-name:hover {
   cursor: pointer;
   background-color: rgba(12, 46, 98, 0.12);
 }
+>>>>>>> 40d2085b45ba6f49827e34a8c70ba6003b896be4
