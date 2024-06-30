@@ -1,0 +1,97 @@
+.contacts-library {
+    box-shadow: 4px 0px 6px 0px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    bottom: 0;
+    top: 96px;
+    left: 232px;
+    width: 456px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 32px;
+}
+
+.button-add-contact {
+    background-color: #2a3647;
+    width: 352px;
+    border-radius: 10px;
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    align-items: center;
+    font-weight: 700;
+    font-size: 21px;
+    color: white;
+}
+
+.button-add-contact:hover {
+    background-color: #29abe2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.button-add-contact img {
+    width: 32px;
+    height: 32px;
+}
+
+.contacts-list {
+    width: 352px;
+    overflow: scroll;
+    margin-top: 8px;
+}
+
+.first-letter {
+    padding: 17px 36px 17px 36px;
+    line-height: 24px;
+}
+
+.line {
+    padding: 0px 0px 0px 0px;
+    height: 1px;
+    background-color: #d1d1d1;
+    margin-bottom: 8px;
+}
+
+.contact {
+    padding: 15px 24px 15px 24px;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    border-radius: 10px;
+}
+
+.contact:hover {
+    background: linear-gradient(to bottom, #f9f9f9, #f0f0f0);
+    cursor: pointer;
+}
+
+.contact-letters {
+    width: 42px;
+    height: 42px;
+    border: 2px;
+    border-radius: 50%;
+    background-color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    color: white;
+}
+
+.contact-data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.contact-name {
+    font-size: 20px;
+}
+
+.contact-mail {
+    font-size: 16px;
+    color: #007CEE;
+}
+
