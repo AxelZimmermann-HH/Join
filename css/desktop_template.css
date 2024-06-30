@@ -1,7 +1,13 @@
 body {
   margin: 0;
   font-family: "Inter", sans-serif;
-  font-weight: 400; /* Standard Regular */
+  font-weight: 400;
+  /* Standard Regular */
+}
+
+.sidebar-logo {
+  width: 100.03px;
+  height: 121.97px;
 }
 
 p {
@@ -19,6 +25,7 @@ p {
   width: 232px;
   z-index: 10;
 }
+
 
 header {
   position: sticky;
