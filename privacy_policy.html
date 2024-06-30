@@ -6,48 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy</title>
     <link rel="stylesheet" href="privacy_policy.css">
-    
+    <link rel="stylesheet" href="../css/desktop_template.css" />
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <script src="../script.js"></script>
+
 </head>
 
 <body>
     <script src="privacy_policy.js"></script>
-    <header class="header">
-        
-        <span class="header-left">Kanban Project Management Tool</span>
-        <div class="header-right">
-            <img class="user-logo" id="user-logo" src="./img/user-profile-initials.svg" onclick="toggleMenu()"/>
-            <div class="help"><a href="#"><img class="help" src="./img/help.svg" />
-                
-            </div>
 
-
-            <div class="user-content" id="user-content">
-                <a href="./legal_notice.html">Legal Notice</a>
-                <a href="./privacy_policy.html">Privacy Policy</a>
-                <a href="index.html">Log Out</a>
+    <header>
+        <div class="header-content">
+            <p>Kanban Project Management Tool</p>
+            <div class="header-icons">
+                <img class="header-help" src="../img/help.svg" alt="questionmark" />
+                <div id="user-logo" onclick="toggleMenu()" class="header-user-name">SM</div>
             </div>
         </div>
     </header>
 
-    <nav class="sidebar">
-        <div class="nav-sidebar">
-            <img class="logo-img" src="./img/logo.svg" alt="Logo">
-            <div id="menu" class="menu">
-                <a class="a-navbar" href="summary.html">
-                    <img class="icons" src="./img/summary.svg" alt="Summary">
-                </a>
-                <a class="a-navbar" href="add_task.html">
-                    <img class="icons" src="./img/add-task.svg" alt="Add Task">
-                </a>
-                <a class="a-navbar" href="board.html">
-                    <img class="icons" src="./img/board.svg" alt="Board">
-                </a>
-                <a class="a-navbar" href="contacts.html">
-                    <img class="icons" src="./img/contacts.svg" alt="Contacts">
-                </a>
-            </div>
+    <div class="user-content" id="user-content">
+        <a href="./legal_notice.html">Legal Notice</a>
+        <a href="./privacy_policy.html">Privacy Policy</a>
+        <a href="index.html">Log Out</a>
+    </div>
+    </div>
+
+    <div class="sidebar">
+        <img src="../img/logo.svg" alt="" class="sidebar-logo" />
+        <div class="sidebar-menu">
+            <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
+                <img src="../img/sidebar_summary.svg" alt="" />Summary
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToTask()" id="link-task">
+                <img src="../img/edit_square.svg" alt="" />Add Task
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToBoard()" id="link-board">
+                <img src="../img/sidebar_board.svg" alt="" />Board
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToContacts()" id="link-contacts">
+                <img src="../img/sidebar_contacts.svg" alt="" />Contacts
+            </a>
         </div>
-    </nav>
+        <div class="sidebar-menu-bottom">
+            <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
+            <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
+        </div>
+    </div>
 
     <div class="privacy-policy">
         <div class="titleFromPolicy">
