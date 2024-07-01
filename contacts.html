@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="../css/fonts.css" />
     <link rel="stylesheet" href="css/contacts.css">
     <script src="../script.js"></script>
+    <script src="js/contacts.js"></script>
   </head>
-  <body>
+  <body onload="fetchDataJson()">
 
     <header>
       <div class="header-content">
@@ -52,10 +53,11 @@
             <img src="img/person_add.svg" alt="">
         </div>
 
-        <div class="contacts-list">
+        <div id="contacts-list" class="contacts-list">
             
             <div class="first-letter">A</div>
             <div class="line"></div>
+
             <div class="contact">
                 <div class="contact-letters">AM</div>
                 <div class="contact-data">
@@ -63,6 +65,7 @@
                     <div class="contact-mail">antonmayer@gmail.com</div>
                 </div>
             </div>
+
             <div class="contact">
                 <div class="contact-letters">AM</div>
                 <div class="contact-data">
