@@ -77,11 +77,7 @@ body {
 }
 
 .btn {
-
-    width: 91px;
-    height: 48px;
     border-radius: 8px;
-    padding: 15px, 16px, 15px, 16px;
     gap: 10px;
     background-color: #2A3647;
     color: #FFFFFF;
@@ -89,7 +85,6 @@ body {
     font-size: 16px;
     font-weight: 700;
     line-height: 19.2px;
-
 }
 
 .btn:hover {
@@ -164,6 +159,7 @@ h1 {
     display: flex;
     flex-direction: row;
     gap: 8px;
+    margin-left: 39px;
 }
 
 .mail-img {
@@ -174,4 +170,36 @@ h1 {
 .password-img {
     height: 21px;
     width: 16px;
+}
+
+.pdng1524 {
+    padding: 15px 24px 15px 24px;
+}
+
+.pdng1516 {
+    padding: 15px 16px 15px 16px;
+}
+
+.btn-gst {
+    border: 1px solid #2A3647;
+    border-radius: 8px;
+    gap: 10px;
+    background-color: white;
+}
+
+.login-buttons-conteiner {
+    gap: 35px;
+    display: flex;
+    flex-direction: row;
+}
+
+.font-inter {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+}
+
+.heigt48 {
+    height: 48px;
 }
