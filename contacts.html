@@ -48,7 +48,7 @@
 
     <div class="contacts-library">
         
-        <div class="button-add-contact">
+        <div class="button-add-contact" onclick="openAddContactLayer()">
             Add new contact
             <img src="img/person_add.svg" alt="">
         </div>
@@ -65,6 +65,49 @@
       </div>
 
       <div id="contact-profile" class="contact-profile"></div>
+    </div>
+
+    <!-- ADD CONTACT LAYER -->
+
+    <div class="add-contact-layer d-none" id="add-contact-layer">
+      <div class="add-contact-inner-layer" id="add-contact-inner-layer">
+        <div class="add-contact-left">
+          <img src="img/logo.svg" alt="join-logo">
+          <h1>Add Contact</h1>
+          <h2>Tasks are better with a team</h2>
+          <div class="add-layer-line"></div>
+        </div>
+        <div class="add-contact-right">
+          <div class="add-contact-layer-close" onclick="closeAddContactLayer()">
+            <img src="img/add-contact-close.svg" alt="add-contact-layer-close">
+          </div>
+          <div class="add-contact-data">
+            <div class="default-contact">
+              <img src="img/add-contact-person.svg" alt="">
+            </div>
+            <div class="add-contact-form">
+              <form onsubmit="">
+                <div class="input-container">
+                  <input placeholder="Name" id="add-contact-name" required type="text">
+                  <img class="icon" src="img/add-contact-form-person.svg" alt="user icon">
+                </div>
+                <div class="input-container">
+                  <input placeholder="Email" id="add-contact-mail" required type="email">
+                  <img class="icon" src="img/add-contact-form-mail.svg" alt="email icon">
+                </div>
+                <div class="input-container">
+                  <input placeholder="Phone" id="add-contact-phone" required type="number">
+                  <img class="icon" src="img/add-contact-form-phone.svg" alt="phone icon">
+                </div>
+                <div class="button-group">
+                  <button class="button-bright" type="button" onclick="closeAddContactLayer()">Cancel <img class="contact-icon" src="img/add-contact-close.svg" alt=""></button>
+                  <button class="button-dark" type="submit">Create contact <img src="img/add-contact-check.svg" alt=""></button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     

@@ -105,7 +105,34 @@ function generateContactHTML(initials, contact) {
         </div>
         <div class="contact-channels">
           <p>Phone</p>
-          <a class="black-link" href="#">+49 1111 111 11 1</a>
+          <a class="black-link" href="#">${contact.phone}</a>
         </div>
     `
+}
+
+function openAddContactLayer() {
+    document.getElementById('add-contact-layer').classList.remove('d-none');
+    let content = document.getElementById('add-contact-inner-layer');
+
+    content.classList.remove('slide-in-right');
+    content.classList.remove('slide-out-right');
+    void content.offsetWidth; 
+    content.classList.add('slide-in-right');
+}
+
+function closeAddContactLayer() {
+    let contentLayer = document.getElementById('add-contact-layer');
+    let content = document.getElementById('add-contact-inner-layer');
+
+    content.classList.remove('slide-out-right');
+    void content.offsetWidth; 
+    content.classList.add('slide-out-right');
+    
+    content.removeEventListener('animationend', handleAnimationEnd);
+    content.addEventListener('animationend', handleAnimationEnd, { once: true });
+}
+
+
+function handleAnimationEnd() {
+    document.getElementById('add-contact-layer').classList.add('d-none');
 }
