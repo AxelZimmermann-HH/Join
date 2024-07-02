@@ -1,5 +1,6 @@
-
-
+body {
+  background-color: #F6F7F8;
+}
 .privacy-policy {
   margin: 200px 100px 32px 300px;
   position: sticky;
