@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AddTask</title>
-    <link rel="stylesheet" href="templates/desktop_template.html">
     <link rel="stylesheet" href="css/desktop_template.css">
     <link rel="stylesheet" href="css/add_task.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="privacy_policy.css">
     <script src="script.js"></script>
+    <script src="js/add_task.js"></script>
 </head>
 
 <body>
@@ -57,7 +57,7 @@
     <div class="add-task-section">
         <div class="left-section">
             <p>Title<span class="span-red">*</span></p>
-            <input type="text" placeholder="Enter a title">
+            <input required type="text" placeholder="Enter a title">
             <p class="description">Description</p>
             <textarea placeholder="Enter a Description" name="" id=""></textarea>
             <p class="assigned-to">Assigned to</p>
@@ -72,15 +72,17 @@
         <div class="parting-line"></div>
         <div class="right-section">
             <p>Due date<span class="span-red">*</span></p>
-            <input type="date">
+            <input required type="date">
             <p class="prio">Prio</p>
             <div class="buttons">
-                <button class="prio-buttons">Urgent <img src="add_task img/high.svg" alt=""></button>
-                <button class="prio-buttons">Medium <img src="add_task img/medium.svg" alt=""></button>
-                <button class="prio-buttons">Low <img src="add_task img/low.svg" alt=""></button>
+                <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img
+                        src="add_task img/high.svg"></button>
+                <button onclick="mediumButton()" class="prio-buttons medium">Medium <img
+                        src="add_task img/medium.svg"></button>
+                <button onclick="lowButton()" class="prio-buttons">Low <img src="add_task img/low.svg"></button>
             </div>
-            <p class="category">Category<span>*</span></p>
-            <select class="category-menu">
+            <p class="category">Category<span class="span-red">*</span></p>
+            <select required class="category-menu">
                 <option>Select task category</option>
             </select>
             <p class="subtasks">Subtasks</p>
