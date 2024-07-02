@@ -6,19 +6,29 @@
     <title>Desktop Template</title>
     <link rel="stylesheet" href="../css/desktop_template.css" />
     <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../privacy_policy.css">
     <script src="../script.js"></script>
   </head>
   <body>
+
+    <script src="../privacy_policy.js"></script>
 
     <header>
       <div class="header-content">
         <p>Kanban Project Management Tool</p>
         <div class="header-icons">
           <img class="header-help" src="../img/help.svg" alt="questionmark" />
-          <div class="header-user-name">SM</div>
+          <div id="user-logo" onclick="toggleMenu()" class="header-user-name">SM</div>
         </div>
       </div>
     </header>
+
+    <div class="user-content" id="user-content">
+      <a href="./legal_notice.html">Legal Notice</a>
+      <a href="./privacy_policy.html">Privacy Policy</a>
+      <a href="index.html">Log Out</a>
+    </div>
+    </div>
     
     <div class="sidebar">
       

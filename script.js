@@ -75,3 +75,12 @@ function goToLegalNotice() {
     const link = document.getElementById('link-legal-notice');
     link.classList.add('active');
 }
+
+function toggleMenu() {
+    const userContent = document.getElementById('user-content');
+    if (userContent.style.display === 'block') {
+        userContent.style.display = 'none';
+    } else {
+        userContent.style.display = 'block';
+    }
+}

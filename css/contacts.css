@@ -9,6 +9,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 32px;
+    z-index: 99;
 }
 
 .button-add-contact {
@@ -93,5 +94,135 @@
 .contact-mail {
     font-size: 16px;
     color: #007CEE;
+}
+
+.contact-details-container {
+    background-color: #f6f7f8;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    top: 96px;
+    left: 688px;
+    padding-left: 55px;
+    padding-top: 110px;
+}
+
+.contact-headline {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 61px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+h2 {
+    font-weight: 400;
+    font-size: 27px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    color: #2a3647;
+}
+
+h3 {
+    font-size: 47px;
+    font-weight: 500;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.blue-vertical-line {
+    height: 59px;
+    width: 3px;
+    background-color: #29abe2;
+}
+
+.contact-profile {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+}
+
+.contact-profile-firstrow {
+    display: flex;
+    gap: 54px;
+    align-items: center; 
+}
+
+.contact-letters-big {
+    width: 120px;
+    height: 120px;
+    background-color: orange;
+    border: 3px solid white;
+    border-radius: 50%;
+    color: white;
+    font-size: 47px;
+    font-weight: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-actions {
+    display: flex;
+    gap: 13px;
+    padding-top: 8px;
+}
+
+.contact-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #2a3647;
+}
+
+.contact-icon {
+    height: 24px;
+    width: 24px;
+    transition: filter;
+}
+
+.contact-links:hover {
+    color: #29abe2;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.contact-links:hover .contact-icon {
+    filter: brightness(0) saturate(100%) invert(62%) sepia(41%) saturate(2398%) hue-rotate(165deg) brightness(93%) contrast(90%);
+}
+
+.padding-top-bottom-27 {
+    padding-top: 27px;
+    padding-bottom: 27px;
+}
+
+.contact-channels {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-channels p {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.contact-channels a {
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 400;
+    color: #007cee;
+}
+
+.black-link {
+    color: #000000 !important;
 }
 
