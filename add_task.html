@@ -69,9 +69,10 @@
             <textarea placeholder="Enter a Description" name="" id=""></textarea>
             <p class="assigned-to">Assigned to</p>
 
-            <select class="select-menu input-fields">
-                <option>Select contact to assign</option>
-            </select>
+            <div class="select-contact">
+                <span>Select contact to assign</span>
+                <img src="add_task_img/arrow-down.svg" alt="">
+            </div>
             <div class="required-text">
                 <p><span class="span-red">*</span>This field is required</p>
             </div>
@@ -82,21 +83,28 @@
             <input required type="date">
             <p class="prio">Prio</p>
             <div class="buttons">
-                <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img
-                        src="add_task img/high.svg"></button>
-                <button onclick="mediumButton()" class="prio-buttons medium">Medium <img
-                        src="add_task img/medium.svg"></button>
-                <button onclick="lowButton()" class="prio-buttons">Low <img src="add_task img/low.svg"></button>
+                <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img id="highButtonImg"
+                        src="add_task_img/high.svg"></button>
+                <button id="mediumButton" onclick="mediumButton()" class="prio-buttons">Medium <img id="mediumButtonImg"
+                        src="add_task_img/medium.svg"></button>
+                <button id="lowButton" onclick="lowButton()" class="prio-buttons">Low <img id="lowButtonImg"
+                        src="add_task_img/low.svg"></button>
             </div>
             <p class="category">Category<span class="span-red">*</span></p>
-            <select required class="category-menu">
-                <option>Select task category</option>
-            </select>
+            <div onclick="category()" required class="category-menu">
+                <span id="task-category">Select task category</span>
+                <img src="add_task_img/arrow-down.svg" alt="">
+            </div>
+            <div id="category"></div>
             <p class="subtasks">Subtasks</p>
-            <input placeholder="Add new subtask" type="text">
+            <div class="subtasks-field">
+                <span>Add new subtask</span>
+                <img src="add_task_img/plus.svg" alt="">
+
+            </div>
             <div class="bottom-buttons">
-                <button class="clear-button">Clear <img src="add_task img/x.svg" alt=""></button>
-                <button class="create-task-button">Create Task <img src="add_task img/check.svg" alt=""></button>
+                <button class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
+                <button class="create-task-button">Create Task <img src="add_task_img/check.svg" alt=""></button>
             </div>
         </div>
     </div>

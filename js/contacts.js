@@ -15,9 +15,52 @@ async function fetchDataJson() {
     console.log(contactsArray);
 
     createContactsList(); 
+    return true; // Hinzugefügt, um anzuzeigen, dass die Daten erfolgreich geladen wurden
 
   } catch (error) {
     console.error("Error fetching data:", error);
+    return false; // Hinzugefügt, um anzuzeigen, dass ein Fehler aufgetreten ist
+  }
+}
+
+
+async function postData(path = "", data = {}) {
+  try {
+    let response = await fetch(BASE_URL + path + ".json", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Error posting data:", error);
+  }
+}
+
+
+async function addContact() {
+  let name = document.getElementById("add-contact-name").value;
+  let mail = document.getElementById("add-contact-mail").value;
+  let phone = document.getElementById("add-contact-phone").value;
+
+  let newContact = {email: mail, name: name, phone: phone};
+  await postData("", newContact);
+
+  let dataFetched = await fetchDataJson(); // Warten bis die Kontaktliste aktualisiert wurde
+  if (dataFetched) {
+    document.getElementById("add-contact-name").value = '';
+    document.getElementById("add-contact-mail").value = '';
+    document.getElementById("add-contact-phone").value = '';
+
+    closeAddContactLayer();
+
+    let newIndex = contactsArray.findIndex(contact => contact.email === newContact.email && contact.name === newContact.name);
+    let initials = newContact.name.split(' ')[0][0] + newContact.name.split(' ')[1][0];
+    showContact(initials, newContact, newIndex); // Richtigen Index des neuen Kontakts verwenden
+  } else {
+    console.error('Failed to fetch updated contact data.');
   }
 }
 

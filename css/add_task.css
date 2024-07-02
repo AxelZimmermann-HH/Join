@@ -29,6 +29,9 @@ body {
   font-size: 20px;
   color: #d1d1d1;
 }
+.left-section input:focus {
+  border: 1px solid #29abe2;
+}
 .description {
   margin-top: 28px;
 }
@@ -52,14 +55,23 @@ body {
   margin-top: 28px;
 }
 
-.select-menu {
+.select-contact {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
   cursor: pointer;
-  width: 440px;
+  width: 406px;
   padding: 12px 16px 12px 16px;
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
 }
+.select-contact:hover {
+  border: 1px solid #ababab;
+}
+
 .parting-line {
   margin-left: 40px;
   border: 1px solid #d1d1d1;
@@ -108,19 +120,53 @@ body {
   margin-top: 28px;
 }
 .category-menu {
+  background-color: white;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
-  width: 440px;
+  width: 406px;
   border-radius: 10px;
   border: 1px solid #d1d1d1;
   padding: 12px 16px 12px 16px;
   font-size: 20px;
 }
+.category-menu:hover {
+  border: 1px solid #ababab;
+}
+.category-option {
+  padding: 10px;
+}
+.category-options {
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  width: 440px;
+  border-radius: 10px;
+  font-size: 20px;
+  flex-direction: column;
+}
+.category-options span {
+  cursor: pointer;
+  padding: 12px 16px 12px 16px;
+  border-radius: 10px;
+}
+.category-options span:hover {
+  background-color: #d1d1d1;
+  cursor: pointer;
+}
+
 .subtasks {
   margin-top: 28px;
 }
-.subtasks input {
+.subtasks-field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  color: #d1d1d1;
+  font-size: 20px;
+  line-height: 24px;
   border-radius: 10px;
   border: 1px solid #d1d1d1;
   padding: 12px 16px 12px 16px;
@@ -165,11 +211,6 @@ body {
   border: 1px solid #d1d1d1;
   border-radius: 10px;
 }
-.medium {
-  background-color: #ffa800;
-  color: white;
-  font-weight: 700;
-}
 .high {
   background-color: red;
   color: white;
@@ -177,5 +218,20 @@ body {
 }
 
 .prio-buttons:hover {
-  box-shadow: 0px 0px 4px 0px #0000001a;
+  box-shadow: 0px 4px 4px 0px #00000040;
+}
+.selected-high-button {
+  background: #ff3d00;
+  color: white;
+  font-weight: 700;
+}
+.selected-medium-button {
+  background: #ffa800;
+  color: white;
+  font-weight: 700;
+}
+.selected-low-button {
+  background: #7ae229;
+  color: white;
+  font-weight: 700;
 }
