@@ -27,7 +27,7 @@ function createContactsList() {
     content.innerHTML = '';
     let currentLetter = '';
 
-    for (i=0 ; i<contactsArray.length; i++) {
+    for (let i=0 ; i<contactsArray.length; i++) {
         let contact = contactsArray[i];
         let nameParts = contact.name.split(' ');
         let initials = nameParts[0][0] + nameParts[1][0];
@@ -42,7 +42,7 @@ function createContactsList() {
         }
 
         content.innerHTML += `
-            <div class="contact">
+            <div id="contact${i}" onclick='showContact("${initials}", ${JSON.stringify(contact)}, ${i})' class="contact">
                 <div class="contact-letters">${initials}</div>
                 <div class="contact-data">
                     <div class="contact-name">${contact.name}</div>
@@ -51,4 +51,55 @@ function createContactsList() {
             </div>
         `
     }
+}
+
+function showContact(initials, contact, i) {
+    highlightContact(i);
+    
+    let content = document.getElementById('contact-profile');
+    content.innerHTML = '';
+    content.innerHTML += generateContactHTML(initials, contact)
+}
+
+
+function highlightContact(i) {
+    let contacts = document.getElementsByClassName('contact');
+    
+    for (let j = 0; j < contacts.length; j++) {
+        contacts[j].classList.remove('selected-contact');
+    }
+
+    let currentContact = document.getElementById(`contact${i}`);
+    currentContact.classList.add('selected-contact');
+}
+
+
+function generateContactHTML(initials, contact) {
+    return `
+        <div class="contact-profile-firstrow">
+          <div class="contact-letters-big">${initials}</div>
+          <div class="contact-profile-firstrow-right">
+            <h3>${contact.name}</h3>
+            <div class="contact-actions">
+              <a class="contact-links">
+                <img class="contact-icon" src="img/contact-edit.svg" alt="">Edit
+              </a>
+              <a class="contact-links">
+                <img class="contact-icon" src="img/contact-delete.svg" alt="">Delete
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <p class="padding-top-bottom-27">Contact Information</p>
+
+        <div class="contact-channels">
+          <p>Email</p>
+          <a href="#">${contact.email}</a>
+        </div>
+        <div class="contact-channels">
+          <p>Phone</p>
+          <a class="black-link" href="#">+49 1111 111 11 1</a>
+        </div>
+    `
 }
