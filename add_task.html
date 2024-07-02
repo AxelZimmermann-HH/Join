@@ -5,66 +5,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AddTask</title>
-    
     <link rel="stylesheet" href="css/desktop_template.css">
     <link rel="stylesheet" href="css/add_task.css">
     <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="../privacy_policy.css">
     <script src="script.js"></script>
+    <script src="js/add_task.js"></script>
 </head>
 
 <body>
-
-  <script src="../privacy_policy.js"></script>
-
     <header>
         <div class="header-content">
-          <p>Kanban Project Management Tool</p>
-          <div class="header-icons">
-            <img class="header-help" src="../img/help.svg" alt="questionmark" />
-            <div id="user-logo" onclick="toggleMenu()" class="header-user-name">SM</div>
-          </div>
+            <p>Kanban Project Management Tool</p>
+            <div class="header-icons">
+                <img class="header-help" src="../img/help.svg" alt="questionmark" />
+                <div id="user-logo" onclick="toggleMenu()" class="header-user-name">SM</div>
+            </div>
         </div>
-      </header>
-      
-      <div class="user-content" id="user-content">
-        <a href="./legal_notice.html">Legal Notice</a>
-        <a href="./privacy_policy.html">Privacy Policy</a>
-        <a href="index.html">Log Out</a>
-    </div>
-    </div>
+    </header>
 
-      <div class="sidebar">
-        
-          <img src="../img/logo.svg" alt="" class="sidebar-logo" />
-          <div class="sidebar-menu">
+    <div class="sidebar">
+
+        <img src="../img/logo.svg" alt="" class="sidebar-logo" />
+        <div class="sidebar-menu">
             <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
-              <img src="../img/sidebar_summary.svg" alt="" />Summary
+                <img src="../img/sidebar_summary.svg" alt="" />Summary
             </a>
             <a href="#" class="sidebar-links" onclick="goToTask()" id="link-task">
-              <img src="../img/edit_square.svg" alt="" />Add Task
+                <img src="../img/edit_square.svg" alt="" />Add Task
             </a>
             <a href="#" class="sidebar-links" onclick="goToBoard()" id="link-board">
-              <img src="../img/sidebar_board.svg" alt="" />Board
+                <img src="../img/sidebar_board.svg" alt="" />Board
             </a>
             <a href="#" class="sidebar-links" onclick="goToContacts()" id="link-contacts">
-              <img src="../img/sidebar_contacts.svg" alt="" />Contacts
+                <img src="../img/sidebar_contacts.svg" alt="" />Contacts
             </a>
-          </div>
-          <div class="sidebar-menu-bottom">
+        </div>
+        <div class="sidebar-menu-bottom">
             <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
             <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
-          </div>
-        
-      </div>
-    
+        </div>
+
+    </div>
+
     <div>
         <h1 class="headline">Add Task</h1>
     </div>
     <div class="add-task-section">
         <div class="left-section">
             <p>Title<span class="span-red">*</span></p>
-            <input type="text" placeholder="Enter a title">
+            <input required type="text" placeholder="Enter a title">
             <p class="description">Description</p>
             <textarea placeholder="Enter a Description" name="" id=""></textarea>
             <p class="assigned-to">Assigned to</p>
@@ -79,15 +68,17 @@
         <div class="parting-line"></div>
         <div class="right-section">
             <p>Due date<span class="span-red">*</span></p>
-            <input type="date">
+            <input required type="date">
             <p class="prio">Prio</p>
             <div class="buttons">
-                <button class="prio-buttons">Urgent <img src="add_task img/high.svg" alt=""></button>
-                <button class="prio-buttons">Medium <img src="add_task img/medium.svg" alt=""></button>
-                <button class="prio-buttons">Low <img src="add_task img/low.svg" alt=""></button>
+                <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img
+                        src="add_task img/high.svg"></button>
+                <button onclick="mediumButton()" class="prio-buttons medium">Medium <img
+                        src="add_task img/medium.svg"></button>
+                <button onclick="lowButton()" class="prio-buttons">Low <img src="add_task img/low.svg"></button>
             </div>
-            <p class="category">Category<span>*</span></p>
-            <select class="category-menu">
+            <p class="category">Category<span class="span-red">*</span></p>
+            <select required class="category-menu">
                 <option>Select task category</option>
             </select>
             <p class="subtasks">Subtasks</p>
