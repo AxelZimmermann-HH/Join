@@ -58,6 +58,11 @@ function showContact(initials, contact, i) {
     
     let content = document.getElementById('contact-profile');
     content.innerHTML = '';
+
+    content.classList.remove('slide-in-right'); // Reset animation
+    void content.offsetWidth; // Trigger reflow
+    content.classList.add('slide-in-right');
+
     content.innerHTML += generateContactHTML(initials, contact)
 }
 
@@ -71,6 +76,7 @@ function highlightContact(i) {
 
     let currentContact = document.getElementById(`contact${i}`);
     currentContact.classList.add('selected-contact');
+
 }
 
 
