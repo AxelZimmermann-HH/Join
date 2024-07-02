@@ -141,12 +141,6 @@ h1 {
     align-items: center;
 }
 
-.checkbox {
-    width: 16px;
-    border: 2px solid #2A3647;
-    border-radius: 3px;
-    margin: 0;
-}
 
 .remember-me {
 
@@ -155,21 +149,6 @@ h1 {
     line-height: 19.2px;
 }
 
-.checkbox-outline {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.checkbox-conteiener {
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    margin-left: 39px;
-    align-items: center;
-}
 
 .mail-img {
     width: 20px;
@@ -212,3 +191,44 @@ h1 {
 .heigt48 {
     height: 48px;
 }
+
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+.custom-checkbox .checkmark {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    left: 4px;
+    top: 4px;
+    background-color: white;
+    border-radius: 3px;
+    border: 2px solid #2A3647;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+}
+
+.custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    width: 12px;
+    height: 11.5px;
+    left: 8px;
+    top: 4.5px;
+    border: 2px solid transparent;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark:after {
+    border-color: #2A3647;
+    border-width: 0 2px 2px 0;
+}
+
+
+.checkbox-conteiner {
+    display: flex;
+    flex-direction: row;
+}
+
