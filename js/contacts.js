@@ -81,8 +81,10 @@ async function addContact() {
   let name = document.getElementById("add-contact-name").value;
   let mail = document.getElementById("add-contact-mail").value;
   let phone = document.getElementById("add-contact-phone").value;
+  let color = getRandomColor(); // Zufällige Farbe generieren
 
-  let newContact = { email: mail, name: name, phone: phone };
+
+  let newContact = { email: mail, name: name, phone: phone, color: color};
   let postResponse = await postData("", newContact);
 
   let dataFetched = await contactsInit(); // Warten bis die Kontaktliste aktualisiert wurde
@@ -250,7 +252,7 @@ function handleAnimationEnd() {
 function generateContactHTML(initials, contact, key) {
   return `
       <div class="contact-profile-firstrow">
-        <div class="contact-letters-big">${initials}</div>
+        <div class="contact-letters-big" style="background-color: ${contact.color}">${initials}</div>
         <div class="contact-profile-firstrow-right">
           <h3>${contact.name}</h3>
           <div class="contact-actions">
@@ -281,11 +283,21 @@ function generateContactHTML(initials, contact, key) {
 function generateDirectory(key, initials, contact) {
   return `
           <div id="contact${key}" onclick='showContact("${initials}", ${JSON.stringify(contact)}, "${key}")' class="contact">
-              <div class="contact-letters">${initials}</div>
+              <div class="contact-letters" style="background-color: ${contact.color};">${initials}</div>
               <div class="contact-data">
                   <div class="contact-name">${contact.name}</div>
                   <div class="contact-mail">${contact.email}</div>
               </div>
           </div>
-      `
+      `;
+}
+
+
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }

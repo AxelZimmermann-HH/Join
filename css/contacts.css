@@ -10,6 +10,7 @@
     align-items: center;
     padding-top: 32px;
     z-index: 99;
+    background-color: white;
 }
 
 .button-add-contact {
