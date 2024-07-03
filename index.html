@@ -7,6 +7,7 @@
     <title>Join</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./css/fonts.css">
+    <script src="script.js"></script>
 </head>
 
 <body>
@@ -22,10 +23,19 @@
             <h1>Log in</h1>
             <div class="blue-underline"></div>
             <form class="login-form">
-                <div class="input-conteiner"><input placeholder="email" class="login-input" type="email"><img class="mail-img" src="./img/mail.png" alt=""></div>
-                <div class="input-conteiner"><input placeholder="password" class="login-input" type="password"><img class="password-img" src="./img/lock.png" alt=""></div>
-                <div class="checkbox-conteiner"><input type="checkbox" id="customCheckbox">
-                <label for="customCheckbox">Remember me</label></div>
+                <div class="input-conteiner"><input placeholder="email" class="login-input" type="email"><img
+                        class="mail-img" src="./img/mail.png" alt=""></div>
+                <div class="input-conteiner"><input placeholder="password" class="login-input" type="password"><img
+                        class="password-img" src="./img/lock.png" alt=""></div>
+                <div class="checkbox-conteiner">
+                    <div class="check-box">
+                        <img id="checkbox" onclick="checkBoxClicked()" src="img/Rectangle1.png">
+                    </div>
+                    <div>
+                        <p>Remember me</p>
+                    </div>
+
+                </div>
             </form>
             <div class="login-buttons-conteiner">
                 <button class="btn pdng1524 heigt48">Log in</button>

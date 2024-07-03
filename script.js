@@ -84,3 +84,28 @@ function toggleMenu() {
         userContent.style.display = 'block';
     }
 }
+
+
+function checkBoxClicked() {
+ 
+    var checkbox = document.getElementById('checkbox');
+    
+   
+    if (checkbox.src.endsWith('Rectangle1.png')) {
+        checkbox.src = 'img/Rectangle2.png';
+        localStorage.setItem('rememberMe', 'true');
+    } else {
+        checkbox.src = 'img/Rectangle1.png';
+        localStorage.setItem('rememberMe', 'false');
+    }
+}
+
+window.onload = function() {
+    var rememberMe = localStorage.getItem('rememberMe');
+    var checkbox = document.getElementById('checkbox');
+    if (rememberMe === 'true') {
+        checkbox.src = 'img/Rectangle2.png';
+    } else {
+        checkbox.src = 'img/Rectangle1.png';
+    }
+}
