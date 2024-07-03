@@ -127,7 +127,11 @@ async function saveContact() {
   let email = document.getElementById('edit-contact-mail').value;
   let phone = document.getElementById('edit-contact-phone').value;
 
-  let updatedContact = { email, name, phone };
+  // Die vorhandene Farbe des Kontakts beibehalten
+  let currentContact = contactsData[key];
+  let color = currentContact.color;
+
+  let updatedContact = { email, name, phone, color };
 
   try {
     await updateContact(key, updatedContact);
