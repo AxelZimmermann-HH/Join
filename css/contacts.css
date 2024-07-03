@@ -71,7 +71,7 @@
 .contact-letters {
     width: 42px;
     height: 42px;
-    border: 2px;
+    border: 2px solid white;
     border-radius: 50%;
     background-color: orange;
     display: flex;

@@ -98,7 +98,7 @@
             <div class="add-contact-form">
               <form onsubmit="addContact(); return false">
                 <div class="input-container">
-                  <input placeholder="Name" id="add-contact-name" required type="text">
+                  <input placeholder="Name" id="add-contact-name" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
                   <img class="icon" src="img/add-contact-form-person.svg" alt="user icon">
                 </div>
                 <div class="input-container">
@@ -106,7 +106,7 @@
                   <img class="icon" src="img/add-contact-form-mail.svg" alt="email icon">
                 </div>
                 <div class="input-container">
-                  <input placeholder="Phone" id="add-contact-phone" required type="number">
+                  <input placeholder="Phone" id="add-contact-phone" required type="number" pattern="^[0-9\(\)\-\s]+$" title="Please enter a valid phone number">
                   <img class="icon" src="img/add-contact-form-phone.svg" alt="phone icon">
                 </div>
                 <div class="button-group">
