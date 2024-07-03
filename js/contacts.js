@@ -6,11 +6,18 @@ let contactsArray = [];
 let contactsKeys = [];
 
 
+async function contactsInit() {
+  await fetchDataJson();
+  createContactsList();
+  return true;
+}
+
+
 async function fetchDataJson() {
   try {
     let response = await fetch(BASE_URL + ".json");
     let responseToJson = await response.json();
-    contactsData = responseToJson || {}; // Sicherstellen, dass contactsData ein Objekt ist
+    contactsData = responseToJson || {};
     contactsArray = Object.values(contactsData);
     contactsKeys = Object.keys(contactsData);
 
@@ -22,12 +29,9 @@ async function fetchDataJson() {
     contactsArray = sortedContacts.map(item => item.contact);
     contactsKeys = sortedContacts.map(item => item.key);
 
-    createContactsList(); 
-    return true; // Daten erfolgreich geladen
-
   } catch (error) {
     console.error("Error fetching data:", error);
-    return false; // Fehler aufgetreten
+    return false; 
   }
 }
 
@@ -52,15 +56,7 @@ function createContactsList() {
           `;
       }
 
-      content.innerHTML += `
-          <div id="contact${key}" onclick='showContact("${initials}", ${JSON.stringify(contact)}, "${key}")' class="contact">
-              <div class="contact-letters">${initials}</div>
-              <div class="contact-data">
-                  <div class="contact-name">${contact.name}</div>
-                  <div class="contact-mail">${contact.email}</div>
-              </div>
-          </div>
-      `;
+      content.innerHTML += generateDirectory(key, initials, contact);
   }
 }
 
@@ -86,10 +82,10 @@ async function addContact() {
   let mail = document.getElementById("add-contact-mail").value;
   let phone = document.getElementById("add-contact-phone").value;
 
-  let newContact = {email: mail, name: name, phone: phone};
-  await postData("", newContact);
+  let newContact = { email: mail, name: name, phone: phone };
+  let postResponse = await postData("", newContact);
 
-  let dataFetched = await fetchDataJson(); // Warten bis die Kontaktliste aktualisiert wurde
+  let dataFetched = await contactsInit(); // Warten bis die Kontaktliste aktualisiert wurde
   if (dataFetched) {
     document.getElementById("add-contact-name").value = '';
     document.getElementById("add-contact-mail").value = '';
@@ -97,9 +93,10 @@ async function addContact() {
 
     closeAddContactLayer();
 
-    let newIndex = contactsArray.findIndex(contact => contact.email === newContact.email && contact.name === newContact.name);
+    // Finden Sie den Schlüssel des neuen Kontakts
+    let newKey = Object.keys(contactsData).find(key => contactsData[key].email === newContact.email && contactsData[key].name === newContact.name);
     let initials = newContact.name.split(' ')[0][0] + newContact.name.split(' ')[1][0];
-    showContact(initials, newContact, newIndex); // Richtigen Index des neuen Kontakts verwenden
+    showContact(initials, newContact, newKey); // Verwenden Sie den richtigen Schlüssel des neuen Kontakts
   } else {
     console.error('Failed to fetch updated contact data.');
   }
@@ -112,12 +109,52 @@ async function deleteContact(key) {
       method: "DELETE",
     });
     await response.json();
-    fetchDataJson(); 
+    await contactsInit(); // Kontaktliste aktualisieren
 
     document.getElementById('contact-profile').innerHTML = '';
 
   } catch (error) {
     console.error("Error deleting contact:", error);
+  }
+}
+
+
+async function saveContact() {
+  let key = document.getElementById('edit-contact-key').value;
+  let name = document.getElementById('edit-contact-name').value;
+  let email = document.getElementById('edit-contact-mail').value;
+  let phone = document.getElementById('edit-contact-phone').value;
+
+  let updatedContact = { email, name, phone };
+
+  try {
+    await updateContact(key, updatedContact);
+    await contactsInit(); // Kontaktliste aktualisieren
+
+    closeEditContactLayer();
+
+    let initials = name.split(' ')[0][0] + name.split(' ')[1][0];
+    showContact(initials, updatedContact, key);
+
+  } catch (error) {
+    console.error("Error updating contact:", error);
+  }
+}
+
+
+async function updateContact(key, updatedContact) {
+  try {
+    let response = await fetch(BASE_URL + key + ".json", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedContact),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error("Error updating contact:", error);
+    throw error;
   }
 }
 
@@ -150,6 +187,66 @@ function highlightContact(key) {
 }
 
 
+function openAddContactLayer() {
+    document.getElementById('add-contact-layer').classList.remove('d-none');
+    let content = document.getElementById('add-contact-inner-layer');
+
+    content.classList.remove('slide-in-right');
+    content.classList.remove('slide-out-right');
+    void content.offsetWidth; 
+    content.classList.add('slide-in-right');
+}
+
+
+function openEditContactLayer(key, name, email, phone) {
+  document.getElementById('edit-contact-layer').classList.remove('d-none');
+    let content = document.getElementById('edit-contact-inner-layer');
+
+    content.classList.remove('slide-in-right');
+    content.classList.remove('slide-out-right');
+    void content.offsetWidth; 
+    content.classList.add('slide-in-right');
+
+    // Eingabefelder mit den Kontaktdaten füllen
+    document.getElementById('edit-contact-key').value = key;
+    document.getElementById('edit-contact-name').value = name;
+    document.getElementById('edit-contact-mail').value = email;
+    document.getElementById('edit-contact-phone').value = phone;
+}
+
+
+function closeAddContactLayer() {
+    let contentLayer = document.getElementById('add-contact-layer');
+    let content = document.getElementById('add-contact-inner-layer');
+
+    content.classList.remove('slide-out-right');
+    void content.offsetWidth; 
+    content.classList.add('slide-out-right');
+    
+    content.removeEventListener('animationend', handleAnimationEnd);
+    content.addEventListener('animationend', handleAnimationEnd, { once: true });
+}
+
+
+function closeEditContactLayer() {
+  let contentLayer = document.getElementById('edit-contact-layer');
+  let content = document.getElementById('edit-contact-inner-layer');
+
+  content.classList.remove('slide-out-right');
+  void content.offsetWidth; 
+  content.classList.add('slide-out-right');
+  
+  content.removeEventListener('animationend', handleAnimationEnd);
+  content.addEventListener('animationend', handleAnimationEnd, { once: true });
+}
+
+
+function handleAnimationEnd() {
+    document.getElementById('add-contact-layer').classList.add('d-none');
+    document.getElementById('edit-contact-layer').classList.add('d-none');
+}
+
+
 function generateContactHTML(initials, contact, key) {
   return `
       <div class="contact-profile-firstrow">
@@ -157,7 +254,7 @@ function generateContactHTML(initials, contact, key) {
         <div class="contact-profile-firstrow-right">
           <h3>${contact.name}</h3>
           <div class="contact-actions">
-            <a class="contact-links">
+            <a onclick='openEditContactLayer("${key}", "${contact.name}", "${contact.email}", "${contact.phone}")' class="contact-links">
               <img class="contact-icon" src="img/contact-edit.svg" alt="">Edit
             </a>
             <a onclick="deleteContact('${key}')" class="contact-links">
@@ -181,30 +278,14 @@ function generateContactHTML(initials, contact, key) {
 }
 
 
-function openAddContactLayer() {
-    document.getElementById('add-contact-layer').classList.remove('d-none');
-    let content = document.getElementById('add-contact-inner-layer');
-
-    content.classList.remove('slide-in-right');
-    content.classList.remove('slide-out-right');
-    void content.offsetWidth; 
-    content.classList.add('slide-in-right');
-}
-
-
-function closeAddContactLayer() {
-    let contentLayer = document.getElementById('add-contact-layer');
-    let content = document.getElementById('add-contact-inner-layer');
-
-    content.classList.remove('slide-out-right');
-    void content.offsetWidth; 
-    content.classList.add('slide-out-right');
-    
-    content.removeEventListener('animationend', handleAnimationEnd);
-    content.addEventListener('animationend', handleAnimationEnd, { once: true });
-}
-
-
-function handleAnimationEnd() {
-    document.getElementById('add-contact-layer').classList.add('d-none');
+function generateDirectory(key, initials, contact) {
+  return `
+          <div id="contact${key}" onclick='showContact("${initials}", ${JSON.stringify(contact)}, "${key}")' class="contact">
+              <div class="contact-letters">${initials}</div>
+              <div class="contact-data">
+                  <div class="contact-name">${contact.name}</div>
+                  <div class="contact-mail">${contact.email}</div>
+              </div>
+          </div>
+      `
 }

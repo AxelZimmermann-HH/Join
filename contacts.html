@@ -13,7 +13,7 @@
     <script src="js/contacts.js"></script>
     <script src="privacy_policy.js"></script>
   </head>
-  <body onload="fetchDataJson()">
+  <body onload="contactsInit()">
 
     <header>
       <div class="header-content">
@@ -112,6 +112,50 @@
                 <div class="button-group">
                   <button class="button-bright" type="button" onclick="closeAddContactLayer()">Cancel <img class="contact-icon" src="img/add-contact-close.svg" alt=""></button>
                   <button class="button-dark" type="submit">Create contact <img src="img/add-contact-check.svg" alt=""></button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDIT CONTACT LAYER -->
+
+    <div class="add-contact-layer d-none" id="edit-contact-layer">
+      <div class="add-contact-inner-layer" id="edit-contact-inner-layer">
+        <div class="add-contact-left">
+          <img src="img/logo.svg" alt="join-logo">
+          <h1>Edit Contact</h1>
+          
+          <div class="add-layer-line"></div>
+        </div>
+        <div class="add-contact-right">
+          <div class="add-contact-layer-close" onclick="closeEditContactLayer()">
+            <img src="img/add-contact-close.svg" alt="add-contact-layer-close">
+          </div>
+          <div class="add-contact-data">
+            <div class="default-contact">
+              <img src="img/add-contact-person.svg" alt="">
+            </div>
+            <div class="add-contact-form">
+              <form onsubmit="saveContact(); return false">
+                <input type="hidden" id="edit-contact-key">
+                <div class="input-container">
+                  <input placeholder="Name" id="edit-contact-name" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+                  <img class="icon" src="img/add-contact-form-person.svg" alt="user icon">
+                </div>
+                <div class="input-container">
+                  <input placeholder="Email" id="edit-contact-mail" required type="email">
+                  <img class="icon" src="img/add-contact-form-mail.svg" alt="email icon">
+                </div>
+                <div class="input-container">
+                  <input placeholder="Phone" id="edit-contact-phone" required type="text" pattern="^[0-9\(\)\-\s]+$" title="Please enter a valid phone number">
+                  <img class="icon" src="img/add-contact-form-phone.svg" alt="phone icon">
+                </div>
+                <div class="button-group">
+                  <button class="button-bright" type="button" onclick="closeEditContactLayer()">Cancel <img class="contact-icon" src="img/add-contact-close.svg" alt=""></button>
+                  <button class="button-dark" type="submit">Save<img src="img/add-contact-check.svg" alt=""></button>
                 </div>
               </form>
             </div>

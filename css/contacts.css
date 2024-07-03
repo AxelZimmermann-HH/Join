@@ -288,7 +288,6 @@ h3 {
 
 .add-contact-inner-layer {
     height: 594px;
-    background-color: white;
     border-radius: 20px;
     /* padding: 66px 46px 66px 46px; */
     display: flex;
@@ -322,6 +321,8 @@ h3 {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    border-radius: 0px 20px 20px 0px;
+    background-color: white;
     padding: 40px 40px 66px 66px;
     gap: 80px;
 }
