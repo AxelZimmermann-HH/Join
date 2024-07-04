@@ -1,30 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
-    <link rel="stylesheet" href="../css/mobile_template.css">
+    <link rel="stylesheet" href="css/contacts.css">
+    <link rel="stylesheet" href="css/board.css">
+    <link rel="stylesheet" href="css/desktop_template.css">
+    <link rel="stylesheet" href="css/add_task.css">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="privacy_policy.css">
+    <link rel="stylesheet" href="./css/mobile_template.css">
+    <script src="/js/board.js"></script>
+    <script src="script.js"></script>
+    <script src="js/add_task.js"></script>
+    <script src="privacy_policy.js"></script>
 </head>
-<body>
-    <nav class="resp-taskbar">
-        <div class="resp-menu">
-            <a class="nav-resp" href="./summary.html" onclick="goToSummary()" id="link-summary">
-                <img class="icon-mobile" src="../img/sidebar_summary.svg" />Summary
-            </a>
 
-            <a class="nav-resp" href="./add_task.html" onclick="goToTask()" id="link-task">
-                <img class="resp-icon" src="../img/edit_square.svg" />Add Task
-            </a>
+<body onload="checkAndAddNoTask()">
+  
+    <header>
+        <div class="header-content">
+            <p>Kanban Project Management Tool</p>
+            <div class="header-icons">
+                <img class="header-help" src="../img/help.svg" alt="questionmark" />
+                <div id="user-logo" onclick="toggleMenu()" class="header-user-name">SM</div>
+            </div>
+        </div>
+    </header>
 
-            <a class="nav-resp" href="./board.html" onclick="goToBoard()" id="link-board">
-                <img class="resp-icon" src="../img/sidebar_board.svg" />Board
-            </a>
+    <div class="user-content" id="user-content">
+      <a href="./legal_notice.html">Legal Notice</a>
+      <a href="./privacy_policy.html">Privacy Policy</a>
+      <a href="index.html">Log Out</a>
+    </div>
+    </div>
 
-            <a class="nav-resp" href="./contacts.html" onclick="goToContacts()" id="link-contacts">
-                <img class="resp-icon" src="../img/sidebar_contacts.svg" />Contacts
+    <div class="sidebar">
+
+        <img src="../img/logo.svg" alt="" class="sidebar-logo" />
+        <div class="sidebar-menu">
+            <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
+                <img src="../img/sidebar_summary.svg" alt="" />Summary
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToTask()" id="link-task">
+                <img src="../img/edit_square.svg" alt="" />Add Task
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToBoard()" id="link-board">
+                <img src="../img/sidebar_board.svg" alt="" />Board
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToContacts()" id="link-contacts">
+                <img src="../img/sidebar_contacts.svg" alt="" />Contacts
             </a>
         </div>
-    </nav>
+        <div class="sidebar-menu-bottom">
+            <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
+            <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
+        </div>
+
+    </div>
+
+    <div class="board-content">
+        <div class="board-firstrow">
+            <h1>Board</h1>
+            <div class="board-firstrow-right">
+                <div class="input-container">
+                    <input placeholder="Find Task" id="find-task" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+                    <div class="find-line"></div>
+                    <img class="icon px32" src="img/search.svg" alt="user icon">
+                  </div>
+               
+                  <button class="button-dark button-dark-board" type="submit">Add task<img class="px18" src="/img/plus_white.svg" alt=""></button>
+            </div>
+        </div>
+        <div class="board-splits">
+            <div class="board-split">
+                <div class="split-headline">
+                    <p>To do</p>
+                    <img src="img/plus_bordered.svg" alt="">
+                </div>
+                <div class="task-area" id="to-do"></div>
+            </div>
+            <div class="board-split">
+                <div class="split-headline">
+                    <p>In progress</p>
+                    <img src="img/plus_bordered.svg" alt="">
+                </div>
+                <div class="task-area" id="in-progress">
+                    <div class="task-on-board">
+                        <div class="task-on-board-category">User Story</div>
+                        <div class="task-on-board-headline">Kochwelt Page & Recipe Recommender</div>
+                        <div class="task-on-board-text">Build start page with recipe recommendation...</div>
+                        <div class="task-on-board-subtasks">
+                            <div class="progress-bar-container">
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="task-on-board-subtasks-text">1/2 Subtasks</div>
+                        </div>
+                        <div class="task-on-board-lastrow">
+                            <div class="task-on-board-contacts">
+                                <div class="task-on-board-contact" style="background-color: blue;">AZ</div>
+                                <div class="task-on-board-contact" style="background-color: red;">JT</div>
+                                <div class="task-on-board-contact" style="background-color: green;">OE</div>
+                            </div>
+                            <img src="/add_task_img/medium.svg" alt="" class="task-on-board-relevance">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="board-split">
+                <div class="split-headline">
+                    <p>Await feedback</p>
+                    <img src="img/plus_bordered.svg" alt="">
+                </div>
+                <div class="task-area" id="await-feedback"></div>
+            </div>
+            <div class="board-split">
+                <div class="split-headline">
+                    <p>Done</p>  
+                </div>
+                <div class="task-area" id="done"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <nav class="resp-taskbar">
+      <div class="resp-menu">
+          <a class="nav-resp" href="./summary.html" onclick="goToSummary()" id="link-summary">
+              <img class="icon-mobile" src="../img/sidebar_summary.svg" />Summary
+          </a>
+
+          <a class="nav-resp" href="./add_task.html" onclick="goToTask()" id="link-task">
+              <img class="resp-icon" src="../img/edit_square.svg" />Add Task
+          </a>
+
+          <a class="nav-resp" href="./board.html" onclick="goToBoard()" id="link-board">
+              <img class="resp-icon" src="../img/sidebar_board.svg" />Board
+          </a>
+
+          <a class="nav-resp" href="./contacts.html" onclick="goToContacts()" id="link-contacts">
+              <img class="resp-icon" src="../img/sidebar_contacts.svg" />Contacts
+          </a>
+      </div>
+  </nav>
+
 </body>
+
 </html>

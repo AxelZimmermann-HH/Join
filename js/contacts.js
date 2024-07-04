@@ -1,5 +1,5 @@
-const BASE_URL =
-  "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/";
+const CONTACTS_URL =
+  "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/contacts";
 
 let contactsData = {}; 
 let contactsArray = [];
@@ -15,7 +15,7 @@ async function contactsInit() {
 
 async function fetchDataJson() {
   try {
-    let response = await fetch(BASE_URL + ".json");
+    let response = await fetch(CONTACTS_URL + ".json");
     let responseToJson = await response.json();
     contactsData = responseToJson || {};
     contactsArray = Object.values(contactsData);
@@ -63,7 +63,7 @@ function createContactsList() {
 
 async function postData(path = "", data = {}) {
   try {
-    let response = await fetch(BASE_URL + path + ".json", {
+    let response = await fetch(CONTACTS_URL + path + ".json", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,7 +107,7 @@ async function addContact() {
 
 async function deleteContact(key) {
   try {
-    let response = await fetch(BASE_URL + key + ".json", {
+    let response = await fetch(CONTACTS_URL + key + ".json", {
       method: "DELETE",
     });
     await response.json();
@@ -150,7 +150,7 @@ async function saveContact() {
 
 async function updateContact(key, updatedContact) {
   try {
-    let response = await fetch(BASE_URL + key + ".json", {
+    let response = await fetch(CONTACTS_URL + key + ".json", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
