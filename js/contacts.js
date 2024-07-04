@@ -1,5 +1,5 @@
 const CONTACTS_URL =
-  "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/contacts";
+  "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/contacts/";
 
 let contactsData = {}; 
 let contactsArray = [];
