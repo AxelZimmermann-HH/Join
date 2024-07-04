@@ -62,3 +62,37 @@ function userStory() {
   document.getElementById("category").style.display = "none";
   document.getElementById("category").innerHTML = "";
 }
+
+function emptyTitle() {
+  let title = document.getElementById("title-input");
+  let required = document.getElementById("title-required");
+  // checked if the title length is 0 or more
+  if (title.value.length === 0) {
+    title.style.borderColor = "red";
+    required.innerHTML = `<div class="title-required">this field is required</div>`;
+  } else if (title.value.length > 0) {
+    title.style.borderColor = "#29abe2";
+    required.innerHTML = "";
+  }
+}
+
+function emptyDate() {
+  let date = document.getElementById("date-input");
+  let required = document.getElementById("date-required");
+  // checked if the date length is 0 or more
+  if (date.value.length === 0) {
+    date.style.borderColor = "red";
+    required.innerHTML = `<div class="title-required">this field is required</div>`;
+  } else if (date.value.length > 0) {
+    document.getElementById("date-input").style.color = "black";
+    date.style.borderColor = "#29abe2";
+    required.innerHTML = "";
+  }
+}
+
+function newSubtask() {
+  let subtask = document.getElementById("subtask-field");
+
+  subtask.innerHTML = `<div class="change-subtask" contenteditable="true">
+  </div>`;
+}

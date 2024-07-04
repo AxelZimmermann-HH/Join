@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  
+
     <header>
         <div class="header-content">
             <p>Kanban Project Management Tool</p>
@@ -28,9 +28,9 @@
     </header>
 
     <div class="user-content" id="user-content">
-      <a href="./legal_notice.html">Legal Notice</a>
-      <a href="./privacy_policy.html">Privacy Policy</a>
-      <a href="index.html">Log Out</a>
+        <a href="./legal_notice.html">Legal Notice</a>
+        <a href="./privacy_policy.html">Privacy Policy</a>
+        <a href="index.html">Log Out</a>
     </div>
     </div>
 
@@ -64,7 +64,8 @@
     <div class="add-task-section">
         <div class="left-section">
             <p>Title<span class="span-red">*</span></p>
-            <input required type="text" placeholder="Enter a title">
+            <input id="title-input" onkeyup="emptyTitle()" required type="text" placeholder="Enter a title">
+            <span id="title-required"></span>
             <p class="description">Description</p>
             <textarea placeholder="Enter a Description" name="" id=""></textarea>
             <p class="assigned-to">Assigned to</p>
@@ -80,7 +81,8 @@
         <div class="parting-line"></div>
         <div class="right-section">
             <p>Due date<span class="span-red">*</span></p>
-            <input required type="date">
+            <input onclick="emptyDate()" id="date-input" required type="date">
+            <span id="date-required"></span>
             <p class="prio">Prio</p>
             <div class="buttons">
                 <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img id="highButtonImg"
@@ -97,7 +99,7 @@
             </div>
             <div id="category"></div>
             <p class="subtasks">Subtasks</p>
-            <div class="subtasks-field">
+            <div onclick="newSubtask()" id="subtask-field" class="subtasks-field">
                 <span>Add new subtask</span>
                 <img src="add_task_img/plus.svg" alt="">
 
@@ -110,24 +112,24 @@
     </div>
 
     <nav class="resp-taskbar">
-      <div class="resp-menu">
-          <a class="nav-resp" href="./summary.html" onclick="goToSummary()" id="link-summary">
-              <img class="icon-mobile" src="../img/sidebar_summary.svg" />Summary
-          </a>
+        <div class="resp-menu">
+            <a class="nav-resp" href="./summary.html" onclick="goToSummary()" id="link-summary">
+                <img class="icon-mobile" src="../img/sidebar_summary.svg" />Summary
+            </a>
 
-          <a class="nav-resp" href="./add_task.html" onclick="goToTask()" id="link-task">
-              <img class="resp-icon" src="../img/edit_square.svg" />Add Task
-          </a>
+            <a class="nav-resp" href="./add_task.html" onclick="goToTask()" id="link-task">
+                <img class="resp-icon" src="../img/edit_square.svg" />Add Task
+            </a>
 
-          <a class="nav-resp" href="./board.html" onclick="goToBoard()" id="link-board">
-              <img class="resp-icon" src="../img/sidebar_board.svg" />Board
-          </a>
+            <a class="nav-resp" href="./board.html" onclick="goToBoard()" id="link-board">
+                <img class="resp-icon" src="../img/sidebar_board.svg" />Board
+            </a>
 
-          <a class="nav-resp" href="./contacts.html" onclick="goToContacts()" id="link-contacts">
-              <img class="resp-icon" src="../img/sidebar_contacts.svg" />Contacts
-          </a>
-      </div>
-  </nav>
+            <a class="nav-resp" href="./contacts.html" onclick="goToContacts()" id="link-contacts">
+                <img class="resp-icon" src="../img/sidebar_contacts.svg" />Contacts
+            </a>
+        </div>
+    </nav>
 
 </body>
 

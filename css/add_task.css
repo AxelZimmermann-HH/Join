@@ -19,6 +19,7 @@ body {
 }
 
 .left-section input {
+  outline: none;
   width: 396px;
   border-radius: 10px;
   border: 1px solid #d1d1d1;
@@ -36,12 +37,18 @@ body {
   margin-top: 28px;
 }
 .left-section textarea {
+  font-size: 20px;
+  line-height: 24px;
+  outline: none;
   height: 86px;
   width: 406px;
   border-radius: 10px;
   border: 1px solid #d1d1d1;
   padding: 18px 16px 18px 16px;
   gap: 10px;
+}
+.left-section textarea:focus {
+  border: 1px solid #29abe2;
 }
 
 .left-section textarea::placeholder {
@@ -85,6 +92,7 @@ body {
   margin-bottom: 8px;
 }
 .right-section input {
+  outline: none;
   cursor: pointer;
   width: 406px;
   border-radius: 10px;
@@ -94,8 +102,11 @@ body {
   font-family: "Inter";
   color: #d1d1d1;
 }
+.right-section input:focus {
+  border: 1px solid #29abe2;
+}
 .prio {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .buttons {
   display: flex;
@@ -234,4 +245,13 @@ body {
   background: #7ae229;
   color: white;
   font-weight: 700;
+}
+
+.title-required {
+  font-size: 12px;
+  line-height: 14.4px;
+  color: #ff8190;
+  margin-top: 4px;
+}
+.change-subtask {
 }
