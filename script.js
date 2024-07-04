@@ -100,4 +100,8 @@ function checkBoxClicked() {
     }
 }
 
+function goToSignUp() {
+    window.location.href = 'signup.html';
+}
+
 
