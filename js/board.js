@@ -7,8 +7,8 @@ let tasksKeys = [];
 
 async function boardInit() {
     await fetchTasksJson();
-    checkAndAddNoTask();
     createTaskOnBoard();
+    checkAndAddNoTask();
 }
 
 async function fetchTasksJson() {
@@ -26,27 +26,6 @@ async function fetchTasksJson() {
         console.error("Error fetching data:", error);
         return false; 
     }
-}
-
-
-function getInitials(name) {
-    let initials = name.split(' ').map(part => part.charAt(0)).join('');
-    return initials.toUpperCase();
-}
-
-
-function generateContactsHTML(contacts) {
-    let contactsHTML = '';
-    for (let key in contacts) {
-        if (contacts.hasOwnProperty(key)) {
-            let contact = contacts[key];
-            let initials = getInitials(contact.name);
-            contactsHTML += `
-                <div class="task-on-board-contact" style="background-color: ${contact.color};">${initials}</div>
-            `;
-        }
-    }
-    return contactsHTML;
 }
 
 
@@ -76,8 +55,19 @@ function createTaskOnBoard() {
         let boardId = boardIds[task.board_category] || 'to-do';
         let content = document.getElementById(boardId);
 
+        let prioSrc;
+        if (task.prio === 'urgent') {
+            prioSrc = '/add_task_img/high.svg';
+        } else if (task.prio === 'medium') {
+            prioSrc = '/add_task_img/medium.svg';
+        } else if (task.prio === 'low') {
+            prioSrc = '/add_task_img/low.svg';
+        } else {
+            prioSrc = '/add_task_img/medium.svg'; // Fallback falls prio nicht gesetzt ist
+        }
+
         content.innerHTML += `
-            <div class="task-on-board">
+            <div draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
                 <div class="task-on-board-category">${task.task_category}</div>
                 <div class="task-on-board-headline">${task.title}</div>
                 <div class="task-on-board-text">${task.description}</div>
@@ -91,11 +81,69 @@ function createTaskOnBoard() {
                     <div class="task-on-board-contacts" id="task-on-board-contacts${i}">
                         ${contactsHTML}
                     </div>
-                    <img src="/add_task_img/medium.svg" alt="" class="task-on-board-relevance">
+                    <img src="${prioSrc}" alt="" class="task-on-board-relevance">
                 </div>
             </div> 
         `;
     }
+}
+
+// Speichert ID der Task
+function startDragging(key) {
+    currentDraggedTaskKey = key;
+}
+
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+
+async function moveTo(category) {
+    if (currentDraggedTaskKey) {
+        await updateTaskBoardCategory(currentDraggedTaskKey, category);
+        await fetchTasksJson();
+        createTaskOnBoard();
+        checkAndAddNoTask();
+    }
+}
+
+
+async function updateTaskBoardCategory(key, newBoardCategory) {
+    try {
+        let response = await fetch(TASKS_URL + key + "/board_category.json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newBoardCategory),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error updating board category:", error);
+        throw error;
+    }
+}
+
+
+function getInitials(name) {
+    let initials = name.split(' ').map(part => part.charAt(0)).join('');
+    return initials.toUpperCase();
+}
+
+
+function generateContactsHTML(contacts) {
+    let contactsHTML = '';
+    for (let key in contacts) {
+        if (contacts.hasOwnProperty(key)) {
+            let contact = contacts[key];
+            let initials = getInitials(contact.name);
+            contactsHTML += `
+                <div class="task-on-board-contact" style="background-color: ${contact.color};">${initials}</div>
+            `;
+        }
+    }
+    return contactsHTML;
 }
 
 

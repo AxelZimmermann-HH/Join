@@ -87,6 +87,11 @@
     width: 24px;
 }
 
+.task-area {
+    height: 800px;
+    width: 252px;
+}
+
 .task-on-board {
     width: 220px;
     padding: 16px;
