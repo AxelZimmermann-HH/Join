@@ -1,3 +1,5 @@
+let subtasks = [];
+
 function highButton() {
   //select high Button
   document.getElementById("highButton").classList.add("selected-high-button");
@@ -110,8 +112,27 @@ function closeSubtask() {
 }
 
 function createSubtask() {
+  let input = document.getElementById("subtask-field");
+  subtasks.push(input.value);
   let createSubtask = document.getElementById("create-subtask");
-  createSubtask.innerHTML = `<ul>
-  <li></li>
-  </ul>`;
+  createSubtask.innerHTML = "";
+
+  for (let i = 0; i < subtasks.length; i++) {
+    const subtask = subtasks[i];
+
+    createSubtask.innerHTML += `<ul class="subtask-list">
+        <li id="subtask-${i}" onclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
+      </ul>
+      <div class="subtask-list-icons">
+        <img src="add_task_img/delete.svg" alt="" />
+        <div class="subtask-line"></div>
+        <img src="add_task_img/check.svg" alt="" />
+      </div> `;
+  }
+  input.value = "";
+}
+
+function changeSubtask(subtask) {
+  let createSubtask = document.getElementById("create-subtask");
+  createSubtask.innerHTML = `<div>${subtask}</div>`;
 }

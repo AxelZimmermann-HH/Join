@@ -295,3 +295,17 @@ body {
   border: 1px solid #d1d1d1;
   height: 24px;
 }
+.subtask-list-element {
+  font-size: 16px;
+  line-height: 19.2px;
+}
+.subtask-list-icons {
+  display: flex;
+  gap: 4px;
+}
+
+#create-subtask {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
