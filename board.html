@@ -18,7 +18,7 @@
     <script src="privacy_policy.js"></script>
 </head>
 
-<body onload="checkAndAddNoTask()">
+<body onload="boardInit()">
   
     <header>
         <div class="header-content">
@@ -80,14 +80,14 @@
                     <p>To do</p>
                     <img src="img/plus_bordered.svg" alt="">
                 </div>
-                <div class="task-area" id="to-do"></div>
+                <div class="task-area" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event)"></div>
             </div>
             <div class="board-split">
                 <div class="split-headline">
                     <p>In progress</p>
                     <img src="img/plus_bordered.svg" alt="">
                 </div>
-                <div class="task-area" id="in-progress">
+                <div class="task-area" id="in-progress" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)">
                     
                 </div>
                 
@@ -97,33 +97,13 @@
                     <p>Await feedback</p>
                     <img src="img/plus_bordered.svg" alt="">
                 </div>
-                <div class="task-area" id="await-feedback"></div>
+                <div class="task-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)"></div>
             </div>
             <div class="board-split">
                 <div class="split-headline">
                     <p>Done</p>  
                 </div>
-                <div class="task-area" id="done">
-                    <div class="task-on-board">
-                        <div class="task-on-board-category">User Story</div>
-                        <div class="task-on-board-headline">Kochwelt Page & Recipe Recommender</div>
-                        <div class="task-on-board-text">Build start page with recipe recommendation...</div>
-                        <div class="task-on-board-subtasks">
-                            <div class="progress-bar-container">
-                                <div class="progress-bar"></div>
-                            </div>
-                            <div class="task-on-board-subtasks-text">1/2 Subtasks</div>
-                        </div>
-                        <div class="task-on-board-lastrow">
-                            <div class="task-on-board-contacts">
-                                <div class="task-on-board-contact" style="background-color: blue;">AZ</div>
-                                <div class="task-on-board-contact" style="background-color: red;">JT</div>
-                                <div class="task-on-board-contact" style="background-color: green;">OE</div>
-                            </div>
-                            <img src="/add_task_img/medium.svg" alt="" class="task-on-board-relevance">
-                        </div>
-                    </div>
-                </div>
+                <div class="task-area" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
             </div>
         </div>
 
