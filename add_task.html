@@ -81,7 +81,7 @@
         <div class="parting-line"></div>
         <div class="right-section">
             <p>Due date<span class="span-red">*</span></p>
-            <input onclick="emptyDate()" id="date-input" required type="date">
+            <input class="date-input" onclick="emptyDate()" id="date-input" required type="date">
             <span id="date-required"></span>
             <p class="prio">Prio</p>
             <div class="buttons">
@@ -99,14 +99,18 @@
             </div>
             <div id="category"></div>
             <p class="subtasks">Subtasks</p>
-            <div onclick="newSubtask()" id="subtask-field" class="subtasks-field">
-                <span>Add new subtask</span>
-                <img src="add_task_img/plus.svg" alt="">
-
+            <div class="subtask-layout">
+                <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
+                <div id="edit-subtask">
+                    <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg"
+                        alt="">
+                </div>
             </div>
+            <div id="create-subtask"></div>
+
             <div class="bottom-buttons">
                 <button class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
-                <button class="create-task-button">Create Task <img src="add_task_img/check.svg" alt=""></button>
+                <button class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
             </div>
         </div>
     </div>

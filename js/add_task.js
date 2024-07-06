@@ -91,8 +91,27 @@ function emptyDate() {
 }
 
 function newSubtask() {
-  let subtask = document.getElementById("subtask-field");
+  let subtaskPlus = document.getElementById("subtask-plus");
+  subtaskPlus.style.display = "none";
 
-  subtask.innerHTML = `<div class="change-subtask" contenteditable="true">
+  document.getElementById("edit-subtask").innerHTML += `<div id="closeAndCheck" class="closeAndCheck">
+    <img id="closeSubtask" onclick="closeSubtask()" src="add_task_img/close.svg" alt="" />
+    <div class="subtask-line"></div>
+    <img onclick="createSubtask()" id="checkSubtask" src="add_task_img/check.svg" alt="" />
   </div>`;
+}
+
+function closeSubtask() {
+  let closeSubtask = document.getElementById("closeAndCheck");
+  closeSubtask.style.display = "none";
+
+  let subtaskPlus = document.getElementById("subtask-plus");
+  subtaskPlus.style.display = "flex";
+}
+
+function createSubtask() {
+  let createSubtask = document.getElementById("create-subtask");
+  createSubtask.innerHTML = `<ul>
+  <li></li>
+  </ul>`;
 }
