@@ -120,14 +120,18 @@ function createSubtask() {
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
 
-    createSubtask.innerHTML += `<ul class="subtask-list">
-        <li id="subtask-${i}" onclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
-      </ul>
+    createSubtask.innerHTML += `<div class = "test">
+      <div>
+        <ul class="subtask-list">
+          <li id="subtask-${i}" onclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
+        </ul>
+      </div>
       <div class="subtask-list-icons">
         <img src="add_task_img/delete.svg" alt="" />
         <div class="subtask-line"></div>
         <img src="add_task_img/check.svg" alt="" />
-      </div> `;
+      </div>
+    </div>`;
   }
   input.value = "";
 }
