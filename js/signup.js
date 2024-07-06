@@ -17,67 +17,83 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', init);
+
+function init() {
     const signupForm = document.getElementById('signupForm');
     const signupButton = document.getElementById('signupButton');
     const acceptPolicyCheckbox = document.getElementById('acceptPolicy');
 
-    // Enable the signup button only if the privacy policy is accepted
-    acceptPolicyCheckbox.addEventListener('change', function() {
-        console.log('Checkbox checked:', this.checked); // Log checkbox state
-        signupButton.disabled = !this.checked;
-        console.log('Signup button disabled:', signupButton.disabled); // Log button state
+    setupPolicyCheckbox(acceptPolicyCheckbox, signupButton);
+    setupFormSubmission(signupForm);
+}
+
+function setupPolicyCheckbox(checkbox, button) {
+    checkbox.addEventListener('change', () => {
+        handlePolicyCheckboxChange(checkbox, button);
     });
+}
 
-    // Handle form submission
-    signupForm.addEventListener('submit', function(event) {
-        event.preventDefault();
+function handlePolicyCheckboxChange(checkbox, button) {
+    console.log('Checkbox checked:', checkbox.checked); // Log checkbox state
+    button.disabled = !checkbox.checked;
+    console.log('Signup button disabled:', button.disabled); // Log button state
+}
 
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+function setupFormSubmission(form) {
+    form.addEventListener('submit', handleFormSubmit);
+}
 
-        if (!validateName(name)) {
-            alert('Please enter both your first and last name.');
-            return;
-        }
+function handleFormSubmit(event) {
+    event.preventDefault();
 
-        if (!validateEmail(email)) {
-            alert('Please enter a valid email address.');
-            return;
-        }
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
 
-        if (password !== confirmPassword) {
-            alert('Passwords do not match!');
-            return;
-        }
-
-        // Perform signup logic here (e.g., send data to Firebase)
-        const usersRef = ref(database, 'users');
-        push(usersRef, {
-            name: name,
-            email: email,
-            password: password
-        })
-        .then(() => {
-            alert('Signup successful!');
-            // Redirect to index.html after signup
-            window.location.href = 'index.html'; // Change to your target page
-        })
-        .catch((error) => {
-            console.error('Error pushing data to Firebase: ', error);
-            alert('Error signing up, please try again.');
-        });
-    });
-
-    function validateName(name) {
-        const nameParts = name.split(' ');
-        return nameParts.length >= 2 && nameParts[0] && nameParts[1];
+    if (!validateName(name)) {
+        alert('Please enter both your first and last name.');
+        return;
     }
 
-    function validateEmail(email) {
-        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        return emailPattern.test(email);
+    if (!validateEmail(email)) {
+        alert('Please enter a valid email address.');
+        return;
     }
-});
+
+    if (password !== confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+    }
+
+    signupUser(name, email, password);
+}
+
+function validateName(name) {
+    const nameParts = name.split(' ');
+    return nameParts.length >= 2 && nameParts[0] && nameParts[1];
+}
+
+function validateEmail(email) {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailPattern.test(email);
+}
+
+function signupUser(name, email, password) {
+    const usersRef = ref(database, 'users');
+    push(usersRef, {
+        name: name,
+        email: email,
+        password: password
+    })
+    .then(() => {
+        alert('Signup successful!');
+        window.location.href = 'index.html'; // Change to your target page
+    })
+    .catch((error) => {
+        console.error('Error pushing data to Firebase: ', error);
+        alert('Error signing up, please try again.');
+    });
+}
+
