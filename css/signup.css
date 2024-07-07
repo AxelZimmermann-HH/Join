@@ -1,40 +1,196 @@
-/* Add your CSS styles here */
-.signup-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 8px;
+body {
+    margin: 0;
     box-sizing: border-box;
+    font-family: 'inter' !important;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #F6F7F8;
 }
 
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
+@keyframes moveDiv {
+    0% {
+        left: 583px;
+        top: 345px;
+    }
+
+    100% {
+        left: 77px;
+        top: 80px;
+    }
+}
+
+@keyframes resizeImg {
+    0% {
+        width: 274px;
+        height: 334.07px;
+    }
+
+    100% {
+        width: 100.03px;
+        height: 121.97px;
+    }
+}
+
+@keyframes showContent {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+.btn {
+    border-radius: 8px;
+    gap: 10px;
+    background-color: #2A3647;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+}
+
+.btn:hover {
     cursor: pointer;
 }
 
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.signup-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 10px 3px #00000014;
+    background-color: #FFFFFF;
+    padding: 48px 115px;
+    gap: 32px;
+    border-radius: 30px;
+}
+
+.blue-underline {
+    width: 150px;
+    height: 3px;
+    background-color: #29ABE2;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 61px;
+    line-height: 73.2px;
+    text-align: center;
+    margin: 0;
+}
+
+.d_none {
+    display: none;
+}
+
+.signup-input {
+    border: none;
+    outline: none;
+    font-family: 'inter';
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.signup-conteiner {
+    padding: 15px 16px 15px 16px;
+    border: 1px solid #D1D1D1;
+    border-radius: 10px;
+    width: 422px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.remember-me {
+
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19.2px;
+}
+
+
+.mail-img {
+    width: 20px;
+    height: 16px;
+}
+
+.password-img {
+    height: 21px;
+    width: 16px;
+}
+
+.pdng1524 {
+    padding: 15px 24px 15px 24px;
+}
+
+.pdng1516 {
+    padding: 15px 16px 15px 16px;
+}
+
+.btn-gst {
+    border: 1px solid #2A3647;
+    border-radius: 8px;
+    gap: 10px;
+    background-color: white;
+}
+
+.login-buttons-conteiner {
+    gap: 35px;
+    display: flex;
+    flex-direction: row;
+}
+
+.font-inter {
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 19.2px;
+}
+
+.heigt48 {
+    height: 48px;
+}
+
+.checkbox-conteiner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.check-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    margin: 4px;
+}
+
+.check-box:hover {
+    cursor: pointer;
+    background-color: #EDF2FA;
+    border-radius: 43px;
+}
+
+.width128 {
+    width: 128px;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.checkbox-conteiner {
+    
 }

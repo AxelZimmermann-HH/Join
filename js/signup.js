@@ -22,22 +22,26 @@ document.addEventListener('DOMContentLoaded', init);
 function init() {
     const signupForm = document.getElementById('signupForm');
     const signupButton = document.getElementById('signupButton');
-    const acceptPolicyCheckbox = document.getElementById('acceptPolicy');
+    const acceptPolicyImage = document.getElementById('acceptPolicy');
 
-    setupPolicyCheckbox(acceptPolicyCheckbox, signupButton);
-    setupFormSubmission(signupForm);
+    if (signupForm && signupButton && acceptPolicyImage) {
+        setupFormSubmission(signupForm);
+    } else {
+        console.error('One or more elements not found in the DOM');
+    }
 }
 
-function setupPolicyCheckbox(checkbox, button) {
-    checkbox.addEventListener('change', () => {
-        handlePolicyCheckboxChange(checkbox, button);
-    });
-}
+function toggleCheckboxImage() {
+    const image = document.getElementById('acceptPolicy');
+    const signupButton = document.getElementById('signupButton');
 
-function handlePolicyCheckboxChange(checkbox, button) {
-    console.log('Checkbox checked:', checkbox.checked); // Log checkbox state
-    button.disabled = !checkbox.checked;
-    console.log('Signup button disabled:', button.disabled); // Log button state
+    if (image.src.includes('Rectangle1.png')) {
+        image.src = 'img/Rectangle2.png';
+        signupButton.disabled = false;
+    } else {
+        image.src = 'img/Rectangle1.png';
+        signupButton.disabled = true;
+    }
 }
 
 function setupFormSubmission(form) {
@@ -89,7 +93,7 @@ function signupUser(name, email, password) {
     })
     .then(() => {
         alert('Signup successful!');
-        window.location.href = 'index.html'; // Change to your target page
+        window.location.href = 'index.html'; 
     })
     .catch((error) => {
         console.error('Error pushing data to Firebase: ', error);
@@ -97,3 +101,5 @@ function signupUser(name, email, password) {
     });
 }
 
+// Attach the function to the window object to make it globally accessible
+window.toggleCheckboxImage = toggleCheckboxImage;
