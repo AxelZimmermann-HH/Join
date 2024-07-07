@@ -359,3 +359,24 @@
     width: 1px;
     background-color: #d1d1d1;
 }
+
+.flex-end {
+    justify-content: flex-end !important;
+}
+
+.edit-task-element {
+    padding-bottom: 24px;
+}
+
+.edit-task-element p {
+    padding-bottom: 8px;
+}
+
+.edit-task-element input {
+    width: 480px;
+    border: 1px solid #d1d1d1;
+    border-radius: 10px;
+    height: 50px;
+    padding: 0px 21px 0px 21px;
+    font-size: 20px;
+}

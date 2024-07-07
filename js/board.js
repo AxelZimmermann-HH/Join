@@ -333,7 +333,7 @@ function generateTaskLayer(task, key) {
         <div class="show-task-lastrow mt12">
             <a href="#" class="show-task-lastrow-link" onclick="deleteTask('${key}')"><img class="show-task-icon" src="/add_task_img/delete.svg" alt="">Delete</a>
             <div class="show-task-lastrow-line"></div>
-            <a href="#" class="show-task-lastrow-link"><img class="show-task-icon" src="/img/edit.svg" alt="">Edit</a>
+            <a href="#" class="show-task-lastrow-link"><img class="show-task-icon" src="/img/edit2.svg" alt="">Edit</a>
         </div>
     `;
 }
