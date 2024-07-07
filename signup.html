@@ -9,9 +9,14 @@
 </head>
 
 <body>
+
+    <div class="logo-signup">
+        <img src="./img/Capa 2.png" alt="">
+    </div>
     <div class="signup-window">
         <form id="signupForm" class="signup-form">
-            <h2>Sign Up</h2>
+            <h1>Sign Up</h1>
+            <div class="blue-underline"></div>
             <div class="signup-conteiner">
 
                 <input class="signup-input" type="text" placeholder="Name" id="name" name="name" required>
@@ -31,9 +36,11 @@
                     name="confirmPassword" required>
             </div>
             <div class="checkbox-conteiner">
-                <img id="acceptPolicy" src="img/Rectangle1.png" alt="Checkbox" style="cursor:pointer;"
-                    onclick="toggleCheckboxImage()">
-                <label for="acceptPolicy">Accept Privacy Policy</label>
+                <div class="check-box">
+                    <img id="acceptPolicy" src="img/Rectangle1.png" alt="Checkbox" style="cursor:pointer;"
+                        onclick="toggleCheckboxImage()">
+                </div>
+                <label for="acceptPolicy">I accept the <a href="privacy_policy.html">Privacy Policy</a></label>
             </div>
             <div class="flex-center">
                 <button class="btn pdng1524 heigt48 width128" type="submit" id="signupButton" disabled>Sign Up</button>

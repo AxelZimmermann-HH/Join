@@ -10,40 +10,15 @@ body {
     background-color: #F6F7F8;
 }
 
-@keyframes moveDiv {
-    0% {
-        left: 583px;
-        top: 345px;
-    }
-
-    100% {
-        left: 77px;
-        top: 80px;
-    }
-}
-
-@keyframes resizeImg {
-    0% {
-        width: 274px;
-        height: 334.07px;
-    }
-
-    100% {
+.logo-signup {
+    position: absolute;
+    left: 77px;
+    top: 80px;
+    img {
         width: 100.03px;
         height: 121.97px;
     }
 }
-
-@keyframes showContent {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
 
 .btn {
     border-radius: 8px;
@@ -97,7 +72,8 @@ h1 {
 .signup-form {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 16px;
+    align-items: center;
 }
 
 .signup-conteiner {
@@ -191,6 +167,7 @@ h1 {
     justify-content: center;
 }
 
-.checkbox-conteiner {
-    
+a {
+    text-decoration: none;
+    color: #29ABE2;
 }
