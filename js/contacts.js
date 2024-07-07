@@ -250,6 +250,7 @@ function closeEditContactLayer() {
 function handleAnimationEnd() {
     document.getElementById('add-contact-layer').classList.add('d-none');
     document.getElementById('edit-contact-layer').classList.add('d-none');
+    
 }
 
 
