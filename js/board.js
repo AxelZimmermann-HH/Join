@@ -310,9 +310,82 @@ function generateTaskLayer(task, key) {
         <div class="show-task-lastrow mt12">
             <a href="#" class="show-task-lastrow-link" onclick="deleteTask('${key}')"><img class="show-task-icon" src="/add_task_img/delete.svg" alt="">Delete</a>
             <div class="show-task-lastrow-line"></div>
-            <a href="#" class="show-task-lastrow-link"><img class="show-task-icon" src="/img/edit2.svg" alt="">Edit</a>
+            <a href="#" class="show-task-lastrow-link" onclick="showEditTask()"><img class="show-task-icon" src="/img/edit2.svg" alt="">Edit</a>
         </div>
     `;
+}
+
+
+function showEditTask() {
+    let content = document.getElementById('show-task-inner-layer');
+    let currentHeight = content.scrollHeight; // Speichern Sie die aktuelle Höhe
+    content.style.height = currentHeight + 'px'; // Setzen Sie die Höhe auf den gespeicherten Wert
+    content.innerHTML = generateEditTaskLayer();
+}
+
+
+function generateEditTaskLayer() {
+    return `
+        <div class="show-task-firstrow flex-end">
+            <div class="show-task-close" onclick="closeTask()">
+                <img src="img/add-contact-close.svg" alt="">
+            </div>
+        </div>
+        <div class="edit-scroll-area">
+            <div class="edit-task-element">
+                <p>Title</p>
+                <input type="text">
+            </div>
+            <div class="edit-task-element">
+                <p>Description</p>
+                <input type="text">
+            </div>
+            <div class="edit-task-element">
+                <p>Due Date</p>
+                <div class="input-container">
+                    <input class="edit-task-input" placeholder="" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+                    <img class="icon px32 left475" src="img/calendar.svg" alt="user icon">
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Priority</p>
+                <div class="buttons">
+                    <button id="highButton" onclick="highButton()" class="prio-buttons prio-buttons-shadow">Urgent <img id="highButtonImg"
+                            src="add_task_img/high.svg"></button>
+                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons prio-buttons-shadow">Medium <img id="mediumButtonImg"
+                            src="add_task_img/medium.svg"></button>
+                    <button id="lowButton" onclick="lowButton()" class="prio-buttons prio-buttons-shadow">Low <img id="lowButtonImg"
+                            src="add_task_img/low.svg"></button>
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Assigned to</p>
+                <div class="input-container">
+                    <input class="edit-task-input" placeholder="Select contacts to assign" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+                    <img class="icon px32 left475" src="add_task_img/arrow-down.svg" alt="user icon">
+                </div>
+                <div class="edit-task-contacts">
+                    <div class="show-task-contact-letters px45">AZ</div>
+                    <div class="show-task-contact-letters px45">AZ</div>
+
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Subtasks</p>
+                <div class="input-container">
+                    <input class="edit-task-input" placeholder="Add new subtask" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+                    <img class="icon px32 left475" src="add_task_img/plus.svg" alt="user icon">
+                </div>
+                <div>
+                    <div class="test">Hallo Hallo</div>
+                </div>
+            </div>
+        </div>
+        <div class="show-task-lastrow">
+            <button class="button-dark">Ok <img src="add_task_img/check-white.svg" alt=""></button>
+        </div>
+        
+    `
 }
 
 
@@ -333,14 +406,17 @@ function openTask(key) {
 function closeTask() {
     let contentLayer = document.getElementById('show-task-layer');
     let content = document.getElementById('show-task-inner-layer');
-  
+
     content.classList.remove('slide-out-right');
-    void content.offsetWidth; 
+    void content.offsetWidth;
     content.classList.add('slide-out-right');
-    
+
     content.removeEventListener('animationend', taskAnimationEnd);
-    content.addEventListener('animationend', taskAnimationEnd, { once: true });
-  }
+    content.addEventListener('animationend', () => {
+        content.style.height = ''; // Höhe zurücksetzen
+        taskAnimationEnd();
+    }, { once: true });
+}
 
 function taskAnimationEnd() {
     document.getElementById('show-task-layer').classList.add('d-none');
