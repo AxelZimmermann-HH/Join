@@ -305,7 +305,17 @@ body {
 }
 
 .test {
+  border-radius: 10px;
+  margin-top: 8px;
+  padding: 6px 16px 6px 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+ul {
+  margin: auto;
+}
+.test:hover {
+  background-color: #d1d1d1;
+  cursor: pointer;
 }

@@ -127,7 +127,7 @@ function createSubtask() {
         </ul>
       </div>
       <div class="subtask-list-icons">
-        <img src="add_task_img/delete.svg" alt="" />
+        <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
         <div class="subtask-line"></div>
         <img src="add_task_img/check.svg" alt="" />
       </div>
@@ -139,4 +139,9 @@ function createSubtask() {
 function changeSubtask(subtask) {
   let createSubtask = document.getElementById("create-subtask");
   createSubtask.innerHTML = `<div>${subtask}</div>`;
+}
+
+function deleteSubtask(i) {
+  subtasks.splice(i, 1);
+  newSubtask();
 }
