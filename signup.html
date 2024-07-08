@@ -1,38 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="signup.css">
+    <link rel="stylesheet" href="./css/signup.css">
 </head>
+
 <body>
-    <div class="signup-container">
-        <form id="signupForm">
-            <h2>Sign Up</h2>
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
+
+    <div class="logo-signup">
+        <img src="./img/Capa 2.png" alt="">
+    </div>
+    <div class="signup-window">
+        <form id="signupForm" class="signup-form">
+            <h1>Sign Up</h1>
+            <div class="blue-underline"></div>
+            <div class="signup-conteiner">
+
+                <input class="signup-input" type="text" placeholder="Name" id="name" name="name" required>
             </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+            <div class="signup-conteiner">
+
+                <input class="signup-input" type="email" id="email" placeholder="Email" name="email" required>
             </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+            <div class="signup-conteiner">
+
+                <input class="signup-input" type="password" id="password" placeholder="Password" name="password"
+                    required>
             </div>
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <div class="signup-conteiner">
+
+                <input class="signup-input" type="password" id="confirmPassword" placeholder="Confirm Password"
+                    name="confirmPassword" required>
             </div>
-            <div class="form-group">
-                <input type="checkbox" id="acceptPolicy" name="acceptPolicy">
-                <label for="acceptPolicy">I accept the <a href="privacy_policy.html" target="_blank">Privacy Policy</a></label>
+            <div class="checkbox-conteiner">
+                <div class="check-box">
+                    <img id="acceptPolicy" src="img/Rectangle1.png" alt="Checkbox" style="cursor:pointer;"
+                        onclick="toggleCheckboxImage()">
+                </div>
+                <label for="acceptPolicy">I accept the <a href="privacy_policy.html">Privacy Policy</a></label>
             </div>
-            <button type="submit" id="signupButton" disabled>Sign Up</button>
+            <div class="flex-center">
+                <button class="btn pdng1524 heigt48 width128" type="submit" id="signupButton" disabled>Sign Up</button>
+            </div>
         </form>
     </div>
     <script type="module" src="./js/signup.js"></script>
 </body>
+
 </html>

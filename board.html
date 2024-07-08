@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Board</title>
+    <link rel="icon" href="../img/logo.svg">
     <link rel="stylesheet" href="css/contacts.css">
     <link rel="stylesheet" href="css/board.css">
     <link rel="stylesheet" href="css/desktop_template.css">
@@ -16,6 +17,7 @@
     <script src="script.js"></script>
     <script src="js/add_task.js"></script>
     <script src="privacy_policy.js"></script>
+    <script src="js/contacts.js"></script>
 </head>
 
 <body onload="boardInit()">
@@ -106,8 +108,34 @@
                 <div class="task-area" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
             </div>
         </div>
+    </div>
 
+    <!-- SHOW TASK LAYER -->
 
+    <div class="add-contact-layer d-none" id="show-task-layer">
+        <div class="show-task-inner-layer" id="show-task-inner-layer">
+            
+        </div>
+    </div>
+
+    <!-- EDIT TASK LAYER -->
+
+    <div class="add-contact-layer" id="edit-task-layer">
+        <div class="show-task-inner-layer" id="edit-task-inner-layer">
+            <div class="show-task-firstrow flex-end">
+                <div class="show-task-close" onclick="closeTask()">
+                    <img src="img/add-contact-close.svg" alt="">
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Title</p>
+                <input type="text">
+            </div>
+            <div class="edit-task-element">
+                <p>Description</p>
+                <input type="text">
+            </div>
+        </div>
     </div>
 
     <nav class="resp-taskbar">

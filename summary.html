@@ -4,9 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary</title>
+    <link rel="icon" href="../img/logo.svg">
+    <link rel="stylesheet" href="privacy_policy.css">
+    <link rel="stylesheet" href="../css/desktop_template.css" />
+    <link rel="stylesheet" href="../css/fonts.css" />
+    <link rel="stylesheet" href="../css/mobile_template.css" />
     <link rel="stylesheet" href="./css/mobile_template.css">
+    <link rel="stylesheet" href="./css/summary.css">
+    <script src="../script.js"></script>
+    
+
 </head>
 <body>
+    <script src="privacy_policy.js"></script>
+
+    <header>
+        <div class="header-content">
+            <p>Kanban Project Management Tool</p>
+            <div class="header-icons">
+                <img class="header-help" src="../img/help.svg" alt="questionmark" />
+                <div id="user-logo" onclick="toggleMenu()" class="header-user-name">SM</div>
+            </div>
+        </div>
+    </header>
+
+    <div class="user-content" id="user-content">
+        <a href="./legal_notice.html">Legal Notice</a>
+        <a href="./privacy_policy.html">Privacy Policy</a>
+        <a href="index.html">Log Out</a>
+    </div>
+    </div>
+
+    <div class="sidebar">
+        <img src="../img/logo.svg" alt="" class="sidebar-logo" />
+        <div class="sidebar-menu">
+            <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
+                <img src="../img/sidebar_summary.svg" alt="" />Summary
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToTask()" id="link-task">
+                <img src="../img/edit_square.svg" alt="" />Add Task
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToBoard()" id="link-board">
+                <img src="../img/sidebar_board.svg" alt="" />Board
+            </a>
+            <a href="#" class="sidebar-links" onclick="goToContacts()" id="link-contacts">
+                <img src="../img/sidebar_contacts.svg" alt="" />Contacts
+            </a>
+        </div>
+        <div class="sidebar-menu-bottom">
+            <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
+            <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
+        </div>
+    </div>
+
     <nav class="resp-taskbar">
         <div class="resp-menu">
             <a class="nav-resp" href="./summary.html" onclick="goToSummary()" id="link-summary">
@@ -26,5 +76,90 @@
             </a>
         </div>
     </nav>
+
+    <div class="summary-main-container">
+        <div class="summary-card-container" id="summaryCardContainer">
+          <div class="headline-summary">
+            <div class="summary-title-container">
+              <h1 class="title-contact">Join</h1>
+              <div class="seperator"></div>
+              <p>Key Metrics at a Glance</p>
+              <div class="mobile-seperator"></div>
+            </div>
+          </div>
+          <div class="summary-card-medium-container">
+            <a href="board.html" class="summary-card">
+              <div class="icon-container">
+                <div class="summary-icons-container">
+                  <img class="summary-icons" src="../img/edit.svg" />
+                </div>
+                <div class="text-container">
+                  <span class="number-container" id='toDoCount'></span>
+                  <span>To-do</span>
+                </div>
+              </div>
+            </a>
+            <a href="board.html" class="summary-card">
+              <div class="icon-container">
+                <div class="summary-icons-container">
+                  <img class="summary-icons" src="../img/click.svg" />
+                </div>
+                <div class="text-container">
+                  <span class="number-container" id="doneCount"></span>
+                  <span>Done</span>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="summary-card-big-container">
+            <a href="board.html" class="summary-card-big">
+              <div class="icon-container">
+                <div class="big-card-icons">
+                  <img class="summary-icons" src="../img/urgent.svg" />
+                </div>
+                <div class="text-container">
+                  <span class="number-container" id="urgentCount"></span>
+                  <span>Urgent</span>
+                </div>
+              </div>
+              <div class="seperator-big-card"></div>
+              <div class="text-container-big-card">
+                <span class="date-text" id="nextUrgentDate">October 16, 2024</span>
+                <span class="deadline-text">Upcoming Deadline</span>
+              </div>
+            </a>
+          </div>
+          <div class="summary-card-small-container">
+            <a href="board.html" class="summary-card-small">
+              <div>
+                <div class="text-container">
+                  <span class="number-container" id="inProgressCount"></span>
+                  <span>Tasks in Progress</span>
+                </div>
+              </div>
+            </a>
+            <a href="board.html" class="summary-card-small">
+              <div>
+                <div class="text-container">
+                  <span class="number-container" id="awaitFeedbackCount"></span>
+                  <span>Awaiting Feedback</span>
+                </div>
+              </div>
+            </a>
+            <a href="board.html" class="summary-card-small">
+              <div>
+                <div class="text-container">
+                  <span class="number-container" id="allTasksCount"></span>
+                  <span>Tasks in Board</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="greeting-container" id="greetingContainer">
+          <span class="greet-text" id="greetText"></span>
+          <span class="greet-user-name" id="greetUserName"></span>
+        </div>
+      </div>
 </body>
 </html>
