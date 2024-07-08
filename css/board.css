@@ -215,6 +215,8 @@
     padding: 48px 40px 48px 40px; 
     background-color: white;
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    overflow-y: hidden;
+    
 }
 
 .show-task-firstrow {
@@ -372,11 +374,30 @@
     padding-bottom: 8px;
 }
 
-.edit-task-element input {
+.edit-task-element input, .edit-task-input {
     width: 480px;
     border: 1px solid #d1d1d1;
     border-radius: 10px;
     height: 50px;
     padding: 0px 21px 0px 21px;
     font-size: 20px;
+}
+
+.left475 {
+    left: 475px !important;
+}
+
+.edit-task-contacts {
+    padding-top: 8px;
+    display: flex;
+}
+
+.px45 {
+    width: 45px;
+    height: 45px;
+}
+
+.edit-scroll-area {
+    max-height: 86%;
+    overflow-y: auto;
 }

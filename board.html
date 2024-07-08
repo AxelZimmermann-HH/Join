@@ -71,9 +71,9 @@
                     <input placeholder="Find Task" id="find-task" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
                     <div class="find-line"></div>
                     <img class="icon px32" src="img/search.svg" alt="user icon">
-                  </div>
+                </div>
                
-                  <button onclick="addTask()" class="button-dark button-dark-board" type="submit">Add task<img class="px18" src="/img/plus_white.svg" alt=""></button>
+                <button onclick="createTask()" class="button-dark button-dark-board" type="submit">Add task<img class="px18" src="/img/plus_white.svg" alt=""></button>
             </div>
         </div>
         <div class="board-splits">
@@ -118,25 +118,6 @@
         </div>
     </div>
 
-    <!-- EDIT TASK LAYER -->
-
-    <div class="add-contact-layer d-none" id="edit-task-layer">
-        <div class="show-task-inner-layer" id="edit-task-inner-layer">
-            <div class="show-task-firstrow flex-end">
-                <div class="show-task-close" onclick="closeTask()">
-                    <img src="img/add-contact-close.svg" alt="">
-                </div>
-            </div>
-            <div class="edit-task-element">
-                <p>Title</p>
-                <input type="text">
-            </div>
-            <div class="edit-task-element">
-                <p>Description</p>
-                <input type="text">
-            </div>
-        </div>
-    </div>
 
     <nav class="resp-taskbar">
       <div class="resp-menu">

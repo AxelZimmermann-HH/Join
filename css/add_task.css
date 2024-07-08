@@ -130,6 +130,10 @@ body {
   font-family: "Inter";
   font-size: 20px;
 }
+
+.prio-buttons-shadow {
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.10);
+}
 .category {
   margin-top: 28px;
 }
