@@ -148,12 +148,16 @@ function deleteSubtask(i) {
 function showContactsInAddTask() {
   let contactsAddTask = contactsArray
     .map(
-      (contact) => `
-      <div class="show-task-contact">
+      (contact) => `<div class="contacts-pos">
+        <div class="show-task-contact-add-task">
           <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
           <p>${contact.name}</p>
-      </div>
-  `
+        </div>
+        <div class="checkbox">
+        <img id="checkbox-field" onclick="checkContacts()" src="add_task_img/checkbox-normal.svg" alt="">
+          
+        </div>
+      </div> `
     )
     .join("");
 
@@ -164,4 +168,17 @@ function showContactsInAddTask() {
 async function initializeAddTask() {
   await fetchDataJson();
   showContactsInAddTask();
+}
+
+function showContacts() {
+  document.getElementById("add-task-contacts").classList.toggle("d-none");
+}
+
+function checkContacts() {
+  let checkboxField = document.getElementById("checkbox-field");
+  if (checkboxField.src.includes("checkbox-normal.svg")) {
+    checkboxField.src = "add_task_img/checkbox-normal-checked.svg";
+  } else {
+    checkboxField.src = "add_task_img/checkbox-normal.svg";
+  }
 }
