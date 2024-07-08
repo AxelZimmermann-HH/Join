@@ -304,8 +304,8 @@ body {
   gap: 4px;
 }
 
-#create-subtask {
+.test {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
