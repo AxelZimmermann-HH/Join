@@ -20,6 +20,7 @@ async function fetchDataJson() {
     contactsData = responseToJson || {};
     contactsArray = Object.values(contactsData);
     contactsKeys = Object.keys(contactsData);
+    
 
     // Kontakte und Schlüssel gemeinsam sortieren
     const sortedContacts = contactsArray.map((contact, index) => ({ contact, key: contactsKeys[index] }))
@@ -28,6 +29,8 @@ async function fetchDataJson() {
     // Sortierte Kontakte und Schlüssel zuweisen
     contactsArray = sortedContacts.map(item => item.contact);
     contactsKeys = sortedContacts.map(item => item.key);
+
+    console.log(contactsArray);
 
   } catch (error) {
     console.error("Error fetching data:", error);

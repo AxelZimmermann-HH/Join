@@ -119,29 +119,6 @@ function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prio
 }
 
 
-function generateTaskOnBoardHTML2(key, categoryClass, task, i, contactsHTML, prioSrc) {
-    return `
-        <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
-                <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
-                <div class="task-on-board-headline">${task.title}</div>
-                <div class="task-on-board-text">${task.description}</div>
-                <div class="task-on-board-subtasks">
-                    <div class="progress-bar-container">
-                        <div class="progress-bar"></div>
-                    </div>
-                    <div class="task-on-board-subtasks-text">1/2 Subtasks</div>
-                </div>
-                <div class="task-on-board-lastrow">
-                    <div class="task-on-board-contacts" id="task-on-board-contacts${i}">
-                        ${contactsHTML}
-                    </div>
-                    <img src="${prioSrc}" alt="" class="task-on-board-relevance">
-                </div>
-            </div>
-    `
-}
-
-
 // Speichert ID der Task
 function startDragging(key) {
     currentDraggedTaskKey = key;

@@ -140,3 +140,22 @@ function changeSubtask(subtask) {
   let createSubtask = document.getElementById("create-subtask");
   createSubtask.innerHTML = `<div>${subtask}</div>`;
 }
+
+
+function showContactsInAddTask() {
+  let contactsAddTask = contactsArray.map(contact => `
+      <div class="show-task-contact">
+          <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+          <p>${contact.name}</p>
+      </div>
+  `).join('');
+
+  let content = document.getElementById('add-task-contacts');
+  content.innerHTML = contactsAddTask;
+}
+
+
+async function initializeAddTask() {
+  await fetchDataJson();
+  showContactsInAddTask();
+}
