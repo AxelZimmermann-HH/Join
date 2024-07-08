@@ -72,7 +72,7 @@
                 placeholder="Enter a title">
             <span id="title-required"></span>
             <p class="description">Description</p>
-            <textarea placeholder="Enter a Description" name="" id=""></textarea>
+            <textarea placeholder="Enter a Description" name="" id="description-input"></textarea>
             <p class="assigned-to">Assigned to</p>
 
             <div onclick="showContacts()" class="select-contact">
@@ -118,7 +118,7 @@
 
             <div class="bottom-buttons">
                 <button class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
-                <button class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
+                <button onclick="createTask()" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
             </div>
         </div>
     </div>

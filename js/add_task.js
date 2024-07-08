@@ -182,3 +182,70 @@ function checkContacts() {
     checkboxField.src = "add_task_img/checkbox-normal.svg";
   }
 }
+
+
+async function createTask() {
+  // let board_category = ;
+  // let contacts = ;
+let description = document.getElementById('description-input').value;
+let dueDate = document.getElementById('date-input').value;
+let prio = getSelectedPrio();
+  // let subtasks = ;
+let taskCategory = document.getElementById('task-category').innerText;
+let title = document.getElementById('title-input').value;
+
+  let newTask = {
+      board_category: 'to-do',
+      contacts: {
+          contact1: {
+              color: '#477BFF',
+              email: 'yovan.davchev@gmx.net',
+              name: 'Yovan Davchev',
+              phone: '151978675643'
+          },
+          contact2: {
+              color: '#6CC9FF',
+              email: 'ogulcan.erdag@gmx.net',
+              name: 'Ogulcan Erdag',
+              phone: '160112233445'
+          }
+      },
+      description: description,
+      due_date: dueDate,
+      prio: prio,
+      subtasks: {
+          // Beispielhafte Subtasks
+          subtask1: {
+              title: "Subtask 1",
+              completed: false
+          },
+          subtask2: {
+              title: "Subtask 2",
+              completed: false
+          }
+      },
+      task_category: taskCategory,
+      title: title
+  };
+
+  let postResponse = await postTask("", newTask);
+
+  window.location.href = 'board.html'; // Ersetzen Sie 'zielseite.html' durch den tatsächlichen Dateinamen der Zielseite
+
+  let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
+}
+
+
+function getSelectedPrio() {
+  if (document.getElementById("highButton").classList.contains("selected-high-button")) {
+      return "urgent";
+  }
+  if (document.getElementById("mediumButton").classList.contains("selected-medium-button")) {
+      return "medium";
+  }
+  if (document.getElementById("lowButton").classList.contains("selected-low-button")) {
+      return "low";
+  }
+  return "medium"; // Default value
+}
+

@@ -194,56 +194,6 @@ async function postTask(path = "", data = {}) {
 }
 
 
-async function addTask() {
-    // let board_category = ;
-    // let contacts = ;
-    // let description = ;
-    // let dueDate = ;
-    // let prio = ;
-    // let subtasks = ;
-    // let taskCategory = ;
-    // let title = ;
-  
-    let newTask = {
-        board_category: 'to-do',
-        contacts: {
-            contact1: {
-                color: '#477BFF',
-                email: 'yovan.davchev@gmx.net',
-                name: 'Yovan Davchev',
-                phone: '151978675643'
-            },
-            contact2: {
-                color: '#6CC9FF',
-                email: 'ogulcan.erdag@gmx.net',
-                name: 'Ogulcan Erdag',
-                phone: '160112233445'
-            }
-        },
-        description: "Das ist eine Test-Task",
-        due_date: "01.09.2024",
-        prio: "medium",
-        subtasks: {
-            // Beispielhafte Subtasks
-            subtask1: {
-                title: "Subtask 1",
-                completed: false
-            },
-            subtask2: {
-                title: "Subtask 2",
-                completed: false
-            }
-        },
-        task_category: "Technical Task",
-        title: "Test-Task"
-    };
-
-    let postResponse = await postTask("", newTask);
-  
-    let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
-}
-
-
 async function deleteTask(key) {
     try {
       let response = await fetch(TASKS_URL + key + ".json", {
