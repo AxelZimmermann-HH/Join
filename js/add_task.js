@@ -126,36 +126,69 @@ function createSubtask() {
   let input = document.getElementById("subtask-field");
   subtasks.push(input.value);
   let createSubtask = document.getElementById("create-subtask");
+  createSubtask.innerHTML = "";
 
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
-
-    createSubtask.innerHTML += `<div class="subtasks-tasks">
+    if (input.value != "") {
+      createSubtask.innerHTML += `<div id="subtask-tasks" class="subtasks-tasks">
       <div>
         <ul class="subtask-list">
-          <li id="subtask-${i}" onclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
+          <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
         </ul>
       </div>
       <div class="subtask-list-icons">
-        <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
+        <img onclick="changeSubtask(${i})" src="add_task_img/edit.svg" alt="" />
         <div class="subtask-line"></div>
-        <img src="add_task_img/check.svg" alt="" />
+        <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
       </div>
     </div>`;
+    }
   }
-
   input.value = "";
 }
 
-function changeSubtask(subtask) {
-  let createSubtask = document.getElementById("create-subtask");
-  createSubtask.innerHTML = `<div>${subtask}</div>`;
+function renderSubtasks() {
+  let createSubtaskDiv = document.getElementById("create-subtask");
+  createSubtaskDiv.innerHTML = "";
+
+  for (let i = 0; i < subtasks.length; i++) {
+    let subtask = subtasks[i];
+
+    createSubtaskDiv.innerHTML += `
+      <div id="subtask-tasks" class="subtasks-tasks">
+        <div>
+          <ul class="subtask-list">
+            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
+          </ul>
+        </div>
+        <div class="subtask-list-icons">
+          <img onclick="changeSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
+          <div class="subtask-line"></div>
+          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="Check" />
+        </div>
+      </div>
+    `;
+  }
+}
+
+function changeSubtask(i) {
+  document.getElementById("subtask-tasks").classList.remove("subtask-tasks");
+  document.getElementById("subtask-tasks").classList.remove("subtask-tasks:hover");
+  document.getElementById("subtask-tasks").classList.add("subtask-tasks-edit");
+  let createSubtask = document.getElementById(`subtask-${i}`);
+  let currentText = subtasks[i];
+
+  createSubtask.innerHTML = `
+    <div class="subtask-edit">
+      <div contenteditable="true" id="subtask-${i}" class="subtask-edit-div">${currentText}</div>
+    </div>
+  `;
 }
 
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
-  console.log(subtasks);
-  newSubtask();
+  renderSubtasks();
 }
 function showContactsInAddTask() {
   let contactsAddTask = contactsArray
