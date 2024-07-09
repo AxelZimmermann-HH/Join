@@ -234,6 +234,10 @@
     padding-bottom: 24px;
 }
 
+.align-items-start {
+    align-items: flex-start !important;
+}
+
 .show-task-close img {
     height: 24px;
     width: 24px;
