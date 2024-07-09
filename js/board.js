@@ -353,6 +353,86 @@ function openTask(key) {
     content.innerHTML += generateTaskLayer(task, key);
 }
 
+
+function openAddTask() {
+    document.getElementById('show-task-layer').classList.remove('d-none');
+    let content = document.getElementById('show-task-inner-layer');
+    content.classList.add('width-auto');
+
+    content.classList.remove('slide-in-right');
+    content.classList.remove('slide-out-right');
+    void content.offsetWidth; 
+    content.classList.add('slide-in-right');
+
+    content.innerHTML = '';
+    content.innerHTML += generateAddTaskLayer();
+}
+
+function generateAddTaskLayer() {
+    return `
+        <div>
+        <h1 class="headline no-margin-left">Add Task</h1>
+    </div>
+    <div class="add-task-section no-margin-left">
+        <div class="left-section">
+            <p class="title-headline">Title<span class="span-red">*</span></p>
+            <input class="title" id="title-input" onkeyup="emptyTitle()" required type="text"
+                placeholder="Enter a title">
+            <span id="title-required"></span>
+            <p class="description">Description</p>
+            <textarea placeholder="Enter a Description" name="" id="description-input"></textarea>
+            <p class="assigned-to">Assigned to</p>
+
+            <div onclick="showContacts()" class="select-contact">
+                <span>Select contact to assign</span>
+                <img src="add_task_img/arrow-down.svg" alt="">
+            </div>
+            <div class="add-task-contacts d-none" id="add-task-contacts">
+
+            </div>
+            <div class="required-text">
+                <p><span class="span-red">*</span>This field is required</p>
+            </div>
+        </div>
+        <div class="parting-line"></div>
+        <div class="right-section">
+            <p>Due date<span class="span-red">*</span></p>
+            <input class="date-input" onclick="emptyDate()" id="date-input" required type="date">
+            <span id="date-required"></span>
+            <p class="prio">Prio</p>
+            <div class="buttons">
+                <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img id="highButtonImg"
+                        src="add_task_img/high.svg"></button>
+                <button id="mediumButton" onclick="mediumButton()" class="prio-buttons">Medium <img id="mediumButtonImg"
+                        src="add_task_img/medium.svg"></button>
+                <button id="lowButton" onclick="lowButton()" class="prio-buttons">Low <img id="lowButtonImg"
+                        src="add_task_img/low.svg"></button>
+            </div>
+            <p class="category">Category<span class="span-red">*</span></p>
+            <div onclick="category()" required class="category-menu">
+                <span id="task-category">Select task category</span>
+                <img src="add_task_img/arrow-down.svg" alt="">
+            </div>
+            <div id="category"></div>
+            <p class="subtasks">Subtasks</p>
+            <div class="subtask-layout">
+                <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
+                <div id="edit-subtask">
+                    <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg"
+                        alt="">
+                </div>
+            </div>
+            <div id="create-subtask"></div>
+
+            <div class="bottom-buttons">
+                <button class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
+                <button onclick="createTask()" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
+            </div>
+        </div>
+    </div>
+    `;
+}
+
 function closeTask() {
     let contentLayer = document.getElementById('show-task-layer');
     let content = document.getElementById('show-task-inner-layer');

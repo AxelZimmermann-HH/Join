@@ -1,41 +1,20 @@
-function goToSummary() {
-    resetLinks();
-    resetBottomLinks();
-    const link = document.getElementById('link-summary');
-    const img = link.querySelector('img');
-    img.src = '../img/sidebar_summary_white.svg'; 
-    link.style.backgroundColor = '#091931'; 
-    link.style.color = '#FFFFFF'; 
-}
-
-function goToTask() {
-    resetLinks();
-    resetBottomLinks();
-    const link = document.getElementById('link-task');
-    const img = link.querySelector('img');
-    img.src = '../img/edit_square_white.svg'; 
-    link.style.backgroundColor = '#091931'; 
-    link.style.color = '#FFFFFF'; 
-}
-
-function goToBoard() {
-    resetLinks();
-    resetBottomLinks();
-    const link = document.getElementById('link-board');
-    const img = link.querySelector('img');
-    img.src = '../img/sidebar_board_white.svg'; 
-    link.style.backgroundColor = '#091931'; 
-    link.style.color = '#FFFFFF'; 
-}
-
-function goToContacts() {
-    resetLinks();
-    resetBottomLinks();
-    const link = document.getElementById('link-contacts');
-    const img = link.querySelector('img');
-    img.src = '../img/sidebar_contacts_white.svg'; 
-    link.style.backgroundColor = '#091931'; 
-    link.style.color = '#FFFFFF'; 
+function navigateTo(linkId, imgSrc, url) {
+    if (url) {
+        // Speichern des Zustands in sessionStorage
+        sessionStorage.setItem('activeLink', linkId);
+        sessionStorage.setItem('activeLinkImgSrc', imgSrc);
+        sessionStorage.setItem('activeLinkBgColor', '#091931');
+        sessionStorage.setItem('activeLinkColor', '#FFFFFF');
+        window.location.href = url;
+    } else {
+        // Nur den Link aktivieren ohne Weiterleitung
+        resetLinks();
+        resetBottomLinks();
+        const link = document.getElementById(linkId);
+        if (link) {
+            link.classList.add('active');
+        }
+    }
 }
 
 function resetLinks() {
@@ -45,13 +24,17 @@ function resetLinks() {
         { id: 'link-board', imgSrc: '../img/sidebar_board.svg' },
         { id: 'link-contacts', imgSrc: '../img/sidebar_contacts.svg' }
     ];
-    
+
     defaultLinks.forEach(linkInfo => {
         const link = document.getElementById(linkInfo.id);
-        const img = link.querySelector('img');
-        img.src = linkInfo.imgSrc;
-        link.style.backgroundColor = ''; 
-        link.style.color = ''; 
+        if (link) {
+            const img = link.querySelector('img');
+            if (img) {
+                img.src = linkInfo.imgSrc;
+            }
+            link.style.backgroundColor = '';
+            link.style.color = '';
+        }
     });
 }
 
@@ -62,19 +45,54 @@ function resetBottomLinks() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", function() {
+    // Lade den gespeicherten Zustand
+    const activeLinkId = sessionStorage.getItem('activeLink');
+    const activeLinkImgSrc = sessionStorage.getItem('activeLinkImgSrc');
+    const activeLinkBgColor = sessionStorage.getItem('activeLinkBgColor');
+    const activeLinkColor = sessionStorage.getItem('activeLinkColor');
+
+    if (activeLinkId) {
+        resetLinks();
+        resetBottomLinks();
+
+        const link = document.getElementById(activeLinkId);
+        if (link) {
+            const img = link.querySelector('img');
+            if (img) {
+                img.src = activeLinkImgSrc;
+            }
+            link.style.backgroundColor = activeLinkBgColor;
+            link.style.color = activeLinkColor;
+        }
+    }
+});
+
+// Spezifische Funktionen für die Navigation
+function goToSummary() {
+    navigateTo('link-summary', '../img/sidebar_summary_white.svg', 'summary.html');
+}
+
+function goToTask() {
+    navigateTo('link-task', '../img/edit_square_white.svg', 'add_task.html');
+}
+
+function goToBoard() {
+    navigateTo('link-board', '../img/sidebar_board_white.svg', 'board.html');
+}
+
+function goToContacts() {
+    navigateTo('link-contacts', '../img/sidebar_contacts_white.svg', 'contacts.html');
+}
+
 function goToPrivacyPolicy() {
-    resetLinks();
-    resetBottomLinks();
-    const link = document.getElementById('link-privacy-policy');
-    link.classList.add('active');
+    navigateTo('link-privacy-policy', null, 'privacy_policy.html');
 }
 
 function goToLegalNotice() {
-    resetLinks();
-    resetBottomLinks();
-    const link = document.getElementById('link-legal-notice');
-    link.classList.add('active');
+    navigateTo('link-legal-notice', null, 'legal_notice.html');
 }
+
 
 function toggleMenu() {
     const userContent = document.getElementById('user-content');
