@@ -80,9 +80,17 @@ function emptyTitle() {
 
 function emptyDate() {
   let date = document.getElementById("date-input");
+  date.showPicker();
+  updateDateStyle();
+  document.getElementById("date-input").addEventListener("change", updateDateStyle);
+}
+
+function updateDateStyle() {
+  let date = document.getElementById("date-input");
   let required = document.getElementById("date-required");
   // checked if the date length is 0 or more
   if (date.value.length === 0) {
+    document.getElementById("date-input").style.color = "#d1d1d1";
     date.style.borderColor = "red";
     required.innerHTML = `<div class="title-required">this field is required</div>`;
   } else if (date.value.length > 0) {
@@ -94,9 +102,9 @@ function emptyDate() {
 
 function newSubtask() {
   let subtaskPlus = document.getElementById("subtask-plus");
-  subtaskPlus.style.display = "none";
+  subtaskPlus.classList.add("d-none");
 
-  document.getElementById("edit-subtask").innerHTML += `<div id="closeAndCheck" class="closeAndCheck">
+  document.getElementById("edit-subtask").innerHTML = `<div id="closeAndCheck" class="closeAndCheck">
     <img id="closeSubtask" onclick="closeSubtask()" src="add_task_img/close.svg" alt="" />
     <div class="subtask-line"></div>
     <img onclick="createSubtask()" id="checkSubtask" src="add_task_img/check.svg" alt="" />
@@ -104,18 +112,17 @@ function newSubtask() {
 }
 
 function closeSubtask() {
-  let closeSubtask = document.getElementById("closeAndCheck");
-  closeSubtask.style.display = "none";
-
   let subtaskPlus = document.getElementById("subtask-plus");
-  subtaskPlus.style.display = "flex";
+  subtaskPlus.classList.remove("d-none");
+
+  let closeSubtask = document.getElementById("edit-subtask");
+  closeSubtask.classList.toggle("d-none");
 }
 
 function createSubtask() {
   let input = document.getElementById("subtask-field");
   subtasks.push(input.value);
   let createSubtask = document.getElementById("create-subtask");
-  createSubtask.innerHTML = "";
 
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
