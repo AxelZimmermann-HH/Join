@@ -4,14 +4,15 @@ import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.6.1
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    databaseURL: "https://join-23123-default-rtdb.firebaseio.com/",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-};
+    apiKey: "AIzaSyBLwkvdC-k--cb_0Z5y83ZEtcbRiXMxxKE",
+    authDomain: "join-23123.firebaseapp.com",
+    databaseURL: "https://join-23123-default-rtdb.firebaseio.com",
+    projectId: "join-23123",
+    storageBucket: "join-23123.appspot.com",
+    messagingSenderId: "801789402962",
+    appId: "1:801789402962:web:d84538bda53119e058e48b",
+    measurementId: "G-CFY9BZ9NV5"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -26,11 +27,11 @@ function init() {
     const signupForm = document.getElementById('signupForm');
     const signupButton = document.getElementById('signupButton');
     const acceptPolicyImage = document.getElementById('acceptPolicy');
-
+ 
     if (signupForm && signupButton && acceptPolicyImage) {
         setupFormSubmission(signupForm);
     } else {
-        console.error('One or more elements not found in the DOM');
+        console.error('One or more elements not found in the DOM');       
     }
 }
 
@@ -46,7 +47,13 @@ function toggleCheckboxImage() {
         signupButton.disabled = false;
     } else {
         image.src = 'img/Rectangle1.png';
-        signupButton.disabled = true;
+        signupButton.disabled = true;        
+    }
+    if (signupButton.disabled == false) {
+        document.getElementById('notAccepted').innerHTML = '';
+    }
+    if (signupButton.disabled == true) {
+        document.getElementById('notAccepted').innerHTML = 'Pleease accept the Privacy Policy';
     }
 }
 
@@ -55,7 +62,10 @@ function toggleCheckboxImage() {
  * @param {HTMLFormElement} form - The signup form element.
  */
 function setupFormSubmission(form) {
+
     form.addEventListener('submit', handleFormSubmit);
+
+
 }
 
 /**
@@ -64,7 +74,8 @@ function setupFormSubmission(form) {
  */
 function handleFormSubmit(event) {
     event.preventDefault();
-
+  
+    
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
@@ -84,6 +95,7 @@ function handleFormSubmit(event) {
         alert('Passwords do not match!');
         return;
     }
+  
 
     signupUser(name, email, password);
 }
