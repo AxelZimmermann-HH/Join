@@ -174,7 +174,9 @@ function showContactsInAddTask() {
     .join("");
 
   let content = document.getElementById("add-task-contacts");
+  
   content.innerHTML = contactsAddTask;
+  
 }
 
 async function initializeAddTask() {
