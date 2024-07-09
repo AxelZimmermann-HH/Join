@@ -104,6 +104,9 @@ function newSubtask() {
   let subtaskPlus = document.getElementById("subtask-plus");
   subtaskPlus.classList.add("d-none");
 
+  let closeSubtask = document.getElementById("edit-subtask");
+  closeSubtask.classList.remove("d-none");
+
   document.getElementById("edit-subtask").innerHTML = `<div id="closeAndCheck" class="closeAndCheck">
     <img id="closeSubtask" onclick="closeSubtask()" src="add_task_img/close.svg" alt="" />
     <div class="subtask-line"></div>
@@ -116,7 +119,7 @@ function closeSubtask() {
   subtaskPlus.classList.remove("d-none");
 
   let closeSubtask = document.getElementById("edit-subtask");
-  closeSubtask.classList.toggle("d-none");
+  closeSubtask.classList.add("d-none");
 }
 
 function createSubtask() {
@@ -127,7 +130,7 @@ function createSubtask() {
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
 
-    createSubtask.innerHTML += `<div class = "test">
+    createSubtask.innerHTML += `<div class="subtasks-tasks">
       <div>
         <ul class="subtask-list">
           <li id="subtask-${i}" onclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
@@ -140,6 +143,7 @@ function createSubtask() {
       </div>
     </div>`;
   }
+
   input.value = "";
 }
 
@@ -150,6 +154,7 @@ function changeSubtask(subtask) {
 
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
+  console.log(subtasks);
   newSubtask();
 }
 function showContactsInAddTask() {
