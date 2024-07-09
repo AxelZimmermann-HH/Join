@@ -87,7 +87,7 @@ async function addContact() {
   let color = getRandomColor(); // Zufällige Farbe generieren
 
 
-  let newContact = { email: mail, name: name, phone: phone, color: color};
+  let newContact = {email: mail, name: name, phone: phone, color: color};
   let postResponse = await postData("", newContact);
 
   let dataFetched = await contactsInit(); // Warten bis die Kontaktliste aktualisiert wurde

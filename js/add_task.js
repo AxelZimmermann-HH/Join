@@ -1,4 +1,5 @@
 let subtasks = [];
+let selectedContacts = [];
 
 function highButton() {
   //select high Button
@@ -190,7 +191,11 @@ function deleteSubtask(i) {
   subtasks.splice(i, 1);
   renderSubtasks();
 }
+
+
 function showContactsInAddTask() {
+  selectedContacts = new Array(contactsArray.length).fill(false); // Initialisiere das Array
+
   let contactsAddTask = contactsArray
     .map(
       (contact, i) => `<div onclick="checkContacts(${i})" class="contacts-pos">
@@ -225,51 +230,44 @@ function checkContacts(i) {
   let checkboxField = document.getElementById(`checkbox-field${i}`);
   if (checkboxField.src.includes("checkbox-normal.svg")) {
     checkboxField.src = "add_task_img/checkbox-normal-checked.svg";
+    selectedContacts[i] = true;
   } else {
     checkboxField.src = "add_task_img/checkbox-normal.svg";
+    selectedContacts[i] = false;
   }
 }
 
+
 async function createTask() {
-  // let board_category = ;
-  // let contacts = ;
   let description = document.getElementById("description-input").value;
   let dueDate = document.getElementById("date-input").value;
   let prio = getSelectedPrio();
-  // let subtasks = ;
   let taskCategory = document.getElementById("task-category").innerText;
   let title = document.getElementById("title-input").value;
 
+  // Erstelle das contacts Objekt basierend auf ausgewählten Kontakten
+  let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
+    if (isSelected) {
+      acc[`contact${index + 1}`] = contactsArray[index]; // Hier wird das neue Objekt acc erstellt und ein Schlüssel vergeben.
+    }
+    return acc;
+  }, {});
+
+  let subtasksObj = subtasks.reduce((acc, subtaskTitle, index) => {
+    acc[`subtask${index + 1}`] = {
+      title: subtaskTitle,
+      completed: false,
+    };
+    return acc;
+  }, {});
+
   let newTask = {
     board_category: "to-do",
-    contacts: {
-      contact1: {
-        color: "#477BFF",
-        email: "yovan.davchev@gmx.net",
-        name: "Yovan Davchev",
-        phone: "151978675643",
-      },
-      contact2: {
-        color: "#6CC9FF",
-        email: "ogulcan.erdag@gmx.net",
-        name: "Ogulcan Erdag",
-        phone: "160112233445",
-      },
-    },
+    contacts: selectedContactsData,
     description: description,
     due_date: dueDate,
     prio: prio,
-    subtasks: {
-      // Beispielhafte Subtasks
-      subtask1: {
-        title: "Subtask 1",
-        completed: false,
-      },
-      subtask2: {
-        title: "Subtask 2",
-        completed: false,
-      },
-    },
+    subtasks: subtasksObj,
     task_category: taskCategory,
     title: title,
   };
