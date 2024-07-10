@@ -139,7 +139,7 @@ function createSubtask() {
         </ul>
       </div>
       <div class="subtask-list-icons">
-        <img onclick="changeSubtask(${i})" src="add_task_img/edit.svg" alt="" />
+        <img id="edit-logo${i}" onclick="changeSubtask(${i})" src="add_task_img/edit.svg" alt="" />
         <div class="subtask-line"></div>
         <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
       </div>
@@ -157,7 +157,7 @@ function renderSubtasks() {
     let subtask = subtasks[i];
 
     createSubtaskDiv.innerHTML += `
-      <div id="subtask-tasks" class="subtasks-tasks">
+      <div id="subtask-tasks-${i}" class="subtasks-tasks">
         <div>
           <ul class="subtask-list">
             <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
@@ -174,6 +174,9 @@ function renderSubtasks() {
 }
 
 function changeSubtask(i) {
+  let editLogo = document.getElementById(`edit-logo${i}`);
+  editLogo.src = "add_task_img/check.svg";
+
   document.getElementById("subtask-tasks").classList.remove("subtask-tasks");
   document.getElementById("subtask-tasks").classList.remove("subtask-tasks:hover");
   document.getElementById("subtask-tasks").classList.add("subtask-tasks-edit");
@@ -191,7 +194,6 @@ function deleteSubtask(i) {
   subtasks.splice(i, 1);
   renderSubtasks();
 }
-
 
 function showContactsInAddTask() {
   selectedContacts = new Array(contactsArray.length).fill(false); // Initialisiere das Array
@@ -212,9 +214,8 @@ function showContactsInAddTask() {
     .join("");
 
   let content = document.getElementById("add-task-contacts");
-  
+
   content.innerHTML = contactsAddTask;
-  
 }
 
 async function initializeAddTask() {
@@ -224,7 +225,7 @@ async function initializeAddTask() {
 function showContacts() {
   showContactsInAddTask();
   document.getElementById("add-task-contacts").classList.toggle("d-none");
-  console.log('check2');
+  console.log("check2");
 }
 
 function checkContacts(i) {
@@ -237,7 +238,6 @@ function checkContacts(i) {
     selectedContacts[i] = false;
   }
 }
-
 
 async function createTask() {
   let description = document.getElementById("description-input").value;

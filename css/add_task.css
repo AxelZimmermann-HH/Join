@@ -363,7 +363,16 @@ ul {
 .add-task-contacts {
   background-color: white;
   border-radius: 10px;
+  position: absolute;
+  width: 440px;
+  overflow: scroll;
+  height: 240px;
 }
+
+.add-task-contacts::-webkit-scrollbar {
+  display: none;
+}
+
 .contacts-pos {
   display: flex;
   align-items: center;
