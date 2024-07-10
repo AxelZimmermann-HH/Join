@@ -19,11 +19,8 @@ async function fetchTasksJson() {
         let response = await fetch(TASKS_URL + ".json");
         let responseToJson = await response.json();
         tasksData = responseToJson || {};
-        console.log(tasksData);
         tasksArray = Object.values(tasksData);
-        console.log(tasksArray);
         tasksKeys = Object.keys(tasksData);
-        console.log(tasksKeys);
 
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -214,6 +211,7 @@ function openTask(key) {
     const task = tasksData[key];
     document.getElementById('show-task-layer').classList.remove('d-none');
     let content = document.getElementById('show-task-inner-layer');
+    content.classList.remove('width-auto');
 
     content.classList.remove('slide-in-right');
     content.classList.remove('slide-out-right');
@@ -223,6 +221,7 @@ function openTask(key) {
     content.innerHTML = '';
     content.innerHTML += generateTaskLayer(task, key);
 }
+
 
 function generateTaskLayer(task, key) {
     const contacts = task.contacts || {};
@@ -277,10 +276,11 @@ function generateTaskLayer(task, key) {
         <div class="show-task-lastrow mt12">
             <a href="#" class="show-task-lastrow-link" onclick="deleteTask('${key}')"><img class="show-task-icon" src="/add_task_img/delete.svg" alt="">Delete</a>
             <div class="show-task-lastrow-line"></div>
-            <a href="#" class="show-task-lastrow-link" onclick="showEditTask()"><img class="show-task-icon" src="/img/edit2.svg" alt="">Edit</a>
+            <a href="#" class="show-task-lastrow-link" onclick="showEditTask('${key}')"><img class="show-task-icon" src="/img/edit2.svg" alt="">Edit</a>
         </div>
     `;
 }
+
 
 // Handling der Subtasks im Task-Layer
 async function checkSubtask(taskKey, subtaskKey, imgElement) {
@@ -308,14 +308,53 @@ async function checkSubtask(taskKey, subtaskKey, imgElement) {
 
 
 // Öffnen des Edit-Layers bei Klick auf Edit in der Task-Ansicht
-function showEditTask() {
+function showEditTask(taskKey) {
+    const task = tasksData[taskKey];
     let content = document.getElementById('show-task-inner-layer');
-    let currentHeight = content.scrollHeight; // Speichern Sie die aktuelle Höhe
-    content.style.height = currentHeight + 'px'; // Setzen Sie die Höhe auf den gespeicherten Wert
-    content.innerHTML = generateEditTaskLayer();
+    let currentHeight = content.scrollHeight;
+    content.style.height = currentHeight + 'px';
+    content.innerHTML = generateEditTaskLayer(task, taskKey);
 }
 
-function generateEditTaskLayer() {
+
+function generateEditTaskLayer(task, key) {
+    const contacts = task.contacts || {};
+    const subtasks = task.subtasks || {};
+
+    const contactsHTML = Object.values(contacts).map(contact => `
+        <div class="show-task-contact">
+            <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+        </div>
+    `).join('');
+
+    const subtasksHTML = Object.keys(subtasks).map(subtaskKey => {
+        const subtask = subtasks[subtaskKey];
+        return `
+            <div id="subtask-tasks" class="subtasks-tasks">
+                <div>
+                    <ul class="subtask-list">
+                        <li onclick="changeSubtask()" class="subtask-list-element">${subtask.title}</li>
+                    </ul>
+                </div>
+                <div class="subtask-list-icons">
+                    <img onclick="changeSubtask()" src="add_task_img/edit.svg" alt="" />
+                    <div class="subtask-line"></div>
+                    <img onclick="deleteSubtask()" src="add_task_img/delete.svg" alt="" />
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const highSelected = task.prio === 'urgent' ? 'selected-high-button' : '';
+    const highImgSrc = task.prio === 'urgent' ? 'add_task_img/high-white.svg' : 'add_task_img/high.svg';
+    
+    const mediumSelected = task.prio === 'medium' ? 'selected-medium-button' : '';
+    const mediumImgSrc = task.prio === 'medium' ? 'add_task_img/medium-white.svg' : 'add_task_img/medium.svg';
+    
+    const lowSelected = task.prio === 'low' ? 'selected-low-button' : '';
+    const lowImgSrc = task.prio === 'low' ? 'add_task_img/low-white.svg' : 'add_task_img/low.svg';
+
+
     return `
         <div class="show-task-firstrow flex-end">
             <div class="show-task-close" onclick="closeTask()">
@@ -325,58 +364,56 @@ function generateEditTaskLayer() {
         <div class="edit-scroll-area">
             <div class="edit-task-element">
                 <p>Title</p>
-                <input type="text">
+                <input type="text" value="${task.title}">
             </div>
             <div class="edit-task-element">
                 <p>Description</p>
-                <input type="text">
+                <input type="text" value="${task.description}">
             </div>
             <div class="edit-task-element">
                 <p>Due Date</p>
                 <div class="input-container">
-                    <input class="edit-task-input" placeholder="" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
-                    <img class="icon px32 left475" src="img/calendar.svg" alt="user icon">
+                    <input class="edit-task-input" value="${task.due_date}" required type="date">
                 </div>
             </div>
             <div class="edit-task-element">
                 <p>Priority</p>
                 <div class="buttons">
-                    <button id="highButton" onclick="highButton()" class="prio-buttons prio-buttons-shadow">Urgent <img id="highButtonImg"
-                            src="add_task_img/high.svg"></button>
-                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons prio-buttons-shadow">Medium <img id="mediumButtonImg"
-                            src="add_task_img/medium.svg"></button>
-                    <button id="lowButton" onclick="lowButton()" class="prio-buttons prio-buttons-shadow">Low <img id="lowButtonImg"
-                            src="add_task_img/low.svg"></button>
+                    <button id="highButton" onclick="highButton()" class="prio-buttons prio-buttons-shadow ${highSelected}">Urgent <img id="highButtonImg" src="${highImgSrc}"></button>
+                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons prio-buttons-shadow ${mediumSelected}">Medium <img id="mediumButtonImg" src="${mediumImgSrc}"></button>
+                    <button id="lowButton" onclick="lowButton()" class="prio-buttons prio-buttons-shadow ${lowSelected}">Low <img id="lowButtonImg" src="${lowImgSrc}"></button>
                 </div>
             </div>
             <div class="edit-task-element">
                 <p>Assigned to</p>
-                <div class="input-container">
-                    <input class="edit-task-input" placeholder="Select contacts to assign" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
-                    <img class="icon px32 left475" src="add_task_img/arrow-down.svg" alt="user icon">
+                <div onclick="showContacts()" class="select-contact">
+                    <span>Select contact to assign</span>
+                    <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
+                <div class="add-task-contacts d-none" id="add-task-contacts"></div>
                 <div class="edit-task-contacts">
-                    <div class="show-task-contact-letters px45">AZ</div>
-                    <div class="show-task-contact-letters px45">AZ</div>
-
+                    ${contactsHTML}
                 </div>
             </div>
             <div class="edit-task-element">
                 <p>Subtasks</p>
-                <div class="input-container">
-                    <input class="edit-task-input" placeholder="Add new subtask" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
-                    <img class="icon px32 left475" src="add_task_img/plus.svg" alt="user icon">
+                <div class="subtask-layout">
+                    <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
+                    <div id="edit-subtask">
+                        <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg"
+                            alt="">
+                    </div>
                 </div>
+                <div id="create-subtask"></div>
                 <div>
-                    <div class="test">Hallo Hallo</div>
+                    ${subtasksHTML}
                 </div>
             </div>
         </div>
         <div class="show-task-lastrow">
             <button class="button-dark">Ok <img src="add_task_img/check-white.svg" alt=""></button>
         </div>
-        
-    `
+    `;
 }
 
 
@@ -417,9 +454,7 @@ function generateAddTaskLayer() {
                     <span>Select contact to assign</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
-                <div class="add-task-contacts d-none" id="add-task-contacts">
-
-                </div>
+                <div class="add-task-contacts d-none" id="add-task-contacts"></div>
                 <div class="required-text">
                     <p><span class="span-red">*</span>This field is required</p>
                 </div>
