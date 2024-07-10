@@ -5,12 +5,14 @@ let tasksData = {};
 let tasksArray = [];
 let tasksKeys = [];
 
+
 async function boardInit() {
     await fetchTasksJson();
     await fetchDataJson();
     createTaskOnBoard();
     checkAndAddNoTask();
 }
+
 
 async function fetchTasksJson() {
     try {
@@ -30,6 +32,7 @@ async function fetchTasksJson() {
 }
 
 
+// Erstellen des Boards mit allen Tasks & Support-Funktionen
 function createTaskOnBoard() {
     const boardIds = {
         'to-do': 'to-do',
@@ -53,7 +56,6 @@ function createTaskOnBoard() {
     }
 }
 
-
 function clearBoards(boardIds) {
     for (let id in boardIds) {
         let content = document.getElementById(boardIds[id]);
@@ -62,7 +64,6 @@ function clearBoards(boardIds) {
         }
     }
 }
-
 
 function generateContactsHTML(contacts) {
     let contactsHTML = '';
@@ -78,7 +79,6 @@ function generateContactsHTML(contacts) {
     return contactsHTML;
 }
 
-
 function handlePrio(prio) {
     if (prio === 'urgent') {
         return '/add_task_img/high.svg';
@@ -91,37 +91,7 @@ function handlePrio(prio) {
     }
 }
 
-
-function generateTaskOnBoardHTML2(key, categoryClass, task, i, contactsHTML, prioSrc) {
-    
-    let totalSubtasks = Object.keys(task.subtasks).length;
-    let completedSubtasks = Object.values(task.subtasks).filter(subtask => subtask.completed).length;
-    let progressPercentage = totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
-
-    return `
-        <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
-            <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
-            <div class="task-on-board-headline">${task.title}</div>
-            <div class="task-on-board-text">${task.description}</div>
-            <div class="task-on-board-subtasks">
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
-                </div>
-                <div class="task-on-board-subtasks-text">${completedSubtasks}/${totalSubtasks} Subtasks</div>
-            </div>
-            <div class="task-on-board-lastrow">
-                <div class="task-on-board-contacts" id="task-on-board-contacts${i}">
-                    ${contactsHTML}
-                </div>
-                <img src="${prioSrc}" alt="" class="task-on-board-relevance">
-            </div>
-        </div>
-    `;
-}
-
 function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc) {
-    
-    // Ensure task.subtasks is always an object
     let subtasks = task.subtasks || {};
     let totalSubtasks = Object.keys(subtasks).length;
     let completedSubtasks = Object.values(subtasks).filter(subtask => subtask.completed).length;
@@ -148,51 +118,10 @@ function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prio
     `;
 }
 
-
-
-// Speichert ID der Task
-function startDragging(key) {
-    currentDraggedTaskKey = key;
-}
-
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-
-async function moveTo(category) {
-    if (currentDraggedTaskKey) {
-        await updateTaskBoardCategory(currentDraggedTaskKey, category);
-        await fetchTasksJson();
-        createTaskOnBoard();
-        checkAndAddNoTask();
-    }
-}
-
-
-async function updateTaskBoardCategory(key, newBoardCategory) {
-    try {
-        let response = await fetch(TASKS_URL + key + "/board_category.json", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newBoardCategory),
-        });
-        return await response.json();
-    } catch (error) {
-        console.error("Error updating board category:", error);
-        throw error;
-    }
-}
-
-
 function getInitials(name) {
     let initials = name.split(' ').map(part => part.charAt(0)).join('');
     return initials.toUpperCase();
 }
-
 
 function checkAndAddNoTask() {
     const taskAreas = ["to-do", "in-progress", "await-feedback", "done"];
@@ -209,6 +138,46 @@ function checkAndAddNoTask() {
 }
 
 
+
+
+// Drag and Drop
+function startDragging(key) {
+    currentDraggedTaskKey = key;
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+async function moveTo(category) {
+    if (currentDraggedTaskKey) {
+        await updateTaskAttribute(currentDraggedTaskKey, category, "board_category");
+        await fetchTasksJson();
+        createTaskOnBoard();
+        checkAndAddNoTask();
+    }
+}
+
+
+
+// Ändern einer bestimmten Task-Eigenschaft in der Database (bspw. board-category bei Drag & Drop)
+async function updateTaskAttribute(key, newBoardCategory, urlSuffix) {
+    try {
+        let response = await fetch(TASKS_URL + key + "/" + urlSuffix + ".json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newBoardCategory),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error updating board category:", error);
+        throw error;
+    }
+}
+
+// Hinzufügen einer Task in die Database
 async function postTask(path = "", data = {}) {
     try {
       let response = await fetch(TASKS_URL + path + ".json", {
@@ -224,7 +193,6 @@ async function postTask(path = "", data = {}) {
     }
 }
 
-
 async function deleteTask(key) {
     try {
       let response = await fetch(TASKS_URL + key + ".json", {
@@ -238,12 +206,25 @@ async function deleteTask(key) {
     } catch (error) {
       console.error("Error deleting contact:", error);
     }
-  }
+}
 
 
+// Öffnen des Layers bei Klick auf Task im Board
+function openTask(key) {
+    const task = tasksData[key];
+    document.getElementById('show-task-layer').classList.remove('d-none');
+    let content = document.getElementById('show-task-inner-layer');
+
+    content.classList.remove('slide-in-right');
+    content.classList.remove('slide-out-right');
+    void content.offsetWidth; 
+    content.classList.add('slide-in-right');
+
+    content.innerHTML = '';
+    content.innerHTML += generateTaskLayer(task, key);
+}
 
 function generateTaskLayer(task, key) {
-    // Ensure task.contacts and task.subtasks are always objects
     const contacts = task.contacts || {};
     const subtasks = task.subtasks || {};
 
@@ -301,15 +282,38 @@ function generateTaskLayer(task, key) {
     `;
 }
 
+// Handling der Subtasks im Task-Layer
+async function checkSubtask(taskKey, subtaskKey, imgElement) {
+    const subtask = tasksData[taskKey].subtasks[subtaskKey];
+    const updatedStatus = !subtask.completed;
+
+    try {
+        let response = await fetch(TASKS_URL + taskKey + "/subtasks/" + subtaskKey + "/completed.json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedStatus),
+        });
+        await response.json();
+        
+        tasksData[taskKey].subtasks[subtaskKey].completed = updatedStatus;
+        imgElement.src = updatedStatus ? '/add_task_img/subtasks_checked.svg' : '/add_task_img/subtasks_notchecked.svg';
+
+        await boardInit();
+    } catch (error) {
+        console.error("Error updating subtask status:", error);
+    }
+}
 
 
+// Öffnen des Edit-Layers bei Klick auf Edit in der Task-Ansicht
 function showEditTask() {
     let content = document.getElementById('show-task-inner-layer');
     let currentHeight = content.scrollHeight; // Speichern Sie die aktuelle Höhe
     content.style.height = currentHeight + 'px'; // Setzen Sie die Höhe auf den gespeicherten Wert
     content.innerHTML = generateEditTaskLayer();
 }
-
 
 function generateEditTaskLayer() {
     return `
@@ -376,21 +380,7 @@ function generateEditTaskLayer() {
 }
 
 
-function openTask(key) {
-    const task = tasksData[key];
-    document.getElementById('show-task-layer').classList.remove('d-none');
-    let content = document.getElementById('show-task-inner-layer');
-
-    content.classList.remove('slide-in-right');
-    content.classList.remove('slide-out-right');
-    void content.offsetWidth; 
-    content.classList.add('slide-in-right');
-
-    content.innerHTML = '';
-    content.innerHTML += generateTaskLayer(task, key);
-}
-
-
+// Öffnen des Add-Task-Layers bei Klick auf den statischen Button
 function openAddTask() {
     document.getElementById('show-task-layer').classList.remove('d-none');
     let content = document.getElementById('show-task-inner-layer');
@@ -473,6 +463,8 @@ function generateAddTaskLayer() {
     `;
 }
 
+
+
 function closeTask() {
     let contentLayer = document.getElementById('show-task-layer');
     let content = document.getElementById('show-task-inner-layer');
@@ -490,28 +482,4 @@ function closeTask() {
 
 function taskAnimationEnd() {
     document.getElementById('show-task-layer').classList.add('d-none');
-}
-
-
-async function checkSubtask(taskKey, subtaskKey, imgElement) {
-    const subtask = tasksData[taskKey].subtasks[subtaskKey];
-    const updatedStatus = !subtask.completed;
-
-    try {
-        let response = await fetch(TASKS_URL + taskKey + "/subtasks/" + subtaskKey + "/completed.json", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedStatus),
-        });
-        await response.json();
-        
-        tasksData[taskKey].subtasks[subtaskKey].completed = updatedStatus;
-        imgElement.src = updatedStatus ? '/add_task_img/subtasks_checked.svg' : '/add_task_img/subtasks_notchecked.svg';
-
-        await boardInit();
-    } catch (error) {
-        console.error("Error updating subtask status:", error);
-    }
 }
