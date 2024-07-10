@@ -219,11 +219,12 @@ function showContactsInAddTask() {
 
 async function initializeAddTask() {
   await fetchDataJson();
-  showContactsInAddTask();
 }
 
 function showContacts() {
+  showContactsInAddTask();
   document.getElementById("add-task-contacts").classList.toggle("d-none");
+  console.log('check2');
 }
 
 function checkContacts(i) {

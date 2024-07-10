@@ -7,6 +7,7 @@ let tasksKeys = [];
 
 async function boardInit() {
     await fetchTasksJson();
+    await fetchDataJson();
     createTaskOnBoard();
     checkAndAddNoTask();
 }
@@ -91,7 +92,7 @@ function handlePrio(prio) {
 }
 
 
-function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc) {
+function generateTaskOnBoardHTML2(key, categoryClass, task, i, contactsHTML, prioSrc) {
     
     let totalSubtasks = Object.keys(task.subtasks).length;
     let completedSubtasks = Object.values(task.subtasks).filter(subtask => subtask.completed).length;
@@ -117,6 +118,36 @@ function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prio
         </div>
     `;
 }
+
+function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc) {
+    
+    // Ensure task.subtasks is always an object
+    let subtasks = task.subtasks || {};
+    let totalSubtasks = Object.keys(subtasks).length;
+    let completedSubtasks = Object.values(subtasks).filter(subtask => subtask.completed).length;
+    let progressPercentage = totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
+
+    return `
+        <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
+            <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
+            <div class="task-on-board-headline">${task.title}</div>
+            <div class="task-on-board-text">${task.description}</div>
+            <div class="task-on-board-subtasks">
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
+                </div>
+                <div class="task-on-board-subtasks-text">${completedSubtasks}/${totalSubtasks} Subtasks</div>
+            </div>
+            <div class="task-on-board-lastrow">
+                <div class="task-on-board-contacts" id="task-on-board-contacts${i}">
+                    ${contactsHTML}
+                </div>
+                <img src="${prioSrc}" alt="" class="task-on-board-relevance">
+            </div>
+        </div>
+    `;
+}
+
 
 
 // Speichert ID der Task
@@ -210,16 +241,21 @@ async function deleteTask(key) {
   }
 
 
+
 function generateTaskLayer(task, key) {
-    const contactsHTML = Object.values(task.contacts).map(contact => `
+    // Ensure task.contacts and task.subtasks are always objects
+    const contacts = task.contacts || {};
+    const subtasks = task.subtasks || {};
+
+    const contactsHTML = Object.values(contacts).map(contact => `
         <div class="show-task-contact">
             <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
             <p>${contact.name}</p>
         </div>
     `).join('');
 
-    const subtasksHTML = Object.keys(task.subtasks).map(subtaskKey => {
-        const subtask = task.subtasks[subtaskKey];
+    const subtasksHTML = Object.keys(subtasks).map(subtaskKey => {
+        const subtask = subtasks[subtaskKey];
         return `
             <div class="show-task-subtask" onclick="checkSubtask('${key}', '${subtaskKey}', this.querySelector('img'))">
                 <img src="/add_task_img/${subtask.completed ? 'subtasks_checked' : 'subtasks_notchecked'}.svg" alt="">
@@ -264,6 +300,7 @@ function generateTaskLayer(task, key) {
         </div>
     `;
 }
+
 
 
 function showEditTask() {
