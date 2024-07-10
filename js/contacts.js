@@ -30,8 +30,6 @@ async function fetchDataJson() {
     contactsArray = sortedContacts.map(item => item.contact);
     contactsKeys = sortedContacts.map(item => item.key);
 
-    console.log(contactsArray);
-
   } catch (error) {
     console.error("Error fetching data:", error);
     return false; 
