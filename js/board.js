@@ -155,6 +155,44 @@ async function moveTo(category) {
     }
 }
 
+//Editieren einer Task
+async function updateTask(key, updatedTask) {
+    try {
+        let response = await fetch(TASKS_URL + key + ".json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedTask),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error updating task:", error);
+        throw error;
+    }
+}
+
+
+function saveTaskChanges(key) {
+    const updatedTask = {
+        title: document.getElementById("edit-title-input").value,
+        description: document.getElementById("edit-description-input").value,
+        due_date: document.getElementById("edit-date-input").value,
+        prio: document.querySelector('.prio-buttons.selected-high-button') ? 'urgent' :
+              document.querySelector('.prio-buttons.selected-medium-button') ? 'medium' :
+              document.querySelector('.prio-buttons.selected-low-button') ? 'low' : task.prio,
+        // Hier können Sie auch die Kontakte und Subtasks hinzufügen, falls diese bearbeitet wurden
+    };
+
+    updateTask(key, updatedTask)
+        .then(() => {
+            closeTask();  // Schließt den Task-Layer
+            boardInit();  // Aktualisiert das Board
+        })
+        .catch(error => console.error('Error updating task:', error));
+}
+
+
 
 
 // Ändern einer bestimmten Task-Eigenschaft in der Database (bspw. board-category bei Drag & Drop)
@@ -354,6 +392,124 @@ function generateEditTaskLayer(task, key) {
     const lowSelected = task.prio === 'low' ? 'selected-low-button' : '';
     const lowImgSrc = task.prio === 'low' ? 'add_task_img/low-white.svg' : 'add_task_img/low.svg';
 
+    return `
+        <div class="show-task-firstrow flex-end">
+            <div class="show-task-close" onclick="closeTask()">
+                <img src="img/add-contact-close.svg" alt="">
+            </div>
+        </div>
+        <div class="edit-scroll-area">
+            <div class="edit-task-element">
+                <p>Title</p>
+                <input type="text" id="edit-title-input" value="${task.title}">
+            </div>
+            <div class="edit-task-element">
+                <p>Description</p>
+                <input type="text" id="edit-description-input" value="${task.description}">
+            </div>
+            <div class="edit-task-element">
+                <p>Due Date</p>
+                <div class="input-container">
+                    <input class="edit-task-input" id="edit-date-input" value="${task.due_date}" required type="date">
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Priority</p>
+                <div class="buttons">
+                    <button id="highButton" onclick="highButton()" class="prio-buttons prio-buttons-shadow ${highSelected}">Urgent <img id="highButtonImg" src="${highImgSrc}"></button>
+                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons prio-buttons-shadow ${mediumSelected}">Medium <img id="mediumButtonImg" src="${mediumImgSrc}"></button>
+                    <button id="lowButton" onclick="lowButton()" class="prio-buttons prio-buttons-shadow ${lowSelected}">Low <img id="lowButtonImg" src="${lowImgSrc}"></button>
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Assigned to</p>
+                <div onclick="showContacts()" class="select-contact">
+                    <span>Select contact to assign</span>
+                    <img src="add_task_img/arrow-down.svg" alt="">
+                </div>
+                <div class="add-task-contacts d-none" id="add-task-contacts"></div>
+                <div class="edit-task-contacts">
+                    ${contactsHTML}
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Subtasks</p>
+                <div class="subtask-layout">
+                    <input placeholder="add new subtask" id="subtask-field" class="subtasks-field">
+                    <div id="edit-subtask">
+                        <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
+                    </div>
+                </div>
+                <div id="create-subtask"></div>
+                <div>
+                    ${subtasksHTML}
+                </div>
+            </div>
+        </div>
+        <div class="show-task-lastrow">
+            <button class="button-dark" onclick="saveTaskChanges('${key}')">Ok <img src="add_task_img/check-white.svg" alt=""></button>
+        </div>
+    `;
+}
+
+function saveTaskChanges(key) {
+    const updatedTask = {
+        title: document.getElementById("edit-title-input").value,
+        description: document.getElementById("edit-description-input").value,
+        due_date: document.getElementById("edit-date-input").value,
+        prio: document.querySelector('.prio-buttons.selected-high-button') ? 'urgent' :
+              document.querySelector('.prio-buttons.selected-medium-button') ? 'medium' :
+              document.querySelector('.prio-buttons.selected-low-button') ? 'low' : task.prio,
+        // Hier können Sie auch die Kontakte und Subtasks hinzufügen, falls diese bearbeitet wurden
+    };
+
+    updateTask(key, updatedTask)
+        .then(() => {
+            closeTask();  // Schließt den Task-Layer
+            boardInit();  // Aktualisiert das Board
+        })
+        .catch(error => console.error('Error updating task:', error));
+}
+
+
+
+function generateEditTaskLayer2(task, key) {
+    const contacts = task.contacts || {};
+    const subtasks = task.subtasks || {};
+
+    const contactsHTML = Object.values(contacts).map(contact => `
+        <div class="show-task-contact">
+            <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+        </div>
+    `).join('');
+
+    const subtasksHTML = Object.keys(subtasks).map(subtaskKey => {
+        const subtask = subtasks[subtaskKey];
+        return `
+            <div id="subtask-tasks" class="subtasks-tasks">
+                <div>
+                    <ul class="subtask-list">
+                        <li onclick="changeSubtask()" class="subtask-list-element">${subtask.title}</li>
+                    </ul>
+                </div>
+                <div class="subtask-list-icons">
+                    <img onclick="changeSubtask()" src="add_task_img/edit.svg" alt="" />
+                    <div class="subtask-line"></div>
+                    <img onclick="deleteSubtask()" src="add_task_img/delete.svg" alt="" />
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const highSelected = task.prio === 'urgent' ? 'selected-high-button' : '';
+    const highImgSrc = task.prio === 'urgent' ? 'add_task_img/high-white.svg' : 'add_task_img/high.svg';
+    
+    const mediumSelected = task.prio === 'medium' ? 'selected-medium-button' : '';
+    const mediumImgSrc = task.prio === 'medium' ? 'add_task_img/medium-white.svg' : 'add_task_img/medium.svg';
+    
+    const lowSelected = task.prio === 'low' ? 'selected-low-button' : '';
+    const lowImgSrc = task.prio === 'low' ? 'add_task_img/low-white.svg' : 'add_task_img/low.svg';
+
 
     return `
         <div class="show-task-firstrow flex-end">
@@ -411,7 +567,7 @@ function generateEditTaskLayer(task, key) {
             </div>
         </div>
         <div class="show-task-lastrow">
-            <button class="button-dark">Ok <img src="add_task_img/check-white.svg" alt=""></button>
+            <button onclick="saveTaskChanges('${key}')" class="button-dark">Ok <img src="add_task_img/check-white.svg" alt=""></button>
         </div>
     `;
 }
