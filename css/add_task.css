@@ -369,6 +369,10 @@ ul {
   height: 240px;
 }
 
+.add-task-contacts-edit {
+  position: relative !important;
+}
+
 .add-task-contacts::-webkit-scrollbar {
   display: none;
 }
@@ -379,11 +383,19 @@ ul {
   justify-content: space-between;
   padding: 7px 16px 7px 16px;
 }
+
+.contacts-pos-highlight {
+  background-color: #091931;
+  color: white;
+  border-radius: 10px;
+}
+
 .checkbox {
   width: 16px;
   height: 16px;
   border-radius: 3px;
 }
+
 .contacts-pos:hover {
   border-radius: 10px;
   cursor: pointer;

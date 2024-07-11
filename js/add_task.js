@@ -220,46 +220,69 @@ function deleteSubtask(i) {
   renderSubtasks();
 }
 
-function showContactsInAddTask() {
+function resetSelectedContacts() {
   selectedContacts = new Array(contactsArray.length).fill(false); // Initialisiere das Array
+}
 
+
+function showContactsInAddTask() {
   let contactsAddTask = contactsArray
-    .map(
-      (contact, i) => `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
-        <div class="show-task-contact-add-task">
-          <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-          <p>${contact.name}</p>
-        </div>
-        <div class="checkbox">
-        <img id="checkbox-field${i}" src="add_task_img/checkbox-normal.svg" alt="">
-          
-        </div>
-      </div> `
-    )
-    .join("");
+      .map((contact, i) => {
+          // Bestimmen Sie das Bild basierend auf dem Zustand von selectedContacts
+          let checkboxSrc = selectedContacts[i] ? "add_task_img/checkbox-normal-checked.svg" : "add_task_img/checkbox-normal.svg";
+          return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
+              <div class="show-task-contact-add-task">
+                  <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+                  <p>${contact.name}</p>
+              </div>
+              <div class="checkbox">
+                  <img id="checkbox-field${i}" src="${checkboxSrc}" alt="">
+              </div>
+          </div>`;
+      })
+      .join("");
 
   let content = document.getElementById("add-task-contacts");
-
   content.innerHTML = contactsAddTask;
+
+  contactsArray.forEach((contact, i) => {
+    let checkboxField = document.getElementById(`checkbox-field${i}`);
+    let contactDiv = document.getElementById(`contacts-pos${i}`);
+
+    if (checkboxField.src.includes("checkbox-normal-checked.svg")) {
+        checkboxField.src = "add_task_img/checkbox-normal-checked-white.svg";
+        contactDiv.classList.add('contacts-pos-highlight');
+    }
+});
 }
+
 
 async function initializeAddTask() {
   await fetchDataJson();
 }
 
 function showContacts() {
+  resetSelectedContacts();
   showContactsInAddTask();
   document.getElementById("add-task-contacts").classList.toggle("d-none");
-  console.log("check2");
+}
+
+function showContactsInEdit() {
+  showContactsInAddTask();
+  document.getElementById("add-task-contacts").classList.toggle("d-none");
+  console.log('check');
 }
 
 function checkContacts(i) {
   let checkboxField = document.getElementById(`checkbox-field${i}`);
+  let contactDiv = document.getElementById(`contacts-pos${i}`);
   if (checkboxField.src.includes("checkbox-normal.svg")) {
-    checkboxField.src = "add_task_img/checkbox-normal-checked.svg";
+    checkboxField.src = "add_task_img/checkbox-normal-checked-white.svg";
+    contactDiv.classList.add('contacts-pos-highlight');
     selectedContacts[i] = true;
   } else {
     checkboxField.src = "add_task_img/checkbox-normal.svg";
+    contactDiv.classList.remove('contacts-pos-highlight');
     selectedContacts[i] = false;
   }
 }
@@ -336,6 +359,7 @@ async function createTask() {
   window.location.href = "board.html"; // Ersetzen Sie 'zielseite.html' durch den tatsächlichen Dateinamen der Zielseite
 
   let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
+  subtasks = [];
 }
 
 function getSelectedPrio() {
