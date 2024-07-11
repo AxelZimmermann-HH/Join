@@ -139,7 +139,7 @@ function createSubtask() {
         </ul>
       </div>
       <div class="subtask-list-icons">
-        <img id="edit-logo${i}" onclick="changeSubtask(${i})" src="add_task_img/edit.svg" alt="" />
+        <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
         <div class="subtask-line"></div>
         <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
       </div>
@@ -190,6 +190,31 @@ function changeSubtask(i) {
   `;
 }
 
+function whichSourceSubtask(i) {
+  let editLogo = document.getElementById(`edit-logo${i}`);
+  if (editLogo.src.endsWith("add_task_img/check.svg")) {
+    // Korrigierte Überprüfung des src
+    updateSubtask(i);
+  } else {
+    changeSubtask(i);
+  }
+}
+
+function updateSubtask(i) {
+  document.getElementById("subtask-tasks").classList.add("subtask-tasks");
+  document.getElementById("subtask-tasks").classList.add("subtask-tasks:hover");
+  document.getElementById("subtask-tasks").classList.remove("subtask-tasks-edit");
+
+  let editedSubtask = document.getElementById(`subtask-${i}`).textContent;
+  subtasks[i] = editedSubtask; // Aktualisiert das Array mit dem neuen Text
+
+  let createSubtask = document.getElementById(`subtask-${i}`);
+  createSubtask.innerHTML = `${editedSubtask}`;
+
+  let editLogo = document.getElementById(`edit-logo${i}`);
+  editLogo.src = "add_task_img/edit.svg"; // Rücksetzen auf das ursprüngl
+}
+
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
   renderSubtasks();
@@ -200,7 +225,7 @@ function showContactsInAddTask() {
 
   let contactsAddTask = contactsArray
     .map(
-      (contact, i) => `<div onclick="checkContacts(${i})" class="contacts-pos">
+      (contact, i) => `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
         <div class="show-task-contact-add-task">
           <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
           <p>${contact.name}</p>
@@ -239,6 +264,39 @@ function checkContacts(i) {
   }
 }
 
+function clearTask() {
+  let description = document.getElementById("description-input");
+  description.value = "";
+
+  let dueDate = document.getElementById("date-input");
+  dueDate.value = "";
+  dueDate.style.color = "#d1d1d1";
+
+  clearButtons();
+  clearSubtasks();
+
+  let taskCategory = document.getElementById("task-category");
+  taskCategory.innerText = "Select task category";
+
+  let title = document.getElementById("title-input");
+  title.value = "";
+}
+
+function clearButtons() {
+  document.getElementById("mediumButton").classList.remove("selected-medium-button");
+  document.getElementById("mediumButtonImg").src = "../add_task_img/medium.svg";
+
+  document.getElementById("highButton").classList.remove("selected-high-button");
+  document.getElementById("highButtonImg").src = "../add_task_img/high.svg";
+
+  document.getElementById("lowButton").classList.remove("selected-low-button");
+  document.getElementById("lowButtonImg").src = "../add_task_img/low.svg";
+}
+
+function clearSubtasks() {
+  subtasks = [];
+  renderSubtasks();
+}
 async function createTask() {
   let description = document.getElementById("description-input").value;
   let dueDate = document.getElementById("date-input").value;
