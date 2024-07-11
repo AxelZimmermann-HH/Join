@@ -53,7 +53,7 @@ function toggleCheckboxImage() {
         document.getElementById('notAccepted').innerHTML = '';
     }
     if (signupButton.disabled == true) {
-        document.getElementById('notAccepted').innerHTML = 'Pleease accept the Privacy Policy';
+        document.getElementById('notAccepted').innerHTML = 'Please accept the Privacy Policy';
     }
 }
 
