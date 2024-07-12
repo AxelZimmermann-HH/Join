@@ -55,6 +55,38 @@ function createTaskOnBoard() {
     }
 }
 
+function findTask() {
+    let input = document.getElementById("find-task").value.toLowerCase();
+    let filteredTasks = tasksArray.filter(task => {
+        return task.title.toLowerCase().includes(input) || task.description.toLowerCase().includes(input);
+    });
+    renderFilteredTasks(filteredTasks);
+}
+
+function renderFilteredTasks(filteredTasks) {
+    const boardIds = {
+        'to-do': 'to-do',
+        'in-progress': 'in-progress',
+        'await-feedback': 'await-feedback',
+        'done': 'done'
+    };
+    clearBoards(boardIds);
+
+    for (let i = 0; i < filteredTasks.length; i++) {
+        let task = filteredTasks[i];
+        let key = tasksKeys[tasksArray.indexOf(task)];
+
+        let contactsHTML = generateContactsHTML(task.contacts);
+        let boardId = boardIds[task.board_category] || 'to-do';
+        let content = document.getElementById(boardId);
+        let prioSrc = handlePrio(task.prio);
+        let categoryClass = task.task_category === 'User Story' ? 'user-story' : 'technical-task';
+
+        content.innerHTML += generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc);
+    };
+    checkAndAddNoTask();
+}
+
 function clearBoards(boardIds) {
     for (let id in boardIds) {
         let content = document.getElementById(boardIds[id]);
