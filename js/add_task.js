@@ -144,7 +144,7 @@ function createSubtask() {
       createSubtask.innerHTML += `<div id="subtask-tasks${i}" class="subtasks-tasks">
       <div>
         <ul class="subtask-list">
-          <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
+          <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
         </ul>
       </div>
       <div class="subtask-list-icons">
@@ -154,19 +154,6 @@ function createSubtask() {
       </div>
     </div>`;
     }
-    createSubtask.innerHTML += `
-      <div id="subtask-tasks" class="subtasks-tasks">
-        <div>
-          <ul class="subtask-list">
-            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
-          </ul>
-        </div>
-        <div class="subtask-list-icons">
-          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
-          <div class="subtask-line"></div>
-          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
-        </div>
-      </div>`;
   }
   input.value = "";
 }
