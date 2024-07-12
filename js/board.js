@@ -222,16 +222,30 @@ function openTask(key) {
 
     content.innerHTML = '';
     content.innerHTML += generateTaskLayer(task, key);
-}
 
+    let subtasksHeadline = document.getElementById('subtasks-headline');
+    let subtasksContainer = document.querySelector('.show-task-subtasks');
+    
+    if (subtasksContainer && subtasksContainer.innerHTML.trim() === '') {
+        subtasksHeadline.classList.add('d-none');
+    } else {
+        subtasksHeadline.classList.remove('d-none');
+    }
+
+    let contactsHeadline = document.getElementById('assigned-headline');
+    let contactsContainer = document.querySelector('.show-task-contacts');
+    
+    if (contactsContainer && contactsContainer.innerHTML.trim() === '') {
+        contactsHeadline.classList.add('d-none');
+    } else {
+        contactsHeadline.classList.remove('d-none');
+    }
+}
 
 function generateTaskLayer(task, key) {
     const contacts = task.contacts || {};
     const subtasks = task.subtasks || {};
     let categoryClass = task.task_category === 'User Story' ? 'user-story' : 'technical-task';
-    console.log(task.task_category);
-    console.log(categoryClass);
-
 
     // Initialisiere selectedContacts als false für alle Kontakte
     selectedContacts = new Array(contactsArray.length).fill(false);
@@ -279,13 +293,13 @@ function generateTaskLayer(task, key) {
             <p>${task.prio.charAt(0).toUpperCase() + task.prio.slice(1)}</p>
             <img src="/add_task_img/${task.prio}.svg" alt="">
         </div>
-        <div class="show-task-text-rows pb8 mt12">
+        <div id="assigned-headline" class="show-task-text-rows pb8 mt12">
             <p class="show-task-characteristic">Assigned To:</p>
         </div>
         <div class="show-task-contacts">
             ${contactsHTML}
         </div>
-        <div class="show-task-text-rows pb8 mt12">
+        <div id="subtasks-headline" class="show-task-text-rows pb8 mt12">
             <p class="show-task-characteristic">Subtasks:</p>
         </div>
         <div class="show-task-subtasks">
@@ -353,22 +367,21 @@ async function updateTask(key, updatedTask) {
     }
 }
 
-
 function saveTaskChanges(key) {
     let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
         if (isSelected) {
           acc[`contact${index + 1}`] = contactsArray[index]; // Hier wird das neue Objekt acc erstellt und ein Schlüssel vergeben.
         }
         return acc;
-      }, {});
+    }, {});
 
-    let subtasksObj = subtasks.reduce((acc, subtaskTitle, index) => {
+    let subtasksObj = subtasks.reduce((acc, subtask, index) => {
         acc[`subtask${index + 1}`] = {
-          title: subtaskTitle,
-          completed: false,
+          title: subtask.title,
+          completed: subtask.completed, // Behalte den Status bei
         };
         return acc;
-      }, {});
+    }, {});
     
     const updatedTask = {
         task_category: currentTask.task_category,
@@ -379,7 +392,7 @@ function saveTaskChanges(key) {
         due_date: document.getElementById("edit-date-input").value,
         prio: document.querySelector('.prio-buttons.selected-high-button') ? 'urgent' :
               document.querySelector('.prio-buttons.selected-medium-button') ? 'medium' :
-              document.querySelector('.prio-buttons.selected-low-button') ? 'low' : task.prio,
+              document.querySelector('.prio-buttons.selected-low-button') ? 'low' : currentTask.prio,
         // Hier können Sie auch die Kontakte und Subtasks hinzufügen, falls diese bearbeitet wurden
     };
 
@@ -391,6 +404,7 @@ function saveTaskChanges(key) {
         })
         .catch(error => console.error('Error updating task:', error));
 }
+
 
 
 
@@ -411,7 +425,7 @@ function generateEditTaskLayer(task, key) {
     // Erstellen Sie das Subtasks-HTML und fügen Sie die Subtasks dem globalen Array hinzu
     const subtasksHTML = Object.keys(taskSubtasks).map(subtaskKey => {
         const subtask = taskSubtasks[subtaskKey];
-        subtasks.push(subtask.title); // Fügen Sie den Subtask-Titel dem globalen Array hinzu
+        subtasks.push({ title: subtask.title, completed: subtask.completed }); // Fügen Sie den Subtask-Titel und Status dem globalen Array hinzu
         return `
             <div id="subtask-tasks" class="subtasks-tasks">
                 <div>
