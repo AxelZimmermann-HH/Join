@@ -255,6 +255,7 @@ function showContacts() {
 
 function checkContacts(i) {
   let checkboxField = document.getElementById(`checkbox-field${i}`);
+  document.getElementById(`contacts-pos${i}`).style.backgroundColor = "black";
   if (checkboxField.src.includes("checkbox-normal.svg")) {
     checkboxField.src = "add_task_img/checkbox-normal-checked.svg";
     selectedContacts[i] = true;
@@ -271,6 +272,8 @@ function clearTask() {
   let dueDate = document.getElementById("date-input");
   dueDate.value = "";
   dueDate.style.color = "#d1d1d1";
+
+  document.getElementById("add-task-contacts").classList.add("d-none");
 
   clearButtons();
   clearSubtasks();
