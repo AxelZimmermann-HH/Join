@@ -12,10 +12,17 @@
     <link rel="stylesheet" href="./css/mobile_template.css">
     <link rel="stylesheet" href="./css/summary.css">
     <script src="../script.js"></script>
+    <script src="js/summary.js"></script>
+    <script src="js/board.js"></script>
+    <script src="js/add_task.js"></script>
+    <script src="js/contacts.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/signup.js"></script>
+
     
 
 </head>
-<body>
+<body onload="summaryInit()">
     <script src="privacy_policy.js"></script>
 
     <header>
@@ -94,8 +101,8 @@
                   <img class="summary-icons" src="./img/edit-summary.svg" />
                 </div>
                 <div class="text-container">
-                  <span class="number-container" id='toDoCount'></span>
-                  <img src="./img/number.svg" alt=""><br>
+                  <span class="number-container" id="toDoCount"></span>
+                  
                   <span>To-do</span>
                 </div>
               </div>
@@ -106,8 +113,8 @@
                   <img class="summary-icons" src="../img/click.svg" />
                 </div>
                 <div class="text-container">
-                  <span class="number-container"></span>
-                  <img src="./img/number.svg" alt=""><br>
+                  <span class="number-container" id="doneCount"></span>
+                  
                   <span>Done</span>
                 </div>
               </div>
@@ -120,14 +127,14 @@
                   <img class="summary-icons" src="../img/urgent.svg" />
                 </div>
                 <div class="text-container">
-                  <span class="number-container"></span>
-                  <img src="./img/number.svg" alt=""><br>
+                  <span class="number-container" id="urgentCount"></span>
+                  
                   <span>Urgent</span>
                 </div>
               </div>
               <div class="seperator-big-card"></div>
               <div class="text-container-big-card">
-                <span class="date-text">October 16, 2024</span>
+                <span class="date-text" id="upcomingDate"></span>
                 <span class="deadline-text">Upcoming Deadline</span>
               </div>
             </a>
@@ -137,8 +144,8 @@
             <a href="board.html" class="summary-card-small">
               <div>
                 <div class="text-container">
-                  <span class="number-container"></span>
-                  <img src="./img/tasks-board-number.svg" alt=""><br>
+                  <span class="number-container" id="allTasks"></span>
+                  
                   <span class="text">Tasks in Board</span>
                 </div>
               </div>
@@ -147,8 +154,8 @@
             <a href="board.html" class="summary-card-small">
               <div>
                 <div class="text-container">
-                  <span class="number-container"></span>
-                  <img src="./img/tasks-progress-number.svg" alt=""><br>
+                  <span class="number-container" id="inProgressCount"></span>
+                  
                   <span class="text">Tasks in Progress</span>
                 </div>
               </div>
@@ -157,19 +164,17 @@
             <a href="board.html" class="summary-card-small">
               <div>
                 <div class="text-container">
-                  <span class="number-container"></span>
-                  <img src="./img/tasks-progress-number.svg" alt=""><br>
+                  <span class="number-container" id="awaitFeedbackCount"></span>
+                  
                   <span class="text">Awaiting Feedback</span>
                 </div>
               </div>
             </a>
           </div>
         </div>
-        <div class="greeting-container">
-          <span class="greet-text"></span>
-          <span class="greet-user-name">
-            <img src="./img/summary-user.svg" alt="">
-          </span>
+        <div class="greeting-container" id="greeting-container">
+          <span class="greet-text">Good morning,</span>
+          <span class="greet-user-name">Sofia Müller</span>
         </div>
       </div>
 </body>

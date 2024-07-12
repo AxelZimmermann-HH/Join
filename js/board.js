@@ -417,6 +417,7 @@ function saveTaskChanges(key) {
     
     const updatedTask = {
         task_category: currentTask.task_category,
+        board_category: currentTask.board_category,
         contacts: selectedContactsData,
         subtasks: subtasksObj,
         title: document.getElementById("edit-title-input").value,
@@ -425,7 +426,7 @@ function saveTaskChanges(key) {
         prio: document.querySelector('.prio-buttons.selected-high-button') ? 'urgent' :
               document.querySelector('.prio-buttons.selected-medium-button') ? 'medium' :
               document.querySelector('.prio-buttons.selected-low-button') ? 'low' : currentTask.prio,
-        // Hier können Sie auch die Kontakte und Subtasks hinzufügen, falls diese bearbeitet wurden
+        
     };
 
     updateTask(key, updatedTask)
