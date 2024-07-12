@@ -30,8 +30,6 @@ async function fetchDataJson() {
     contactsArray = sortedContacts.map(item => item.contact);
     contactsKeys = sortedContacts.map(item => item.key);
 
-    console.log(contactsArray);
-
   } catch (error) {
     console.error("Error fetching data:", error);
     return false; 
@@ -87,7 +85,7 @@ async function addContact() {
   let color = getRandomColor(); // Zufällige Farbe generieren
 
 
-  let newContact = { email: mail, name: name, phone: phone, color: color};
+  let newContact = {email: mail, name: name, phone: phone, color: color};
   let postResponse = await postData("", newContact);
 
   let dataFetched = await contactsInit(); // Warten bis die Kontaktliste aktualisiert wurde

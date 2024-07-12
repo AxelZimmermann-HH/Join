@@ -324,6 +324,24 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+.subtask-tasks-edit {
+  border-radius: 0px;
+  border-bottom: 1px solid #29abe2;
+  background-color: white !important;
+  cursor: pointer;
+  margin-top: 8px;
+  padding: 6px 16px 6px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.subtask-edit-div {
+  outline: none;
+}
+
+.subtasks-tasks:hover {
+  background-color: #d1d1d1;
+}
 ul {
   margin: auto;
 }
@@ -345,20 +363,44 @@ ul {
 .add-task-contacts {
   background-color: white;
   border-radius: 10px;
+  position: absolute;
+  width: 440px;
+  overflow: scroll;
+  height: 240px;
 }
+
+.add-task-contacts-edit {
+  position: relative !important;
+}
+
+.add-task-contacts::-webkit-scrollbar {
+  display: none;
+}
+
 .contacts-pos {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 7px 16px 7px 16px;
 }
+
+.contacts-pos-highlight {
+  background-color: #091931;
+  color: white;
+  border-radius: 10px;
+}
+
 .checkbox {
   width: 16px;
   height: 16px;
   border-radius: 3px;
 }
+
 .contacts-pos:hover {
   border-radius: 10px;
   cursor: pointer;
   background-color: #d1d1d1;
+}
+.test11 {
+  background: #2a3647;
 }

@@ -44,8 +44,8 @@
   }
   
   .summary-card-small {
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     padding: 10px;
     border-radius: 30px;
     background-color: #ffffff;
@@ -82,8 +82,8 @@
   }
   
   .summary-icons {
-    height: 60px;
-    width: 60px;
+    height: 40px;
+    width: 40px;
   }
   
   .number-container {
@@ -184,7 +184,7 @@
   
   .summary-main-container {
     display: flex;
-    margin-top: 150px;
+    margin-top: 12px;
     margin-left: 300px;
     height: calc(100vh - 230px);
   }
@@ -554,7 +554,7 @@
       opacity: 1;
     }
     50% {
-      opacity: 0.5; /* Halbtransparent bei 50% des Animationsverlaufs */
+      opacity: 0.5; 
     }
     100% {
       opacity: 0;

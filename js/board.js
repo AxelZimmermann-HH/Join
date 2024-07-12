@@ -5,22 +5,24 @@ let tasksData = {};
 let tasksArray = [];
 let tasksKeys = [];
 
+currentTask = null;
+
+
 async function boardInit() {
     await fetchTasksJson();
+    await fetchDataJson();
     createTaskOnBoard();
     checkAndAddNoTask();
 }
+
 
 async function fetchTasksJson() {
     try {
         let response = await fetch(TASKS_URL + ".json");
         let responseToJson = await response.json();
         tasksData = responseToJson || {};
-        console.log(tasksData);
         tasksArray = Object.values(tasksData);
-        console.log(tasksArray);
         tasksKeys = Object.keys(tasksData);
-        console.log(tasksKeys);
 
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -29,6 +31,7 @@ async function fetchTasksJson() {
 }
 
 
+// Erstellen des Boards mit allen Tasks & Support-Funktionen
 function createTaskOnBoard() {
     const boardIds = {
         'to-do': 'to-do',
@@ -52,7 +55,6 @@ function createTaskOnBoard() {
     }
 }
 
-
 function clearBoards(boardIds) {
     for (let id in boardIds) {
         let content = document.getElementById(boardIds[id]);
@@ -61,7 +63,6 @@ function clearBoards(boardIds) {
         }
     }
 }
-
 
 function generateContactsHTML(contacts) {
     let contactsHTML = '';
@@ -77,7 +78,6 @@ function generateContactsHTML(contacts) {
     return contactsHTML;
 }
 
-
 function handlePrio(prio) {
     if (prio === 'urgent') {
         return '/add_task_img/high.svg';
@@ -90,11 +90,10 @@ function handlePrio(prio) {
     }
 }
 
-
 function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc) {
-    
-    let totalSubtasks = Object.keys(task.subtasks).length;
-    let completedSubtasks = Object.values(task.subtasks).filter(subtask => subtask.completed).length;
+    let subtasks = task.subtasks || {};
+    let totalSubtasks = Object.keys(subtasks).length;
+    let completedSubtasks = Object.values(subtasks).filter(subtask => subtask.completed).length;
     let progressPercentage = totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
 
     return `
@@ -118,50 +117,10 @@ function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prio
     `;
 }
 
-
-// Speichert ID der Task
-function startDragging(key) {
-    currentDraggedTaskKey = key;
-}
-
-
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-
-async function moveTo(category) {
-    if (currentDraggedTaskKey) {
-        await updateTaskBoardCategory(currentDraggedTaskKey, category);
-        await fetchTasksJson();
-        createTaskOnBoard();
-        checkAndAddNoTask();
-    }
-}
-
-
-async function updateTaskBoardCategory(key, newBoardCategory) {
-    try {
-        let response = await fetch(TASKS_URL + key + "/board_category.json", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newBoardCategory),
-        });
-        return await response.json();
-    } catch (error) {
-        console.error("Error updating board category:", error);
-        throw error;
-    }
-}
-
-
 function getInitials(name) {
     let initials = name.split(' ').map(part => part.charAt(0)).join('');
     return initials.toUpperCase();
 }
-
 
 function checkAndAddNoTask() {
     const taskAreas = ["to-do", "in-progress", "await-feedback", "done"];
@@ -178,6 +137,46 @@ function checkAndAddNoTask() {
 }
 
 
+
+
+// Drag and Drop
+function startDragging(key) {
+    currentDraggedTaskKey = key;
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+async function moveTo(category) {
+    if (currentDraggedTaskKey) {
+        await updateTaskAttribute(currentDraggedTaskKey, category, "board_category");
+        await fetchTasksJson();
+        createTaskOnBoard();
+        checkAndAddNoTask();
+    }
+}
+
+
+
+// Ändern einer bestimmten Task-Eigenschaft in der Database (bspw. board-category bei Drag & Drop)
+async function updateTaskAttribute(key, newBoardCategory, urlSuffix) {
+    try {
+        let response = await fetch(TASKS_URL + key + "/" + urlSuffix + ".json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newBoardCategory),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error updating board category:", error);
+        throw error;
+    }
+}
+
+// Hinzufügen einer Task in die Database
 async function postTask(path = "", data = {}) {
     try {
       let response = await fetch(TASKS_URL + path + ".json", {
@@ -193,7 +192,6 @@ async function postTask(path = "", data = {}) {
     }
 }
 
-
 async function deleteTask(key) {
     try {
       let response = await fetch(TASKS_URL + key + ".json", {
@@ -207,19 +205,55 @@ async function deleteTask(key) {
     } catch (error) {
       console.error("Error deleting contact:", error);
     }
-  }
+}
+
+
+// Öffnen des Layers bei Klick auf Task im Board
+function openTask(key) {
+    const task = tasksData[key];
+    document.getElementById('show-task-layer').classList.remove('d-none');
+    let content = document.getElementById('show-task-inner-layer');
+    content.classList.remove('width-auto');
+
+    content.classList.remove('slide-in-right');
+    content.classList.remove('slide-out-right');
+    void content.offsetWidth; 
+    content.classList.add('slide-in-right');
+
+    content.innerHTML = '';
+    content.innerHTML += generateTaskLayer(task, key);
+}
 
 
 function generateTaskLayer(task, key) {
-    const contactsHTML = Object.values(task.contacts).map(contact => `
-        <div class="show-task-contact">
-            <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-            <p>${contact.name}</p>
-        </div>
-    `).join('');
+    const contacts = task.contacts || {};
+    const subtasks = task.subtasks || {};
+    let categoryClass = task.task_category === 'User Story' ? 'user-story' : 'technical-task';
+    console.log(task.task_category);
+    console.log(categoryClass);
 
-    const subtasksHTML = Object.keys(task.subtasks).map(subtaskKey => {
-        const subtask = task.subtasks[subtaskKey];
+
+    // Initialisiere selectedContacts als false für alle Kontakte
+    selectedContacts = new Array(contactsArray.length).fill(false);
+
+    // Erstelle contactsHTML und setze ausgewählte Kontakte in selectedContacts auf true
+    const contactsHTML = Object.values(contacts).map(contact => {
+        // Finde den Index des Kontakts in contactsArray
+        const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
+        if (contactIndex !== -1) {
+            // Setze das entsprechende Element in selectedContacts auf true
+            selectedContacts[contactIndex] = true;
+        }
+        return `
+            <div class="show-task-contact">
+                <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+                <p>${contact.name}</p>
+            </div>
+        `;
+    }).join('');
+
+    const subtasksHTML = Object.keys(subtasks).map(subtaskKey => {
+        const subtask = subtasks[subtaskKey];
         return `
             <div class="show-task-subtask" onclick="checkSubtask('${key}', '${subtaskKey}', this.querySelector('img'))">
                 <img src="/add_task_img/${subtask.completed ? 'subtasks_checked' : 'subtasks_notchecked'}.svg" alt="">
@@ -230,7 +264,7 @@ function generateTaskLayer(task, key) {
 
     return `
         <div class="show-task-firstrow">
-            <div class="show-task-category">${task.task_category}</div>
+            <div class="show-task-category ${categoryClass}">${task.task_category}</div>
             <div class="show-task-close" onclick="closeTask()">
                 <img src="img/add-contact-close.svg" alt="">
             </div>
@@ -260,21 +294,149 @@ function generateTaskLayer(task, key) {
         <div class="show-task-lastrow mt12">
             <a href="#" class="show-task-lastrow-link" onclick="deleteTask('${key}')"><img class="show-task-icon" src="/add_task_img/delete.svg" alt="">Delete</a>
             <div class="show-task-lastrow-line"></div>
-            <a href="#" class="show-task-lastrow-link" onclick="showEditTask()"><img class="show-task-icon" src="/img/edit2.svg" alt="">Edit</a>
+            <a href="#" class="show-task-lastrow-link" onclick="showEditTask('${key}')"><img class="show-task-icon" src="img/edit2.svg" alt="">Edit</a>
         </div>
     `;
 }
 
 
-function showEditTask() {
-    let content = document.getElementById('show-task-inner-layer');
-    let currentHeight = content.scrollHeight; // Speichern Sie die aktuelle Höhe
-    content.style.height = currentHeight + 'px'; // Setzen Sie die Höhe auf den gespeicherten Wert
-    content.innerHTML = generateEditTaskLayer();
+
+// Handling der Subtasks im Task-Layer
+async function checkSubtask(taskKey, subtaskKey, imgElement) {
+    const subtask = tasksData[taskKey].subtasks[subtaskKey];
+    const updatedStatus = !subtask.completed;
+
+    try {
+        let response = await fetch(TASKS_URL + taskKey + "/subtasks/" + subtaskKey + "/completed.json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedStatus),
+        });
+        await response.json();
+        
+        tasksData[taskKey].subtasks[subtaskKey].completed = updatedStatus;
+        imgElement.src = updatedStatus ? '/add_task_img/subtasks_checked.svg' : '/add_task_img/subtasks_notchecked.svg';
+
+        await boardInit();
+    } catch (error) {
+        console.error("Error updating subtask status:", error);
+    }
 }
 
 
-function generateEditTaskLayer() {
+// Öffnen des Edit-Layers bei Klick auf Edit in der Task-Ansicht
+function showEditTask(taskKey) {
+    const task = tasksData[taskKey];
+    let content = document.getElementById('show-task-inner-layer');
+    let currentHeight = content.scrollHeight;
+    content.style.height = currentHeight + 'px';
+    content.innerHTML = generateEditTaskLayer(task, taskKey);
+}
+
+
+//Editieren einer Task
+async function updateTask(key, updatedTask) {
+    try {
+        let response = await fetch(TASKS_URL + key + ".json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedTask),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error updating task:", error);
+        throw error;
+    }
+}
+
+
+function saveTaskChanges(key) {
+    let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
+        if (isSelected) {
+          acc[`contact${index + 1}`] = contactsArray[index]; // Hier wird das neue Objekt acc erstellt und ein Schlüssel vergeben.
+        }
+        return acc;
+      }, {});
+
+    let subtasksObj = subtasks.reduce((acc, subtaskTitle, index) => {
+        acc[`subtask${index + 1}`] = {
+          title: subtaskTitle,
+          completed: false,
+        };
+        return acc;
+      }, {});
+    
+    const updatedTask = {
+        task_category: currentTask.task_category,
+        contacts: selectedContactsData,
+        subtasks: subtasksObj,
+        title: document.getElementById("edit-title-input").value,
+        description: document.getElementById("edit-description-input").value,
+        due_date: document.getElementById("edit-date-input").value,
+        prio: document.querySelector('.prio-buttons.selected-high-button') ? 'urgent' :
+              document.querySelector('.prio-buttons.selected-medium-button') ? 'medium' :
+              document.querySelector('.prio-buttons.selected-low-button') ? 'low' : task.prio,
+        // Hier können Sie auch die Kontakte und Subtasks hinzufügen, falls diese bearbeitet wurden
+    };
+
+    updateTask(key, updatedTask)
+        .then(() => {
+            closeTask();  // Schließt den Task-Layer
+            boardInit();  // Aktualisiert das Board
+            subtasks = [];
+        })
+        .catch(error => console.error('Error updating task:', error));
+}
+
+
+
+function generateEditTaskLayer(task, key) {
+    currentTask = task;  // Speichere das aktuelle Task-Objekt in der globalen Variablen
+    const contacts = task.contacts || {};
+    const taskSubtasks = task.subtasks || {};
+
+    // Leeren Sie das globale Subtasks-Array
+    subtasks = [];
+
+    const contactsHTML = Object.values(contacts).map(contact => `
+        <div class="show-task-contact">
+            <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+        </div>
+    `).join('');
+
+    // Erstellen Sie das Subtasks-HTML und fügen Sie die Subtasks dem globalen Array hinzu
+    const subtasksHTML = Object.keys(taskSubtasks).map(subtaskKey => {
+        const subtask = taskSubtasks[subtaskKey];
+        subtasks.push(subtask.title); // Fügen Sie den Subtask-Titel dem globalen Array hinzu
+        return `
+            <div id="subtask-tasks" class="subtasks-tasks">
+                <div>
+                    <ul class="subtask-list">
+                        <li onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
+                    </ul>
+                </div>
+                <div class="subtask-list-icons">
+                    <img onclick="changeSubtask(${subtasks.length - 1})" src="add_task_img/edit.svg" alt="" />
+                    <div class="subtask-line"></div>
+                    <img onclick="deleteSubtask(${subtasks.length - 1})" src="add_task_img/delete.svg" alt="" />
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const highSelected = task.prio === 'urgent' ? 'selected-high-button' : '';
+    const highImgSrc = task.prio === 'urgent' ? 'add_task_img/high-white.svg' : 'add_task_img/high.svg';
+    
+    const mediumSelected = task.prio === 'medium' ? 'selected-medium-button' : '';
+    const mediumImgSrc = task.prio === 'medium' ? 'add_task_img/medium-white.svg' : 'add_task_img/medium.svg';
+    
+    const lowSelected = task.prio === 'low' ? 'selected-low-button' : '';
+    const lowImgSrc = task.prio === 'low' ? 'add_task_img/low-white.svg' : 'add_task_img/low.svg';
+
     return `
         <div class="show-task-firstrow flex-end">
             <div class="show-task-close" onclick="closeTask()">
@@ -284,76 +446,57 @@ function generateEditTaskLayer() {
         <div class="edit-scroll-area">
             <div class="edit-task-element">
                 <p>Title</p>
-                <input type="text">
+                <input type="text" id="edit-title-input" value="${task.title}">
             </div>
             <div class="edit-task-element">
                 <p>Description</p>
-                <input type="text">
+                <input type="text" id="edit-description-input" value="${task.description}">
             </div>
             <div class="edit-task-element">
                 <p>Due Date</p>
                 <div class="input-container">
-                    <input class="edit-task-input" placeholder="" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
-                    <img class="icon px32 left475" src="img/calendar.svg" alt="user icon">
+                    <input class="edit-task-input" id="edit-date-input" value="${task.due_date}" required type="date">
                 </div>
             </div>
             <div class="edit-task-element">
                 <p>Priority</p>
                 <div class="buttons">
-                    <button id="highButton" onclick="highButton()" class="prio-buttons prio-buttons-shadow">Urgent <img id="highButtonImg"
-                            src="add_task_img/high.svg"></button>
-                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons prio-buttons-shadow">Medium <img id="mediumButtonImg"
-                            src="add_task_img/medium.svg"></button>
-                    <button id="lowButton" onclick="lowButton()" class="prio-buttons prio-buttons-shadow">Low <img id="lowButtonImg"
-                            src="add_task_img/low.svg"></button>
+                    <button id="highButton" onclick="highButton()" class="prio-buttons prio-buttons-shadow ${highSelected}">Urgent <img id="highButtonImg" src="${highImgSrc}"></button>
+                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons prio-buttons-shadow ${mediumSelected}">Medium <img id="mediumButtonImg" src="${mediumImgSrc}"></button>
+                    <button id="lowButton" onclick="lowButton()" class="prio-buttons prio-buttons-shadow ${lowSelected}">Low <img id="lowButtonImg" src="${lowImgSrc}"></button>
                 </div>
             </div>
             <div class="edit-task-element">
                 <p>Assigned to</p>
-                <div class="input-container">
-                    <input class="edit-task-input" placeholder="Select contacts to assign" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
-                    <img class="icon px32 left475" src="add_task_img/arrow-down.svg" alt="user icon">
+                <div onclick="showContactsInEdit()" class="select-contact">
+                    <span>Select contact to assign</span>
+                    <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
+                <div class="add-task-contacts add-task-contacts-edit d-none" id="add-task-contacts"></div>
                 <div class="edit-task-contacts">
-                    <div class="show-task-contact-letters px45">AZ</div>
-                    <div class="show-task-contact-letters px45">AZ</div>
-
+                    ${contactsHTML}
                 </div>
             </div>
             <div class="edit-task-element">
                 <p>Subtasks</p>
-                <div class="input-container">
-                    <input class="edit-task-input" placeholder="Add new subtask" required type="text" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
-                    <img class="icon px32 left475" src="add_task_img/plus.svg" alt="user icon">
+                <div class="subtask-layout">
+                    <input placeholder="add new subtask" id="subtask-field" class="subtasks-field">
+                    <div id="edit-subtask">
+                        <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
+                    </div>
                 </div>
-                <div>
-                    <div class="test">Hallo Hallo</div>
-                </div>
+                <div id="create-subtask">${subtasksHTML}</div>
             </div>
         </div>
         <div class="show-task-lastrow">
-            <button class="button-dark">Ok <img src="add_task_img/check-white.svg" alt=""></button>
+            <button class="button-dark" onclick="saveTaskChanges('${key}')">Ok <img src="add_task_img/check-white.svg" alt=""></button>
         </div>
-        
-    `
+    `;
 }
 
 
-function openTask(key) {
-    const task = tasksData[key];
-    document.getElementById('show-task-layer').classList.remove('d-none');
-    let content = document.getElementById('show-task-inner-layer');
 
-    content.classList.remove('slide-in-right');
-    content.classList.remove('slide-out-right');
-    void content.offsetWidth; 
-    content.classList.add('slide-in-right');
-
-    content.innerHTML = '';
-    content.innerHTML += generateTaskLayer(task, key);
-}
-
-
+// Öffnen des Add-Task-Layers bei Klick auf den statischen Button
 function openAddTask() {
     document.getElementById('show-task-layer').classList.remove('d-none');
     let content = document.getElementById('show-task-inner-layer');
@@ -390,9 +533,7 @@ function generateAddTaskLayer() {
                     <span>Select contact to assign</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
-                <div class="add-task-contacts d-none" id="add-task-contacts">
-
-                </div>
+                <div class="add-task-contacts d-none" id="add-task-contacts"></div>
                 <div class="required-text">
                     <p><span class="span-red">*</span>This field is required</p>
                 </div>
@@ -420,10 +561,8 @@ function generateAddTaskLayer() {
                 <p class="subtasks">Subtasks</p>
                 <div class="subtask-layout">
                     <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
-                    <div id="edit-subtask">
-                        <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg"
-                            alt="">
-                    </div>
+                    <div class="d-none" id="edit-subtask"></div>
+                    <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
                 </div>
                 <div id="create-subtask"></div>
 
@@ -435,6 +574,8 @@ function generateAddTaskLayer() {
         </div>
     `;
 }
+
+
 
 function closeTask() {
     let contentLayer = document.getElementById('show-task-layer');
@@ -453,28 +594,4 @@ function closeTask() {
 
 function taskAnimationEnd() {
     document.getElementById('show-task-layer').classList.add('d-none');
-}
-
-
-async function checkSubtask(taskKey, subtaskKey, imgElement) {
-    const subtask = tasksData[taskKey].subtasks[subtaskKey];
-    const updatedStatus = !subtask.completed;
-
-    try {
-        let response = await fetch(TASKS_URL + taskKey + "/subtasks/" + subtaskKey + "/completed.json", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedStatus),
-        });
-        await response.json();
-        
-        tasksData[taskKey].subtasks[subtaskKey].completed = updatedStatus;
-        imgElement.src = updatedStatus ? '/add_task_img/subtasks_checked.svg' : '/add_task_img/subtasks_notchecked.svg';
-
-        await boardInit();
-    } catch (error) {
-        console.error("Error updating subtask status:", error);
-    }
 }

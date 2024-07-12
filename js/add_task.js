@@ -1,4 +1,5 @@
 let subtasks = [];
+let selectedContacts = [];
 
 function highButton() {
   //select high Button
@@ -126,115 +127,229 @@ function createSubtask() {
   let input = document.getElementById("subtask-field");
   subtasks.push(input.value);
   let createSubtask = document.getElementById("create-subtask");
+  createSubtask.innerHTML = "";
 
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
-
-    createSubtask.innerHTML += `<div class="subtasks-tasks">
+    if (input.value != "") {
+      createSubtask.innerHTML += `<div id="subtask-tasks" class="subtasks-tasks">
       <div>
         <ul class="subtask-list">
-          <li id="subtask-${i}" onclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
+          <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
         </ul>
       </div>
       <div class="subtask-list-icons">
-        <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
+        <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
         <div class="subtask-line"></div>
-        <img src="add_task_img/check.svg" alt="" />
+        <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
       </div>
     </div>`;
+    }
   }
-
   input.value = "";
 }
 
-function changeSubtask(subtask) {
-  let createSubtask = document.getElementById("create-subtask");
-  createSubtask.innerHTML = `<div>${subtask}</div>`;
+function renderSubtasks() {
+  let createSubtaskDiv = document.getElementById("create-subtask");
+  createSubtaskDiv.innerHTML = "";
+
+  for (let i = 0; i < subtasks.length; i++) {
+    let subtask = subtasks[i];
+
+    createSubtaskDiv.innerHTML += `
+      <div id="subtask-tasks-${i}" class="subtasks-tasks">
+        <div>
+          <ul class="subtask-list">
+            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
+          </ul>
+        </div>
+        <div class="subtask-list-icons">
+          <img onclick="changeSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
+          <div class="subtask-line"></div>
+          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="Check" />
+        </div>
+      </div>
+    `;
+  }
+}
+
+function changeSubtask(i) {
+  let editLogo = document.getElementById(`edit-logo${i}`);
+  editLogo.src = "add_task_img/check.svg";
+
+  document.getElementById("subtask-tasks").classList.remove("subtask-tasks");
+  document.getElementById("subtask-tasks").classList.remove("subtask-tasks:hover");
+  document.getElementById("subtask-tasks").classList.add("subtask-tasks-edit");
+  let createSubtask = document.getElementById(`subtask-${i}`);
+  let currentText = subtasks[i];
+
+  createSubtask.innerHTML = `
+    <div class="subtask-edit">
+      <div contenteditable="true" id="subtask-${i}" class="subtask-edit-div">${currentText}</div>
+    </div>
+  `;
+}
+
+function whichSourceSubtask(i) {
+  let editLogo = document.getElementById(`edit-logo${i}`);
+  if (editLogo.src.endsWith("add_task_img/check.svg")) {
+    // Korrigierte Überprüfung des src
+    updateSubtask(i);
+  } else {
+    changeSubtask(i);
+  }
+}
+
+function updateSubtask(i) {
+  document.getElementById("subtask-tasks").classList.add("subtask-tasks");
+  document.getElementById("subtask-tasks").classList.add("subtask-tasks:hover");
+  document.getElementById("subtask-tasks").classList.remove("subtask-tasks-edit");
+
+  let editedSubtask = document.getElementById(`subtask-${i}`).textContent;
+  subtasks[i] = editedSubtask; // Aktualisiert das Array mit dem neuen Text
+
+  let createSubtask = document.getElementById(`subtask-${i}`);
+  createSubtask.innerHTML = `${editedSubtask}`;
+
+  let editLogo = document.getElementById(`edit-logo${i}`);
+  editLogo.src = "add_task_img/edit.svg"; // Rücksetzen auf das ursprüngl
 }
 
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
-  console.log(subtasks);
-  newSubtask();
+  renderSubtasks();
 }
+
+function resetSelectedContacts() {
+  selectedContacts = new Array(contactsArray.length).fill(false); // Initialisiere das Array
+}
+
+
 function showContactsInAddTask() {
   let contactsAddTask = contactsArray
-    .map(
-      (contact, i) => `<div onclick="checkContacts(${i})" class="contacts-pos">
-        <div class="show-task-contact-add-task">
-          <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-          <p>${contact.name}</p>
-        </div>
-        <div class="checkbox">
-        <img id="checkbox-field${i}" src="add_task_img/checkbox-normal.svg" alt="">
-          
-        </div>
-      </div> `
-    )
-    .join("");
+      .map((contact, i) => {
+          // Bestimmen Sie das Bild basierend auf dem Zustand von selectedContacts
+          let checkboxSrc = selectedContacts[i] ? "add_task_img/checkbox-normal-checked.svg" : "add_task_img/checkbox-normal.svg";
+          return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
+              <div class="show-task-contact-add-task">
+                  <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+                  <p>${contact.name}</p>
+              </div>
+              <div class="checkbox">
+                  <img id="checkbox-field${i}" src="${checkboxSrc}" alt="">
+              </div>
+          </div>`;
+      })
+      .join("");
 
   let content = document.getElementById("add-task-contacts");
   content.innerHTML = contactsAddTask;
+
+  contactsArray.forEach((contact, i) => {
+    let checkboxField = document.getElementById(`checkbox-field${i}`);
+    let contactDiv = document.getElementById(`contacts-pos${i}`);
+
+    if (checkboxField.src.includes("checkbox-normal-checked.svg")) {
+        checkboxField.src = "add_task_img/checkbox-normal-checked-white.svg";
+        contactDiv.classList.add('contacts-pos-highlight');
+    }
+});
 }
+
 
 async function initializeAddTask() {
   await fetchDataJson();
-  showContactsInAddTask();
 }
 
 function showContacts() {
+  resetSelectedContacts();
+  showContactsInAddTask();
   document.getElementById("add-task-contacts").classList.toggle("d-none");
+}
+
+function showContactsInEdit() {
+  showContactsInAddTask();
+  document.getElementById("add-task-contacts").classList.toggle("d-none");
+  console.log('check');
 }
 
 function checkContacts(i) {
   let checkboxField = document.getElementById(`checkbox-field${i}`);
+  let contactDiv = document.getElementById(`contacts-pos${i}`);
   if (checkboxField.src.includes("checkbox-normal.svg")) {
-    checkboxField.src = "add_task_img/checkbox-normal-checked.svg";
+    checkboxField.src = "add_task_img/checkbox-normal-checked-white.svg";
+    contactDiv.classList.add('contacts-pos-highlight');
+    selectedContacts[i] = true;
   } else {
     checkboxField.src = "add_task_img/checkbox-normal.svg";
+    contactDiv.classList.remove('contacts-pos-highlight');
+    selectedContacts[i] = false;
   }
 }
 
+function clearTask() {
+  let description = document.getElementById("description-input");
+  description.value = "";
+
+  let dueDate = document.getElementById("date-input");
+  dueDate.value = "";
+  dueDate.style.color = "#d1d1d1";
+
+  clearButtons();
+  clearSubtasks();
+
+  let taskCategory = document.getElementById("task-category");
+  taskCategory.innerText = "Select task category";
+
+  let title = document.getElementById("title-input");
+  title.value = "";
+}
+
+function clearButtons() {
+  document.getElementById("mediumButton").classList.remove("selected-medium-button");
+  document.getElementById("mediumButtonImg").src = "../add_task_img/medium.svg";
+
+  document.getElementById("highButton").classList.remove("selected-high-button");
+  document.getElementById("highButtonImg").src = "../add_task_img/high.svg";
+
+  document.getElementById("lowButton").classList.remove("selected-low-button");
+  document.getElementById("lowButtonImg").src = "../add_task_img/low.svg";
+}
+
+function clearSubtasks() {
+  subtasks = [];
+  renderSubtasks();
+}
 async function createTask() {
-  // let board_category = ;
-  // let contacts = ;
   let description = document.getElementById("description-input").value;
   let dueDate = document.getElementById("date-input").value;
   let prio = getSelectedPrio();
-  // let subtasks = ;
   let taskCategory = document.getElementById("task-category").innerText;
   let title = document.getElementById("title-input").value;
 
+  // Erstelle das contacts Objekt basierend auf ausgewählten Kontakten
+  let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
+    if (isSelected) {
+      acc[`contact${index + 1}`] = contactsArray[index]; // Hier wird das neue Objekt acc erstellt und ein Schlüssel vergeben.
+    }
+    return acc;
+  }, {});
+
+  let subtasksObj = subtasks.reduce((acc, subtaskTitle, index) => {
+    acc[`subtask${index + 1}`] = {
+      title: subtaskTitle,
+      completed: false,
+    };
+    return acc;
+  }, {});
+
   let newTask = {
     board_category: "to-do",
-    contacts: {
-      contact1: {
-        color: "#477BFF",
-        email: "yovan.davchev@gmx.net",
-        name: "Yovan Davchev",
-        phone: "151978675643",
-      },
-      contact2: {
-        color: "#6CC9FF",
-        email: "ogulcan.erdag@gmx.net",
-        name: "Ogulcan Erdag",
-        phone: "160112233445",
-      },
-    },
+    contacts: selectedContactsData,
     description: description,
     due_date: dueDate,
     prio: prio,
-    subtasks: {
-      // Beispielhafte Subtasks
-      subtask1: {
-        title: "Subtask 1",
-        completed: false,
-      },
-      subtask2: {
-        title: "Subtask 2",
-        completed: false,
-      },
-    },
+    subtasks: subtasksObj,
     task_category: taskCategory,
     title: title,
   };
@@ -244,6 +359,7 @@ async function createTask() {
   window.location.href = "board.html"; // Ersetzen Sie 'zielseite.html' durch den tatsächlichen Dateinamen der Zielseite
 
   let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
+  subtasks = [];
 }
 
 function getSelectedPrio() {
