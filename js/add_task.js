@@ -172,8 +172,7 @@ function renderSubtasks() {
           </ul>
         </div>
         <div class="subtask-list-icons">
-          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
-          <img id="edit-logo-render${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
+          <img onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
           <div class="subtask-line"></div>
           <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
         </div>
@@ -189,7 +188,7 @@ function changeSubtask(i) {
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks:hover");
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks-edit");
   let createSubtask = document.getElementById(`subtask-${i}`);
-  let currentText = subtasks[i];
+  let currentText = subtasks[i].title;
 
   createSubtask.innerHTML = `
     <div class="subtask-edit">
@@ -213,14 +212,14 @@ function updateSubtask(i) {
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks:hover");
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks-edit");
 
-  let editedSubtask = document.getElementById(`subtask-${i}`).textContent;
-  subtasks[i] = editedSubtask; // Aktualisiert das Array mit dem neuen Text
+  let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
+  subtasks[i] = editedSubtask;
 
   let createSubtask = document.getElementById(`subtask-${i}`);
   createSubtask.innerHTML = `${editedSubtask}`;
 
   let editLogo = document.getElementById(`edit-logo${i}`);
-  editLogo.src = "add_task_img/edit.svg"; // Rücksetzen auf das ursprüngl
+  editLogo.src = "add_task_img/edit.svg";
 }
 
 function deleteSubtask(i) {
@@ -229,13 +228,12 @@ function deleteSubtask(i) {
 }
 
 function resetSelectedContacts() {
-  selectedContacts = new Array(contactsArray.length).fill(false); // Initialisiere das Array
+  selectedContacts = new Array(contactsArray.length).fill(false);
 }
 
 function showContactsInAddTask() {
   let contactsAddTask = contactsArray
     .map((contact, i) => {
-      // Bestimmen Sie das Bild basierend auf dem Zustand von selectedContacts
       let checkboxSrc = selectedContacts[i] ? "add_task_img/checkbox-normal-checked.svg" : "add_task_img/checkbox-normal.svg";
       return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
               <div class="show-task-contact-add-task">
