@@ -116,6 +116,8 @@ function newSubtask() {
 }
 
 function closeSubtask() {
+  let input = document.getElementById("subtask-field");
+  input.value = "";
   let subtaskPlus = document.getElementById("subtask-plus");
   subtaskPlus.classList.remove("d-none");
 
@@ -132,7 +134,7 @@ function createSubtask() {
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
     if (input.value != "") {
-      createSubtask.innerHTML += `<div id="subtask-tasks" class="subtasks-tasks">
+      createSubtask.innerHTML += `<div id="subtask-tasks${i}" class="subtasks-tasks">
       <div>
         <ul class="subtask-list">
           <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
@@ -164,7 +166,7 @@ function renderSubtasks() {
           </ul>
         </div>
         <div class="subtask-list-icons">
-          <img onclick="changeSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
+          <img id="edit-logo-render${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
           <div class="subtask-line"></div>
           <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="Check" />
         </div>
@@ -177,9 +179,9 @@ function changeSubtask(i) {
   let editLogo = document.getElementById(`edit-logo${i}`);
   editLogo.src = "add_task_img/check.svg";
 
-  document.getElementById("subtask-tasks").classList.remove("subtask-tasks");
-  document.getElementById("subtask-tasks").classList.remove("subtask-tasks:hover");
-  document.getElementById("subtask-tasks").classList.add("subtask-tasks-edit");
+  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks");
+  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks:hover");
+  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks-edit");
   let createSubtask = document.getElementById(`subtask-${i}`);
   let currentText = subtasks[i];
 
@@ -201,9 +203,9 @@ function whichSourceSubtask(i) {
 }
 
 function updateSubtask(i) {
-  document.getElementById("subtask-tasks").classList.add("subtask-tasks");
-  document.getElementById("subtask-tasks").classList.add("subtask-tasks:hover");
-  document.getElementById("subtask-tasks").classList.remove("subtask-tasks-edit");
+  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks");
+  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks:hover");
+  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks-edit");
 
   let editedSubtask = document.getElementById(`subtask-${i}`).textContent;
   subtasks[i] = editedSubtask; // Aktualisiert das Array mit dem neuen Text
@@ -273,7 +275,8 @@ function showContactsInEdit() {
 
 function checkContacts(i) {
   let checkboxField = document.getElementById(`checkbox-field${i}`);
-  document.getElementById(`contacts-pos${i}`).style.backgroundColor = "black";
+  let contactDiv = document.getElementById(`contacts-pos${i}`);
+
   if (checkboxField.src.includes("checkbox-normal.svg")) {
     checkboxField.src = "add_task_img/checkbox-normal-checked-white.svg";
     contactDiv.classList.add("contacts-pos-highlight");
@@ -281,6 +284,7 @@ function checkContacts(i) {
   } else {
     checkboxField.src = "add_task_img/checkbox-normal.svg";
     contactDiv.classList.remove("contacts-pos-highlight");
+    contactDiv.classList.remove("no-hover");
     selectedContacts[i] = false;
   }
 }

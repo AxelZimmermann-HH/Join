@@ -382,25 +382,38 @@ ul {
   align-items: center;
   justify-content: space-between;
   padding: 7px 16px 7px 16px;
+  margin-bottom: 1px;
 }
 
 .contacts-pos-highlight {
-  background-color: #091931;
+  background-color: #091931 !important;
   color: white;
   border-radius: 10px;
 }
 
 .checkbox {
+  display: flex;
+  align-items: center;
   width: 16px;
   height: 16px;
   border-radius: 3px;
 }
 
 .contacts-pos:hover {
-  border-radius: 10px;
   cursor: pointer;
   background-color: #d1d1d1;
+  border-radius: 10px;
 }
 .test11 {
   background: #2a3647;
+}
+.create-subtask {
+  position: absolute;
+  z-index: 1000;
+  width: 440px;
+  overflow-y: scroll;
+  height: 100px;
+}
+.create-subtask::-webkit-scrollbar {
+  display: none;
 }
