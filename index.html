@@ -8,8 +8,9 @@
     <link rel="icon" href="../img/logo.svg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="./css/fonts.css">
-    <script src="script.js"></script>
-    <script src="js/login.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
 </head>
 
 <body>
@@ -24,11 +25,11 @@
         <div class="login-window">
             <h1>Log in</h1>
             <div class="blue-underline"></div>
-            <form class="login-form">
-                <div class="input-conteiner"><input placeholder="email" class="login-input" type="email"><img
-                        class="mail-img" src="./img/mail.png" alt=""></div>
-                <div class="input-conteiner"><input placeholder="password" class="login-input" type="password"><img
-                        class="password-img" src="./img/lock.png" alt=""></div>
+            <form class="login-form" id="signinForm">
+                <div class="input-conteiner"><input placeholder="email" class="login-input" type="email"
+                        id="loginEmail"><img class="mail-img" src="./img/mail.png" alt=""></div>
+                <div class="input-conteiner"><input placeholder="password" class="login-input" type="password"
+                        id="loginPassword"><img class="password-img" src="./img/lock.png" alt=""></div>
                 <div class="checkbox-conteiner">
                     <div class="check-box">
                         <img id="checkbox" onclick="checkBoxClicked()" src="img/Rectangle1.png">
@@ -38,14 +39,17 @@
                     </div>
 
                 </div>
+                <div class="login-buttons-conteiner">
+                    <button class="btn pdng1524 heigt48" type="submit" id="signinButton">Log in</button>
+                    <button class="btn-gst pdng1524 font-inter heigt48">Guest Log in</button>
+                </div>
             </form>
-            <div class="login-buttons-conteiner">
-                <button class="btn pdng1524 heigt48">Log in</button>
-                <button class="btn-gst pdng1524 font-inter heigt48">Guest Log in</button>
-            </div>
+
 
         </div>
     </div>
 </body>
+<script src="script.js"></script>
+<script type="module" src="js/login.js"></script>
 
 </html>

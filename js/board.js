@@ -5,6 +5,8 @@ let tasksData = {};
 let tasksArray = [];
 let tasksKeys = [];
 
+currentTask = null;
+
 
 async function boardInit() {
     await fetchTasksJson();
@@ -226,13 +228,29 @@ function openTask(key) {
 function generateTaskLayer(task, key) {
     const contacts = task.contacts || {};
     const subtasks = task.subtasks || {};
+    let categoryClass = task.task_category === 'User Story' ? 'user-story' : 'technical-task';
+    console.log(task.task_category);
+    console.log(categoryClass);
 
-    const contactsHTML = Object.values(contacts).map(contact => `
-        <div class="show-task-contact">
-            <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-            <p>${contact.name}</p>
-        </div>
-    `).join('');
+
+    // Initialisiere selectedContacts als false für alle Kontakte
+    selectedContacts = new Array(contactsArray.length).fill(false);
+
+    // Erstelle contactsHTML und setze ausgewählte Kontakte in selectedContacts auf true
+    const contactsHTML = Object.values(contacts).map(contact => {
+        // Finde den Index des Kontakts in contactsArray
+        const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
+        if (contactIndex !== -1) {
+            // Setze das entsprechende Element in selectedContacts auf true
+            selectedContacts[contactIndex] = true;
+        }
+        return `
+            <div class="show-task-contact">
+                <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+                <p>${contact.name}</p>
+            </div>
+        `;
+    }).join('');
 
     const subtasksHTML = Object.keys(subtasks).map(subtaskKey => {
         const subtask = subtasks[subtaskKey];
@@ -246,7 +264,7 @@ function generateTaskLayer(task, key) {
 
     return `
         <div class="show-task-firstrow">
-            <div class="show-task-category">${task.task_category}</div>
+            <div class="show-task-category ${categoryClass}">${task.task_category}</div>
             <div class="show-task-close" onclick="closeTask()">
                 <img src="img/add-contact-close.svg" alt="">
             </div>
@@ -276,10 +294,11 @@ function generateTaskLayer(task, key) {
         <div class="show-task-lastrow mt12">
             <a href="#" class="show-task-lastrow-link" onclick="deleteTask('${key}')"><img class="show-task-icon" src="/add_task_img/delete.svg" alt="">Delete</a>
             <div class="show-task-lastrow-line"></div>
-            <a href="#" class="show-task-lastrow-link" onclick="showEditTask('${key}')"><img class="show-task-icon" src="/img/edit2.svg" alt="">Edit</a>
+            <a href="#" class="show-task-lastrow-link" onclick="showEditTask('${key}')"><img class="show-task-icon" src="img/edit2.svg" alt="">Edit</a>
         </div>
     `;
 }
+
 
 
 // Handling der Subtasks im Task-Layer
@@ -317,9 +336,71 @@ function showEditTask(taskKey) {
 }
 
 
+//Editieren einer Task
+async function updateTask(key, updatedTask) {
+    try {
+        let response = await fetch(TASKS_URL + key + ".json", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedTask),
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error updating task:", error);
+        throw error;
+    }
+}
+
+
+function saveTaskChanges(key) {
+    let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
+        if (isSelected) {
+          acc[`contact${index + 1}`] = contactsArray[index]; // Hier wird das neue Objekt acc erstellt und ein Schlüssel vergeben.
+        }
+        return acc;
+      }, {});
+
+    let subtasksObj = subtasks.reduce((acc, subtaskTitle, index) => {
+        acc[`subtask${index + 1}`] = {
+          title: subtaskTitle,
+          completed: false,
+        };
+        return acc;
+      }, {});
+    
+    const updatedTask = {
+        task_category: currentTask.task_category,
+        contacts: selectedContactsData,
+        subtasks: subtasksObj,
+        title: document.getElementById("edit-title-input").value,
+        description: document.getElementById("edit-description-input").value,
+        due_date: document.getElementById("edit-date-input").value,
+        prio: document.querySelector('.prio-buttons.selected-high-button') ? 'urgent' :
+              document.querySelector('.prio-buttons.selected-medium-button') ? 'medium' :
+              document.querySelector('.prio-buttons.selected-low-button') ? 'low' : task.prio,
+        // Hier können Sie auch die Kontakte und Subtasks hinzufügen, falls diese bearbeitet wurden
+    };
+
+    updateTask(key, updatedTask)
+        .then(() => {
+            closeTask();  // Schließt den Task-Layer
+            boardInit();  // Aktualisiert das Board
+            subtasks = [];
+        })
+        .catch(error => console.error('Error updating task:', error));
+}
+
+
+
 function generateEditTaskLayer(task, key) {
+    currentTask = task;  // Speichere das aktuelle Task-Objekt in der globalen Variablen
     const contacts = task.contacts || {};
-    const subtasks = task.subtasks || {};
+    const taskSubtasks = task.subtasks || {};
+
+    // Leeren Sie das globale Subtasks-Array
+    subtasks = [];
 
     const contactsHTML = Object.values(contacts).map(contact => `
         <div class="show-task-contact">
@@ -327,19 +408,21 @@ function generateEditTaskLayer(task, key) {
         </div>
     `).join('');
 
-    const subtasksHTML = Object.keys(subtasks).map(subtaskKey => {
-        const subtask = subtasks[subtaskKey];
+    // Erstellen Sie das Subtasks-HTML und fügen Sie die Subtasks dem globalen Array hinzu
+    const subtasksHTML = Object.keys(taskSubtasks).map(subtaskKey => {
+        const subtask = taskSubtasks[subtaskKey];
+        subtasks.push(subtask.title); // Fügen Sie den Subtask-Titel dem globalen Array hinzu
         return `
             <div id="subtask-tasks" class="subtasks-tasks">
                 <div>
                     <ul class="subtask-list">
-                        <li onclick="changeSubtask()" class="subtask-list-element">${subtask.title}</li>
+                        <li onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
                     </ul>
                 </div>
                 <div class="subtask-list-icons">
-                    <img onclick="changeSubtask()" src="add_task_img/edit.svg" alt="" />
+                    <img onclick="changeSubtask(${subtasks.length - 1})" src="add_task_img/edit.svg" alt="" />
                     <div class="subtask-line"></div>
-                    <img onclick="deleteSubtask()" src="add_task_img/delete.svg" alt="" />
+                    <img onclick="deleteSubtask(${subtasks.length - 1})" src="add_task_img/delete.svg" alt="" />
                 </div>
             </div>
         `;
@@ -354,7 +437,6 @@ function generateEditTaskLayer(task, key) {
     const lowSelected = task.prio === 'low' ? 'selected-low-button' : '';
     const lowImgSrc = task.prio === 'low' ? 'add_task_img/low-white.svg' : 'add_task_img/low.svg';
 
-
     return `
         <div class="show-task-firstrow flex-end">
             <div class="show-task-close" onclick="closeTask()">
@@ -364,16 +446,16 @@ function generateEditTaskLayer(task, key) {
         <div class="edit-scroll-area">
             <div class="edit-task-element">
                 <p>Title</p>
-                <input type="text" value="${task.title}">
+                <input type="text" id="edit-title-input" value="${task.title}">
             </div>
             <div class="edit-task-element">
                 <p>Description</p>
-                <input type="text" value="${task.description}">
+                <input type="text" id="edit-description-input" value="${task.description}">
             </div>
             <div class="edit-task-element">
                 <p>Due Date</p>
                 <div class="input-container">
-                    <input class="edit-task-input" value="${task.due_date}" required type="date">
+                    <input class="edit-task-input" id="edit-date-input" value="${task.due_date}" required type="date">
                 </div>
             </div>
             <div class="edit-task-element">
@@ -386,11 +468,11 @@ function generateEditTaskLayer(task, key) {
             </div>
             <div class="edit-task-element">
                 <p>Assigned to</p>
-                <div onclick="showContacts()" class="select-contact">
+                <div onclick="showContactsInEdit()" class="select-contact">
                     <span>Select contact to assign</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
-                <div class="add-task-contacts d-none" id="add-task-contacts"></div>
+                <div class="add-task-contacts add-task-contacts-edit d-none" id="add-task-contacts"></div>
                 <div class="edit-task-contacts">
                     ${contactsHTML}
                 </div>
@@ -398,23 +480,20 @@ function generateEditTaskLayer(task, key) {
             <div class="edit-task-element">
                 <p>Subtasks</p>
                 <div class="subtask-layout">
-                    <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
+                    <input placeholder="add new subtask" id="subtask-field" class="subtasks-field">
                     <div id="edit-subtask">
-                        <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg"
-                            alt="">
+                        <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
                     </div>
                 </div>
-                <div id="create-subtask"></div>
-                <div>
-                    ${subtasksHTML}
-                </div>
+                <div id="create-subtask">${subtasksHTML}</div>
             </div>
         </div>
         <div class="show-task-lastrow">
-            <button class="button-dark">Ok <img src="add_task_img/check-white.svg" alt=""></button>
+            <button class="button-dark" onclick="saveTaskChanges('${key}')">Ok <img src="add_task_img/check-white.svg" alt=""></button>
         </div>
     `;
 }
+
 
 
 // Öffnen des Add-Task-Layers bei Klick auf den statischen Button
@@ -482,10 +561,8 @@ function generateAddTaskLayer() {
                 <p class="subtasks">Subtasks</p>
                 <div class="subtask-layout">
                     <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
-                    <div id="edit-subtask">
-                        <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg"
-                            alt="">
-                    </div>
+                    <div class="d-none" id="edit-subtask"></div>
+                    <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
                 </div>
                 <div id="create-subtask"></div>
 
