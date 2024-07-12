@@ -127,7 +127,14 @@ function closeSubtask() {
 
 function createSubtask() {
   let input = document.getElementById("subtask-field");
-  subtasks.push(input.value);
+
+  if (input.value.trim() === "") {
+    return; // Verlasse die Funktion, wenn das Eingabefeld leer ist
+  }
+
+  // Füge einen neuen Subtask mit Titel und completed-Status hinzu
+  subtasks.push({ title: input.value, completed: false });
+
   let createSubtask = document.getElementById("create-subtask");
   createSubtask.innerHTML = "";
 
@@ -147,31 +154,43 @@ function createSubtask() {
       </div>
     </div>`;
     }
+    createSubtask.innerHTML += `
+      <div id="subtask-tasks" class="subtasks-tasks">
+        <div>
+          <ul class="subtask-list">
+            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
+          </ul>
+        </div>
+        <div class="subtask-list-icons">
+          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
+          <div class="subtask-line"></div>
+          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
+        </div>
+      </div>`;
   }
   input.value = "";
 }
 
 function renderSubtasks() {
-  let createSubtaskDiv = document.getElementById("create-subtask");
-  createSubtaskDiv.innerHTML = "";
+  let createSubtask = document.getElementById("create-subtask");
+  createSubtask.innerHTML = "";
 
   for (let i = 0; i < subtasks.length; i++) {
-    let subtask = subtasks[i];
-
-    createSubtaskDiv.innerHTML += `
-      <div id="subtask-tasks-${i}" class="subtasks-tasks">
+    const subtask = subtasks[i];
+    createSubtask.innerHTML += `
+      <div id="subtask-tasks" class="subtasks-tasks">
         <div>
           <ul class="subtask-list">
-            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask}</li>
+            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
           </ul>
         </div>
         <div class="subtask-list-icons">
+          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
           <img id="edit-logo-render${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
           <div class="subtask-line"></div>
-          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="Check" />
+          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
         </div>
-      </div>
-    `;
+      </div>`;
   }
 }
 
