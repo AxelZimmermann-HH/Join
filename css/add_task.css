@@ -181,6 +181,7 @@ body {
   cursor: pointer;
   display: flex;
   align-items: center;
+  border: 1px solid #d1d1d1;
   outline: none;
   width: 406px;
   border: none;
@@ -264,7 +265,6 @@ body {
 .subtask-layout {
   display: flex;
   align-items: center;
-  border: 1px solid #d1d1d1;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -416,4 +416,101 @@ ul {
 }
 .create-subtask::-webkit-scrollbar {
   display: none;
+}
+
+@media (max-width: 1300px) {
+  .title {
+    width: 300px;
+  }
+  .left-section textarea {
+    width: 300px;
+  }
+  .select-contact {
+    width: 300px;
+  }
+  .date-input {
+    width: 300px;
+  }
+  .prio-buttons {
+    width: 100px;
+    font-size: 16px;
+  }
+  .category-menu {
+    width: 300px;
+  }
+  .subtasks-field {
+    width: 300px;
+    border: 1px solid #d1d1d1;
+  }
+  .bottom-buttons {
+    justify-content: start;
+  }
+}
+
+@media (max-width: 1090px) {
+  .title {
+    width: 200px;
+  }
+  .left-section textarea {
+    width: 200px;
+  }
+  .select-contact {
+    width: 200px;
+  }
+  .date-input {
+    width: 200px;
+  }
+  .prio-buttons {
+    width: 68px;
+    font-size: 12px;
+    gap: 4px;
+  }
+  .category-menu {
+    width: 200px;
+  }
+  .subtasks-field {
+    width: 200px;
+    border: 1px solid #d1d1d1;
+  }
+  .bottom-buttons {
+    justify-content: start;
+  }
+  .buttons img {
+    width: 16px;
+    height: auto;
+  }
+}
+
+@media (max-width: 1050px) {
+  .title {
+    width: 200px;
+  }
+  .left-section textarea {
+    width: 200px;
+  }
+  .select-contact {
+    width: 200px;
+  }
+  .date-input {
+    width: 200px;
+  }
+  .prio-buttons {
+    width: 68px;
+    font-size: 12px;
+    gap: 4px;
+  }
+  .category-menu {
+    width: 200px;
+  }
+  .subtasks-field {
+    width: 200px;
+    border: 1px solid #d1d1d1;
+  }
+  .bottom-buttons {
+    justify-content: start;
+  }
+  .buttons img {
+    width: 16px;
+    height: auto;
+  }
 }
