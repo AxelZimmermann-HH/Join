@@ -1,7 +1,8 @@
-function navigateTo(linkId, imgSrc, url) {
+function navigateTo(linkId, linkId2, imgSrc, url) {
     if (url) {
         // Speichern des Zustands in sessionStorage
         sessionStorage.setItem('activeLink', linkId);
+        sessionStorage.setItem('activeLink2', linkId2);
         sessionStorage.setItem('activeLinkImgSrc', imgSrc);
         sessionStorage.setItem('activeLinkBgColor', '#091931');
         sessionStorage.setItem('activeLinkColor', '#FFFFFF');
@@ -11,8 +12,12 @@ function navigateTo(linkId, imgSrc, url) {
         resetLinks();
         resetBottomLinks();
         const link = document.getElementById(linkId);
+        const link2 = document.getElementById(linkId2);
         if (link) {
             link.classList.add('active');
+        };
+        if (link2) {
+            link2.classList.add('active');
         }
     }
 }
@@ -38,12 +43,28 @@ function resetLinks() {
     });
 }
 
+
 function resetBottomLinks() {
     const links = document.querySelectorAll('.sidebar-menu-bottom a');
     links.forEach(link => {
         link.classList.remove('active');
     });
 }
+
+function activateLink(linkId, imgSrc) {
+    const link = document.getElementById(linkId);
+    if (link) {
+        link.classList.add('active');
+        const img = link.querySelector('img');
+        if (img && imgSrc) {
+            img.src = imgSrc;
+        }
+        link.style.backgroundColor = '#091931';
+        link.style.color = '#FFFFFF';
+    }
+}
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     // Lade den gespeicherten Zustand
@@ -70,27 +91,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Spezifische Funktionen für die Navigation
 function goToSummary() {
-    navigateTo('link-summary', '../img/sidebar_summary_white.svg', 'summary.html');
+    navigateTo('link-summary', 'link-summary2','../img/sidebar_summary_white.svg', 'summary.html');
 }
 
 function goToTask() {
-    navigateTo('link-task', '../img/edit_square_white.svg', 'add_task.html');
+    navigateTo('link-task', 'link-task2', '../img/edit_square_white.svg', 'add_task.html');
 }
 
 function goToBoard() {
-    navigateTo('link-board', '../img/sidebar_board_white.svg', 'board.html');
+    navigateTo('link-board', 'link-board2', '../img/sidebar_board_white.svg', 'board.html');
 }
 
 function goToContacts() {
-    navigateTo('link-contacts', '../img/sidebar_contacts_white.svg', 'contacts.html');
+    navigateTo('link-contacts', 'link-contacts2', '../img/sidebar_contacts_white.svg', 'contacts.html');
 }
 
 function goToPrivacyPolicy() {
-    navigateTo('link-privacy-policy', null, 'privacy_policy.html');
+    navigateTo('link-privacy-policy', null, null, 'privacy_policy.html');
 }
 
 function goToLegalNotice() {
-    navigateTo('link-legal-notice', null, 'legal_notice.html');
+    navigateTo('link-legal-notice', null, null, 'legal_notice.html');
 }
 
 

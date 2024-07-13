@@ -145,3 +145,5 @@ function signupUser(name, email, password) {
 
 // Attach the function to the window object to make it globally accessible
 window.toggleCheckboxImage = toggleCheckboxImage;
+
+
