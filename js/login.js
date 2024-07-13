@@ -5,7 +5,7 @@ import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.6.1/
 const firebaseConfig = {
     apiKey: "AIzaSyBLwkvdC-k--cb_0Z5y83ZEtcbRiXMxxKE",
     authDomain: "join-23123.firebaseapp.com",
-    databaseURL: "https://join-23123-default-rtdb.firebaseio.com",
+    databaseURL: "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/",
     projectId: "join-23123",
     storageBucket: "join-23123.appspot.com",
     messagingSenderId: "801789402962",
