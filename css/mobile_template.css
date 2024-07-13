@@ -1,5 +1,5 @@
 /* Reponsive add contact */
-@media(max-width:1100px) {
+@media(max-width:1050px) {
     .responsive-add-contact {
         display: block;
         animation: slide-in-right 0.5s forwards;
