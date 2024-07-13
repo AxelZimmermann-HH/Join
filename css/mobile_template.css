@@ -2,11 +2,12 @@
 @media(max-width:1100px) {
     .responsive-add-contact {
         display: block;
+        animation: slide-in-right 0.5s forwards;
     }
 
     .button-add-contact {
         display: none;
-        animation: slide-out-right 0.5s forwards;
+        
     }
 
     .add-contact-layer-close img {
