@@ -513,4 +513,7 @@ ul {
     width: 16px;
     height: auto;
   }
+  .create-subtask {
+    width: 250px;
+  }
 }

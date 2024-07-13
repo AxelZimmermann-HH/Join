@@ -213,7 +213,7 @@ function updateSubtask(i) {
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks-edit");
 
   let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
-  subtasks[i] = editedSubtask;
+  subtasks[i].title = editedSubtask;
 
   let createSubtask = document.getElementById(`subtask-${i}`);
   createSubtask.innerHTML = `${editedSubtask}`;
