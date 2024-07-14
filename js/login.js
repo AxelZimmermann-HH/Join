@@ -85,6 +85,7 @@ function login(event) {
     validateUser(email, password)
         .then((isAuthenticated) => {
             if (isAuthenticated) {
+                saveNameInLocalStorage(email)
                 alert('Login successful!');
                 window.location.href = 'summary.html';
             } else {
@@ -112,5 +113,22 @@ function validateUser(email, password) {
     }).catch((error) => {
         console.error('Error fetching user data:', error);
         return false;
+    });
+}
+
+function saveNameInLocalStorage(email) {
+    const usersRef = ref(database, 'users');
+    return get(usersRef).then((snapshot) => {
+        if (snapshot.exists()) {
+            const users = snapshot.val();
+            for (let key in users) {
+                if (users[key].email === email) {
+                    sessionStorage.setItem('userName', users[key].name);
+                    break;
+                }
+            }
+        }
+    }).catch((error) => {
+        console.error('Error fetching user data:', error);
     });
 }

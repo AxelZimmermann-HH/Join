@@ -27,7 +27,8 @@
     color: white;
 }
 
-.button-add-contact:hover, .button-dark:hover {
+.button-add-contact:hover,
+.button-dark:hover {
     background-color: #29abe2;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     cursor: pointer;
@@ -152,7 +153,7 @@ h3 {
 .contact-profile-firstrow {
     display: flex;
     gap: 54px;
-    align-items: center; 
+    align-items: center;
 }
 
 .contact-letters-big {
@@ -246,6 +247,7 @@ h3 {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -261,6 +263,7 @@ h3 {
         transform: translateX(0);
         opacity: 1;
     }
+
     to {
         transform: translateX(100%);
         opacity: 0;
@@ -277,7 +280,7 @@ h3 {
     right: 0;
     left: 0;
     z-index: 999;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -292,7 +295,7 @@ h3 {
     border-radius: 20px;
     /* padding: 66px 46px 66px 46px; */
     display: flex;
-    
+
 }
 
 .add-contact-left {
@@ -309,7 +312,8 @@ h3 {
     width: 55px;
 }
 
-.add-contact-left h1, .add-contact-left h2 {
+.add-contact-left h1,
+.add-contact-left h2 {
     color: white;
 }
 
@@ -375,23 +379,26 @@ h3 {
 .add-contact-form form {
     display: flex;
     flex-direction: column;
-    gap: 32px; 
+    gap: 32px;
 }
 
 .input-container {
     position: relative;
-  }
-  
+}
+
 .input-container .icon {
     position: absolute;
     left: 425px;
     top: 50%;
     transform: translateY(-50%);
-    width: 24px; /* Breite des Icons anpassen */
-    height: 24px; /* Höhe des Icons anpassen */
-    pointer-events: none; /* Damit das Icon keine Mausereignisse empfängt */
+    width: 24px;
+    /* Breite des Icons anpassen */
+    height: 24px;
+    /* Höhe des Icons anpassen */
+    pointer-events: none;
+    /* Damit das Icon keine Mausereignisse empfängt */
 }
-  
+
 .add-contact-form input {
     border: 1px solid #d1d1d1;
     border-radius: 10px;
@@ -404,7 +411,7 @@ h3 {
 .add-contact-form input:focus {
     outline: none;
 }
-  
+
 .add-contact-form input::placeholder {
     color: #d1d1d1;
     font-size: 20px;
@@ -412,7 +419,7 @@ h3 {
 
 .button-group {
     display: flex;
-    gap: 24px; 
+    gap: 24px;
 }
 
 .button-dark {
@@ -454,7 +461,39 @@ h3 {
     filter: brightness(0) saturate(100%) invert(62%) sepia(41%) saturate(2398%) hue-rotate(165deg) brightness(93%) contrast(90%);
 }
 
-.button-dark img, .button-bright img {
+.button-dark img,
+.button-bright img {
     width: 24px;
     height: 24px;
 }
+
+.responsive-add-contact {
+
+    width: 56px;
+    height: 56px;
+    position: fixed;
+    top: 552px;
+    left: 558px;
+    border-radius: 46px;
+    border: 1px solid white;
+    pad: 12px;
+    background-color: #2a3647;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.responsive-add-contact img {
+    padding: 11px 13px;
+}
+
+.responsive-add-contact:hover {
+    cursor: pointer;
+    background-color: #29abe2;
+}
+
+.close-symbol {
+    display: none;
+}
+
+
