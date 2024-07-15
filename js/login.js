@@ -50,6 +50,8 @@ function setupFormSubmission(form) {
     console.log('Event listener for form submission added.');
 }
 
+document.getElementById('checkbox').addEventListener('click', checkBoxClicked);
+
 function checkBoxClicked() {
     const checkbox = document.getElementById('checkbox');
     const rememberMe = localStorage.getItem('rememberMe');
@@ -131,4 +133,11 @@ function saveNameInLocalStorage(email) {
     }).catch((error) => {
         console.error('Error fetching user data:', error);
     });
+}
+
+
+document.getElementById('signupButton').addEventListener('click', goTosignup);
+
+function goTosignup() {
+    window.location.href = 'signup.html';
 }

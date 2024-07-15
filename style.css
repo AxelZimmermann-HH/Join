@@ -84,10 +84,7 @@ body {
     font-size: 16px;
     font-weight: 700;
     line-height: 19.2px;
-}
-
-.btn:hover {
-    cursor: pointer;
+    border-width: 0px;
 }
 
 .login-window {
@@ -123,6 +120,7 @@ h1 {
     border: none;
     outline: none;
     font-family: 'inter';
+    width: 380px;
 }
 
 .login-form {
@@ -217,4 +215,17 @@ h1 {
 ::placeholder {
     color: #D1D1D1;
     opacity: 1;
-  }
+}
+
+.btn:hover {
+    background-color: #29ABE2;
+    border-color: #29ABE2;
+    cursor: pointer;
+    
+}
+
+.btn-gst:hover {
+    cursor: pointer;
+    color: #29ABE2;
+    border-color: #29ABE2;
+}
