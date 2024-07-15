@@ -63,6 +63,14 @@ function findTask() {
     renderFilteredTasks(filteredTasks);
 }
 
+function findTaskMobile() {
+    let input = document.getElementById("find-task2").value.toLowerCase();
+    let filteredTasks = tasksArray.filter(task => {
+        return task.title.toLowerCase().includes(input) || task.description.toLowerCase().includes(input);
+    });
+    renderFilteredTasks(filteredTasks);
+}
+
 function renderFilteredTasks(filteredTasks) {
     const boardIds = {
         'to-do': 'to-do',

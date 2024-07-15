@@ -67,15 +67,21 @@
         <div class="board-firstrow">
             <h1>Board</h1>
             <div class="board-firstrow-right">
-                <div class="input-container">
+                <div id="input-container-find">
                     <input placeholder="Find Task" id="find-task" required type="text" onkeydown="findTask()" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
                     <div class="find-line"></div>
                     <img class="icon px32" src="img/search.svg" alt="user icon">
                 </div>
                
-                <button onclick="openAddTask()" class="button-dark button-dark-board" type="submit">Add task<img class="px18" src="/img/plus_white.svg" alt=""></button>
+                <button onclick="openAddTask()" class="button-dark button-dark-board" type="submit"><p>Add task</p><img class="px18" src="/img/plus_white.svg" alt=""></button>
             </div>
         </div>
+        <div id="input-container-find2" class="d-none">
+            <input placeholder="Find Task" id="find-task2" required type="text" onkeydown="findTaskMobile()" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+            <div class="find-line"></div>
+            <img class="icon px32" src="img/search.svg" alt="user icon">
+        </div>
+        
         <div class="board-splits">
             <div class="board-split">
                 <div class="split-headline">

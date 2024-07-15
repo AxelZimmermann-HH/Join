@@ -436,6 +436,10 @@ h3 {
     color: white;
 }
 
+.button-dark p {
+    font-size: 21px;
+}
+
 .button-bright {
     border-radius: 10px;
     padding: 16px;
