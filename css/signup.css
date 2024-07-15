@@ -28,9 +28,12 @@ body {
     font-size: 16px;
     font-weight: 700;
     line-height: 19.2px;
+    border-width: 0px;
 }
 
 .btn:hover {
+    background-color: #29ABE2;
+    border-color: #29ABE2;
     cursor: pointer;
 }
 
