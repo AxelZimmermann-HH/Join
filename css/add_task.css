@@ -2,8 +2,6 @@ body {
   background-color: #f6f7f8;
 }
 .headline {
-  margin-left: 324px;
-  margin-top: 80px;
   font-size: 61px;
   line-height: 73.2px;
 }
@@ -83,11 +81,13 @@ body {
 }
 
 .parting-line {
+  margin-top: 155px;
   margin-left: 40px;
   border: 1px solid #d1d1d1;
   height: 424px;
 }
 .right-section {
+  margin-top: 155px;
   margin-left: 40px;
   width: 440px;
 }
@@ -155,6 +155,7 @@ body {
   padding: 10px;
 }
 .category-options {
+  position: absolute;
   background-color: white;
   cursor: pointer;
   display: flex;
@@ -420,7 +421,7 @@ ul {
 
 @media (max-width: 1300px) {
   .title {
-    width: 300px;
+    width: 290px;
   }
   .left-section textarea {
     width: 300px;
@@ -445,31 +446,43 @@ ul {
   .bottom-buttons {
     justify-content: start;
   }
+  .create-subtask {
+    width: 335px;
+  }
+  .add-task-contacts {
+    width: 335px;
+  }
+  .category-options {
+    width: 335px;
+  }
 }
 
 @media (max-width: 1090px) {
+  .category-options {
+    width: 285px;
+  }
   .title {
-    width: 200px;
+    width: 250px;
   }
   .left-section textarea {
-    width: 200px;
+    width: 250px;
   }
   .select-contact {
-    width: 200px;
+    width: 250px;
   }
   .date-input {
-    width: 200px;
+    width: 250px;
   }
   .prio-buttons {
-    width: 68px;
+    width: 84px;
     font-size: 12px;
     gap: 4px;
   }
   .category-menu {
-    width: 200px;
+    width: 250px;
   }
   .subtasks-field {
-    width: 200px;
+    width: 250px;
     border: 1px solid #d1d1d1;
   }
   .bottom-buttons {
@@ -479,31 +492,62 @@ ul {
     width: 16px;
     height: auto;
   }
+  .create-subtask {
+    width: 235px;
+  }
+  .select-contact span {
+    font-size: 14px;
+  }
+  .add-task-contacts {
+    width: 285px;
+  }
 }
 
 @media (max-width: 1050px) {
+  .right-section {
+    width: 0px;
+  }
+  .left-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .add-task-section {
+    display: flex;
+    margin-left: -230px;
+    justify-content: center;
+  }
+
   .title {
-    width: 200px;
+    width: 350px;
   }
   .left-section textarea {
-    width: 200px;
+    width: 350px;
   }
   .select-contact {
-    width: 200px;
+    width: 350px;
   }
   .date-input {
-    width: 200px;
+    width: 350px;
   }
   .prio-buttons {
-    width: 68px;
-    font-size: 12px;
-    gap: 4px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background-color: white;
+    border-radius: 10px;
+    padding: 16px 10px 16px 10px;
+    font-family: "Inter";
+    font-size: 20px;
   }
   .category-menu {
-    width: 200px;
+    width: 350px;
   }
   .subtasks-field {
-    width: 200px;
+    width: 350px;
     border: 1px solid #d1d1d1;
   }
   .bottom-buttons {
@@ -515,5 +559,8 @@ ul {
   }
   .create-subtask {
     width: 250px;
+  }
+  .select-contact span {
+    font-size: 14px;
   }
 }

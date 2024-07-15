@@ -165,14 +165,14 @@ function renderSubtasks() {
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
     createSubtask.innerHTML += `
-      <div id="subtask-tasks" class="subtasks-tasks">
+      <div id="subtask-tasks${i}" class="subtasks-tasks">
         <div>
           <ul class="subtask-list">
             <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
           </ul>
         </div>
         <div class="subtask-list-icons">
-          <img onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
+          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
           <div class="subtask-line"></div>
           <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
         </div>
