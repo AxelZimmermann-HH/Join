@@ -213,3 +213,8 @@ h1 {
     background-color: #EDF2FA;
     border-radius: 43px;
 }
+
+::placeholder {
+    color: #D1D1D1;
+    opacity: 1;
+  }

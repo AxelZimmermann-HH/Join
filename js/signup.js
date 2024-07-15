@@ -14,6 +14,13 @@ const firebaseConfig = {
     measurementId: "G-CFY9BZ9NV5"
   };
 
+  function navigateBack() {
+    window.location.href = 'index.html';
+}
+
+// Add the event listener for the arrow container
+document.getElementById('backArrow').addEventListener('click', navigateBack);
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
