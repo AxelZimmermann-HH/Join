@@ -343,10 +343,10 @@ async function createTask() {
     return acc;
   }, {});
 
-  let subtasksObj = subtasks.reduce((acc, subtaskTitle, index) => {
+  let subtasksObj = subtasks.reduce((acc, subtask, index) => {
     acc[`subtask${index + 1}`] = {
-      title: subtaskTitle,
-      completed: false,
+      title: subtask.title,
+      completed: subtask.completed,
     };
     return acc;
   }, {});
@@ -367,6 +367,7 @@ async function createTask() {
   window.location.href = "board.html"; // Ersetzen Sie 'zielseite.html' durch den tatsächlichen Dateinamen der Zielseite
 
   let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
+  
   subtasks = [];
 }
 

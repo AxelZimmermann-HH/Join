@@ -80,6 +80,10 @@ body {
   border: 1px solid #ababab;
 }
 
+.select-contact-edit {
+  width: 480px !important;
+}
+
 .parting-line {
   margin-top: 155px;
   margin-left: 40px;
@@ -417,6 +421,12 @@ ul {
 }
 .create-subtask::-webkit-scrollbar {
   display: none;
+}
+
+.pos-relative {
+  position: relative;
+  height: auto;
+  max-height: 100px;
 }
 
 @media (max-width: 1300px) {
