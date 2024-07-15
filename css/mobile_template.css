@@ -99,11 +99,11 @@
     }
 
     .button-dark {
-        /* padding: 18px 18px 18px 4px;
+        padding: 18px 18px 18px 4px;
         width: 202px;
         height: 51px;
         position: relative;
-        left: 28px; */
+        left: 28px;
     }
 
     .button-bright {
@@ -113,9 +113,9 @@
     .button-dark img {
         width: 24px;
         height: 24px;
-        /* position: fixed;
+        position: fixed;
         top: 593px;
-        left: 318px; */
+        left: 318px;
     }
     
     .close-symbol {
