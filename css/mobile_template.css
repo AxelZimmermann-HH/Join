@@ -126,11 +126,10 @@
         left: 436px;
         top: -2px;
         z-index: 3;
-        
     }
     
     .close-symbol:hover {
-        cursor: pointer;   
+        cursor: pointer; 
     }
 }
 

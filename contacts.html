@@ -60,9 +60,10 @@
   </div>
 
   <div class="contacts-library">
-    <div class="responsive-add-contact" onclick="openAddContactLayer()"> <!-- Der Container ist für Responsive-->
-      <img src="./img/person_add.svg" alt="">
-    </div>
+    <!-- Der Container ist für Responsive-->
+    <div class="responsive-add-contact" onclick="openAddContactLayer()"> 
+      <img src="./img/person_add.svg" alt=""> 
+    </div> 
     <div class="button-add-contact" onclick="openAddContactLayer()">
       Add new contact
       <img src="img/person_add.svg" alt="">
@@ -136,7 +137,8 @@
 
   <div class="add-contact-layer d-none" id="edit-contact-layer">
     <div class="add-contact-inner-layer" id="edit-contact-inner-layer">
-      <div class="add-contact-left">
+      <div class="add-contact-left" onclick="closeEditContactLayer()">
+        <img class="close-symbol" src="img/close-white.svg" alt="add-contact-layer-close">
         <img src="img/logo.svg" alt="join-logo">
         <h1>Edit Contact</h1>
 
