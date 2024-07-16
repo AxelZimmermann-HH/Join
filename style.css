@@ -8,6 +8,7 @@ body {
     align-items: center;
     overflow: hidden;
     background-color: #F6F7F8;
+    transition: background-color 0.3s ease;
 }
 
 .starting-screen {
@@ -28,39 +29,119 @@ body {
     animation: showContent 3s forwards 3s;
 }
 
-@keyframes moveDiv {
-    0% {
-        left: 583px;
-        top: 345px;
+.input-fields {
+    display: flex;
+    gap: 32px;
+    flex-direction: column;
+}
+
+@media (max-width: 428px) {
+    body {
+        background-color: #2A3647;
+    }
+    .content {
+        position: absolute;
+        top: 205.5px !important;
+        left: 16px;
+    }
+    .login-window {
+        width: 396px;
+        padding: 32px 0px 32px 0px !important;
+    }
+    .input-fields {
+        width: 364px;
+        height: 152px;
+
+    }
+    .login-buttons-conteiner {
+        flex-direction: column !important;
     }
 
-    100% {
-        left: 77px;
-        top: 80px;
+    .login-input {
+        width: 380px;
+    }
+
+    .signup-conteiner {
+        top: 778px !important;
+        left: 70px;
+        display: flex;
+        gap: 35px;
+    }
+
+    @keyframes moveDiv {
+        0% {
+            left: 164px;
+            top: 402px;
+        }
+
+        100% {
+            left: 38px;
+            top: 37px;
+        }
+    }
+
+    @keyframes resizeImg {
+        0% {
+            width: 100.03px;
+            height: 121.97px;
+        }
+
+        100% {
+            width: 64px;
+            height: 78.03px;
+        }
+    }
+
+    @keyframes showContent {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 }
 
-@keyframes resizeImg {
-    0% {
-        width: 274px;
-        height: 334.07px;
+@media (min-width: 428px) {
+
+    @keyframes moveDiv {
+        0% {
+            left: 583px;
+            top: 345px;
+        }
+
+        100% {
+            left: 77px;
+            top: 80px;
+        }
     }
 
-    100% {
-        width: 100.03px;
-        height: 121.97px;
+    @keyframes resizeImg {
+        0% {
+            width: 274px;
+            height: 334.07px;
+        }
+
+        100% {
+            width: 100.03px;
+            height: 121.97px;
+        }
     }
+
+    @keyframes showContent {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+   
 }
 
-@keyframes showContent {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
 
 .signup-conteiner {
     position: absolute;
@@ -133,7 +214,6 @@ h1 {
     padding: 15px 16px 15px 16px;
     border: 1px solid #D1D1D1;
     border-radius: 10px;
-    width: 422px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -221,7 +301,7 @@ h1 {
     background-color: #29ABE2;
     border-color: #29ABE2;
     cursor: pointer;
-    
+
 }
 
 .btn-gst:hover {

@@ -11,11 +11,13 @@
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
 </head>
 
 <body>
-    <div class="starting-screen"><img src="./img/Capa 2.png" alt=""></div>
+    <div class="starting-screen" id="startingScreen"><img id="responsive-image" alt="Responsive Image" alt=""></div>
     <div class="content">
         <div class="signup-conteiner">
             <div>
@@ -27,13 +29,15 @@
             <h1>Log in</h1>
             <div class="blue-underline"></div>
             <form class="login-form" id="signinForm">
-                <div class="input-conteiner"><input placeholder="Email" class="login-input" type="email"
-                        id="loginEmail"><img class="mail-img" src="./img/mail.png" alt=""></div>
-                <div class="input-conteiner"><input placeholder="Password" class="login-input" type="password"
-                        id="loginPassword"><img class="password-img" src="./img/lock.png" alt=""></div>
+                <div class="input-fields">
+                    <div class="input-conteiner"><input placeholder="Email" class="login-input" type="email"
+                            id="loginEmail"><img class="mail-img" src="./img/mail.png" alt=""></div>
+                    <div class="input-conteiner"><input placeholder="Password" class="login-input" type="password"
+                            id="loginPassword"><img class="password-img" src="./img/lock.png" alt=""></div>
+                </div>
                 <div class="checkbox-conteiner">
                     <div class="check-box">
-                        <img id="checkbox"  src="img/Rectangle1.png">
+                        <img id="checkbox" src="img/Rectangle1.png">
                     </div>
                     <div>
                         <p>Remember me</p>
@@ -50,6 +54,8 @@
         </div>
     </div>
 </body>
+<script src="./js/start_img.js"></script>
 <script type="module" src="js/login.js"></script>
+
 
 </html>
