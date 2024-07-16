@@ -144,10 +144,9 @@ function checkBoxClicked() {
 
 function goToSignUp() {
     window.location.href = 'signup.html';
-<<<<<<< HEAD
+
 }
-=======
-}
+
 
 function logOut() {
     if (sessionStorage.getItem('userName')) {
@@ -156,4 +155,4 @@ function logOut() {
 }
 
 
->>>>>>> a214249a839dbbb6f54a07c8b69a5e2e37c6edcd
+
