@@ -23,7 +23,7 @@
             <img class="d-none" src="img/logo-dark.png" alt="">
             <p>Kanban Project Management Tool</p>
             <div class="header-icons">
-                <img class="header-help" src="../img/help.svg" alt="questionmark" />
+                <img onclick="goToHelp()" class="header-help" src="../img/help.svg" alt="questionmark" />
                 <div id="user-logo" onclick="toggleMenu()" class="header-user-name">SM</div>
             </div>
         </div>
@@ -32,7 +32,7 @@
     <div class="user-content" id="user-content">
         <a href="./legal_notice.html">Legal Notice</a>
         <a href="./privacy_policy.html">Privacy Policy</a>
-        <a href="index.html">Log Out</a>
+        <a onclick="logOut()" href="index.html">Log Out</a>
     </div>
     </div>
 

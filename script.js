@@ -1,8 +1,7 @@
-function navigateTo(linkId, linkId2, imgSrc, url) {
+function navigateTo(linkId, imgSrc, url) {
     if (url) {
         // Speichern des Zustands in sessionStorage
         sessionStorage.setItem('activeLink', linkId);
-        sessionStorage.setItem('activeLink2', linkId2);
         sessionStorage.setItem('activeLinkImgSrc', imgSrc);
         sessionStorage.setItem('activeLinkBgColor', '#091931');
         sessionStorage.setItem('activeLinkColor', '#FFFFFF');
@@ -91,27 +90,31 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Spezifische Funktionen für die Navigation
 function goToSummary() {
-    navigateTo('link-summary', 'link-summary2','../img/sidebar_summary_white.svg', 'summary.html');
+    navigateTo('link-summary', 'img/sidebar_summary_white.svg', 'summary.html');
 }
 
 function goToTask() {
-    navigateTo('link-task', 'link-task2', '../img/edit_square_white.svg', 'add_task.html');
+    navigateTo('link-task', 'img/edit_square_white.svg', 'add_task.html');
 }
 
 function goToBoard() {
-    navigateTo('link-board', 'link-board2', '../img/sidebar_board_white.svg', 'board.html');
+    navigateTo('link-board', 'img/sidebar_board_white.svg', 'board.html');
 }
 
 function goToContacts() {
-    navigateTo('link-contacts', 'link-contacts2', '../img/sidebar_contacts_white.svg', 'contacts.html');
+    navigateTo('link-contacts', 'img/sidebar_contacts_white.svg', 'contacts.html');
 }
 
 function goToPrivacyPolicy() {
-    navigateTo('link-privacy-policy', null, null, 'privacy_policy.html');
+    navigateTo('link-privacy-policy', null, 'privacy_policy.html');
 }
 
 function goToLegalNotice() {
-    navigateTo('link-legal-notice', null, null, 'legal_notice.html');
+    navigateTo('link-legal-notice', null, 'legal_notice.html');
+}
+
+function goToHelp() {
+    navigateTo('link-help', null, 'help.html');
 }
 
 
@@ -141,4 +144,16 @@ function checkBoxClicked() {
 
 function goToSignUp() {
     window.location.href = 'signup.html';
+<<<<<<< HEAD
 }
+=======
+}
+
+function logOut() {
+    if (sessionStorage.getItem('userName')) {
+        sessionStorage.removeItem('userName');
+    }
+}
+
+
+>>>>>>> a214249a839dbbb6f54a07c8b69a5e2e37c6edcd
