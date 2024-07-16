@@ -89,7 +89,8 @@ function login(event) {
             if (isAuthenticated) {
                 saveNameInLocalStorage(email)
                 alert('Login successful!');
-                window.location.href = 'summary.html';
+                goToSummary();
+                // window.location.href = 'summary.html';
             } else {
                 alert('Invalid email or password.');
             }
@@ -126,7 +127,7 @@ function saveNameInLocalStorage(email) {
             for (let key in users) {
                 if (users[key].email === email) {
                     sessionStorage.setItem('userName', users[key].name);
-                    break;
+                    return;
                 }
             }
         }

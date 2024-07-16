@@ -45,6 +45,11 @@ header {
   height: 32px;
 }
 
+.header-help:hover {
+  height: 38px;
+  cursor: pointer;
+}
+
 .header-user-name {
   height: 50px;
   width: 50px;
