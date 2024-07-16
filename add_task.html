@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AddTask</title>
     <link rel="icon" href="../img/logo.svg">
+    <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/desktop_template.css">
     <link rel="stylesheet" href="css/add_task.css">
-    <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="privacy_policy.css">
-    <link rel="stylesheet" href="./css/mobile_template.css">
     <link rel="stylesheet" href="css/board.css">
+
     <script src="script.js"></script>
     <script src="js/add_task.js"></script>
     <script src="js/board.js"></script>
@@ -23,9 +23,10 @@
 
     <header>
         <div class="header-content">
+            <img class="d-none" src="img/logo-dark.png" alt="">
             <p>Kanban Project Management Tool</p>
             <div class="header-icons">
-                <img class="header-help" src="../img/help.svg" alt="questionmark" />
+                <img onclick="goToHelp()" class="header-help" src="../img/help.svg" alt="questionmark" />
                 <div id="user-logo" onclick="toggleMenu()" class="header-user-name">SM</div>
             </div>
         </div>
@@ -34,7 +35,7 @@
     <div class="user-content" id="user-content">
         <a href="./legal_notice.html">Legal Notice</a>
         <a href="./privacy_policy.html">Privacy Policy</a>
-        <a href="index.html">Log Out</a>
+        <a onclick="logOut()" href="index.html">Log Out</a>
     </div>
     </div>
 
@@ -62,11 +63,12 @@
 
     </div>
 
-    <div>
-        <h1 class="headline">Add Task</h1>
-    </div>
+
     <div class="add-task-section">
         <div class="left-section">
+            <div>
+                <h1 class="headline">Add Task</h1>
+            </div>
             <p class="title-headline">Title<span class="span-red">*</span></p>
             <input class="title" id="title-input" onkeyup="emptyTitle()" required type="text"
                 placeholder="Enter a title">
@@ -119,28 +121,22 @@
                 <button onclick="createTask()" class="create-task-button">Create Task <img
                         src="add_task_img/check-white.svg" alt=""></button>
             </div>
+
+            <div class="mobile-create">
+                <div class="required-text-mobile">
+                    <p><span class="span-red">*</span>This field is required</p>
+                    <div>
+                        <button onclick="createTask()" class="create-task-button-mobile">Create Task <img
+                                src="add_task_img/check-white.svg" alt=""></button>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
 
-    <nav class="resp-taskbar">
-        <div class="resp-menu">
-            <a class="nav-resp" href="./summary.html" onclick="goToSummary()" id="link-summary">
-                <img class="icon-mobile" src="../img/sidebar_summary.svg" />Summary
-            </a>
-
-            <a class="nav-resp" href="./add_task.html" onclick="goToTask()" id="link-task">
-                <img class="resp-icon" src="../img/edit_square.svg" />Add Task
-            </a>
-
-            <a class="nav-resp" href="./board.html" onclick="goToBoard()" id="link-board">
-                <img class="resp-icon" src="../img/sidebar_board.svg" />Board
-            </a>
-
-            <a class="nav-resp" href="./contacts.html" onclick="goToContacts()" id="link-contacts">
-                <img class="resp-icon" src="../img/sidebar_contacts.svg" />Contacts
-            </a>
-        </div>
-    </nav>
 
 </body>
 

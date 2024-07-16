@@ -50,6 +50,8 @@ function setupFormSubmission(form) {
     console.log('Event listener for form submission added.');
 }
 
+document.getElementById('checkbox').addEventListener('click', checkBoxClicked);
+
 function checkBoxClicked() {
     const checkbox = document.getElementById('checkbox');
     const rememberMe = localStorage.getItem('rememberMe');
@@ -87,7 +89,8 @@ function login(event) {
             if (isAuthenticated) {
                 saveNameInLocalStorage(email)
                 alert('Login successful!');
-                window.location.href = 'summary.html';
+                goToSummary();
+                // window.location.href = 'summary.html';
             } else {
                 alert('Invalid email or password.');
             }
@@ -124,11 +127,18 @@ function saveNameInLocalStorage(email) {
             for (let key in users) {
                 if (users[key].email === email) {
                     sessionStorage.setItem('userName', users[key].name);
-                    break;
+                    return;
                 }
             }
         }
     }).catch((error) => {
         console.error('Error fetching user data:', error);
     });
+}
+
+
+document.getElementById('signupButton').addEventListener('click', goTosignup);
+
+function goTosignup() {
+    window.location.href = 'signup.html';
 }

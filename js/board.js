@@ -63,6 +63,14 @@ function findTask() {
     renderFilteredTasks(filteredTasks);
 }
 
+function findTaskMobile() {
+    let input = document.getElementById("find-task2").value.toLowerCase();
+    let filteredTasks = tasksArray.filter(task => {
+        return task.title.toLowerCase().includes(input) || task.description.toLowerCase().includes(input);
+    });
+    renderFilteredTasks(filteredTasks);
+}
+
 function renderFilteredTasks(filteredTasks) {
     const boardIds = {
         'to-do': 'to-do',
@@ -283,17 +291,24 @@ function generateTaskLayer(task, key) {
     selectedContacts = new Array(contactsArray.length).fill(false);
 
     // Erstelle contactsHTML und setze ausgewählte Kontakte in selectedContacts auf true
+    let userName = sessionStorage.getItem('userName');
     const contactsHTML = Object.values(contacts).map(contact => {
         // Finde den Index des Kontakts in contactsArray
         const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
+
         if (contactIndex !== -1) {
             // Setze das entsprechende Element in selectedContacts auf true
             selectedContacts[contactIndex] = true;
         }
+
+        let displayName = contact.name;
+        if (contact.name === userName) {
+            displayName += " (You)";
+        }
         return `
             <div class="show-task-contact">
                 <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-                <p>${contact.name}</p>
+                <p>${displayName}</p>
             </div>
         `;
     }).join('');
@@ -515,7 +530,7 @@ function generateEditTaskLayer(task, key) {
             </div>
             <div class="edit-task-element">
                 <p>Assigned to</p>
-                <div onclick="showContactsInEdit()" class="select-contact">
+                <div onclick="showContactsInEdit()" class="select-contact select-contact-edit">
                     <span>Select contact to assign</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
@@ -527,12 +542,11 @@ function generateEditTaskLayer(task, key) {
             <div class="edit-task-element">
                 <p>Subtasks</p>
                 <div class="subtask-layout">
-                    <input placeholder="add new subtask" id="subtask-field" class="subtasks-field">
-                    <div id="edit-subtask">
-                        <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
-                    </div>
+                    <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
+                    <div class="d-none" id="edit-subtask"></div>
+                    <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">  
                 </div>
-                <div id="create-subtask">${subtasksHTML}</div>
+                <div class="create-subtask pos-relative" id="create-subtask">${subtasksHTML}</div>
             </div>
         </div>
         <div class="show-task-lastrow">
@@ -544,7 +558,7 @@ function generateEditTaskLayer(task, key) {
 
 
 // Öffnen des Add-Task-Layers bei Klick auf den statischen Button
-function openAddTask() {
+function openAddTask(boardCategory) {
     document.getElementById('show-task-layer').classList.remove('d-none');
     let content = document.getElementById('show-task-inner-layer');
     content.classList.add('width-auto');
@@ -555,18 +569,18 @@ function openAddTask() {
     content.classList.add('slide-in-right');
 
     content.innerHTML = '';
-    content.innerHTML += generateAddTaskLayer();
+    content.innerHTML += generateAddTaskLayer(boardCategory);
 }
 
-function generateAddTaskLayer() {
+function generateAddTaskLayer(boardCategory) {
     return `
         <div class="show-task-firstrow align-items-start">
-            <h1 class="headline no-margin-left">Add Task</h1>
+            <h1 class="headline">Add Task</h1>
             <div class="show-task-close" onclick="closeTask()">
-                <img src="img/add-contact-close.svg" alt="">
-            </div>
+                    <img src="img/add-contact-close.svg" alt="">
+                </div>
         </div>
-        <div class="add-task-section no-margin-left">
+        <div class="add-task-section no-margin-left no-margin-top">
             <div class="left-section">
                 <p class="title-headline">Title<span class="span-red">*</span></p>
                 <input class="title" id="title-input" onkeyup="emptyTitle()" required type="text"
@@ -585,8 +599,9 @@ function generateAddTaskLayer() {
                     <p><span class="span-red">*</span>This field is required</p>
                 </div>
             </div>
-            <div class="parting-line"></div>
-            <div class="right-section">
+            <div class="parting-line no-margin-top"></div>
+            <div class="right-section no-margin-top">
+                
                 <p>Due date<span class="span-red">*</span></p>
                 <input class="date-input" onclick="emptyDate()" id="date-input" required type="date">
                 <span id="date-required"></span>
@@ -611,11 +626,11 @@ function generateAddTaskLayer() {
                     <div class="d-none" id="edit-subtask"></div>
                     <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
                 </div>
-                <div id="create-subtask"></div>
+                <div class="create-subtask" id="create-subtask"></div>
 
                 <div class="bottom-buttons">
-                    <button class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
-                    <button onclick="createTask()" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
+                    <button onclick="clearTask()" class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
+                    <button onclick="createTask('${boardCategory}')" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
                 </div>
             </div>
         </div>

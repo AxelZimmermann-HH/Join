@@ -11,8 +11,7 @@
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
     <script type="module" src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
-    <script type="module" src="js/signup.js"></script>
-    <script type="module" src="js/login.js"></script>
+
 </head>
 
 <body>
@@ -21,20 +20,20 @@
         <div class="signup-conteiner">
             <div>
                 <p>Not A Join User?</p>
-                <button class="btn pdng1516" onclick="goToSignUp()">Sign up</button>
+                <button class="btn pdng1516" id="signupButton">Sign up</button>
             </div>
         </div>
         <div class="login-window">
             <h1>Log in</h1>
             <div class="blue-underline"></div>
             <form class="login-form" id="signinForm">
-                <div class="input-conteiner"><input placeholder="email" class="login-input" type="email"
+                <div class="input-conteiner"><input placeholder="Email" class="login-input" type="email"
                         id="loginEmail"><img class="mail-img" src="./img/mail.png" alt=""></div>
-                <div class="input-conteiner"><input placeholder="password" class="login-input" type="password"
+                <div class="input-conteiner"><input placeholder="Password" class="login-input" type="password"
                         id="loginPassword"><img class="password-img" src="./img/lock.png" alt=""></div>
                 <div class="checkbox-conteiner">
                     <div class="check-box">
-                        <img id="checkbox" onclick="checkBoxClicked()" src="img/Rectangle1.png">
+                        <img id="checkbox"  src="img/Rectangle1.png">
                     </div>
                     <div>
                         <p>Remember me</p>
@@ -42,7 +41,7 @@
 
                 </div>
                 <div class="login-buttons-conteiner">
-                    <button class="btn pdng1524 heigt48" type="submit" id="signinButton">Log in</button>
+                    <button class="btn pdng1524 heigt48 btn-bck-hover" type="submit" id="signinButton">Log in</button>
                     <button class="btn-gst pdng1524 font-inter heigt48">Guest Log in</button>
                 </div>
             </form>
@@ -51,7 +50,7 @@
         </div>
     </div>
 </body>
-<script src="script.js"></script>
 <script type="module" src="js/login.js"></script>
+<script src="script.js"></script>
 
 </html>

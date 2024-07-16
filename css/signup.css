@@ -28,9 +28,12 @@ body {
     font-size: 16px;
     font-weight: 700;
     line-height: 19.2px;
+    border-width: 0px;
 }
 
 .btn:hover {
+    background-color: #29ABE2;
+    border-color: #29ABE2;
     cursor: pointer;
 }
 
@@ -43,6 +46,7 @@ body {
     padding: 48px 115px;
     gap: 32px;
     border-radius: 30px;
+    position: relative;
 }
 
 .blue-underline {
@@ -67,12 +71,13 @@ h1 {
     border: none;
     outline: none;
     font-family: 'inter';
+    width: 380px;
 }
 
 .signup-form {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 32px;
     align-items: center;
 }
 
@@ -84,6 +89,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 
@@ -171,3 +177,23 @@ a {
     text-decoration: none;
     color: #29ABE2;
 }
+
+::placeholder {
+    color: #D1D1D1;
+    opacity: 1;
+  }
+
+  .arrow-conteiner {
+    position: absolute;
+    left: 50px;
+    top: 50px;
+    height: 32px;
+    width: 32px;
+
+  }
+
+  .arrow-conteiner:hover {
+    cursor: pointer;
+  }
+
+ 

@@ -165,14 +165,14 @@ function renderSubtasks() {
   for (let i = 0; i < subtasks.length; i++) {
     const subtask = subtasks[i];
     createSubtask.innerHTML += `
-      <div id="subtask-tasks" class="subtasks-tasks">
+      <div id="subtask-tasks${i}" class="subtasks-tasks">
         <div>
           <ul class="subtask-list">
             <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
           </ul>
         </div>
         <div class="subtask-list-icons">
-          <img onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
+          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
           <div class="subtask-line"></div>
           <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
         </div>
@@ -232,13 +232,21 @@ function resetSelectedContacts() {
 }
 
 function showContactsInAddTask() {
+  let userName = sessionStorage.getItem("userName");
+
   let contactsAddTask = contactsArray
     .map((contact, i) => {
       let checkboxSrc = selectedContacts[i] ? "add_task_img/checkbox-normal-checked.svg" : "add_task_img/checkbox-normal.svg";
+
+      let displayName = contact.name;
+      if (contact.name === userName) {
+        displayName += " (You)";
+      }
+
       return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
               <div class="show-task-contact-add-task">
                   <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-                  <p>${contact.name}</p>
+                  <p>${displayName}</p>
               </div>
               <div class="checkbox">
                   <img id="checkbox-field${i}" src="${checkboxSrc}" alt="">
@@ -328,7 +336,7 @@ function clearSubtasks() {
   subtasks = [];
   renderSubtasks();
 }
-async function createTask() {
+async function createTask(boardCategory) {
   let description = document.getElementById("description-input").value;
   let dueDate = document.getElementById("date-input").value;
   let prio = getSelectedPrio();
@@ -343,16 +351,16 @@ async function createTask() {
     return acc;
   }, {});
 
-  let subtasksObj = subtasks.reduce((acc, subtaskTitle, index) => {
+  let subtasksObj = subtasks.reduce((acc, subtask, index) => {
     acc[`subtask${index + 1}`] = {
-      title: subtaskTitle,
-      completed: false,
+      title: subtask.title,
+      completed: subtask.completed,
     };
     return acc;
   }, {});
 
   let newTask = {
-    board_category: "to-do",
+    board_category: boardCategory,
     contacts: selectedContactsData,
     description: description,
     due_date: dueDate,
@@ -367,6 +375,7 @@ async function createTask() {
   window.location.href = "board.html"; // Ersetzen Sie 'zielseite.html' durch den tatsächlichen Dateinamen der Zielseite
 
   let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
+
   subtasks = [];
 }
 

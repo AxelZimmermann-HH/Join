@@ -10,31 +10,35 @@
 </head>
 
 <body>
-
     <div class="logo-signup">
         <img src="./img/Capa 2.png" alt="">
     </div>
     <div class="signup-window">
+        <div class="arrow-conteiner" id="backArrow">
+            <img src="./img/arrow-left-line.png" alt="">
+        </div>
         <form id="signupForm" class="signup-form">
+
             <h1>Sign Up</h1>
+
             <div class="blue-underline"></div>
             <div class="signup-conteiner">
 
-                <input class="signup-input" type="text" placeholder="Name" id="name" name="name" required>
+                <input class="signup-input" type="text" placeholder="Name" id="name" name="name" required><img class="password-img" src="./img/person.png" alt="">
             </div>
             <div class="signup-conteiner">
 
-                <input class="signup-input" type="email" id="email" placeholder="Email" name="email" required>
+                <input class="signup-input" type="email" id="email" placeholder="Email" name="email" required><img class="mail-img" src="./img/mail.png" alt="">
             </div>
             <div class="signup-conteiner">
 
                 <input class="signup-input" type="password" id="password" placeholder="Password" name="password"
-                    required>
+                    required><img class="password-img" src="./img/lock.png" alt="">
             </div>
             <div class="signup-conteiner">
 
                 <input class="signup-input" type="password" id="confirmPassword" placeholder="Confirm Password"
-                    name="confirmPassword" required>
+                    name="confirmPassword" required><img class="password-img" src="./img/lock.png" alt="">
             </div>
             <div class="checkbox-conteiner">
                 <div class="check-box">
@@ -47,7 +51,7 @@
             <div class="flex-center">
                 <button class="btn pdng1524 heigt48 width128" type="submit" id="signupButton" disabled>Sign Up</button>
             </div>
-            
+
         </form>
     </div>
     <script type="module" src="./js/signup.js"></script>
