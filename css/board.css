@@ -388,8 +388,9 @@
     cursor: pointer;
 }
 
-.show-task-lastrow-link:hover .show-task-icon {
+.show-task-lastrow-link:hover .show-task-icon, .add-task-board-category:hover {
     filter: brightness(0) saturate(100%) invert(62%) sepia(41%) saturate(2398%) hue-rotate(165deg) brightness(93%) contrast(90%);
+    cursor: pointer;
 }
 
 .show-task-lastrow-link img {

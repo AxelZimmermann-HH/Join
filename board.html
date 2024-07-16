@@ -73,7 +73,7 @@
                     <img class="icon px32" src="img/search.svg" alt="user icon">
                 </div>
                
-                <button onclick="openAddTask()" class="button-dark button-dark-board" type="submit"><p>Add task</p><img class="px18" src="/img/plus_white.svg" alt=""></button>
+                <button onclick="openAddTask('to-do')" class="button-dark button-dark-board" type="submit"><p>Add task</p><img class="px18" src="/img/plus_white.svg" alt=""></button>
             </div>
         </div>
         <div id="input-container-find2" class="d-none">
@@ -86,14 +86,14 @@
             <div class="board-split">
                 <div class="split-headline">
                     <p>To do</p>
-                    <img src="img/plus_bordered.svg" alt="">
+                    <img class="add-task-board-category" onclick="openAddTask('to-do')" src="img/plus_bordered.svg" alt="">
                 </div>
                 <div class="task-area" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event)"></div>
             </div>
             <div class="board-split">
                 <div class="split-headline">
                     <p>In progress</p>
-                    <img src="img/plus_bordered.svg" alt="">
+                    <img class="add-task-board-category" onclick="openAddTask('in-progress')" src="img/plus_bordered.svg" alt="">
                 </div>
                 <div class="task-area" id="in-progress" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)">
                     
@@ -103,7 +103,7 @@
             <div class="board-split">
                 <div class="split-headline">
                     <p>Await feedback</p>
-                    <img src="img/plus_bordered.svg" alt="">
+                    <img class="add-task-board-category" onclick="openAddTask('await-feedback')" src="img/plus_bordered.svg" alt="">
                 </div>
                 <div class="task-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)"></div>
             </div>

@@ -232,13 +232,21 @@ function resetSelectedContacts() {
 }
 
 function showContactsInAddTask() {
+  let userName = sessionStorage.getItem('userName');
+  
   let contactsAddTask = contactsArray
     .map((contact, i) => {
       let checkboxSrc = selectedContacts[i] ? "add_task_img/checkbox-normal-checked.svg" : "add_task_img/checkbox-normal.svg";
+      
+      let displayName = contact.name;
+      if (contact.name === userName) {
+        displayName += " (You)";
+      }
+
       return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
               <div class="show-task-contact-add-task">
                   <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-                  <p>${contact.name}</p>
+                  <p>${displayName}</p>
               </div>
               <div class="checkbox">
                   <img id="checkbox-field${i}" src="${checkboxSrc}" alt="">
@@ -328,7 +336,7 @@ function clearSubtasks() {
   subtasks = [];
   renderSubtasks();
 }
-async function createTask() {
+async function createTask(boardCategory) {
   let description = document.getElementById("description-input").value;
   let dueDate = document.getElementById("date-input").value;
   let prio = getSelectedPrio();
@@ -352,7 +360,7 @@ async function createTask() {
   }, {});
 
   let newTask = {
-    board_category: "to-do",
+    board_category: boardCategory,
     contacts: selectedContactsData,
     description: description,
     due_date: dueDate,

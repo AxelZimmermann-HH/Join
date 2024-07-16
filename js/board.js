@@ -291,17 +291,24 @@ function generateTaskLayer(task, key) {
     selectedContacts = new Array(contactsArray.length).fill(false);
 
     // Erstelle contactsHTML und setze ausgewählte Kontakte in selectedContacts auf true
+    let userName = sessionStorage.getItem('userName');
     const contactsHTML = Object.values(contacts).map(contact => {
         // Finde den Index des Kontakts in contactsArray
         const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
+
         if (contactIndex !== -1) {
             // Setze das entsprechende Element in selectedContacts auf true
             selectedContacts[contactIndex] = true;
         }
+
+        let displayName = contact.name;
+        if (contact.name === userName) {
+            displayName += " (You)";
+        }
         return `
             <div class="show-task-contact">
                 <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-                <p>${contact.name}</p>
+                <p>${displayName}</p>
             </div>
         `;
     }).join('');
@@ -551,7 +558,7 @@ function generateEditTaskLayer(task, key) {
 
 
 // Öffnen des Add-Task-Layers bei Klick auf den statischen Button
-function openAddTask() {
+function openAddTask(boardCategory) {
     document.getElementById('show-task-layer').classList.remove('d-none');
     let content = document.getElementById('show-task-inner-layer');
     content.classList.add('width-auto');
@@ -562,10 +569,10 @@ function openAddTask() {
     content.classList.add('slide-in-right');
 
     content.innerHTML = '';
-    content.innerHTML += generateAddTaskLayer();
+    content.innerHTML += generateAddTaskLayer(boardCategory);
 }
 
-function generateAddTaskLayer() {
+function generateAddTaskLayer(boardCategory) {
     return `
         <div class="show-task-firstrow align-items-start">
             <h1 class="headline">Add Task</h1>
@@ -623,7 +630,7 @@ function generateAddTaskLayer() {
 
                 <div class="bottom-buttons">
                     <button onclick="clearTask()" class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
-                    <button onclick="createTask()" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
+                    <button onclick="createTask('${boardCategory}')" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
                 </div>
             </div>
         </div>
