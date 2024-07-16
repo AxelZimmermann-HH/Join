@@ -785,96 +785,37 @@ ul {
 }
 
 @media (max-width: 581px) {
-  .headline {
-    font-size: 40px;
-  }
   .right-section {
     margin-top: 0;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-left: 600px;
-  }
-  .parting-line {
-    display: none;
-    margin-left: 20px;
-  }
-  .left-section {
-    display: flex;
-    justify-content: center;
     margin-left: 450px;
   }
   .add-task-section {
-    display: flex;
     flex-direction: column;
   }
-  .category-options {
-    width: 235px;
-  }
-  .title {
-    width: 200px;
-  }
-  .left-section textarea {
-    width: 200px;
-  }
-  .select-contact {
-    width: 200px;
-  }
-  .date-input {
-    width: 200px;
-  }
-  .category-menu {
-    width: 200px;
-  }
-  .category-menu span {
-    font-size: 16px;
-  }
-  .subtasks-field {
-    width: 200px;
-    border: 1px solid #d1d1d1;
+  .parting-line {
+    display: none;
   }
   .bottom-buttons {
-    justify-content: start;
     margin-top: 0;
   }
-  .prio-buttons {
-    width: 67px;
-    font-size: 12px;
-    gap: 4px;
+  .required-text {
+    display: none;
   }
-  .buttons img {
-    width: 16px;
-    height: auto;
-  }
-  .create-subtask {
-    width: 235px;
-  }
-  .select-contact span {
-    font-size: 14px;
-  }
-  .add-task-contacts {
-    z-index: 1000;
-    background-color: white;
-    border-radius: 10px;
-    position: absolute;
-    top: 620px;
-    width: 235px;
-    overflow: scroll;
-    height: 180px;
+  .required-text-mobile {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 100px;
   }
   .clear-button {
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    padding: 12px;
-    font-size: 14px;
-    line-height: 24px;
-    gap: 2px;
-    cursor: pointer;
+    display: none;
   }
   .create-task-button {
+    display: none;
+  }
+  .create-task-button-mobile {
     font-weight: 700 !important;
     color: white;
     background-color: #2a3647;
@@ -883,23 +824,17 @@ ul {
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-    padding: 12px;
-    font-size: 14px;
+    padding: 16px;
+    font-size: 21px;
     line-height: 25.2px;
     gap: 2px;
     cursor: pointer;
   }
-  .subtask-layout input::placeholder {
-    font-size: 18px;
-  }
-  .closeAndCheck img {
-    width: 20px;
-    height: auto;
-  }
-  .subtasks-field {
-    font-size: 16px;
-  }
-  .required-text {
-    margin-top: 0;
+
+  .mobile-create {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
   }
 }
