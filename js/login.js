@@ -126,7 +126,7 @@ function saveNameInLocalStorage(email) {
             for (let key in users) {
                 if (users[key].email === email) {
                     sessionStorage.setItem('userName', users[key].name);
-                    break;
+                    return;
                 }
             }
         }
