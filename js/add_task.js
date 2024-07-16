@@ -232,12 +232,12 @@ function resetSelectedContacts() {
 }
 
 function showContactsInAddTask() {
-  let userName = sessionStorage.getItem('userName');
-  
+  let userName = sessionStorage.getItem("userName");
+
   let contactsAddTask = contactsArray
     .map((contact, i) => {
       let checkboxSrc = selectedContacts[i] ? "add_task_img/checkbox-normal-checked.svg" : "add_task_img/checkbox-normal.svg";
-      
+
       let displayName = contact.name;
       if (contact.name === userName) {
         displayName += " (You)";
@@ -375,7 +375,7 @@ async function createTask(boardCategory) {
   window.location.href = "board.html"; // Ersetzen Sie 'zielseite.html' durch den tatsächlichen Dateinamen der Zielseite
 
   let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
-  
+
   subtasks = [];
 }
 
