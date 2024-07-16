@@ -89,7 +89,8 @@ function login(event) {
             if (isAuthenticated) {
                 saveNameInLocalStorage(email)
                 alert('Login successful!');
-                window.location.href = 'summary.html';
+                goToSummary();
+                // window.location.href = 'summary.html';
             } else {
                 alert('Invalid email or password.');
             }

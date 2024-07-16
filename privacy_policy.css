@@ -1,6 +1,19 @@
 body {
   background-color: #F6F7F8;
 }
+
+h1 {
+  font-size: 73px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 20px;
+}
+
 .privacy-policy {
   margin: 80px 100px 32px 300px;
   position: sticky;
