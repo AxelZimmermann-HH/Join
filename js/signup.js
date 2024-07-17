@@ -60,9 +60,9 @@ function toggleCheckboxImage() {
     if (signupButton.disabled == false) {
         document.getElementById('notAccepted').innerHTML = '';
     }
-    if (signupButton.disabled == true) {
-        document.getElementById('notAccepted').innerHTML = 'Please accept the Privacy Policy';
-    }
+    //if (signupButton.disabled == true) {
+       // document.getElementById('notAccepted').innerHTML = 'Please accept the Privacy Policy';
+    //}
 }
 
 /**
