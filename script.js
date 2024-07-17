@@ -65,7 +65,7 @@ function activateLink(linkId, imgSrc) {
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Lade den gespeicherten Zustand
     const activeLinkId = sessionStorage.getItem('activeLink');
     const activeLinkImgSrc = sessionStorage.getItem('activeLinkImgSrc');
@@ -129,10 +129,10 @@ function toggleMenu() {
 
 
 function checkBoxClicked() {
- 
+
     var checkbox = document.getElementById('checkbox');
-    
-   
+
+
     if (checkbox.src.endsWith('Rectangle1.png')) {
         checkbox.src = 'img/Rectangle2.png';
         localStorage.setItem('rememberMe', 'true');
@@ -144,16 +144,11 @@ function checkBoxClicked() {
 
 function goToSignUp() {
     window.location.href = 'signup.html';
-<<<<<<< HEAD
 }
-=======
-}
+
 
 function logOut() {
     if (sessionStorage.getItem('userName')) {
         sessionStorage.removeItem('userName');
     }
 }
-
-
->>>>>>> a214249a839dbbb6f54a07c8b69a5e2e37c6edcd
