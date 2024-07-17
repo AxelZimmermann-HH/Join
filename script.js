@@ -154,3 +154,25 @@ function logOut() {
         sessionStorage.removeItem('userName');
     }
 }
+
+function generateInitials() {
+    let content = document.getElementById('user-logo');
+    let userName = sessionStorage.getItem('userName');
+
+    content.innerHTML = '';
+    
+    if (userName) {
+        let nameParts = userName.split(' ');
+        if (nameParts.length >= 2) {
+            let initials = nameParts[0][0] + nameParts[1][0];
+            content.innerHTML = initials;
+        } else if (nameParts.length === 1) {
+            let initials = nameParts[0][0];
+            content.innerHTML = initials;
+        } else {
+            content.innerHTML = 'G';
+        }
+    } else {
+        content.innerHTML = 'G';
+    }
+}

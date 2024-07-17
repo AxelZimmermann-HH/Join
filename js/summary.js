@@ -3,6 +3,7 @@ async function summaryInit() {
     generateCounts();
     generateGreets();
     generateUpcomingDate();
+    generateInitials();
 }
 
 function generateCounts() {
@@ -49,6 +50,7 @@ function generateGreets() {
     let greetingTime = getGreeting();
     let userName = sessionStorage.getItem('userName');
     let content = document.getElementById('greeting-container');
+
     content.innerHTML = '';
     content.innerHTML = `<span class="greet-text">Good ${greetingTime},</span>
           <span class="greet-user-name">${userName}</span>
