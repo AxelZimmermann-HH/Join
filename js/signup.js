@@ -23,6 +23,7 @@ document.getElementById('backArrow').addEventListener('click', navigateBack);
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 const database = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', init);
