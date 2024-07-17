@@ -298,6 +298,10 @@
     margin-bottom: 24px;
 }
 
+.show-task-inner-layer h1 {
+    padding-right: 0;
+}
+
 .show-task-text-rows {
     display: flex;
     align-items: flex-end;
@@ -531,4 +535,33 @@
     .no-task {
         width: 310px;
     }
+}
+
+@media (max-width: 800px) {
+    .show-task-inner-layer {
+        width: 310px;
+    }
+    .show-task-inner-layer h1 {
+        font-size: 36px;
+        
+    }
+    .show-task-inner-layer p {
+        font-size: 16px;
+    }
+    .show-task-category {
+        font-size: 16px;
+        padding: 4px 16px 4px 16px;
+    }
+    .show-task-characteristic {
+        font-size: 16px !important;
+    }
+    .edit-task-element input, .edit-task-input {
+        width: 270px;
+        border: 1px solid #d1d1d1;
+        border-radius: 10px;
+        height: 40px;
+        padding: 0px 15px 0px 15px;
+        font-size: 16px;
+    }
+
 }

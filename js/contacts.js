@@ -9,6 +9,7 @@ let contactsKeys = [];
 async function contactsInit() {
   await fetchDataJson();
   createContactsList();
+  generateInitials();
   return true;
 }
 

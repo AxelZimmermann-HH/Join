@@ -142,3 +142,11 @@ document.getElementById('signupButton').addEventListener('click', goTosignup);
 function goTosignup() {
     window.location.href = 'signup.html';
 }
+
+document.getElementById('guestLoginButton').addEventListener('click', guestLogin);
+
+function guestLogin(event) {
+    event.preventDefault();
+    window.location.href = 'summary.html';
+    sessionStorage.setItem('userName', 'Guest');
+}

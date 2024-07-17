@@ -271,6 +271,7 @@ function showContactsInAddTask() {
 
 async function initializeAddTask() {
   await fetchDataJson();
+  generateInitials();
 }
 
 function showContacts() {

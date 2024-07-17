@@ -15,18 +15,18 @@ body {
     position: absolute;
     top: 345px;
     left: 583px;
-    animation: moveDiv 3s forwards;
+    animation: moveDiv 2s forwards;
 }
 
 .starting-screen img {
     width: 274px;
     height: 334.07px;
-    animation: resizeImg 3s forwards;
+    animation: resizeImg 2s forwards;
 }
 
 .content {
     opacity: 0;
-    animation: showContent 3s forwards 3s;
+    animation: showContent 2s forwards 2s;
 }
 
 .input-fields {
@@ -35,10 +35,10 @@ body {
     flex-direction: column;
 }
 
+
+
 @media (max-width: 428px) {
-    body {
-        background-color: #2A3647;
-    }
+
     .content {
         position: absolute;
         top: 205.5px !important;

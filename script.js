@@ -65,7 +65,7 @@ function activateLink(linkId, imgSrc) {
 
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Lade den gespeicherten Zustand
     const activeLinkId = sessionStorage.getItem('activeLink');
     const activeLinkImgSrc = sessionStorage.getItem('activeLinkImgSrc');
@@ -129,10 +129,10 @@ function toggleMenu() {
 
 
 function checkBoxClicked() {
- 
+
     var checkbox = document.getElementById('checkbox');
-    
-   
+
+
     if (checkbox.src.endsWith('Rectangle1.png')) {
         checkbox.src = 'img/Rectangle2.png';
         localStorage.setItem('rememberMe', 'true');
@@ -148,11 +148,31 @@ function goToSignUp() {
 }
 
 
+
 function logOut() {
     if (sessionStorage.getItem('userName')) {
         sessionStorage.removeItem('userName');
     }
 }
 
+function generateInitials() {
+    let content = document.getElementById('user-logo');
+    let userName = sessionStorage.getItem('userName');
 
-
+    content.innerHTML = '';
+    
+    if (userName) {
+        let nameParts = userName.split(' ');
+        if (nameParts.length >= 2) {
+            let initials = nameParts[0][0] + nameParts[1][0];
+            content.innerHTML = initials;
+        } else if (nameParts.length === 1) {
+            let initials = nameParts[0][0];
+            content.innerHTML = initials;
+        } else {
+            content.innerHTML = 'G';
+        }
+    } else {
+        content.innerHTML = 'G';
+    }
+}
