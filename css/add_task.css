@@ -53,6 +53,19 @@ body {
   padding: 18px 16px 18px 16px;
   gap: 10px;
 }
+.show-task-contact-letters {
+  width: 42px;
+  height: 42px;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  position: relative;
+  background-color: #1fd7c1;
+}
 .left-section textarea:focus {
   border: 1px solid #29abe2;
 }
@@ -148,6 +161,7 @@ body {
   margin-top: 28px;
 }
 .category-menu {
+  align-items: center;
   background-color: white;
   cursor: pointer;
   display: flex;
@@ -474,11 +488,14 @@ ul {
 }
 
 @media (max-width: 1090px) {
+  .headline {
+    font-size: 50px;
+  }
   .category-options {
     width: 285px;
   }
   .title {
-    width: 250px;
+    width: 243px;
   }
   .left-section textarea {
     width: 250px;
@@ -500,9 +517,6 @@ ul {
   .subtasks-field {
     width: 250px;
     border: 1px solid #d1d1d1;
-  }
-  .bottom-buttons {
-    justify-content: start;
   }
   .buttons img {
     width: 16px;
@@ -521,21 +535,16 @@ ul {
 
 @media (max-width: 1050px) {
   .left-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin-left: 400px;
   }
   .add-task-section {
-    display: flex;
     margin-left: -390px;
-    justify-content: center;
   }
   .category-options {
     width: 385px;
   }
   .title {
-    width: 350px;
+    width: 342px;
   }
   .left-section textarea {
     width: 350px;
@@ -552,9 +561,6 @@ ul {
   .subtasks-field {
     width: 350px;
     border: 1px solid #d1d1d1;
-  }
-  .bottom-buttons {
-    justify-content: start;
   }
   .prio-buttons {
     width: 117px;
@@ -572,13 +578,7 @@ ul {
     font-size: 20px;
   }
   .add-task-contacts {
-    z-index: 1000;
-    background-color: white;
-    border-radius: 10px;
-    position: absolute;
-    top: 630px;
     width: 385px;
-    overflow: scroll;
     height: 180px;
   }
 }
@@ -591,21 +591,16 @@ ul {
     margin-left: 20px;
   }
   .left-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin-left: 450px;
   }
   .add-task-section {
-    display: flex;
     margin-left: -390px;
-    justify-content: center;
   }
   .category-options {
     width: 285px;
   }
   .title {
-    width: 250px;
+    width: 243px;
   }
   .left-section textarea {
     width: 250px;
@@ -621,10 +616,6 @@ ul {
   }
   .subtasks-field {
     width: 250px;
-    border: 1px solid #d1d1d1;
-  }
-  .bottom-buttons {
-    justify-content: start;
   }
   .prio-buttons {
     width: 84px;
@@ -633,7 +624,6 @@ ul {
   }
   .buttons img {
     width: 16px;
-    height: auto;
   }
   .create-subtask {
     width: 285px;
@@ -642,41 +632,19 @@ ul {
     font-size: 16px;
   }
   .add-task-contacts {
-    z-index: 1000;
-    background-color: white;
-    border-radius: 10px;
-    position: absolute;
-    top: 618px;
+    top: 605px;
     width: 285px;
-    overflow: scroll;
     height: 180px;
   }
   .clear-button {
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
     padding: 12px;
     font-size: 16px;
-    line-height: 24px;
     gap: 2px;
-    cursor: pointer;
   }
   .create-task-button {
-    font-weight: 700 !important;
-    color: white;
-    background-color: #2a3647;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
     padding: 16px;
     font-size: 16px;
-    line-height: 25.2px;
     gap: 4px;
-    cursor: pointer;
   }
 }
 
@@ -688,21 +656,16 @@ ul {
     margin-left: 20px;
   }
   .left-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     margin-left: 450px;
   }
   .add-task-section {
-    display: flex;
     margin-left: -390px;
-    justify-content: center;
   }
   .category-options {
     width: 235px;
   }
   .title {
-    width: 200px;
+    width: 193px;
   }
   .left-section textarea {
     width: 200px;
@@ -721,19 +684,12 @@ ul {
   }
   .subtasks-field {
     width: 200px;
-    border: 1px solid #d1d1d1;
-  }
-  .bottom-buttons {
-    justify-content: start;
   }
   .prio-buttons {
     width: 67px;
-    font-size: 12px;
-    gap: 4px;
   }
   .buttons img {
     width: 16px;
-    height: auto;
   }
   .create-subtask {
     width: 235px;
@@ -742,59 +698,69 @@ ul {
     font-size: 14px;
   }
   .add-task-contacts {
-    z-index: 1000;
-    background-color: white;
-    border-radius: 10px;
-    position: absolute;
-    top: 620px;
+    top: 592px;
     width: 235px;
-    overflow: scroll;
     height: 180px;
   }
   .clear-button {
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
     padding: 12px;
     font-size: 14px;
-    line-height: 24px;
     gap: 2px;
-    cursor: pointer;
   }
   .create-task-button {
-    font-weight: 700 !important;
-    color: white;
-    background-color: #2a3647;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
     padding: 12px;
     font-size: 14px;
-    line-height: 25.2px;
     gap: 2px;
-    cursor: pointer;
   }
   .subtask-layout input::placeholder {
     font-size: 18px;
   }
   .closeAndCheck img {
     width: 20px;
-    height: auto;
+  }
+  .closeAndCheck {
+    margin-left: -63px;
   }
   .subtasks-field {
     font-size: 16px;
   }
+  .subtask-list-element {
+    font-size: 14px;
+  }
+  .subtask-list-icons img {
+    width: 20px;
+  }
+  .show-task-contact-add-task p {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .show-task-contact-add-task {
+    gap: 8px;
+  }
 }
 
 @media (max-width: 581px) {
+  body {
+    overflow-x: hidden;
+  }
   .right-section {
     margin-top: 0;
     margin-left: 450px;
     height: 75vh;
+  }
+  .show-task-contact-add-task p {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .show-task-contact-add-task {
+    gap: 16px;
+  }
+  .subtask-list-element {
+    font-size: 16px;
+  }
+  .add-task-contacts {
+    width: 385px;
+    top: 588px;
   }
   .category-menu span {
     font-size: 16px;
@@ -865,7 +831,7 @@ ul {
     flex-direction: row;
   }
   .title {
-    width: 350px;
+    width: 343px;
   }
   .left-section textarea {
     width: 350px;
@@ -875,7 +841,6 @@ ul {
   }
   .closeAndCheck img {
     width: 24px;
-    height: auto;
   }
   .date-input {
     width: 350px;
@@ -888,7 +853,6 @@ ul {
   }
   .subtasks-field {
     width: 350px;
-    border: 1px solid #d1d1d1;
   }
   .prio-buttons {
     width: 116px;
@@ -897,53 +861,39 @@ ul {
   }
   .prio-buttons img {
     width: 20px;
-    height: auto;
   }
 }
 
 @media (max-width: 461px) {
+  .show-task-contact-add-task p {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .show-task-contact-add-task {
+    gap: 8px;
+  }
   .left-section {
-    margin-left: 400px;
+    margin-left: 410px;
   }
   .right-section {
-    margin-top: 0;
-    margin-left: 400px;
-    height: 75vh;
+    margin-left: 410px;
   }
   .category-menu span {
     font-size: 16px;
   }
-  .right-section p {
-    margin-top: 24px;
-  }
   .add-task-section {
     flex-direction: column;
   }
-  .parting-line {
-    display: none;
-  }
-  .bottom-buttons {
-    margin-top: 0;
-  }
   .create-subtask {
     width: 272px;
-  }
-  .required-text {
-    display: none;
   }
   .select-contact span {
     font-size: 16px;
   }
   .required-text-mobile {
-    background-color: #f6f7f8;
-    margin-left: -10px;
+    margin-left: -15px;
     height: 100px;
-    position: fixed;
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-    margin-bottom: 440px;
+    margin-bottom: 418px;
   }
   .clear-button {
     display: none;
@@ -957,24 +907,13 @@ ul {
     display: flex;
   }
   .create-task-button-mobile {
-    font-weight: 700 !important;
-    color: white;
-    background-color: #2a3647;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
     padding: 8px;
     font-size: 14px;
-    line-height: 25.2px;
     gap: 2px;
-    cursor: pointer;
   }
   .required-text-mobile p {
     font-size: 14px;
   }
-
   .mobile-create {
     display: flex;
     align-items: center;
@@ -982,7 +921,7 @@ ul {
     flex-direction: row;
   }
   .title {
-    width: 240px;
+    width: 233px;
   }
   .left-section textarea {
     width: 240px;
@@ -992,7 +931,6 @@ ul {
   }
   .closeAndCheck img {
     width: 24px;
-    height: auto;
   }
   .date-input {
     width: 240px;
@@ -1005,10 +943,9 @@ ul {
   }
   .subtasks-field {
     width: 240px;
-    border: 1px solid #d1d1d1;
   }
   .prio-buttons {
-    width: 85px;
+    width: 81px;
     font-size: 14px;
     gap: 4px;
   }
@@ -1017,13 +954,8 @@ ul {
     height: auto;
   }
   .add-task-contacts {
-    z-index: 1000;
-    background-color: white;
-    border-radius: 10px;
-    position: absolute;
-    top: 588px;
+    top: 592px;
     width: 272px;
-    overflow: scroll;
     height: 180px;
   }
 }
