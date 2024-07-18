@@ -41,7 +41,7 @@ function category() {
   let categoryDropdown = document.getElementById("category");
   categoryDropdown.classList.toggle("d-none");
 
-  document.getElementById("category").innerHTML += `<div class="category-options">
+  document.getElementById("category").innerHTML = `<div class="category-options">
   <span onclick="technicalTask()">Technical Task</span>
   <span onclick="userStory()">User Story</span>
   </div>`;
@@ -222,7 +222,7 @@ function deleteSubtask(i) {
 }
 
 function resetSelectedContacts() {
-  selectedContacts = new Array(contactsArray.length).fill(false);
+  // selectedContacts = new Array(contactsArray.length).fill(false);
 }
 
 function showContactsInAddTask() {
@@ -276,6 +276,7 @@ function showContacts() {
 
 function showContactsInEdit() {
   showContactsInAddTask();
+  document.getElementById("add-task-contacts").classList.toggle("d-none");
   console.log("check");
 }
 
