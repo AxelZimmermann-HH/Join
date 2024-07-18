@@ -88,7 +88,6 @@ function login(event) {
         .then((isAuthenticated) => {
             if (isAuthenticated) {
                 saveNameInLocalStorage(email)
-                alert('Login successful!');
                 goToSummary();
                 // window.location.href = 'summary.html';
             } else {

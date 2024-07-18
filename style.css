@@ -47,41 +47,38 @@ body {
 
 
 
-@media (max-width: 428px) {
+@media (max-width: 720px) {
 
-    .content {
-        position: absolute;
-        top: 205.5px !important;
-        left: 16px;
+    .signup-conteiner {
+        animation: showContent 2s forwards 2s;
+        opacity: 0;
     }
-    .login-window {
-        width: 396px;
-        padding: 32px 0px 32px 0px !important;
-    }
+
+
     .input-fields {
         width: 364px;
         height: 152px;
     }
+
     .login-buttons-conteiner {
         flex-direction: column !important;
     }
 
     .login-input {
-        width: 322px;
+        width: 300px !important;
     }
 
     .signup-conteiner {
         top: 778px !important;
-        left: 70px;
         display: flex;
         gap: 35px;
-        opacity: 0;
-        animation: showContent 2s forwards 2s;
+        right: auto !important;
+
     }
 
     h1 {
-       font-size: 47px !important; 
-       line-height: 56.4px !important;
+        font-size: 47px !important;
+        line-height: 56.4px !important;
     }
 
     .login-buttons-conteiner {
@@ -92,7 +89,10 @@ body {
         width: 104px;
     }
 
-
+    .login-window {
+        width: 396px;
+        padding: 32px 0px 32px 0px !important;
+    }
 
     @keyframes moveDiv {
         0% {
@@ -129,7 +129,7 @@ body {
     }
 }
 
-@media (min-width: 428px) {
+@media (min-width: 720px) {
 
     @keyframes moveDiv {
         0% {
@@ -165,7 +165,22 @@ body {
         }
     }
 
-   
+
+}
+
+@media (max-width: 420px) {
+    .input-fields {
+        width: 290px !important;
+    }
+
+    .login-window {
+        width: 310px;
+    }
+
+    .checkbox-conteiner {
+        width: 290px !important;
+    }
+
 }
 
 
@@ -235,7 +250,7 @@ h1 {
     flex-direction: column;
     gap: 32px;
     align-items: center;
- 
+
 }
 
 .input-conteiner {
@@ -349,6 +364,7 @@ h1 {
     display: flex;
     justify-content: space-around;
     align-items: center;
+
     a {
         text-decoration: none;
         font-weight: 400;
@@ -356,6 +372,5 @@ h1 {
         line-height: 19.2px;
         color: #A8A8A8;
     }
-  
-}
 
+}

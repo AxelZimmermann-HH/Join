@@ -142,14 +142,26 @@ function signupUser(name, email, password) {
         password: password
     })
     .then(() => {
-        alert('Signup successful!');
-        window.location.href = 'index.html'; 
+        //alert('Signup successful!');
+        signupSuccessfully()
     })
     .catch((error) => {
         console.error('Error pushing data to Firebase: ', error);
         alert('Error signing up, please try again.');
     });
 }
+
+function signupSuccessfully() {
+    // Simulate signup success
+    const successMessage = document.getElementById('successMessage');
+    successMessage.classList.add('show');
+  
+    // Hide the message after 3 seconds
+    setTimeout(function() {
+      successMessage.classList.remove('show');
+      window.location.href = 'index.html';
+    }, 3000);
+  };
 
 // Attach the function to the window object to make it globally accessible
 window.toggleCheckboxImage = toggleCheckboxImage;
