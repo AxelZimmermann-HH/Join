@@ -47,6 +47,7 @@ body {
     gap: 32px;
     border-radius: 30px;
     position: relative;
+    margin-top: 75px;
 }
 
 .blue-underline {
@@ -213,5 +214,16 @@ a {
     
 }
 
+.h1-blueline {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
 
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
  
