@@ -524,9 +524,9 @@ function generateEditTaskLayer(task, key) {
             <div class="edit-task-element">
                 <p>Priority</p>
                 <div class="buttons">
-                    <button id="highButton" onclick="highButton()" class="prio-buttons prio-buttons-shadow ${highSelected}">Urgent <img id="highButtonImg" src="${highImgSrc}"></button>
-                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons prio-buttons-shadow ${mediumSelected}">Medium <img id="mediumButtonImg" src="${mediumImgSrc}"></button>
-                    <button id="lowButton" onclick="lowButton()" class="prio-buttons prio-buttons-shadow ${lowSelected}">Low <img id="lowButtonImg" src="${lowImgSrc}"></button>
+                    <button id="highButton" onclick="highButton()" class="prio-buttons pb-edit prio-buttons-shadow ${highSelected}">Urgent <img id="highButtonImg" src="${highImgSrc}"></button>
+                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons pb-edit prio-buttons-shadow ${mediumSelected}">Medium <img id="mediumButtonImg" src="${mediumImgSrc}"></button>
+                    <button id="lowButton" onclick="lowButton()" class="prio-buttons pb-edit prio-buttons-shadow ${lowSelected}">Low <img id="lowButtonImg" src="${lowImgSrc}"></button>
                 </div>
             </div>
             <div class="edit-task-element">
@@ -573,7 +573,7 @@ function openAddTask(boardCategory) {
     content.innerHTML += generateAddTaskLayer(boardCategory);
 }
 
-function generateAddTaskLayer(boardCategory) {
+function generateAddTaskLayer2(boardCategory) {
     return `
         <div class="show-task-firstrow align-items-start">
             <h1 class="headline">Add Task</h1>
@@ -634,6 +634,82 @@ function generateAddTaskLayer(boardCategory) {
                     <button onclick="createTask('${boardCategory}')" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
                 </div>
             </div>
+        </div>
+    `;
+}
+
+function generateAddTaskLayer(boardCategory) {
+    return `
+        <div class="add-task-firstrow align-items-start">
+            <h1 class="headline">Add Task</h1>
+            <div class="show-task-close" onclick="closeTask()">
+                    <img src="img/add-contact-close.svg" alt="">
+                </div>
+        </div>
+        <div class="add-task-section scroll no-margin-left no-margin-top">
+            
+            <div class="left-section no-margin-left">
+                <p class="title-headline">Title<span class="span-red">*</span></p>
+                <input class="title" id="title-input" onkeyup="emptyTitle()" required type="text"
+                    placeholder="Enter a title">
+                <span id="title-required"></span>
+                <p class="description">Description</p>
+                <textarea placeholder="Enter a Description" name="" id="description-input"></textarea>
+                <p class="assigned-to">Assigned to</p>
+
+                <div onclick="showContacts()" class="select-contact">
+                    <span>Select contact to assign</span>
+                    <img src="add_task_img/arrow-down.svg" alt="">
+                </div>
+                <div class="add-task-contacts add-task-contacts-layer d-none" id="add-task-contacts"></div>
+                <div class="required-text">
+                    <p><span class="span-red">*</span>This field is required</p>
+                </div>
+            </div>
+            <div class="parting-line no-margin-top"></div>
+            <div class="right-section right-section-layer no-margin-top">
+                
+                <p>Due date<span class="span-red">*</span></p>
+                <input class="date-input" onclick="emptyDate()" id="date-input" required type="date">
+                <span id="date-required"></span>
+                <p class="prio">Prio</p>
+                <div class="buttons">
+                    <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img id="highButtonImg"
+                            src="add_task_img/high.svg"></button>
+                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons">Medium <img id="mediumButtonImg"
+                            src="add_task_img/medium.svg"></button>
+                    <button id="lowButton" onclick="lowButton()" class="prio-buttons">Low <img id="lowButtonImg"
+                            src="add_task_img/low.svg"></button>
+                </div>
+                <p class="category">Category<span class="span-red">*</span></p>
+                <div onclick="category()" required class="category-menu">
+                    <span id="task-category">Select task category</span>
+                    <img src="add_task_img/arrow-down.svg" alt="">
+                </div>
+                <div id="category"></div>
+                <p class="subtasks">Subtasks</p>
+                <div class="subtask-layout">
+                    <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
+                    <div class="d-none" id="edit-subtask"></div>
+                    <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
+                </div>
+                <div class="create-subtask pos-relative-add" id="create-subtask"></div>
+
+                <div class="bottom-buttons">
+                    <button onclick="clearTask()" class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
+                    <button onclick="createTask('${boardCategory}')" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
+                </div>
+                <div class="mobile-create">
+                <div class="required-text-mobile required-text-mobile-layer">
+                    <p><span class="span-red">*</span>This field is required</p>
+                    <div>
+                        <button onclick="createTask()" class="create-task-button-mobile create-task-button-mobile-layer">Create Task <img
+                                src="add_task_img/check-white.svg" alt=""></button>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
         </div>
     `;
 }
