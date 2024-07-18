@@ -147,6 +147,6 @@ document.getElementById('guestLoginButton').addEventListener('click', guestLogin
 
 function guestLogin(event) {
     event.preventDefault();
-    window.location.href = 'summary.html';
+    goToSummary();
     sessionStorage.setItem('userName', 'Guest');
 }

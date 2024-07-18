@@ -142,12 +142,13 @@ function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prio
             <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
             <div class="task-on-board-headline">${task.title}</div>
             <div class="task-on-board-text">${task.description}</div>
-            <div class="task-on-board-subtasks">
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
-                </div>
-                <div class="task-on-board-subtasks-text">${completedSubtasks}/${totalSubtasks} Subtasks</div>
-            </div>
+            ${totalSubtasks > 0 ? `
+                <div class="task-on-board-subtasks">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: ${progressPercentage}%;"></div>
+                    </div>
+                    <div class="task-on-board-subtasks-text">${completedSubtasks}/${totalSubtasks} Subtasks</div>
+                </div>` : ''}
             <div class="task-on-board-lastrow">
                 <div class="task-on-board-contacts" id="task-on-board-contacts${i}">
                     ${contactsHTML}
@@ -187,6 +188,13 @@ function startDragging(key) {
 
 function allowDrop(ev) {
     ev.preventDefault();
+    var taskArea = ev.currentTarget;
+    taskArea.classList.add('hover');
+}
+
+function resetBackground(ev) {
+    var taskArea = ev.currentTarget;
+    taskArea.classList.remove('hover');
 }
 
 async function moveTo(category) {
@@ -198,6 +206,12 @@ async function moveTo(category) {
     }
 }
 
+function drop(ev, category) {
+    ev.preventDefault();
+    var taskArea = ev.currentTarget;
+    taskArea.classList.remove('hover');
+    moveTo(category);
+}
 
 
 // Ändern einer bestimmten Task-Eigenschaft in der Database (bspw. board-category bei Drag & Drop)
@@ -332,31 +346,33 @@ function generateTaskLayer(task, key) {
             </div>
         </div>
         <h1>${task.title}</h1>
-        <p class="show-task-description">${task.description}</p>
-        <div class="show-task-text-rows">
-            <p class="show-task-characteristic">Due date:</p><p>${task.due_date}</p>
-        </div>
-        <div class="show-task-text-rows">
-            <p class="show-task-characteristic">Priority:</p>
-            <p>${task.prio.charAt(0).toUpperCase() + task.prio.slice(1)}</p>
-            <img src="/add_task_img/${task.prio}.svg" alt="">
-        </div>
-        <div id="assigned-headline" class="show-task-text-rows pb8 mt12">
-            <p class="show-task-characteristic">Assigned To:</p>
-        </div>
-        <div class="show-task-contacts">
-            ${contactsHTML}
-        </div>
-        <div id="subtasks-headline" class="show-task-text-rows pb8 mt12">
-            <p class="show-task-characteristic">Subtasks:</p>
-        </div>
-        <div class="show-task-subtasks">
-            ${subtasksHTML}
-        </div>
-        <div class="show-task-lastrow mt12">
-            <a href="#" class="show-task-lastrow-link" onclick="deleteTask('${key}')"><img class="show-task-icon" src="/add_task_img/delete.svg" alt="">Delete</a>
-            <div class="show-task-lastrow-line"></div>
-            <a href="#" class="show-task-lastrow-link" onclick="showEditTask('${key}')"><img class="show-task-icon" src="img/edit2.svg" alt="">Edit</a>
+        <div class="show-task-scroll">
+            <p class="show-task-description">${task.description}</p>
+            <div class="show-task-text-rows">
+                <p class="show-task-characteristic">Due date:</p><p>${task.due_date}</p>
+            </div>
+            <div class="show-task-text-rows">
+                <p class="show-task-characteristic">Priority:</p>
+                <p>${task.prio.charAt(0).toUpperCase() + task.prio.slice(1)}</p>
+                <img src="/add_task_img/${task.prio}.svg" alt="">
+            </div>
+            <div id="assigned-headline" class="show-task-text-rows pb8 mt12">
+                <p class="show-task-characteristic">Assigned To:</p>
+            </div>
+            <div class="show-task-contacts">
+                ${contactsHTML}
+            </div>
+            <div id="subtasks-headline" class="show-task-text-rows pb8 mt12">
+                <p class="show-task-characteristic">Subtasks:</p>
+            </div>
+            <div class="show-task-subtasks">
+                ${subtasksHTML}
+            </div>
+            <div class="show-task-lastrow mt12">
+                <a href="#" class="show-task-lastrow-link" onclick="deleteTask('${key}')"><img class="show-task-icon" src="/add_task_img/delete.svg" alt="">Delete</a>
+                <div class="show-task-lastrow-line"></div>
+                <a href="#" class="show-task-lastrow-link" onclick="showEditTask('${key}')"><img class="show-task-icon" src="img/edit2.svg" alt="">Edit</a>
+            </div>
         </div>
     `;
 }
@@ -560,6 +576,7 @@ function generateEditTaskLayer(task, key) {
 
 // Öffnen des Add-Task-Layers bei Klick auf den statischen Button
 function openAddTask(boardCategory) {
+    resetSelectedContacts();
     document.getElementById('show-task-layer').classList.remove('d-none');
     let content = document.getElementById('show-task-inner-layer');
     content.classList.add('width-auto');

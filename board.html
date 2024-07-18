@@ -35,11 +35,11 @@
     </header>
 
     <div class="user-content" id="user-content">
-      <a href="./legal_notice.html">Legal Notice</a>
-      <a href="./privacy_policy.html">Privacy Policy</a>
-      <a onclick="logOut()" href="index.html">Log Out</a>
+        <a onclick="goToLegalNotice()" href="#">Legal Notice</a>
+        <a onclick="goToPrivacyPolicy()"href="#">Privacy Policy</a>
+        <a onclick="logOut()" href="index.html">Log Out</a>
     </div>
-    </div>
+
 
     <div class="sidebar">
         <img src="../img/logo.svg" alt="" class="sidebar-logo" />
@@ -69,7 +69,7 @@
             <h1>Board</h1>
             <div class="board-firstrow-right">
                 <div id="input-container-find">
-                    <input placeholder="Find Task" id="find-task" required type="text" onkeydown="findTask()" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+                    <input placeholder="Find Task" id="find-task" required type="text" oninput="findTask()" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
                     <div class="find-line"></div>
                     <img class="icon px32" src="img/search.svg" alt="user icon">
                 </div>
@@ -89,14 +89,14 @@
                     <p>To do</p>
                     <img class="add-task-board-category" onclick="openAddTask('to-do')" src="img/plus_bordered.svg" alt="">
                 </div>
-                <div class="task-area" id="to-do" ondrop="moveTo('to-do')" ondragover="allowDrop(event)"></div>
+                <div class="task-area" id="to-do" ondrop="drop(event, 'to-do')" ondragover="allowDrop(event)" ondragleave="resetBackground(event)"></div>
             </div>
             <div class="board-split">
                 <div class="split-headline">
                     <p>In progress</p>
                     <img class="add-task-board-category" onclick="openAddTask('in-progress')" src="img/plus_bordered.svg" alt="">
                 </div>
-                <div class="task-area" id="in-progress" ondrop="moveTo('in-progress')" ondragover="allowDrop(event)">
+                <div class="task-area" id="in-progress" ondrop="drop(event, 'in-progress')" ondragover="allowDrop(event)" ondragleave="resetBackground(event)">
                     
                 </div>
                 
@@ -106,13 +106,13 @@
                     <p>Await feedback</p>
                     <img class="add-task-board-category" onclick="openAddTask('await-feedback')" src="img/plus_bordered.svg" alt="">
                 </div>
-                <div class="task-area" id="await-feedback" ondrop="moveTo('await-feedback')" ondragover="allowDrop(event)"></div>
+                <div class="task-area" id="await-feedback" ondrop="drop(event, 'await-feedback')" ondragover="allowDrop(event)" ondragleave="resetBackground(event)"></div>
             </div>
             <div class="board-split">
                 <div class="split-headline">
                     <p>Done</p>  
                 </div>
-                <div class="task-area" id="done" ondrop="moveTo('done')" ondragover="allowDrop(event)"></div>
+                <div class="task-area" id="done" ondrop="drop(event, 'done')" ondragover="allowDrop(event)" ondragleave="resetBackground(event)"></div>
             </div>
         </div>
     </div>
