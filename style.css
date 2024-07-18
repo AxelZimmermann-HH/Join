@@ -276,10 +276,7 @@ h1 {
     height: 16px;
 }
 
-.password-img {
-    height: 21px;
-    width: 16px;
-}
+
 
 .pdng1524 {
     padding: 15px 24px 15px 24px;
@@ -373,4 +370,31 @@ h1 {
         color: #A8A8A8;
     }
 
+}
+
+.wrong-password {
+    margin-top: -22px;
+    font-family: 'Poppins' !important;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.4px;
+    color: #FF8190;
+}
+
+.login-red {
+    border-color: #FF001F !important;
+}
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
+}
+
+.password-image-conteiner {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

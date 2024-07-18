@@ -90,12 +90,17 @@ function login(event) {
                 goToSummary();
      
             } else {
-                alert('Invalid email or password.');
+                //alert('Invalid email or password.');
+                document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match'
+                document.getElementById('pasowrdConteiner').classList.add('login-red')
+
             }
         })
         .catch((error) => {
             console.error('Error fetching user data:', error);
-            alert('Error logging in, please try again.');
+           // alert('Error logging in, please try again.');
+            document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match'
+            document.getElementById('pasowrdConteiner').classList.add('login-red')
         });
 }
 
