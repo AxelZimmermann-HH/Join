@@ -77,7 +77,7 @@
             <textarea placeholder="Enter a Description" name="" id="description-input"></textarea>
             <p class="assigned-to">Assigned to</p>
 
-            <div onclick="showContacts()" class="select-contact">
+            <div id="select-contact" onclick="showContacts()" class="select-contact">
                 <span>Select contact to assign</span>
                 <img src="add_task_img/arrow-down.svg" alt="">
             </div>
@@ -103,11 +103,13 @@
                         src="add_task_img/low.svg"></button>
             </div>
             <p class="category">Category<span class="span-red">*</span></p>
-            <div onclick="category()" required class="category-menu">
-                <span id="task-category">Select task category</span>
-                <img src="add_task_img/arrow-down.svg" alt="">
+            <div class="dropdown-category">
+                <div onclick="category()" required class="category-menu">
+                    <span id="task-category">Select task category</span>
+                    <img src="add_task_img/arrow-down.svg" alt="">
+                </div>
+                <div class="category-options" id="category"></div>
             </div>
-            <div id="category"></div>
             <p class="subtasks">Subtasks</p>
             <div class="subtask-layout">
                 <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">

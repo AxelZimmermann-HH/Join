@@ -38,19 +38,13 @@ function lowButton() {
 }
 
 function category() {
+  let categoryDropdown = document.getElementById("category");
+  categoryDropdown.classList.toggle("d-none");
+
   document.getElementById("category").innerHTML += `<div class="category-options">
   <span onclick="technicalTask()">Technical Task</span>
   <span onclick="userStory()">User Story</span>
   </div>`;
-
-  // checked if category field is already open
-  var x = document.getElementById("category");
-  if (x.style.display === "flex") {
-    x.style.display = "none";
-    x.innerHTML = "";
-  } else {
-    x.style.display = "flex";
-  }
 }
 
 function technicalTask() {
@@ -282,7 +276,6 @@ function showContacts() {
 
 function showContactsInEdit() {
   showContactsInAddTask();
-  document.getElementById("add-task-contacts").classList.toggle("d-none");
   console.log("check");
 }
 
