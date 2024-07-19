@@ -362,43 +362,13 @@ function updateContactsHeadline() {
 function generateTaskLayer(task, key) {
     const contacts = task.contacts || {};
     const subtasks = task.subtasks || {};
-    let categoryClass = task.task_category === 'User Story' ? 'user-story' : 'technical-task';
+    let categoryClass = getCategoryClass(task.task_category);
 
-    // Initialisiere selectedContacts als false für alle Kontakte
-    selectedContacts = new Array(contactsArray.length).fill(false);
+    initializeSelectedContacts(contactsArray);
 
-    // Erstelle contactsHTML und setze ausgewählte Kontakte in selectedContacts auf true
-    let userName = sessionStorage.getItem('userName');
-    const contactsHTML = Object.values(contacts).map(contact => {
-        // Finde den Index des Kontakts in contactsArray
-        const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
-
-        if (contactIndex !== -1) {
-            // Setze das entsprechende Element in selectedContacts auf true
-            selectedContacts[contactIndex] = true;
-        }
-
-        let displayName = contact.name;
-        if (contact.name === userName) {
-            displayName += " (You)";
-        }
-        return `
-            <div class="show-task-contact">
-                <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-                <p>${displayName}</p>
-            </div>
-        `;
-    }).join('');
-
-    const subtasksHTML = Object.keys(subtasks).map(subtaskKey => {
-        const subtask = subtasks[subtaskKey];
-        return `
-            <div class="show-task-subtask" onclick="checkSubtask('${key}', '${subtaskKey}', this.querySelector('img'))">
-                <img src="/add_task_img/${subtask.completed ? 'subtasks_checked' : 'subtasks_notchecked'}.svg" alt="">
-                <p>${subtask.title}</p>
-            </div>
-        `;
-    }).join('');
+    const userName = sessionStorage.getItem('userName');
+    const contactsHTML = generateContactsInTaskLayer(task.contacts, userName);
+    const subtasksHTML = generateSubtasksInTaskLayer(subtasks, key);
 
     return `
         <div class="show-task-firstrow">
@@ -415,7 +385,7 @@ function generateTaskLayer(task, key) {
             </div>
             <div class="show-task-text-rows">
                 <p class="show-task-characteristic">Priority:</p>
-                <p>${task.prio.charAt(0).toUpperCase() + task.prio.slice(1)}</p>
+                <p>${capitalize(task.prio)}</p>
                 <img src="/add_task_img/${task.prio}.svg" alt="">
             </div>
             <div id="assigned-headline" class="show-task-text-rows pb8 mt12">
@@ -439,9 +409,53 @@ function generateTaskLayer(task, key) {
     `;
 }
 
+function getCategoryClass(taskCategory) {
+    return taskCategory === 'User Story' ? 'user-story' : 'technical-task';
+}
+
+function initializeSelectedContacts(contactsArray) {
+    selectedContacts = new Array(contactsArray.length).fill(false);
+}
+
+function generateContactsInTaskLayer(contacts, userName) {
+    return Object.values(contacts).map(contact => {
+        const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
+
+        if (contactIndex !== -1) {
+            selectedContacts[contactIndex] = true;
+        }
+
+        let displayName = contact.name;
+        if (contact.name === userName) {
+            displayName += " (You)";
+        }
+        return `
+            <div class="show-task-contact">
+                <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+                <p>${displayName}</p>
+            </div>
+        `;
+    }).join('');
+}
+
+function generateSubtasksInTaskLayer(subtasks, key) {
+    return Object.keys(subtasks).map(subtaskKey => {
+        const subtask = subtasks[subtaskKey];
+        return `
+            <div class="show-task-subtask" onclick="checkSubtask('${key}', '${subtaskKey}', this.querySelector('img'))">
+                <img src="/add_task_img/${subtask.completed ? 'subtasks_checked' : 'subtasks_notchecked'}.svg" alt="">
+                <p>${subtask.title}</p>
+            </div>
+        `;
+    }).join('');
+}
+
+function capitalize(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+}
 
 
-// Handling der Subtasks im Task-Layer
+
 async function checkSubtask(taskKey, subtaskKey, imgElement) {
     const subtask = tasksData[taskKey].subtasks[subtaskKey];
     const updatedStatus = !subtask.completed;
