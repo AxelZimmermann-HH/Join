@@ -78,26 +78,29 @@ function login(event) {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
 
-    
     if (localStorage.getItem('rememberMe') === 'true') {
         localStorage.setItem('email', email);
         localStorage.setItem('password', password);
     }
 
     validateUser(email, password)
-        .then((isAuthenticated) => {
-            if (isAuthenticated) {
-                saveNameInLocalStorage(email)
-                alert('Login successful!');
+        .then((result) => {
+            if (result.isAuthenticated) {
+                sessionStorage.setItem('userName', result.name); 
                 goToSummary();
-                // window.location.href = 'summary.html';
+     
             } else {
-                alert('Invalid email or password.');
+                //alert('Invalid email or password.');
+                document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match'
+                document.getElementById('pasowrdConteiner').classList.add('login-red')
+
             }
         })
         .catch((error) => {
             console.error('Error fetching user data:', error);
-            alert('Error logging in, please try again.');
+           // alert('Error logging in, please try again.');
+            document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match'
+            document.getElementById('pasowrdConteiner').classList.add('login-red')
         });
 }
 
@@ -108,7 +111,7 @@ function validateUser(email, password) {
             const users = snapshot.val();
             for (let key in users) {
                 if (users[key].email === email && users[key].password === password) {
-                    return true;
+                    return { isAuthenticated: true, name: users[key].name };                    
                 }
             }
         }
@@ -118,24 +121,6 @@ function validateUser(email, password) {
         return false;
     });
 }
-
-function saveNameInLocalStorage(email) {
-    const usersRef = ref(database, 'users');
-    return get(usersRef).then((snapshot) => {
-        if (snapshot.exists()) {
-            const users = snapshot.val();
-            for (let key in users) {
-                if (users[key].email === email) {
-                    sessionStorage.setItem('userName', users[key].name);
-                    return;
-                }
-            }
-        }
-    }).catch((error) => {
-        console.error('Error fetching user data:', error);
-    });
-}
-
 
 document.getElementById('signupButton').addEventListener('click', goTosignup);
 
@@ -147,6 +132,6 @@ document.getElementById('guestLoginButton').addEventListener('click', guestLogin
 
 function guestLogin(event) {
     event.preventDefault();
-    window.location.href = 'summary.html';
+    goToSummary();
     sessionStorage.setItem('userName', 'Guest');
 }

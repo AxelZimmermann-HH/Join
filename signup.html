@@ -17,28 +17,33 @@
         <div class="arrow-conteiner" id="backArrow">
             <img src="./img/arrow-left-line.png" alt="">
         </div>
-        <form id="signupForm" class="signup-form">
-
+        <div class="h1-blueline">
             <h1>Sign Up</h1>
 
             <div class="blue-underline"></div>
-            <div class="signup-conteiner">
+        </div>
+        <form id="signupForm" class="signup-form">
+            <div class="input-container">
+                <div class="signup-conteiner">
 
-                <input class="signup-input" type="text" placeholder="Name" id="name" name="name" required><img class="password-img" src="./img/person.png" alt="">
-            </div>
-            <div class="signup-conteiner">
+                    <input class="signup-input" type="text" placeholder="Name" id="name" name="name" required><img
+                        class="password-img" src="./img/person.png" alt="">
+                </div>
+                <div class="signup-conteiner">
 
-                <input class="signup-input" type="email" id="email" placeholder="Email" name="email" required><img class="mail-img" src="./img/mail.png" alt="">
-            </div>
-            <div class="signup-conteiner">
+                    <input class="signup-input" type="email" id="email" placeholder="Email" name="email" required><img
+                        class="mail-img" src="./img/mail.png" alt="">
+                </div>
+                <div class="signup-conteiner">
 
-                <input class="signup-input" type="password" id="password" placeholder="Password" name="password"
-                    required><img class="password-img" src="./img/lock.png" alt="">
-            </div>
-            <div class="signup-conteiner">
+                    <input class="signup-input" type="password" id="password" placeholder="Password" name="password"
+                        required><img class="password-img" src="./img/lock.png" alt="">
+                </div>
+                <div class="signup-conteiner">
 
-                <input class="signup-input" type="password" id="confirmPassword" placeholder="Confirm Password"
-                    name="confirmPassword" required><img class="password-img" src="./img/lock.png" alt="">
+                    <input class="signup-input" type="password" id="confirmPassword" placeholder="Confirm Password"
+                        name="confirmPassword" required><img class="password-img" src="./img/lock.png" alt="">
+                </div>
             </div>
             <div class="checkbox-conteiner">
                 <div class="check-box">
@@ -55,6 +60,9 @@
     <div class="links-conteiner">
         <a href="./privacy_policy.html">Privacy Policy</a>
         <a href="./legal_notice.html">Legal notice</a>
+    </div>
+    <div id="successMessage">You Signed Up successfully</div>
+
     </div>
     <script type="module" src="./js/signup.js"></script>
 </body>

@@ -47,6 +47,7 @@ body {
     gap: 32px;
     border-radius: 30px;
     position: relative;
+    margin-top: 75px;
 }
 
 .blue-underline {
@@ -213,5 +214,47 @@ a {
     
 }
 
+.h1-blueline {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+}
 
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+
+#signupForm {
+    text-align: center;
+    
+    
+  }
+  
+  #successMessage {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #2A3647;
+    padding: 0px 25px 0px 25px;
+    color: #FFFFFF;
+    opacity: 0;
+    border-radius: 20px;
+    height: 74px;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    transition: bottom 2s ease, opacity 2s ease;
+  }
+  
+  #successMessage.show {
+    bottom: 50%;
+    opacity: 1;
+  }
  

@@ -6,12 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy</title>
     <link rel="icon" href="../img/logo.svg">
-
     <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/desktop_template.css">
-    <link rel="stylesheet" href="privacy_policy.css">
+    <link rel="stylesheet" href="privacy_policy_nologin.css">
     
-    <script src="script.js"></script>
     
 </head>
 
@@ -23,17 +20,11 @@
             <img class="d-none" src="img/logo-dark.png" alt="">
             <p>Kanban Project Management Tool</p>
             <div class="header-icons">
-                <img onclick="goToHelp()" class="header-help" src="../img/help.svg" alt="questionmark" />
-                <div id="user-logo" onclick="toggleMenu()" class="header-user-name"></div>
             </div>
         </div>
     </header>
 
-    <div class="user-content" id="user-content">
-        <a onclick="goToLegalNotice()" href="#">Legal Notice</a>
-        <a onclick="goToPrivacyPolicy()"href="#">Privacy Policy</a>
-        <a onclick="logOut()" href="index.html">Log Out</a>
-    </div>
+    
 
 
     <div class="sidebar">
@@ -53,15 +44,15 @@
             </a>
         </div>
         <div class="sidebar-menu-bottom">
-            <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
-            <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
+            <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="privacy_policy_nologin.html">Privacy Policy</a>
+            <a id="link-legal-notice" onclick="goToLegalNotice()" href="legal_notice_nologin.html">Legal Notice</a>
         </div>
     </div>
 
     <div class="privacy-policy">
         <div class="titleFromPolicy">
             <h1>Datenschutz&shy;erkl&auml;rung</h1>
-            <a onclick="goToSummary()" class="back" href="#">
+            <a onclick="goToSummary()" class="back" href="index.html">
                 <img class="arrow" src="./img/arrow-left-line.svg" />
             </a>
         </div>

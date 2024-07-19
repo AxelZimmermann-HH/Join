@@ -222,7 +222,7 @@ function deleteSubtask(i) {
 }
 
 function resetSelectedContacts() {
-  //selectedContacts = new Array(contactsArray.length).fill(false);
+  selectedContacts = new Array(contactsArray.length).fill(false);
 }
 
 function showContactsInAddTask() {
@@ -269,7 +269,6 @@ async function initializeAddTask() {
 }
 
 function showContacts() {
-  resetSelectedContacts();
   showContactsInAddTask();
   document.getElementById("add-task-contacts").classList.toggle("d-none");
 }
@@ -277,7 +276,6 @@ function showContacts() {
 function showContactsInEdit() {
   showContactsInAddTask();
   document.getElementById("add-task-contacts").classList.toggle("d-none");
-  console.log("check");
 }
 
 function checkContacts(i) {
@@ -367,7 +365,7 @@ async function createTask(boardCategory) {
 
   let postResponse = await postTask("", newTask);
 
-  window.location.href = "board.html"; // Ersetzen Sie 'zielseite.html' durch den tatsächlichen Dateinamen der Zielseite
+  goToBoard();
 
   let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
 
