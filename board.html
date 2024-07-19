@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,15 +15,12 @@
 
 
 
-    <script src="/js/board.js"></script>
-    <script src="js/add_task.js"></script>
-    <script src="js/contacts.js"></script>
-    <script src="script.js"></script>
-    
+
+
 </head>
 
 <body onload="boardInit()">
-  
+
     <header>
         <div class="header-content">
             <img class="d-none" src="img/logo-dark.png" alt="">
@@ -36,7 +34,7 @@
 
     <div class="user-content" id="user-content">
         <a onclick="goToLegalNotice()" href="#">Legal Notice</a>
-        <a onclick="goToPrivacyPolicy()"href="#">Privacy Policy</a>
+        <a onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
         <a onclick="logOut()" href="index.html">Log Out</a>
     </div>
 
@@ -69,50 +67,61 @@
             <h1>Board</h1>
             <div class="board-firstrow-right">
                 <div id="input-container-find">
-                    <input placeholder="Find Task" id="find-task" required type="text" oninput="findTask()" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+                    <input placeholder="Find Task" id="find-task" required type="text" oninput="findTask()"
+                        pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
                     <div class="find-line"></div>
                     <img class="icon px32" src="img/search.svg" alt="user icon">
                 </div>
-               
-                <button onclick="openAddTask('to-do')" class="button-dark button-dark-board" type="submit"><p>Add task</p><img class="px18" src="/img/plus_white.svg" alt=""></button>
+
+                <button onclick="openAddTask('to-do')" class="button-dark button-dark-board" type="submit">
+                    <p>Add task</p><img class="px18" src="/img/plus_white.svg" alt="">
+                </button>
             </div>
         </div>
         <div id="input-container-find2" class="d-none">
-            <input placeholder="Find Task" id="find-task2" required type="text" onkeydown="findTaskMobile()" pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
+            <input placeholder="Find Task" id="find-task2" required type="text" onkeydown="findTaskMobile()"
+                pattern="^[A-Za-z]+ [A-Za-z]+.*$" title="Please enter at least a first name and a last name">
             <div class="find-line"></div>
             <img class="icon px32" src="img/search.svg" alt="user icon">
         </div>
-        
+
         <div class="board-splits">
             <div class="board-split">
                 <div class="split-headline">
                     <p>To do</p>
-                    <img class="add-task-board-category" onclick="openAddTask('to-do')" src="img/plus_bordered.svg" alt="">
+                    <img class="add-task-board-category" onclick="openAddTask('to-do')" src="img/plus_bordered.svg"
+                        alt="">
                 </div>
-                <div class="task-area" id="to-do" ondrop="drop(event, 'to-do')" ondragover="allowDrop(event)" ondragleave="resetBackground(event)"></div>
+                <div class="task-area" id="to-do" ondrop="drop(event, 'to-do')" ondragover="allowDrop(event)"
+                    ondragleave="resetBackground(event)"></div>
             </div>
             <div class="board-split">
                 <div class="split-headline">
                     <p>In progress</p>
-                    <img class="add-task-board-category" onclick="openAddTask('in-progress')" src="img/plus_bordered.svg" alt="">
+                    <img class="add-task-board-category" onclick="openAddTask('in-progress')"
+                        src="img/plus_bordered.svg" alt="">
                 </div>
-                <div class="task-area" id="in-progress" ondrop="drop(event, 'in-progress')" ondragover="allowDrop(event)" ondragleave="resetBackground(event)">
-                    
+                <div class="task-area" id="in-progress" ondrop="drop(event, 'in-progress')"
+                    ondragover="allowDrop(event)" ondragleave="resetBackground(event)">
+
                 </div>
-                
+
             </div>
             <div class="board-split">
                 <div class="split-headline">
                     <p>Await feedback</p>
-                    <img class="add-task-board-category" onclick="openAddTask('await-feedback')" src="img/plus_bordered.svg" alt="">
+                    <img class="add-task-board-category" onclick="openAddTask('await-feedback')"
+                        src="img/plus_bordered.svg" alt="">
                 </div>
-                <div class="task-area" id="await-feedback" ondrop="drop(event, 'await-feedback')" ondragover="allowDrop(event)" ondragleave="resetBackground(event)"></div>
+                <div class="task-area" id="await-feedback" ondrop="drop(event, 'await-feedback')"
+                    ondragover="allowDrop(event)" ondragleave="resetBackground(event)"></div>
             </div>
             <div class="board-split">
                 <div class="split-headline">
-                    <p>Done</p>  
+                    <p>Done</p>
                 </div>
-                <div class="task-area" id="done" ondrop="drop(event, 'done')" ondragover="allowDrop(event)" ondragleave="resetBackground(event)"></div>
+                <div class="task-area" id="done" ondrop="drop(event, 'done')" ondragover="allowDrop(event)"
+                    ondragleave="resetBackground(event)"></div>
             </div>
         </div>
     </div>
@@ -121,10 +130,13 @@
 
     <div class="add-contact-layer d-none" id="show-task-layer">
         <div class="show-task-inner-layer" id="show-task-inner-layer">
-            
+
         </div>
     </div>
-
+    <script src="/js/board.js"></script>
+    <script src="js/add_task.js"></script>
+    <script src="js/contacts.js"></script>
+    <script src="script.js"></script>
 
 </body>
 
