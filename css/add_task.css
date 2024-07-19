@@ -462,6 +462,18 @@ ul {
 .show-task-contact-add-task p {
   padding-bottom: 0 !important;
 }
+#added-to-board {
+  position: fixed;
+  bottom: -100px; /* Start position off-screen */
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 1s ease-in-out, opacity 1s ease-in-out 1s; /* Animate both position and opacity */
+  opacity: 0; /* Start fully transparent */
+}
+#added-to-board.show {
+  bottom: 50%;
+  opacity: 1;
+}
 
 @media (max-width: 1300px) {
   .title {

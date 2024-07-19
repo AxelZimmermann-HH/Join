@@ -1,6 +1,8 @@
 let subtasks = [];
 let selectedContacts = [];
+
 const contactDropdown = document.getElementById("add-task-contacts");
+const categoryDropdown = document.getElementById("category");
 
 function standardButton() {
   document.getElementById("mediumButton").classList.add("selected-medium-button");
@@ -290,17 +292,26 @@ function showContacts() {
   contactDropdown.classList.toggle("d-none");
   showContactsInAddTask();
 }
-window.onclick = (event) => {
-  if (!event.target.matches(".select-contact")) {
-    if (contactDropdown.classList.contains("d-none")) {
-      contactDropdown.classList.remove("d-none");
+
+document.addEventListener("mousedown", function (event) {
+  if (!contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
+    if (!contactDropdown.classList.contains("d-none")) {
+      contactDropdown.classList.add("d-none");
     }
   }
-};
+});
+
+document.addEventListener("mousedown", function (event) {
+  if (!categoryDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
+    if (!categoryDropdown.classList.contains("d-none")) {
+      categoryDropdown.classList.add("d-none");
+    }
+  }
+});
 
 function showContactsInEdit() {
   showContactsInAddTask();
-  document.getElementById("add-task-contacts").classList.toggle("d-none");
+  contactDropdown.classList.toggle("d-none");
 }
 
 function checkContacts(i) {
