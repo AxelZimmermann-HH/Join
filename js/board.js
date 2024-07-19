@@ -415,6 +415,10 @@ function initializeSelectedContacts(contactsArray) {
 }
 
 function generateContactsInTaskLayer(contacts, userName) {
+    if (!contacts || typeof contacts !== 'object') {
+        return '';
+    }
+
     return Object.values(contacts).map(contact => {
         const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
 
@@ -434,6 +438,7 @@ function generateContactsInTaskLayer(contacts, userName) {
         `;
     }).join('');
 }
+
 
 function generateSubtasksInTaskLayer(subtasks, key) {
     return Object.keys(subtasks).map(subtaskKey => {
