@@ -1,5 +1,11 @@
 let subtasks = [];
 let selectedContacts = [];
+const contactDropdown = document.getElementById("add-task-contacts");
+
+function standardButton() {
+  document.getElementById("mediumButton").classList.add("selected-medium-button");
+  document.getElementById("mediumButtonImg").src = "../add_task_img/medium-white.svg";
+}
 
 function highButton() {
   //select high Button
@@ -96,6 +102,12 @@ function updateDateStyle() {
 }
 
 function newSubtask() {
+  document.getElementById("subtask-field").addEventListener("keydown", function (press) {
+    if (press.key === "Enter") {
+      createSubtask();
+    }
+  });
+
   let subtaskPlus = document.getElementById("subtask-plus");
   subtaskPlus.classList.add("d-none");
 
@@ -194,7 +206,6 @@ function changeSubtask(i) {
 function whichSourceSubtask(i) {
   let editLogo = document.getElementById(`edit-logo${i}`);
   if (editLogo.src.endsWith("add_task_img/check.svg")) {
-    // Korrigierte Überprüfung des src
     updateSubtask(i);
   } else {
     changeSubtask(i);
@@ -202,11 +213,17 @@ function whichSourceSubtask(i) {
 }
 
 function updateSubtask(i) {
+  let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
+  let editSubtask = editedSubtask.trim();
+  if (editSubtask === "") {
+    alert("please fill out the subtask");
+    return;
+  }
+
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks");
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks:hover");
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks-edit");
 
-  let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
   subtasks[i].title = editedSubtask;
 
   let createSubtask = document.getElementById(`subtask-${i}`);
@@ -266,12 +283,20 @@ function showContactsInAddTask() {
 async function initializeAddTask() {
   await fetchDataJson();
   generateInitials();
+  standardButton();
 }
 
 function showContacts() {
+  contactDropdown.classList.toggle("d-none");
   showContactsInAddTask();
-  document.getElementById("add-task-contacts").classList.toggle("d-none");
 }
+window.onclick = (event) => {
+  if (!event.target.matches(".select-contact")) {
+    if (contactDropdown.classList.contains("d-none")) {
+      contactDropdown.classList.remove("d-none");
+    }
+  }
+};
 
 function showContactsInEdit() {
   showContactsInAddTask();
@@ -329,12 +354,18 @@ function clearSubtasks() {
   subtasks = [];
   renderSubtasks();
 }
+
 async function createTask(boardCategory) {
   let description = document.getElementById("description-input").value;
   let dueDate = document.getElementById("date-input").value;
   let prio = getSelectedPrio();
   let taskCategory = document.getElementById("task-category").innerText;
   let title = document.getElementById("title-input").value;
+
+  if (title === "" || taskCategory === "Select task category" || dueDate === "") {
+    alert("please fill out title, task category and date");
+    return;
+  }
 
   // Erstelle das contacts Objekt basierend auf ausgewählten Kontakten
   let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {

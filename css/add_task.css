@@ -401,8 +401,6 @@ ul {
   height: 240px;
 }
 
-
-
 .add-task-contacts-edit {
   position: relative !important;
   top: auto !important;
@@ -700,10 +698,8 @@ ul {
   .pos-relative {
     width: 240px !important;
   }
-  
 }
 @media (max-width: 700px) {
-  
   .headline {
     font-size: 40px;
   }
@@ -796,7 +792,6 @@ ul {
   .show-task-contact-add-task {
     gap: 8px;
   }
-  
 }
 
 @media (max-width: 581px) {
@@ -987,7 +982,7 @@ ul {
     height: 100px;
     margin-bottom: 418px;
   }
-  
+
   .clear-button {
     display: none;
   }
