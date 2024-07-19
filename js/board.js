@@ -441,6 +441,8 @@ async function checkSubtask(taskKey, subtaskKey, imgElement) {
   }
 }
 
+  
+
 // Öffnen des Edit-Layers bei Klick auf Edit in der Task-Ansicht
 function showEditTask(taskKey) {
   const task = tasksData[taskKey];
@@ -448,6 +450,7 @@ function showEditTask(taskKey) {
   let currentHeight = content.scrollHeight;
   content.style.height = currentHeight + "px";
   content.innerHTML = generateEditTaskLayer(task, taskKey);
+
 }
 
 //Editieren einer Task
@@ -686,7 +689,7 @@ function generateEditTaskLayer(task, key) {
             </div>
             <div class="edit-task-element">
                 <p>Assigned to</p>
-                <div onclick="showContactsInEdit()" class="select-contact select-contact-edit">
+                <div onclick="showContacts()" class="select-contact select-contact-edit">
                     <span>Select contact to assign</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>

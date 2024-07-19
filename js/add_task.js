@@ -289,6 +289,8 @@ async function initializeAddTask() {
 }
 
 function showContacts() {
+  const contactDropdown = document.querySelector("#add-task-contacts");
+  const categoryDropdown = document.querySelector("#category");
   contactDropdown.classList.toggle("d-none");
   showContactsInAddTask();
 }
