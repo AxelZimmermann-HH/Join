@@ -293,21 +293,29 @@ function showContacts() {
   showContactsInAddTask();
 }
 
-document.addEventListener("mousedown", function (event) {
-  if (!contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
-    if (!contactDropdown.classList.contains("d-none")) {
-      contactDropdown.classList.add("d-none");
+document.addEventListener("DOMContentLoaded", function() {
+  const contactDropdown = document.querySelector("#add-task-contacts");
+  const categoryDropdown = document.querySelector("#category");
+
+  console.log(contactDropdown, categoryDropdown); // Überprüfen, ob die Elemente existieren
+
+  document.addEventListener("mousedown", function(event) {
+    if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
+      if (!contactDropdown.classList.contains("d-none")) {
+        contactDropdown.classList.add("d-none");
+      }
     }
-  }
+  });
+
+  document.addEventListener("mousedown", function(event) {
+    if (categoryDropdown && !categoryDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
+      if (!categoryDropdown.classList.contains("d-none")) {
+        categoryDropdown.classList.add("d-none");
+      }
+    }
+  });
 });
 
-document.addEventListener("mousedown", function (event) {
-  if (!categoryDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
-    if (!categoryDropdown.classList.contains("d-none")) {
-      categoryDropdown.classList.add("d-none");
-    }
-  }
-});
 
 function showContactsInEdit() {
   showContactsInAddTask();
