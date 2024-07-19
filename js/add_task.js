@@ -222,7 +222,7 @@ function deleteSubtask(i) {
 }
 
 function resetSelectedContacts() {
-  // selectedContacts = new Array(contactsArray.length).fill(false);
+  //selectedContacts = new Array(contactsArray.length).fill(false);
 }
 
 function showContactsInAddTask() {
