@@ -32,7 +32,6 @@ async function fetchTasksJson() {
 }
 
 
-// Erstellen des Boards mit allen Tasks & Support-Funktionen
 function createTaskOnBoard() {
     const boardIds = {
         'to-do': 'to-do',
@@ -45,7 +44,6 @@ function createTaskOnBoard() {
     for (let i = 0; i < tasksArray.length; i++) {
         let task = tasksArray[i];
         let key = tasksKeys[i];
-
         let contactsHTML = generateContactsHTML(task.contacts);
         let boardId = boardIds[task.board_category] || 'to-do';
         let content = document.getElementById(boardId);
@@ -56,6 +54,7 @@ function createTaskOnBoard() {
     }
 }
 
+
 function findTask() {
     let input = document.getElementById("find-task").value.toLowerCase();
     let filteredTasks = tasksArray.filter(task => {
@@ -63,6 +62,7 @@ function findTask() {
     });
     renderFilteredTasks(filteredTasks);
 }
+
 
 function findTaskMobile() {
     let input = document.getElementById("find-task2").value.toLowerCase();
@@ -72,19 +72,14 @@ function findTaskMobile() {
     renderFilteredTasks(filteredTasks);
 }
 
+
 function renderFilteredTasks(filteredTasks) {
-    const boardIds = {
-        'to-do': 'to-do',
-        'in-progress': 'in-progress',
-        'await-feedback': 'await-feedback',
-        'done': 'done'
-    };
+    const boardIds = {'to-do': 'to-do', 'in-progress': 'in-progress', 'await-feedback': 'await-feedback', 'done': 'done'};
     clearBoards(boardIds);
 
     for (let i = 0; i < filteredTasks.length; i++) {
         let task = filteredTasks[i];
         let key = tasksKeys[tasksArray.indexOf(task)];
-
         let contactsHTML = generateContactsHTML(task.contacts);
         let boardId = boardIds[task.board_category] || 'to-do';
         let content = document.getElementById(boardId);
@@ -96,6 +91,7 @@ function renderFilteredTasks(filteredTasks) {
     checkAndAddNoTask();
 }
 
+
 function clearBoards(boardIds) {
     for (let id in boardIds) {
         let content = document.getElementById(boardIds[id]);
@@ -105,19 +101,59 @@ function clearBoards(boardIds) {
     }
 }
 
+
 function generateContactsHTML(contacts) {
+    contacts = contacts || {};
+    const contactCount = Object.keys(contacts).length;
+    const displayedContacts = getDisplayedContactsHTML(contacts);
+    const remainingContacts = getRemainingContactsHTML(contactCount);
+
+    return displayedContacts + remainingContacts;
+}
+
+
+function getDisplayedContactsHTML(contacts) {
     let contactsHTML = '';
+    let displayedContacts = 0;
+
     for (let key in contacts) {
-        if (contacts.hasOwnProperty(key)) {
-            let contact = contacts[key];
-            let initials = getInitials(contact.name);
-            contactsHTML += `
-                <div class="task-on-board-contact" style="background-color: ${contact.color};">${initials}</div>
-            `;
+        if (contacts.hasOwnProperty(key) && displayedContacts < 4) {
+            const contact = contacts[key];
+            contactsHTML += generateContact(contact);
+            displayedContacts++;
+        } else if (displayedContacts >= 4) {
+            break;
         }
     }
+
     return contactsHTML;
 }
+
+
+function getRemainingContactsHTML(contactCount) {
+    if (contactCount > 4) {
+        const remainingContacts = contactCount - 4;
+        return generateRemainingContactsHTML(remainingContacts);
+    }
+    return '';
+}
+
+
+function generateContact(contact) {
+    const initials = getInitials(contact.name);
+    return `
+        <div class="task-on-board-contact" style="background-color: ${contact.color};">${initials}</div>
+    `;
+}
+
+
+function generateRemainingContactsHTML(remainingContacts) {
+    return `
+        <div class="task-on-board-contact" style="background-color: white; color: black; border: 1px solid black;">+${remainingContacts}</div>
+    `;
+}
+
+
 
 function handlePrio(prio) {
     if (prio === 'urgent') {
@@ -130,6 +166,7 @@ function handlePrio(prio) {
         return '/add_task_img/medium.svg'; // Fallback falls prio nicht gesetzt ist
     }
 }
+
 
 function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc) {
     let subtasks = task.subtasks || {};
@@ -159,10 +196,12 @@ function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prio
     `;
 }
 
+
 function getInitials(name) {
     let initials = name.split(' ').map(part => part.charAt(0)).join('');
     return initials.toUpperCase();
 }
+
 
 function checkAndAddNoTask() {
     const taskAreas = ["to-do", "in-progress", "await-feedback", "done"];
@@ -179,12 +218,10 @@ function checkAndAddNoTask() {
 }
 
 
-
-
-// Drag and Drop
 function startDragging(key) {
     currentDraggedTaskKey = key;
 }
+
 
 function allowDrop(ev) {
     ev.preventDefault();
@@ -192,10 +229,12 @@ function allowDrop(ev) {
     taskArea.classList.add('hover');
 }
 
+
 function resetBackground(ev) {
     var taskArea = ev.currentTarget;
     taskArea.classList.remove('hover');
 }
+
 
 async function moveTo(category) {
     if (currentDraggedTaskKey) {
@@ -206,6 +245,7 @@ async function moveTo(category) {
     }
 }
 
+
 function drop(ev, category) {
     ev.preventDefault();
     var taskArea = ev.currentTarget;
@@ -214,7 +254,6 @@ function drop(ev, category) {
 }
 
 
-// Ändern einer bestimmten Task-Eigenschaft in der Database (bspw. board-category bei Drag & Drop)
 async function updateTaskAttribute(key, newBoardCategory, urlSuffix) {
     try {
         let response = await fetch(TASKS_URL + key + "/" + urlSuffix + ".json", {
@@ -231,7 +270,7 @@ async function updateTaskAttribute(key, newBoardCategory, urlSuffix) {
     }
 }
 
-// Hinzufügen einer Task in die Database
+
 async function postTask(path = "", data = {}) {
     try {
       let response = await fetch(TASKS_URL + path + ".json", {
@@ -246,6 +285,7 @@ async function postTask(path = "", data = {}) {
       console.error("Error posting data:", error);
     }
 }
+
 
 async function deleteTask(key) {
     try {
@@ -263,21 +303,39 @@ async function deleteTask(key) {
 }
 
 
-// Öffnen des Layers bei Klick auf Task im Board
+
 function openTask(key) {
     const task = tasksData[key];
-    document.getElementById('show-task-layer').classList.remove('d-none');
+    showTaskLayer();
     let content = document.getElementById('show-task-inner-layer');
-    content.classList.remove('width-auto');
+    animateContent(content);
+    updateContent(content, task, key);
+    updateHeadlineVisibility();
+}
 
+function showTaskLayer() {
+    document.getElementById('show-task-layer').classList.remove('d-none');
+}
+
+function animateContent(content) {
+    content.classList.remove('width-auto');
     content.classList.remove('slide-in-right');
     content.classList.remove('slide-out-right');
     void content.offsetWidth; 
     content.classList.add('slide-in-right');
+}
 
+function updateContent(content, task, key) {
     content.innerHTML = '';
     content.innerHTML += generateTaskLayer(task, key);
+}
 
+function updateHeadlineVisibility() {
+    updateSubtasksHeadline();
+    updateContactsHeadline();
+}
+
+function updateSubtasksHeadline() {
     let subtasksHeadline = document.getElementById('subtasks-headline');
     let subtasksContainer = document.querySelector('.show-task-subtasks');
     
@@ -286,7 +344,9 @@ function openTask(key) {
     } else {
         subtasksHeadline.classList.remove('d-none');
     }
+}
 
+function updateContactsHeadline() {
     let contactsHeadline = document.getElementById('assigned-headline');
     let contactsContainer = document.querySelector('.show-task-contacts');
     
@@ -296,6 +356,8 @@ function openTask(key) {
         contactsHeadline.classList.remove('d-none');
     }
 }
+
+
 
 function generateTaskLayer(task, key) {
     const contacts = task.contacts || {};
@@ -473,7 +535,7 @@ function saveTaskChanges(key) {
 
 
 
-function generateEditTaskLayer(task, key) {
+function generateEditTaskLayer2(task, key) {
     currentTask = task;  // Speichere das aktuelle Task-Objekt in der globalen Variablen
     const contacts = task.contacts || {};
     const taskSubtasks = task.subtasks || {};
@@ -571,6 +633,139 @@ function generateEditTaskLayer(task, key) {
         </div>
     `;
 }
+
+
+function generateEditTaskLayer(task, key) {
+    currentTask = task;  // Speichere das aktuelle Task-Objekt in der globalen Variablen
+    const contacts = task.contacts || {};
+    const taskSubtasks = task.subtasks || {};
+
+    // Leeren Sie das globale Subtasks-Array
+    subtasks = [];
+
+    let contactsHTML = generateEditContactsHTML(contacts);
+
+    // Erstellen Sie das Subtasks-HTML und fügen Sie die Subtasks dem globalen Array hinzu
+    const subtasksHTML = Object.keys(taskSubtasks).map(subtaskKey => {
+        const subtask = taskSubtasks[subtaskKey];
+        subtasks.push({ title: subtask.title, completed: subtask.completed }); // Fügen Sie den Subtask-Titel und Status dem globalen Array hinzu
+        return `
+            <div id="subtask-tasks" class="subtasks-tasks">
+                <div>
+                    <ul class="subtask-list">
+                        <li onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
+                    </ul>
+                </div>
+                <div class="subtask-list-icons">
+                    <img onclick="changeSubtask(${subtasks.length - 1})" src="add_task_img/edit.svg" alt="" />
+                    <div class="subtask-line"></div>
+                    <img onclick="deleteSubtask(${subtasks.length - 1})" src="add_task_img/delete.svg" alt="" />
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    const highSelected = task.prio === 'urgent' ? 'selected-high-button' : '';
+    const highImgSrc = task.prio === 'urgent' ? 'add_task_img/high-white.svg' : 'add_task_img/high.svg';
+    
+    const mediumSelected = task.prio === 'medium' ? 'selected-medium-button' : '';
+    const mediumImgSrc = task.prio === 'medium' ? 'add_task_img/medium-white.svg' : 'add_task_img/medium.svg';
+    
+    const lowSelected = task.prio === 'low' ? 'selected-low-button' : '';
+    const lowImgSrc = task.prio === 'low' ? 'add_task_img/low-white.svg' : 'add_task_img/low.svg';
+
+    return `
+        <div class="show-task-firstrow flex-end">
+            <div class="show-task-close" onclick="closeTask()">
+                <img src="img/add-contact-close.svg" alt="">
+            </div>
+        </div>
+        <div class="edit-scroll-area">
+            <div class="edit-task-element">
+                <p>Title</p>
+                <input type="text" id="edit-title-input" value="${task.title}">
+            </div>
+            <div class="edit-task-element">
+                <p>Description</p>
+                <input type="text" id="edit-description-input" value="${task.description}">
+            </div>
+            <div class="edit-task-element">
+                <p>Due Date</p>
+                <div class="input-container">
+                    <input class="edit-task-input" id="edit-date-input" value="${task.due_date}" required type="date">
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Priority</p>
+                <div class="buttons">
+                    <button id="highButton" onclick="highButton()" class="prio-buttons pb-edit prio-buttons-shadow ${highSelected}">Urgent <img id="highButtonImg" src="${highImgSrc}"></button>
+                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons pb-edit prio-buttons-shadow ${mediumSelected}">Medium <img id="mediumButtonImg" src="${mediumImgSrc}"></button>
+                    <button id="lowButton" onclick="lowButton()" class="prio-buttons pb-edit prio-buttons-shadow ${lowSelected}">Low <img id="lowButtonImg" src="${lowImgSrc}"></button>
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Assigned to</p>
+                <div onclick="showContactsInEdit()" class="select-contact select-contact-edit">
+                    <span>Select contact to assign</span>
+                    <img src="add_task_img/arrow-down.svg" alt="">
+                </div>
+                <div class="add-task-contacts add-task-contacts-edit d-none" id="add-task-contacts"></div>
+                <div class="edit-task-contacts">
+                    ${contactsHTML}
+                </div>
+            </div>
+            <div class="edit-task-element">
+                <p>Subtasks</p>
+                <div class="subtask-layout">
+                    <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
+                    <div class="d-none" id="edit-subtask"></div>
+                    <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">  
+                </div>
+                <div class="create-subtask pos-relative" id="create-subtask">${subtasksHTML}</div>
+            </div>
+        </div>
+        <div class="show-task-lastrow">
+            <button class="button-dark" onclick="saveTaskChanges('${key}')">Ok <img src="add_task_img/check-white.svg" alt=""></button>
+        </div>
+    `;
+}
+
+function generateEditContactsHTML(contacts) {
+    contacts = contacts || {};  // Ensure contacts is an object
+    let contactsHTML = '';
+    let contactCount = Object.keys(contacts).length;
+    let displayedContacts = 0;
+
+    for (let key in contacts) {
+        if (contacts.hasOwnProperty(key)) {
+            let contact = contacts[key];
+            let initials = getInitials(contact.name);
+
+            if (displayedContacts < 4) {
+                contactsHTML += `
+                    <div class="show-task-contact">
+                        <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
+                    </div>
+                `;
+                displayedContacts++;
+            } else {
+                break;
+            }
+        }
+    }
+
+    if (contactCount > 4) {
+        let remainingContacts = contactCount - 4;
+        contactsHTML += `
+            <div class="show-task-contact">
+                <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
+            </div>
+        `;
+    }
+
+    return contactsHTML;
+}
+
 
 
 
