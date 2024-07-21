@@ -463,6 +463,8 @@ function showEditTask(taskKey) {
   let currentHeight = content.scrollHeight;
   content.style.height = currentHeight + "px";
   content.innerHTML = generateEditTaskLayer(task, taskKey);
+  const contactDropdown = document.querySelector("#add-task-contacts");
+  console.log(contactDropdown);
 }
 
 
@@ -582,7 +584,7 @@ function getEditSubtasksHTML(taskSubtasks) {
                 <div id="subtask-tasks${subtasks.length - 1}" class="subtasks-tasks">
                     <div>
                         <ul class="subtask-list">
-                            <li id="subtask-${subtasks.length - 1}" onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
+                            <li id="subtask-${subtasks.length - 1}" ondblclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
                         </ul>
                     </div>
                     <div class="subtask-list-icons">

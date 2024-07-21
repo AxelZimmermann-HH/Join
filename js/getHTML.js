@@ -167,10 +167,11 @@ function generateAddTaskLayer(boardCategory) {
                             src="add_task_img/low.svg"></button>
                 </div>
                 <p class="category">Category<span class="span-red">*</span></p>
-                <div onclick="category()" required class="category-menu">
+                <div id="category-input" onclick="category()" required class="category-menu">
                     <span id="task-category">Select task category</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
+                <div id="category-required"></div>
                 <div id="category"></div>
                 <p class="subtasks">Subtasks</p>
                 <div class="subtask-layout">

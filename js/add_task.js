@@ -190,11 +190,15 @@ function changeSubtask(i) {
   let createSubtask = document.getElementById(`subtask-${i}`);
   let currentText = subtasks[i].title;
 
+  console.log(currentText);
+
   createSubtask.innerHTML = `
     <div class="subtask-edit">
       <div contenteditable="true" id="subtask-${i}" class="subtask-edit-div">${currentText}</div>
     </div>
   `;
+  
+  console.log('done');
 }
 
 function whichSourceSubtask(i) {
@@ -290,27 +294,27 @@ function showContacts() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const contactDropdown = document.querySelector("#add-task-contacts");
-  const categoryDropdown = document.querySelector("#category");
+  addMouseDownListeners();
+});
 
-  console.log(contactDropdown, categoryDropdown); // Überprüfen, ob die Elemente existieren
-
+function addMouseDownListeners() {
   document.addEventListener("mousedown", function (event) {
+    const contactDropdown = document.querySelector("#add-task-contacts");
+    const categoryDropdown = document.querySelector("#category");
+
     if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!contactDropdown.classList.contains("d-none")) {
         contactDropdown.classList.add("d-none");
       }
     }
-  });
 
-  document.addEventListener("mousedown", function (event) {
     if (categoryDropdown && !categoryDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!categoryDropdown.classList.contains("d-none")) {
         categoryDropdown.classList.add("d-none");
       }
     }
   });
-});
+}
 
 function showContactsInEdit() {
   showContactsInAddTask();
