@@ -37,7 +37,9 @@ async function fetchTasksJson() {
   }
 }
 
-
+/**
+ * This function renders the task cards in board.html. First it defines all board IDs for the different categorys. Then it clears all Boards and renders the cards.
+ */
 function createTaskOnBoard() {
   const boardIds = {
     "to-do": "to-do",
@@ -60,7 +62,9 @@ function createTaskOnBoard() {
   }
 }
 
-
+/**
+ * This function works by using the input field "Find Task". It is implemented by an oninput-handler in the HTML.
+ */
 function findTask() {
   let input = document.getElementById("find-task").value.toLowerCase();
   let filteredTasks = tasksArray.filter((task) => {
@@ -69,7 +73,9 @@ function findTask() {
   renderFilteredTasks(filteredTasks);
 }
 
-
+/**
+ * Same function as findTask() but implemented on another div shown on mobile devices.
+ */
 function findTaskMobile() {
   let input = document.getElementById("find-task2").value.toLowerCase();
   let filteredTasks = tasksArray.filter((task) => {
@@ -78,7 +84,10 @@ function findTaskMobile() {
   renderFilteredTasks(filteredTasks);
 }
 
-
+/**
+ * Same functionality as createTaskOnBoard, but for the filtered tasks by the findTask-function.
+ * @param {array} filteredTasks - filtered tasks by oniput-handler in findTask().
+ */
 function renderFilteredTasks(filteredTasks) {
   const boardIds = { "to-do": "to-do", "in-progress": "in-progress", "await-feedback": "await-feedback", done: "done" };
   clearBoards(boardIds);
