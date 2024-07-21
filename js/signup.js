@@ -57,12 +57,6 @@ function toggleCheckboxImage() {
         image.src = 'img/Rectangle1.png';
         signupButton.disabled = true;        
     }
-    if (signupButton.disabled == false) {
-        document.getElementById('notAccepted').innerHTML = '';
-    }
-    //if (signupButton.disabled == true) {
-       // document.getElementById('notAccepted').innerHTML = 'Please accept the Privacy Policy';
-    //}
 }
 
 /**
@@ -100,8 +94,11 @@ function handleFormSubmit(event) {
     }
 
     if (password !== confirmPassword) {
-        alert('Passwords do not match!');
-        return;
+
+        document.getElementById('wrongPasswordConteiner').innerHTML = `Your Passwords don't match. Try again.`
+        document.getElementById('confirm-conteiner').classList.add('signup-red')
+       // alert('Passwords do not match!');
+       return;
     }
   
 

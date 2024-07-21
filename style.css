@@ -15,19 +15,19 @@ body {
     position: absolute;
     top: 345px;
     left: 583px;
-    animation: moveDiv 2s forwards;
+    animation: moveDiv 1s forwards;
 }
 
 .starting-screen img {
     width: 274px;
     height: 334.07px;
-    animation: resizeImg 2s forwards;
+    animation: resizeImg 1s forwards;
 }
 
 .content {
     display: flex;
     opacity: 0;
-    animation: showContent 2s forwards 2s;
+    animation: showContent 1s forwards 1s;
     flex-direction: column;
     align-items: center;
 }
@@ -50,7 +50,7 @@ body {
 @media (max-width: 720px) {
 
     .signup-conteiner {
-        animation: showContent 2s forwards 2s;
+        animation: showContent 1s forwards 1s;
         opacity: 0;
     }
 
@@ -397,4 +397,8 @@ input[type=password]::-ms-clear
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.password-img:hover {
+    cursor: pointer;
 }
