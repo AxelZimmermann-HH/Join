@@ -180,7 +180,6 @@ function showContact(initials, contact, key) {
   content.innerHTML += generateContactHTML(initials, contact, key);
 }
 
-
 function highlightContact(key) {
   let contacts = document.getElementsByClassName('contact');
 
