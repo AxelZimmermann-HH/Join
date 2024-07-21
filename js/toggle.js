@@ -26,7 +26,7 @@ let confirm_signup_password = document.getElementById('confirmPassword')
 let signup_toggle  = document.getElementById('toggle_button')
 
 function changeImageSignupConfirm() {
-    signup_toggle.src = './img/visibility.png'
+    signup_toggle_confirm.src = './img/visibility.png'
 }
 
 function changeImageSignup() {
