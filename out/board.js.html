@@ -1,4 +1,32 @@
-const TASKS_URL = "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/tasks/";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: board.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: board.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const TASKS_URL = "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/tasks/";
 
 let tasksData = {};
 let tasksArray = [];
@@ -49,7 +77,7 @@ function createTaskOnBoard() {
   };
   clearBoards(boardIds);
 
-  for (let i = 0; i < tasksArray.length; i++) {
+  for (let i = 0; i &lt; tasksArray.length; i++) {
     let task = tasksArray[i];
     let key = tasksKeys[i];
     let contactsHTML = generateContactsHTML(task.contacts);
@@ -92,7 +120,7 @@ function renderFilteredTasks(filteredTasks) {
   const boardIds = { "to-do": "to-do", "in-progress": "in-progress", "await-feedback": "await-feedback", done: "done" };
   clearBoards(boardIds);
 
-  for (let i = 0; i < filteredTasks.length; i++) {
+  for (let i = 0; i &lt; filteredTasks.length; i++) {
     let task = filteredTasks[i];
     let key = tasksKeys[tasksArray.indexOf(task)];
     let contactsHTML = generateContactsHTML(task.contacts);
@@ -132,7 +160,7 @@ function getDisplayedContactsHTML(contacts) {
   let displayedContacts = 0;
 
   for (let key in contacts) {
-    if (contacts.hasOwnProperty(key) && displayedContacts < 4) {
+    if (contacts.hasOwnProperty(key) &amp;&amp; displayedContacts &lt; 4) {
       const contact = contacts[key];
       contactsHTML += generateContact(contact);
       displayedContacts++;
@@ -191,7 +219,7 @@ function checkAndAddNoTask() {
 
   taskAreas.forEach((id) => {
     const element = document.getElementById(id);
-    if (element && element.children.length === 0) {
+    if (element &amp;&amp; element.children.length === 0) {
       const noTaskDiv = document.createElement("div");
       noTaskDiv.className = "no-task";
       noTaskDiv.innerHTML = `No tasks ${id.replace(/-/g, " ")}`;
@@ -324,7 +352,7 @@ function updateSubtasksHeadline() {
   let subtasksHeadline = document.getElementById("subtasks-headline");
   let subtasksContainer = document.querySelector(".show-task-subtasks");
 
-  if (subtasksContainer && subtasksContainer.innerHTML.trim() === "") {
+  if (subtasksContainer &amp;&amp; subtasksContainer.innerHTML.trim() === "") {
     subtasksHeadline.classList.add("d-none");
   } else {
     subtasksHeadline.classList.remove("d-none");
@@ -336,7 +364,7 @@ function updateContactsHeadline() {
   let contactsHeadline = document.getElementById("assigned-headline");
   let contactsContainer = document.querySelector(".show-task-contacts");
 
-  if (contactsContainer && contactsContainer.innerHTML.trim() === "") {
+  if (contactsContainer &amp;&amp; contactsContainer.innerHTML.trim() === "") {
     contactsHeadline.classList.add("d-none");
   } else {
     contactsHeadline.classList.remove("d-none");
@@ -375,7 +403,7 @@ function generateContactsInTaskLayer(contacts, userName) {
     }
 
     return Object.values(contacts).map(contact => {
-        const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
+        const contactIndex = contactsArray.findIndex(c => c.email === contact.email &amp;&amp; c.name === contact.name);
 
         if (contactIndex !== -1) {
             selectedContacts[contactIndex] = true;
@@ -386,10 +414,10 @@ function generateContactsInTaskLayer(contacts, userName) {
             displayName += " (You)";
         }
         return `
-            <div class="show-task-contact">
-                <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-                <p>${displayName}</p>
-            </div>
+            &lt;div class="show-task-contact">
+                &lt;div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}&lt;/div>
+                &lt;p>${displayName}&lt;/p>
+            &lt;/div>
         `;
     }).join('');
 }
@@ -399,10 +427,10 @@ function generateSubtasksInTaskLayer(subtasks, key) {
     return Object.keys(subtasks).map(subtaskKey => {
         const subtask = subtasks[subtaskKey];
         return `
-            <div class="show-task-subtask" onclick="checkSubtask('${key}', '${subtaskKey}', this.querySelector('img'))">
-                <img src="/add_task_img/${subtask.completed ? 'subtasks_checked' : 'subtasks_notchecked'}.svg" alt="">
-                <p>${subtask.title}</p>
-            </div>
+            &lt;div class="show-task-subtask" onclick="checkSubtask('${key}', '${subtaskKey}', this.querySelector('img'))">
+                &lt;img src="/add_task_img/${subtask.completed ? 'subtasks_checked' : 'subtasks_notchecked'}.svg" alt="">
+                &lt;p>${subtask.title}&lt;/p>
+            &lt;/div>
         `;
     }).join('');
 }
@@ -560,18 +588,18 @@ function getEditSubtasksHTML(taskSubtasks) {
         let subtask = taskSubtasks[subtaskKey];
         subtasks.push({ title: subtask.title, completed: subtask.completed });
         return `
-                <div id="subtask-tasks${subtasks.length - 1}" class="subtasks-tasks">
-                    <div>
-                        <ul class="subtask-list">
-                            <li id="subtask-${subtasks.length - 1}" onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
-                        </ul>
-                    </div>
-                    <div class="subtask-list-icons">
-                        <img id="edit-logo${subtasks.length - 1}" onclick="whichSourceSubtask(${subtasks.length - 1})" src="add_task_img/edit.svg" alt="" />
-                        <div class="subtask-line"></div>
-                        <img onclick="deleteSubtask(${subtasks.length - 1})" src="add_task_img/delete.svg" alt="" />
-                    </div>
-                </div>
+                &lt;div id="subtask-tasks${subtasks.length - 1}" class="subtasks-tasks">
+                    &lt;div>
+                        &lt;ul class="subtask-list">
+                            &lt;li id="subtask-${subtasks.length - 1}" onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}&lt;/li>
+                        &lt;/ul>
+                    &lt;/div>
+                    &lt;div class="subtask-list-icons">
+                        &lt;img id="edit-logo${subtasks.length - 1}" onclick="whichSourceSubtask(${subtasks.length - 1})" src="add_task_img/edit.svg" alt="" />
+                        &lt;div class="subtask-line">&lt;/div>
+                        &lt;img onclick="deleteSubtask(${subtasks.length - 1})" src="add_task_img/delete.svg" alt="" />
+                    &lt;/div>
+                &lt;/div>
             `;
         })
     .join("");
@@ -598,11 +626,11 @@ function getFirstFourContacts(contacts) {
         let contact = contacts[key];
         let initials = getInitials(contact.name);
   
-        if (displayedContacts < 4) {
+        if (displayedContacts &lt; 4) {
           contactsHTML += `
-            <div class="show-task-contact">
-                <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
-            </div>
+            &lt;div class="show-task-contact">
+                &lt;div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}&lt;/div>
+            &lt;/div>
           `;
           displayedContacts++;
         } else {
@@ -619,9 +647,9 @@ function getRestContacts(contactCount) {
     if (contactCount > 4) {
         let remainingContacts = contactCount - 4;
         return `
-        <div class="show-task-contact">
-            <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
-        </div>
+        &lt;div class="show-task-contact">
+            &lt;div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}&lt;/div>
+        &lt;/div>
         `;
     }
     return "";
@@ -667,4 +695,26 @@ function closeTask() {
 
 function taskAnimationEnd() {
   document.getElementById("show-task-layer").classList.add("d-none");
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#boardInit">boardInit</a></li><li><a href="global.html#createTaskOnBoard">createTaskOnBoard</a></li><li><a href="global.html#fetchTasksJson">fetchTasksJson</a></li><li><a href="global.html#findTask">findTask</a></li><li><a href="global.html#findTaskMobile">findTaskMobile</a></li><li><a href="global.html#renderFilteredTasks">renderFilteredTasks</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Sun Jul 21 2024 14:03:49 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
