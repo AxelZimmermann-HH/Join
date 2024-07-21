@@ -171,7 +171,11 @@ function showContact(initials, contact, key) {
   highlightContact(key);
 
   let content = document.getElementById('contact-profile');
+  let content2 = document.getElementById('contacts-library');
   content.innerHTML = '';
+  
+  // IF display.with < XY
+  content2.classList.add('d-none');
 
   content.classList.remove('slide-in-right'); // Reset animation
   void content.offsetWidth; // Trigger reflow

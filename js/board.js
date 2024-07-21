@@ -106,7 +106,10 @@ function renderFilteredTasks(filteredTasks) {
   checkAndAddNoTask();
 }
 
-
+/**
+ * This function empties all category boards before they are rendert again in other functions.
+ * @param {array} boardIds - board categories to-do, in-progress, await-feedback and done
+ */
 function clearBoards(boardIds) {
   for (let id in boardIds) {
     let content = document.getElementById(boardIds[id]);
@@ -116,7 +119,11 @@ function clearBoards(boardIds) {
   }
 }
 
-
+/**
+ * This function displays the assigned contacts on the cards on the board by initials.
+ * @param {array} contacts - task.contacts
+ * @returns HTMLs of the first four assigned contacts and the HTML with the number of the further contacts, if there are more.
+ */
 function generateContactsHTML(contacts) {
   contacts = contacts || {};
   const contactCount = Object.keys(contacts).length;
@@ -126,7 +133,11 @@ function generateContactsHTML(contacts) {
   return displayedContacts + remainingContacts;
 }
 
-
+/**
+ * This function renders the first four assigned task contacts on the card on the board.
+ * @param {array} contacts - task.contacts
+ * @returns HTMLs of the first four assigned contacts
+ */
 function getDisplayedContactsHTML(contacts) {
   let contactsHTML = "";
   let displayedContacts = 0;
@@ -144,7 +155,11 @@ function getDisplayedContactsHTML(contacts) {
   return contactsHTML;
 }
 
-
+/**
+ * This function returns a HTML with the number of further contacts if there are more than four on the card on the board..
+ * @param {number} contactCount - task.contacts[length]
+ * @returns HTML with the number of further contacts or nothing if there are four assigned contacts or less.
+ */
 function getRemainingContactsHTML(contactCount) {
   if (contactCount > 4) {
     const remainingContacts = contactCount - 4;
@@ -153,7 +168,11 @@ function getRemainingContactsHTML(contactCount) {
   return "";
 }
 
-
+/**
+ * This function displays the correct image for each prio status on the cards on the board
+ * @param {string} prio - task.prio
+ * @returns the correct image correspondant to urgent, medium or low
+ */
 function handlePrio(prio) {
   if (prio === "urgent") {
     return "/add_task_img/high.svg";
