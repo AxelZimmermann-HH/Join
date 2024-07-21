@@ -489,7 +489,6 @@ function showEditTask(taskKey) {
   let currentHeight = content.scrollHeight;
   content.style.height = currentHeight + "px";
   content.innerHTML = generateEditTaskLayer(task, taskKey);
-
 }
 
 
@@ -591,17 +590,17 @@ function generateEditTaskLayer(task, key) {
   // Erstellen Sie das Subtasks-HTML und fügen Sie die Subtasks dem globalen Array hinzu
   const subtasksHTML = Object.keys(taskSubtasks)
     .map((subtaskKey) => {
-      const subtask = taskSubtasks[subtaskKey];
+      let subtask = taskSubtasks[subtaskKey];
       subtasks.push({ title: subtask.title, completed: subtask.completed }); // Fügen Sie den Subtask-Titel und Status dem globalen Array hinzu
       return `
-            <div id="subtask-tasks" class="subtasks-tasks">
+            <div id="subtask-tasks${subtasks.length - 1}" class="subtasks-tasks">
                 <div>
                     <ul class="subtask-list">
-                        <li onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
+                        <li id="subtask-${subtasks.length - 1}" onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
                     </ul>
                 </div>
                 <div class="subtask-list-icons">
-                    <img onclick="changeSubtask(${subtasks.length - 1})" src="add_task_img/edit.svg" alt="" />
+                    <img id="edit-logo${subtasks.length - 1}" onclick="whichSourceSubtask(${subtasks.length - 1})" src="add_task_img/edit.svg" alt="" />
                     <div class="subtask-line"></div>
                     <img onclick="deleteSubtask(${subtasks.length - 1})" src="add_task_img/delete.svg" alt="" />
                 </div>
@@ -609,6 +608,8 @@ function generateEditTaskLayer(task, key) {
         `;
     })
     .join("");
+
+
 
   const highSelected = task.prio === "urgent" ? "selected-high-button" : "";
   const highImgSrc = task.prio === "urgent" ? "add_task_img/high-white.svg" : "add_task_img/high.svg";
@@ -725,6 +726,7 @@ function openAddTask(boardCategory) {
 
   content.innerHTML = "";
   content.innerHTML += generateAddTaskLayer(boardCategory);
+  standardButton();
 }
 
 
