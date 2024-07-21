@@ -101,10 +101,11 @@
             </div>
             <p class="category">Category<span class="span-red">*</span></p>
             <div class="dropdown-category">
-                <div onclick="category()" required class="category-menu">
+                <div id="category-input" onclick="category()" required class="category-menu">
                     <span id="task-category">Select task category</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
+                <div id="category-required"></div>
                 <div class="d-none" id="category"></div>
             </div>
             <p class="subtasks">Subtasks</p>
@@ -113,6 +114,7 @@
                 <div class="d-none" id="edit-subtask"></div>
                 <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
             </div>
+            <div id="subtask-required"></div>
             <div class="create-subtask" id="create-subtask"></div>
 
             <div class="bottom-buttons">
@@ -133,7 +135,7 @@
         </div>
     </div>
     <div id="added-to-board">
-        <img src="./add_task_img/Added to board.svg" alt="" class="d-none">
+        <img id="addedBoardImg" src="./add_task_img/Added to board.svg" alt="">
     </div>
 
     <script src="script.js"></script>

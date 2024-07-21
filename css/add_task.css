@@ -467,10 +467,9 @@ ul {
   bottom: -100px; /* Start position off-screen */
   left: 50%;
   transform: translateX(-50%);
-  transition: all 1s ease-in-out, opacity 1s ease-in-out 1s; /* Animate both position and opacity */
-  opacity: 0; /* Start fully transparent */
+  transition: all 2s ease-in-out, ease-in-out 2s; /* Animate both position and opacity */
 }
-#added-to-board.show {
+#added-to-board.animate {
   bottom: 50%;
   opacity: 1;
 }

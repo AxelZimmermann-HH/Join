@@ -53,6 +53,8 @@ function category() {
   <span onclick="technicalTask()">Technical Task</span>
   <span onclick="userStory()">User Story</span>
   </div>`;
+
+  emptyCategory();
 }
 
 function technicalTask() {
@@ -60,32 +62,14 @@ function technicalTask() {
   document.getElementById("task-category").innerHTML = "Technical Task";
   document.getElementById("category").style.display = "none";
   document.getElementById("category").innerHTML = "";
+  emptyCategory();
 }
 function userStory() {
   // changing the innerHTML and close the window
   document.getElementById("task-category").innerHTML = "User Story";
   document.getElementById("category").style.display = "none";
   document.getElementById("category").innerHTML = "";
-}
-
-function emptyTitle() {
-  let title = document.getElementById("title-input");
-  let required = document.getElementById("title-required");
-  // checked if the title length is 0 or more
-  if (title.value.length === 0) {
-    title.style.borderColor = "red";
-    required.innerHTML = `<div class="title-required">this field is required</div>`;
-  } else if (title.value.length > 0) {
-    title.style.borderColor = "#29abe2";
-    required.innerHTML = "";
-  }
-}
-
-function emptyDate() {
-  let date = document.getElementById("date-input");
-  date.showPicker();
-  updateDateStyle();
-  document.getElementById("date-input").addEventListener("change", updateDateStyle);
+  emptyCategory();
 }
 
 function updateDateStyle() {
@@ -190,7 +174,15 @@ function renderSubtasks() {
 
 function changeSubtask(i) {
   let editLogo = document.getElementById(`edit-logo${i}`);
+  let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
+  let required = document.getElementById("subtask-required");
+  let redBorder = document.getElementById(`subtask-tasks${i}`);
   editLogo.src = "add_task_img/check.svg";
+
+  if (editedSubtask === "") {
+    required.innerHTML = "";
+    redBorder.style.borderBottom = "1px solid #29abe2";
+  }
 
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks");
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks:hover");
@@ -217,9 +209,11 @@ function whichSourceSubtask(i) {
 function updateSubtask(i) {
   let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
   let editSubtask = editedSubtask.trim();
+  let required = document.getElementById("subtask-required");
+  let redBorder = document.getElementById(`subtask-tasks${i}`);
   if (editSubtask === "") {
-    alert("please fill out the subtask");
-    return;
+    required.innerHTML = `<div class="title-required">fill out subtask</div>`;
+    redBorder.style.borderBottom = "1px solid #ff8190";
   }
 
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks");
@@ -295,13 +289,13 @@ function showContacts() {
   showContactsInAddTask();
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   const contactDropdown = document.querySelector("#add-task-contacts");
   const categoryDropdown = document.querySelector("#category");
 
   console.log(contactDropdown, categoryDropdown); // Überprüfen, ob die Elemente existieren
 
-  document.addEventListener("mousedown", function(event) {
+  document.addEventListener("mousedown", function (event) {
     if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!contactDropdown.classList.contains("d-none")) {
         contactDropdown.classList.add("d-none");
@@ -309,7 +303,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 
-  document.addEventListener("mousedown", function(event) {
+  document.addEventListener("mousedown", function (event) {
     if (categoryDropdown && !categoryDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!categoryDropdown.classList.contains("d-none")) {
         categoryDropdown.classList.add("d-none");
@@ -317,7 +311,6 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
 });
-
 
 function showContactsInEdit() {
   showContactsInAddTask();
@@ -374,6 +367,44 @@ function clearButtons() {
 function clearSubtasks() {
   subtasks = [];
   renderSubtasks();
+  standardButton();
+}
+function emptyCategory() {
+  let taskCategoryInput = document.getElementById("category-input");
+  let taskCategory = document.getElementById("task-category").innerText;
+  let required = document.getElementById("category-required");
+  if (taskCategory === "Select task category") {
+    taskCategoryInput.style.borderColor = "red";
+    required.innerHTML = `<div class="title-required">this field is required</div>`;
+  } else if (taskCategory === "User Story" || taskCategory === "Technical Task") {
+    taskCategoryInput.style.borderColor = "#29abe2";
+    required.innerHTML = "";
+  }
+}
+
+function emptyTitle() {
+  let title = document.getElementById("title-input");
+  let required = document.getElementById("title-required");
+  // checked if the title length is 0 or more
+  if (title.value.length === 0) {
+    title.style.borderColor = "red";
+    required.innerHTML = `<div class="title-required">this field is required</div>`;
+  } else if (title.value.length > 0) {
+    title.style.borderColor = "#29abe2";
+    required.innerHTML = "";
+  }
+}
+
+function emptyDate() {
+  let date = document.getElementById("date-input");
+  date.showPicker();
+  updateDateStyle();
+  document.getElementById("date-input").addEventListener("change", updateDateStyle);
+}
+
+function addedToBoard() {
+  let img = document.getElementById("added-to-board");
+  img.classList.add("animate");
 }
 
 async function createTask(boardCategory) {
@@ -383,10 +414,14 @@ async function createTask(boardCategory) {
   let taskCategory = document.getElementById("task-category").innerText;
   let title = document.getElementById("title-input").value;
 
-  if (title === "" || taskCategory === "Select task category" || dueDate === "") {
-    alert("please fill out title, task category and date");
+  if (title === "" || dueDate === "" || taskCategory === "Select task category") {
+    emptyDate();
+    emptyTitle();
+    emptyCategory();
     return;
   }
+
+  addedToBoard();
 
   // Erstelle das contacts Objekt basierend auf ausgewählten Kontakten
   let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
