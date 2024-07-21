@@ -294,7 +294,7 @@ h3 {
 .add-contact-inner-layer {
     height: 594px;
     border-radius: 20px;
-    /* padding: 66px 46px 66px 46px; */
+    padding: 66px 46px 66px 46px;
     display: flex;
 
 }
@@ -477,8 +477,8 @@ h3 {
     width: 56px;
     height: 56px;
     position: fixed;
-    top: 552px;
-    left: 558px;
+    top: 630px;
+    left: 320px;
     border-radius: 46px;
     border: 1px solid white;
     pad: 12px;
@@ -501,4 +501,106 @@ h3 {
     display: none;
 }
 
+@media (max-width:1090px) {
+    .contact-headline h1 {
+        font-size: 50px;
+    } 
 
+    .contact-letters-big {
+        width: 100px;
+        height: 100px;
+    }
+
+    .contact-profile-firstrow-right h3 {
+        font-size: 36px;
+    }
+}
+@media (max-width:1050px) {
+    .sidebar {
+        display: block !important;
+    }
+}
+
+@media (max-width:990px) {
+    .contact-letters-big {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+@media (max-width:1360px) {
+    header {
+        padding: 20px 40px 20px 40px;
+      }
+      .header-content img {
+        display: block;
+      }
+      .header-content p {
+        display: none;
+      }
+      .header-user-name {
+        height: 40px;
+        width: 40px;
+      }
+      .sidebar {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 80px;
+        width: auto;
+        z-index: 101;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      .sidebar-logo {
+        display: none;
+      }
+      .sidebar-menu {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 0;
+        height: 80px;
+      }
+      .sidebar-links {
+        flex-direction: column;
+        padding-left: 8px;
+        width: auto;
+        padding: 8px;
+        border-radius: 8px;
+      }
+      .sidebar-menu-bottom {
+        display: none;
+      }
+      .contacts-library {
+        left: 0;
+        top: 87px;
+      }
+
+      .contact-details-container {
+        left: 457px;
+        top: 68px;
+      }
+    }
+
+    
+    
+    @media (max-width: 600px) {
+      .sidebar-links {
+        font-size: 12px;
+      }
+      .sidebar-links img {
+        width: 20px;
+        height: 20px;
+      }
+
+      
+    }
+
+    
