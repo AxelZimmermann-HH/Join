@@ -8,6 +8,7 @@ body {
     align-items: center;
     overflow: hidden;
     background-color: #F6F7F8;
+    flex-direction: column;
 }
 
 .logo-signup {
@@ -47,7 +48,7 @@ body {
     gap: 32px;
     border-radius: 30px;
     position: relative;
-    margin-top: 75px;
+    margin-top: 90px;
 }
 
 .blue-underline {
@@ -225,6 +226,7 @@ a {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    align-items: center;
 }
 
 
@@ -257,4 +259,94 @@ a {
     bottom: 50%;
     opacity: 1;
   }
+
+  @media (max-width: 1000px) {
+    .logo-image {
+        height: 78.03px !important;
+        width: 64px !important;
+    }
+    .logo-signup {
+        top: 37px;
+        left: 38px;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .signup-conteiner {
+        width: 322px !important;
+    }
+    .signup-window {
+        padding: 32px 0px 32px 0px !important;
+        width: 396px !important;
+    }
+    .signup-input {
+        width: 320px !important;
+    }
+    .input-container {
+        width: 364px;
+    }
+    .arrow-conteiner {
+        top: 40px !important;
+        left: 28px !important;
+    }
+    h1 {
+       font-size: 47px !important; 
+       line-height: 56.4px !important;
+    }
+  }
+
+  @media (max-width: 420px) {
+    .signup-window {
+        width: 310px !important;
+    }
+    .signup-form {
+        width: 290px !important;
+    }
+    .input-container {
+        width: 290px !important;
+    }
+    .signup-input {
+        width: 290px !important;
+    }
+    .signup-conteiner {
+        width: 256px !important;
+    }
+}
+
+input[type=password]::-ms-reveal,
+input[type=password]::-ms-clear
+{
+    display: none;
+}
+
+.password-image-conteiner {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.password-img:hover {
+    cursor: pointer;
+}
+
+.signup-red {
+    border-color: #FF001F !important;
+}
+
+.wrong-password {
+    margin-top: -22px;
+    font-family: 'Poppins' !important;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14.4px;
+    color: #FF8190;
+}
+
+.wrong-password {
+    display: flex;
+    width: 422px;
+    margin-right: 32px;
+}
  
