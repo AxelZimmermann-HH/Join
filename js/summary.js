@@ -113,17 +113,23 @@ function getClosestUrgentDueDate() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     if (window.innerWidth <= 800) {
         const greetingContainer = document.querySelector('.greeting-container');
         const summaryCardContainer = document.querySelector('.summary-card-container');
+        
 
-        setTimeout(() => {
-            greetingContainer.classList.add('hidden');
+        if (!localStorage.getItem('greetingShown')) {
+            localStorage.setItem('greetingShown', 'true');
             setTimeout(() => {
-                summaryCardContainer.classList.add('visible');
-            }, 1000); // Match this duration with the CSS transition duration for opacity
-        }, 2000); // Duration to wait before starting the fade-out
+                greetingContainer.classList.add('hidden');
+                setTimeout(() => {
+                    summaryCardContainer.classList.add('visible');                    
+                }, 1000);
+            }, 2000); 
+        } else {
+            summaryCardContainer.classList.add('visible');
+        }
     } else {
         document.querySelector('.summary-card-container').style.display = 'block';
     }
