@@ -621,10 +621,11 @@ h3 {
 
     @media (max-width: 460px) {
       .contacts-library {
-        width: 300px !important;
+        left: -45px !important;
       }
       .responsive-add-contact {
-        left: 240px;
+        left: 250px;
+        top: 624px;
       }
       .contacts-list {
         overflow: hidden;
@@ -635,6 +636,7 @@ h3 {
       .line {
         width: 300px;
       }
+     
  
     }
     
