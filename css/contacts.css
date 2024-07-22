@@ -621,10 +621,19 @@ h3 {
 
     @media (max-width: 460px) {
       .contacts-library {
-        width: 320px !important;
+        width: 300px !important;
       }
       .responsive-add-contact {
-        left: 260px;
+        left: 240px;
+      }
+      .contacts-list {
+        overflow: hidden;
+      }
+      .first-letter {
+        width: 300px;
+      }
+      .line {
+        width: 300px;
       }
  
     }
