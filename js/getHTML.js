@@ -122,7 +122,7 @@ function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highIm
     `;
 }
 
-function generateAddTaskLayer(boardCategory) {
+function generateAddTaskLayer(boardCategory, contactsHTML) {
   return `
         <div class="add-task-firstrow align-items-start">
             <h1 class="headline">Add Task</h1>
