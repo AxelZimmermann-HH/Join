@@ -53,7 +53,6 @@ function category() {
   <span onclick="technicalTask()">Technical Task</span>
   <span onclick="userStory()">User Story</span>
   </div>`;
-
   emptyCategory();
 }
 
@@ -64,6 +63,7 @@ function technicalTask() {
   document.getElementById("category").innerHTML = "";
   emptyCategory();
 }
+
 function userStory() {
   // changing the innerHTML and close the window
   document.getElementById("task-category").innerHTML = "User Story";
@@ -100,11 +100,7 @@ function newSubtask() {
   let closeSubtask = document.getElementById("edit-subtask");
   closeSubtask.classList.remove("d-none");
 
-  document.getElementById("edit-subtask").innerHTML = `<div id="closeAndCheck" class="closeAndCheck">
-    <img id="closeSubtask" onclick="closeSubtask()" src="add_task_img/close.svg" alt="" />
-    <div class="subtask-line"></div>
-    <img onclick="createSubtask()" id="checkSubtask" src="add_task_img/check.svg" alt="" />
-  </div>`;
+  document.getElementById("edit-subtask").innerHTML = newSubtaskHTML();
 }
 
 function closeSubtask() {
@@ -131,20 +127,9 @@ function createSubtask() {
   createSubtask.innerHTML = "";
 
   for (let i = 0; i < subtasks.length; i++) {
-    const subtask = subtasks[i];
+    let subtask = subtasks[i];
     if (input.value != "") {
-      createSubtask.innerHTML += `<div id="subtask-tasks${i}" class="subtasks-tasks">
-      <div>
-        <ul class="subtask-list">
-          <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
-        </ul>
-      </div>
-      <div class="subtask-list-icons">
-        <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
-        <div class="subtask-line"></div>
-        <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
-      </div>
-    </div>`;
+      createSubtask.innerHTML += createSubtaskHTML(i, subtask);
     }
   }
   input.value = "";
@@ -155,21 +140,15 @@ function renderSubtasks() {
   createSubtask.innerHTML = "";
 
   for (let i = 0; i < subtasks.length; i++) {
-    const subtask = subtasks[i];
-    createSubtask.innerHTML += `
-      <div id="subtask-tasks${i}" class="subtasks-tasks">
-        <div>
-          <ul class="subtask-list">
-            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
-          </ul>
-        </div>
-        <div class="subtask-list-icons">
-          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
-          <div class="subtask-line"></div>
-          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
-        </div>
-      </div>`;
+    let subtask = subtasks[i];
+    createSubtask.innerHTML += renderSubtasksHTML(i, subtask);
   }
+}
+
+function changeSubtaskLayer(i) {
+  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks");
+  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks:hover");
+  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks-edit");
 }
 
 function changeSubtask(i) {
@@ -184,21 +163,15 @@ function changeSubtask(i) {
     redBorder.style.borderBottom = "1px solid #29abe2";
   }
 
-  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks");
-  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks:hover");
-  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks-edit");
+  changeSubtaskLayer(i);
   let createSubtask = document.getElementById(`subtask-${i}`);
   let currentText = subtasks[i].title;
-
-  console.log(currentText);
 
   createSubtask.innerHTML = `
     <div class="subtask-edit">
       <div contenteditable="true" id="subtask-${i}" class="subtask-edit-div">${currentText}</div>
     </div>
   `;
-  
-  console.log('done');
 }
 
 function whichSourceSubtask(i) {
@@ -210,6 +183,12 @@ function whichSourceSubtask(i) {
   }
 }
 
+function updateSubtaskLayer(i) {
+  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks");
+  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks:hover");
+  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks-edit");
+}
+
 function updateSubtask(i) {
   let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
   let editSubtask = editedSubtask.trim();
@@ -219,11 +198,7 @@ function updateSubtask(i) {
     required.innerHTML = `<div class="title-required">fill out subtask</div>`;
     redBorder.style.borderBottom = "1px solid #ff8190";
   }
-
-  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks");
-  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks:hover");
-  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks-edit");
-
+  updateSubtaskLayer(i);
   subtasks[i].title = editedSubtask;
 
   let createSubtask = document.getElementById(`subtask-${i}`);
@@ -253,7 +228,6 @@ function showContactsInAddTask() {
       if (contact.name === userName) {
         displayName += " (You)";
       }
-
       return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
               <div class="show-task-contact-add-task">
                   <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
@@ -287,8 +261,8 @@ async function initializeAddTask() {
 }
 
 function showContacts() {
-  const contactDropdown = document.querySelector("#add-task-contacts");
-  const categoryDropdown = document.querySelector("#category");
+  let contactDropdown = document.querySelector("#add-task-contacts");
+  let categoryDropdown = document.querySelector("#category");
   contactDropdown.classList.toggle("d-none");
   showContactsInAddTask();
 }
@@ -299,8 +273,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function addMouseDownListeners() {
   document.addEventListener("mousedown", function (event) {
-    const contactDropdown = document.querySelector("#add-task-contacts");
-    const categoryDropdown = document.querySelector("#category");
+    let contactDropdown = document.querySelector("#add-task-contacts");
+    let categoryDropdown = document.querySelector("#category");
 
     if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!contactDropdown.classList.contains("d-none")) {
@@ -373,6 +347,7 @@ function clearSubtasks() {
   renderSubtasks();
   standardButton();
 }
+
 function emptyCategory() {
   let taskCategoryInput = document.getElementById("category-input");
   let taskCategory = document.getElementById("task-category").innerText;
@@ -407,8 +382,17 @@ function emptyDate() {
 }
 
 function addedToBoard() {
-  let img = document.getElementById("added-to-board");
-  img.classList.add("animate");
+  return new Promise((resolve) => {
+    let imgContainer = document.getElementById("added-to-board");
+    imgContainer.classList.add("animate");
+
+    // Wait for the transition to end
+    imgContainer.addEventListener("transitionend", function handler() {
+      // Remove event listener once the animation is done to avoid multiple triggers
+      imgContainer.removeEventListener("transitionend", handler);
+      resolve();
+    });
+  });
 }
 
 async function createTask(boardCategory) {
@@ -425,7 +409,7 @@ async function createTask(boardCategory) {
     return;
   }
 
-  addedToBoard();
+  await addedToBoard();
 
   // Erstelle das contacts Objekt basierend auf ausgewählten Kontakten
   let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
