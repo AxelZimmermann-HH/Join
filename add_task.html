@@ -11,13 +11,9 @@
     <link rel="stylesheet" href="css/add_task.css">
     <link rel="stylesheet" href="privacy_policy.css">
     <link rel="stylesheet" href="css/board.css">
-
-
-
 </head>
 
 <body onload="initializeAddTask()">
-
     <header>
         <div class="header-content">
             <img class="d-none" src="img/logo-dark.png" alt="">
@@ -37,7 +33,6 @@
 
 
     <div class="sidebar">
-
         <img src="../img/logo.svg" alt="" class="sidebar-logo" />
         <div class="sidebar-menu">
             <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
@@ -57,7 +52,6 @@
             <a id="link-privacy-policy" onclick="goToPrivacyPolicy()" href="#">Privacy Policy</a>
             <a id="link-legal-notice" onclick="goToLegalNotice()" href="#">Legal Notice</a>
         </div>
-
     </div>
 
 
@@ -81,15 +75,21 @@
             <div class="add-task-contacts d-none" id="add-task-contacts">
 
             </div>
+            <div id="add-task-contactsHTML" class="edit-task-contacts">
+              
+            </div>
             <div class="required-text">
                 <p><span class="span-red">*</span>This field is required</p>
             </div>
         </div>
+
         <div class="parting-line"></div>
+
         <div class="right-section">
             <p>Due date<span class="span-red">*</span></p>
             <input class="date-input" onclick="emptyDate()" id="date-input" required type="date">
             <span id="date-required"></span>
+
             <p class="prio">Prio</p>
             <div class="buttons">
                 <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img id="highButtonImg"
@@ -99,20 +99,24 @@
                 <button id="lowButton" onclick="lowButton()" class="prio-buttons">Low <img id="lowButtonImg"
                         src="add_task_img/low.svg"></button>
             </div>
+
             <p class="category">Category<span class="span-red">*</span></p>
             <div class="dropdown-category">
-                <div onclick="category()" required class="category-menu">
+                <div id="category-input" onclick="category()" required class="category-menu">
                     <span id="task-category">Select task category</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
+                <div id="category-required"></div>
                 <div class="d-none" id="category"></div>
             </div>
+
             <p class="subtasks">Subtasks</p>
             <div class="subtask-layout">
                 <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
                 <div class="d-none" id="edit-subtask"></div>
                 <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
             </div>
+            <div id="subtask-required"></div>
             <div class="create-subtask" id="create-subtask"></div>
 
             <div class="bottom-buttons">
@@ -133,7 +137,7 @@
         </div>
     </div>
     <div id="added-to-board">
-        <img src="./add_task_img/Added to board.svg" alt="" class="d-none">
+        <img id="addedBoardImg" src="./add_task_img/Added to board.svg" alt="">
     </div>
 
     <script src="script.js"></script>
@@ -141,7 +145,6 @@
     <script src="js/board.js"></script>
     <script src="js/getHTML.js"></script>
     <script src="js/contacts.js"></script>
-
 </body>
 
 </html>

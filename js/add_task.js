@@ -1,5 +1,6 @@
 let subtasks = [];
 let selectedContacts = [];
+let currentTaskIndex = 0;
 
 const contactDropdown = document.getElementById("add-task-contacts");
 const categoryDropdown = document.getElementById("category");
@@ -53,6 +54,7 @@ function category() {
   <span onclick="technicalTask()">Technical Task</span>
   <span onclick="userStory()">User Story</span>
   </div>`;
+  emptyCategory();
 }
 
 function technicalTask() {
@@ -60,32 +62,15 @@ function technicalTask() {
   document.getElementById("task-category").innerHTML = "Technical Task";
   document.getElementById("category").style.display = "none";
   document.getElementById("category").innerHTML = "";
+  emptyCategory();
 }
+
 function userStory() {
   // changing the innerHTML and close the window
   document.getElementById("task-category").innerHTML = "User Story";
   document.getElementById("category").style.display = "none";
   document.getElementById("category").innerHTML = "";
-}
-
-function emptyTitle() {
-  let title = document.getElementById("title-input");
-  let required = document.getElementById("title-required");
-  // checked if the title length is 0 or more
-  if (title.value.length === 0) {
-    title.style.borderColor = "red";
-    required.innerHTML = `<div class="title-required">this field is required</div>`;
-  } else if (title.value.length > 0) {
-    title.style.borderColor = "#29abe2";
-    required.innerHTML = "";
-  }
-}
-
-function emptyDate() {
-  let date = document.getElementById("date-input");
-  date.showPicker();
-  updateDateStyle();
-  document.getElementById("date-input").addEventListener("change", updateDateStyle);
+  emptyCategory();
 }
 
 function updateDateStyle() {
@@ -116,11 +101,7 @@ function newSubtask() {
   let closeSubtask = document.getElementById("edit-subtask");
   closeSubtask.classList.remove("d-none");
 
-  document.getElementById("edit-subtask").innerHTML = `<div id="closeAndCheck" class="closeAndCheck">
-    <img id="closeSubtask" onclick="closeSubtask()" src="add_task_img/close.svg" alt="" />
-    <div class="subtask-line"></div>
-    <img onclick="createSubtask()" id="checkSubtask" src="add_task_img/check.svg" alt="" />
-  </div>`;
+  document.getElementById("edit-subtask").innerHTML = newSubtaskHTML();
 }
 
 function closeSubtask() {
@@ -147,20 +128,9 @@ function createSubtask() {
   createSubtask.innerHTML = "";
 
   for (let i = 0; i < subtasks.length; i++) {
-    const subtask = subtasks[i];
+    let subtask = subtasks[i];
     if (input.value != "") {
-      createSubtask.innerHTML += `<div id="subtask-tasks${i}" class="subtasks-tasks">
-      <div>
-        <ul class="subtask-list">
-          <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
-        </ul>
-      </div>
-      <div class="subtask-list-icons">
-        <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
-        <div class="subtask-line"></div>
-        <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
-      </div>
-    </div>`;
+      createSubtask.innerHTML += createSubtaskHTML(i, subtask);
     }
   }
   input.value = "";
@@ -171,30 +141,30 @@ function renderSubtasks() {
   createSubtask.innerHTML = "";
 
   for (let i = 0; i < subtasks.length; i++) {
-    const subtask = subtasks[i];
-    createSubtask.innerHTML += `
-      <div id="subtask-tasks${i}" class="subtasks-tasks">
-        <div>
-          <ul class="subtask-list">
-            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
-          </ul>
-        </div>
-        <div class="subtask-list-icons">
-          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
-          <div class="subtask-line"></div>
-          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
-        </div>
-      </div>`;
+    let subtask = subtasks[i];
+    createSubtask.innerHTML += renderSubtasksHTML(i, subtask);
   }
+}
+
+function changeSubtaskLayer(i) {
+  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks");
+  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks:hover");
+  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks-edit");
 }
 
 function changeSubtask(i) {
   let editLogo = document.getElementById(`edit-logo${i}`);
+  let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
+  let required = document.getElementById("subtask-required");
+  let redBorder = document.getElementById(`subtask-tasks${i}`);
   editLogo.src = "add_task_img/check.svg";
 
-  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks");
-  document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks:hover");
-  document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks-edit");
+  if (editedSubtask === "") {
+    required.innerHTML = "";
+    redBorder.style.borderBottom = "1px solid #29abe2";
+  }
+
+  changeSubtaskLayer(i);
   let createSubtask = document.getElementById(`subtask-${i}`);
   let currentText = subtasks[i].title;
 
@@ -214,18 +184,22 @@ function whichSourceSubtask(i) {
   }
 }
 
-function updateSubtask(i) {
-  let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
-  let editSubtask = editedSubtask.trim();
-  if (editSubtask === "") {
-    alert("please fill out the subtask");
-    return;
-  }
-
+function updateSubtaskLayer(i) {
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks");
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks:hover");
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks-edit");
+}
 
+function updateSubtask(i) {
+  let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
+  let editSubtask = editedSubtask.trim();
+  let required = document.getElementById("subtask-required");
+  let redBorder = document.getElementById(`subtask-tasks${i}`);
+  if (editSubtask === "") {
+    required.innerHTML = `<div class="title-required">fill out subtask</div>`;
+    redBorder.style.borderBottom = "1px solid #ff8190";
+  }
+  updateSubtaskLayer(i);
   subtasks[i].title = editedSubtask;
 
   let createSubtask = document.getElementById(`subtask-${i}`);
@@ -255,7 +229,6 @@ function showContactsInAddTask() {
       if (contact.name === userName) {
         displayName += " (You)";
       }
-
       return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
               <div class="show-task-contact-add-task">
                   <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
@@ -289,34 +262,53 @@ async function initializeAddTask() {
 }
 
 function showContacts() {
-  const contactDropdown = document.querySelector("#add-task-contacts");
-  const categoryDropdown = document.querySelector("#category");
+  let contactDropdown = document.querySelector("#add-task-contacts");
+  let categoryDropdown = document.querySelector("#category");
   contactDropdown.classList.toggle("d-none");
   showContactsInAddTask();
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-  const contactDropdown = document.querySelector("#add-task-contacts");
-  const categoryDropdown = document.querySelector("#category");
+document.addEventListener("DOMContentLoaded", function () {
+  addMouseDownListeners();
+});
 
-  console.log(contactDropdown, categoryDropdown); // Überprüfen, ob die Elemente existieren
+async function addMouseDownListeners() {
+  document.addEventListener("mousedown", async function (event) {
+    const contactDropdown = document.querySelector("#add-task-contacts");
+    const categoryDropdown = document.querySelector("#category");
 
-  document.addEventListener("mousedown", function(event) {
     if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!contactDropdown.classList.contains("d-none")) {
         contactDropdown.classList.add("d-none");
+        
+        if (document.getElementById("add-task-contactsHTML")) {
+          // Ausführen, wenn das Element mit der ID "add-task-contactsHTML" im DOM ist
+          await getAddContactSiteHTML(selectedContacts);
+          standardButton();
+        } else {
+          if (document.getElementById("add-task-contactsHTML-layer")) {
+            let contactsHTML = getAddContactsHTML(selectedContacts);
+            let content = document.getElementById("show-task-inner-layer");
+            content.innerHTML = "";
+            content.innerHTML += generateAddTaskLayer(currentBoardCategory, contactsHTML);
+            standardButton();
+          } else {
+          // Ansonsten saveEditContacts oder der Standard-Fall
+          await saveEditContacts(currentTaskKey);
+          }
+
+          
+        }
       }
     }
-  });
 
-  document.addEventListener("mousedown", function(event) {
     if (categoryDropdown && !categoryDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!categoryDropdown.classList.contains("d-none")) {
         categoryDropdown.classList.add("d-none");
       }
     }
   });
-});
+}
 
 
 function showContactsInEdit() {
@@ -374,6 +366,54 @@ function clearButtons() {
 function clearSubtasks() {
   subtasks = [];
   renderSubtasks();
+  standardButton();
+}
+
+function emptyCategory() {
+  let taskCategoryInput = document.getElementById("category-input");
+  let taskCategory = document.getElementById("task-category").innerText;
+  let required = document.getElementById("category-required");
+  if (taskCategory === "Select task category") {
+    taskCategoryInput.style.borderColor = "red";
+    required.innerHTML = `<div class="title-required">this field is required</div>`;
+  } else if (taskCategory === "User Story" || taskCategory === "Technical Task") {
+    taskCategoryInput.style.borderColor = "#29abe2";
+    required.innerHTML = "";
+  }
+}
+
+function emptyTitle() {
+  let title = document.getElementById("title-input");
+  let required = document.getElementById("title-required");
+  // checked if the title length is 0 or more
+  if (title.value.length === 0) {
+    title.style.borderColor = "red";
+    required.innerHTML = `<div class="title-required">this field is required</div>`;
+  } else if (title.value.length > 0) {
+    title.style.borderColor = "#29abe2";
+    required.innerHTML = "";
+  }
+}
+
+function emptyDate() {
+  let date = document.getElementById("date-input");
+  date.showPicker();
+  updateDateStyle();
+  document.getElementById("date-input").addEventListener("change", updateDateStyle);
+}
+
+function addedToBoard() {
+  return new Promise((resolve) => {
+    let imgContainer = document.getElementById("added-to-board");
+    imgContainer.classList.add("animate");
+
+    // Wait for the transition to end
+    imgContainer.addEventListener("transitionend", function handler() {
+      // Remove event listener once the animation is done to avoid multiple triggers
+      imgContainer.removeEventListener("transitionend", handler);
+      resolve();
+    });
+  });
 }
 
 async function createTask(boardCategory) {
@@ -383,10 +423,14 @@ async function createTask(boardCategory) {
   let taskCategory = document.getElementById("task-category").innerText;
   let title = document.getElementById("title-input").value;
 
-  if (title === "" || taskCategory === "Select task category" || dueDate === "") {
-    alert("please fill out title, task category and date");
+  if (title === "" || dueDate === "" || taskCategory === "Select task category") {
+    emptyDate();
+    emptyTitle();
+    emptyCategory();
     return;
   }
+
+  await addedToBoard();
 
   // Erstelle das contacts Objekt basierend auf ausgewählten Kontakten
   let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {

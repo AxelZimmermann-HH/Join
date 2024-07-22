@@ -4,7 +4,9 @@ let tasksData = {};
 let tasksArray = [];
 let tasksKeys = [];
 
-currentTask = null;
+currentTaskKey = 0;
+currentTask = {};
+let currentBoardCategory = "";
 
 
 /**
@@ -106,7 +108,10 @@ function renderFilteredTasks(filteredTasks) {
   checkAndAddNoTask();
 }
 
-
+/**
+ * This function empties all category boards before they are rendert again in other functions.
+ * @param {array} boardIds - board categories to-do, in-progress, await-feedback and done
+ */
 function clearBoards(boardIds) {
   for (let id in boardIds) {
     let content = document.getElementById(boardIds[id]);
@@ -116,7 +121,11 @@ function clearBoards(boardIds) {
   }
 }
 
-
+/**
+ * This function displays the assigned contacts on the cards on the board by initials.
+ * @param {array} contacts - task.contacts
+ * @returns HTMLs of the first four assigned contacts and the HTML with the number of the further contacts, if there are more.
+ */
 function generateContactsHTML(contacts) {
   contacts = contacts || {};
   const contactCount = Object.keys(contacts).length;
@@ -126,7 +135,11 @@ function generateContactsHTML(contacts) {
   return displayedContacts + remainingContacts;
 }
 
-
+/**
+ * This function renders the first four assigned task contacts on the card on the board.
+ * @param {array} contacts - task.contacts
+ * @returns HTMLs of the first four assigned contacts
+ */
 function getDisplayedContactsHTML(contacts) {
   let contactsHTML = "";
   let displayedContacts = 0;
@@ -144,7 +157,11 @@ function getDisplayedContactsHTML(contacts) {
   return contactsHTML;
 }
 
-
+/**
+ * This function returns a HTML with the number of further contacts if there are more than four on the card on the board..
+ * @param {number} contactCount - task.contacts[length]
+ * @returns HTML with the number of further contacts or nothing if there are four assigned contacts or less.
+ */
 function getRemainingContactsHTML(contactCount) {
   if (contactCount > 4) {
     const remainingContacts = contactCount - 4;
@@ -153,7 +170,11 @@ function getRemainingContactsHTML(contactCount) {
   return "";
 }
 
-
+/**
+ * This function displays the correct image for each prio status on the cards on the board
+ * @param {string} prio - task.prio
+ * @returns the correct image correspondant to urgent, medium or low
+ */
 function handlePrio(prio) {
   if (prio === "urgent") {
     return "/add_task_img/high.svg";
@@ -286,6 +307,8 @@ async function deleteTask(key) {
 
 function openTask(key) {
   const task = tasksData[key];
+  currentTaskKey = key;
+  console.log(task);
   showTaskLayer();
   let content = document.getElementById("show-task-inner-layer");
   animateContent(content);
@@ -468,13 +491,35 @@ function saveTaskChanges(key) {
     const selectedContactsData = getSelectedContactsData();
     const subtasksObj = getSubtasksObj();
     const updatedTask = getUpdatedTask(selectedContactsData, subtasksObj);
-  
+    
     updateTask(key, updatedTask)
       .then(() => {
         handleTaskUpdateSuccess();
       })
       .catch((error) => console.error("Error updating task:", error));
 }
+
+
+async function saveEditContacts(key) {
+  try {
+    const selectedContactsData = getSelectedContactsData();
+    const subtasksObj = getSubtasksObj();
+    const updatedTask = getUpdatedTask(selectedContactsData, subtasksObj);
+
+    await updateTask(key, updatedTask);
+    console.log('updated');
+    
+    await boardInit();
+    console.log('next');
+
+    showEditTask(currentTaskKey);
+    
+    
+  } catch (error) {
+    console.error("Error updating task:", error);
+  }
+}
+
   
 
 function getSelectedContactsData() {
@@ -563,7 +608,7 @@ function getEditSubtasksHTML(taskSubtasks) {
                 <div id="subtask-tasks${subtasks.length - 1}" class="subtasks-tasks">
                     <div>
                         <ul class="subtask-list">
-                            <li id="subtask-${subtasks.length - 1}" onclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
+                            <li id="subtask-${subtasks.length - 1}" ondblclick="changeSubtask(${subtasks.length - 1})" class="subtask-list-element">${subtask.title}</li>
                         </ul>
                     </div>
                     <div class="subtask-list-icons">
@@ -578,9 +623,14 @@ function getEditSubtasksHTML(taskSubtasks) {
 }
 
 
+
+
+
+
 function getEditContactsHTML(contacts) {
     contacts = contacts || {}; // Ensure contacts is an object
     let contactCount = Object.keys(contacts).length;
+    console.log(contacts);
   
     let contactsHTML = getFirstFourContacts(contacts);
     contactsHTML += getRestContacts(contactCount);
@@ -588,44 +638,112 @@ function getEditContactsHTML(contacts) {
     return contactsHTML;
 }
 
-
 function getFirstFourContacts(contacts) {
-    let contactsHTML = "";
-    let displayedContacts = 0;
-  
-    for (let key in contacts) {
-      if (contacts.hasOwnProperty(key)) {
-        let contact = contacts[key];
-        let initials = getInitials(contact.name);
-  
-        if (displayedContacts < 4) {
-          contactsHTML += `
-            <div class="show-task-contact">
-                <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
-            </div>
-          `;
-          displayedContacts++;
-        } else {
-          break;
-        }
+  let contactsHTML = "";
+  let displayedContacts = 0;
+
+  for (let key in contacts) {
+    if (contacts.hasOwnProperty(key)) {
+      let contact = contacts[key];
+      let initials = getInitials(contact.name);
+
+      if (displayedContacts < 4) {
+        contactsHTML += `
+          <div class="show-task-contact">
+              <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
+          </div>
+        `;
+        displayedContacts++;
+      } else {
+        break;
       }
     }
-  
-    return contactsHTML;
+  }
+
+  return contactsHTML;
 }
-  
 
 function getRestContacts(contactCount) {
-    if (contactCount > 4) {
-        let remainingContacts = contactCount - 4;
-        return `
-        <div class="show-task-contact">
-            <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
-        </div>
-        `;
-    }
-    return "";
+  if (contactCount > 4) {
+      let remainingContacts = contactCount - 4;
+      return `
+      <div class="show-task-contact">
+          <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
+      </div>
+      `;
+  }
+  return "";
 }
+
+
+
+async function getAddContactSiteHTML(selectedContacts) {
+  // contacts = contacts || {}; // Ensure contacts is an object
+  selectedContacts = selectedContacts || []; // Ensure selectedContacts is an array
+  let contactCount = Object.keys(selectedContacts).length;
+
+  let content = document.getElementById('add-task-contactsHTML');
+  content.innerHTML = '';
+  content.innerHTML += getFirstFourAddContacts(selectedContacts);
+  content.innerHTML += getRestAddContacts(contactCount);
+}
+
+
+
+function getAddContactsHTML(selectedContacts) {
+  // contacts = contacts || {}; // Ensure contacts is an object
+  selectedContacts = selectedContacts || []; // Ensure selectedContacts is an array
+  let contactCount = Object.keys(selectedContacts).length;
+
+  let contactsHTML = getFirstFourAddContacts(selectedContacts);
+  contactsHTML += getRestAddContacts(contactCount);
+
+  return contactsHTML;
+}
+
+function getFirstFourAddContacts(selectedContacts) {
+  let contactsHTML = "";
+  let displayedContacts = 0;
+  let contactKeys = Object.keys(contactsArray);
+  console.log(contactKeys);
+  console.log(contactsKeys);
+
+  for (let i = 0; i < contactsKeys.length; i++) {
+    if (selectedContacts[i]) {
+      let contact = contactsArray[i];
+      let initials = getInitials(contact.name);
+
+      if (displayedContacts < 4) {
+        contactsHTML += `
+          <div class="show-task-contact">
+              <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
+          </div>
+        `;
+        displayedContacts++;
+      } else {
+        break;
+      }
+    }
+  }
+
+  return contactsHTML;
+}
+
+function getRestAddContacts(contactCount) {
+  contactCount = selectedContacts.filter(contact => contact === true).length;
+  if (contactCount > 4) {
+      let remainingContacts = contactCount - 4;
+      return `
+      <div class="show-task-contact">
+          <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
+      </div>
+      `;
+  }
+  return "";
+}
+
+
+
 
 
 function openAddTask(boardCategory) {
@@ -639,9 +757,15 @@ function openAddTask(boardCategory) {
   void content.offsetWidth;
   content.classList.add("slide-in-right");
 
+  let contacts = {};
+  
+  let contactsHTML = getAddContactsHTML(contacts);
+
   content.innerHTML = "";
-  content.innerHTML += generateAddTaskLayer(boardCategory);
+  content.innerHTML += generateAddTaskLayer(boardCategory, contactsHTML);
+  console.log(boardCategory);
   standardButton();
+  currentBoardCategory = boardCategory;
 }
 
 
