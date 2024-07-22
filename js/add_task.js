@@ -1,5 +1,6 @@
 let subtasks = [];
 let selectedContacts = [];
+let currentTaskIndex = 0;
 
 const contactDropdown = document.getElementById("add-task-contacts");
 const categoryDropdown = document.getElementById("category");
@@ -297,14 +298,15 @@ document.addEventListener("DOMContentLoaded", function () {
   addMouseDownListeners();
 });
 
-function addMouseDownListeners() {
-  document.addEventListener("mousedown", function (event) {
+async function addMouseDownListeners() {
+  document.addEventListener("mousedown", async function (event) {
     const contactDropdown = document.querySelector("#add-task-contacts");
     const categoryDropdown = document.querySelector("#category");
 
     if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!contactDropdown.classList.contains("d-none")) {
         contactDropdown.classList.add("d-none");
+        await saveEditContacts(currentTaskKey);
       }
     }
 
@@ -315,6 +317,7 @@ function addMouseDownListeners() {
     }
   });
 }
+
 
 function showContactsInEdit() {
   showContactsInAddTask();

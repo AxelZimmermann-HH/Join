@@ -4,7 +4,7 @@ let tasksData = {};
 let tasksArray = [];
 let tasksKeys = [];
 
-currentTask = null;
+currentTaskKey = 0;
 
 
 /**
@@ -305,6 +305,8 @@ async function deleteTask(key) {
 
 function openTask(key) {
   const task = tasksData[key];
+  currentTaskKey = key;
+  console.log(task);
   showTaskLayer();
   let content = document.getElementById("show-task-inner-layer");
   animateContent(content);
@@ -463,8 +465,6 @@ function showEditTask(taskKey) {
   let currentHeight = content.scrollHeight;
   content.style.height = currentHeight + "px";
   content.innerHTML = generateEditTaskLayer(task, taskKey);
-  const contactDropdown = document.querySelector("#add-task-contacts");
-  console.log(contactDropdown);
 }
 
 
@@ -489,13 +489,35 @@ function saveTaskChanges(key) {
     const selectedContactsData = getSelectedContactsData();
     const subtasksObj = getSubtasksObj();
     const updatedTask = getUpdatedTask(selectedContactsData, subtasksObj);
-  
+    
     updateTask(key, updatedTask)
       .then(() => {
         handleTaskUpdateSuccess();
       })
       .catch((error) => console.error("Error updating task:", error));
 }
+
+
+async function saveEditContacts(key) {
+  try {
+    const selectedContactsData = getSelectedContactsData();
+    const subtasksObj = getSubtasksObj();
+    const updatedTask = getUpdatedTask(selectedContactsData, subtasksObj);
+
+    await updateTask(key, updatedTask);
+    console.log('updated');
+    
+    await boardInit();
+    console.log('next');
+
+    showEditTask(currentTaskKey);
+    
+    
+  } catch (error) {
+    console.error("Error updating task:", error);
+  }
+}
+
   
 
 function getSelectedContactsData() {
@@ -609,6 +631,41 @@ function getEditContactsHTML(contacts) {
     return contactsHTML;
 }
 
+function getAddContactsHTML(contacts, selectedContacts) {
+  contacts = contacts || {}; // Ensure contacts is an object
+  selectedContacts = selectedContacts || []; // Ensure selectedContacts is an array
+
+  let contactsHTML = getFirstFourAddContacts(contacts, selectedContacts);
+
+  return contactsHTML;
+}
+
+function getFirstFourAddContacts(contacts, selectedContacts) {
+  let contactsHTML = "";
+  let displayedContacts = 0;
+  let contactKeys = Object.keys(contacts);
+
+  for (let i = 0; i < contactKeys.length; i++) {
+    if (selectedContacts[i]) {
+      let contact = contacts[contactKeys[i]];
+      let initials = getInitials(contact.name);
+
+      if (displayedContacts < 4) {
+        contactsHTML += `
+          <div class="show-task-contact">
+              <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
+          </div>
+        `;
+        displayedContacts++;
+      } else {
+        break;
+      }
+    }
+  }
+
+  return contactsHTML;
+}
+
 
 function getFirstFourContacts(contacts) {
     let contactsHTML = "";
@@ -660,8 +717,12 @@ function openAddTask(boardCategory) {
   void content.offsetWidth;
   content.classList.add("slide-in-right");
 
+  let contacts = {};
+  
+  let contactsHTML = getAddContactsHTML(contacts);
+
   content.innerHTML = "";
-  content.innerHTML += generateAddTaskLayer(boardCategory);
+  content.innerHTML += generateAddTaskLayer(boardCategory, contactsHTML);
   standardButton();
 }
 

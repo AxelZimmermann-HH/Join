@@ -123,7 +123,7 @@ function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highIm
     `;
 }
 
-function generateAddTaskLayer(boardCategory) {
+function generateAddTaskLayer(boardCategory, contactsHTML) {
     return `
         <div class="add-task-firstrow align-items-start">
             <h1 class="headline">Add Task</h1>
@@ -147,6 +147,9 @@ function generateAddTaskLayer(boardCategory) {
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
                 <div class="add-task-contacts add-task-contacts-layer d-none" id="add-task-contacts"></div>
+                <div class="edit-task-contacts">
+                    ${contactsHTML}
+                </div>
                 <div class="required-text">
                     <p><span class="span-red">*</span>This field is required</p>
                 </div>
@@ -196,6 +199,9 @@ function generateAddTaskLayer(boardCategory) {
             </div>
             </div>
             
+        </div>
+        <div id="added-to-board">
+            <img id="addedBoardImg" src="./add_task_img/Added to board.svg" alt="">
         </div>
     `;
 }
