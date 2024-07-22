@@ -542,7 +542,7 @@ h3 {
         height: 40px;
         width: 40px;
       }
-      .sidebar {
+        .sidebar {
         top: auto;
         bottom: 0;
         left: 0;
@@ -556,7 +556,8 @@ h3 {
         align-items: center;
         padding-top: 0;
         padding-bottom: 0;
-      }
+        } 
+        
       .sidebar-logo {
         display: none;
       }
