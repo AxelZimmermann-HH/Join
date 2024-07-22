@@ -13,7 +13,7 @@ function generateCounts() {
     let awaitFeedback = document.getElementById('awaitFeedbackCount');
     let urgent = document.getElementById('urgentCount');
     let allTasks = document.getElementById('allTasks');
-    
+
     toDo.innerHTML = ''
     toDo.innerHTML = counter('to-do');
 
@@ -50,11 +50,16 @@ function generateGreets() {
     let greetingTime = getGreeting();
     let userName = sessionStorage.getItem('userName');
     let content = document.getElementById('greeting-container');
-
-    content.innerHTML = '';
-    content.innerHTML = `<span class="greet-text">Good ${greetingTime},</span>
+    if (userName === "Guest") {
+        content.innerHTML = '';
+        content.innerHTML = `<span class="greet-text">Good ${greetingTime}</span>`
+    } else {
+        content.innerHTML = '';
+        content.innerHTML = `<span class="greet-text">Good ${greetingTime},</span>
           <span class="greet-user-name">${userName}</span>
           `;
+    }
+
 }
 
 function getGreeting() {
@@ -80,7 +85,7 @@ function generateUpcomingDate() {
 
 function getClosestUrgentDueDate() {
     let urgentTasks = tasksArray.filter(task => task.prio === 'urgent');
-    
+
     if (urgentTasks.length === 0) {
         return null; // Keine dringenden Aufgaben vorhanden
     }
@@ -108,8 +113,25 @@ function getClosestUrgentDueDate() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+    if (window.innerWidth <= 800) {
+        const greetingContainer = document.querySelector('.greeting-container');
+        const summaryCardContainer = document.querySelector('.summary-card-container');
+
+        setTimeout(() => {
+            greetingContainer.classList.add('hidden');
+            setTimeout(() => {
+                summaryCardContainer.classList.add('visible');
+            }, 1000); // Match this duration with the CSS transition duration for opacity
+        }, 2000); // Duration to wait before starting the fade-out
+    } else {
+        document.querySelector('.summary-card-container').style.display = 'block';
+    }
+});
 
 
 
 
-  
+
+
+
