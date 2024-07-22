@@ -146,7 +146,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
                 <div class="add-task-contacts add-task-contacts-layer d-none" id="add-task-contacts"></div>
-                <div class="edit-task-contacts">
+                <div id="add-task-contactsHTML-layer"  class="edit-task-contacts">
                     ${contactsHTML}
                 </div>
                 <div class="required-text">

@@ -280,7 +280,25 @@ async function addMouseDownListeners() {
     if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!contactDropdown.classList.contains("d-none")) {
         contactDropdown.classList.add("d-none");
-        await saveEditContacts(currentTaskKey);
+        
+        if (document.getElementById("add-task-contactsHTML")) {
+          // Ausführen, wenn das Element mit der ID "add-task-contactsHTML" im DOM ist
+          await getAddContactSiteHTML(selectedContacts);
+          standardButton();
+        } else {
+          if (document.getElementById("add-task-contactsHTML-layer")) {
+            let contactsHTML = getAddContactsHTML(selectedContacts);
+            let content = document.getElementById("show-task-inner-layer");
+            content.innerHTML = "";
+            content.innerHTML += generateAddTaskLayer(currentBoardCategory, contactsHTML);
+            standardButton();
+          } else {
+          // Ansonsten saveEditContacts oder der Standard-Fall
+          await saveEditContacts(currentTaskKey);
+          }
+
+          
+        }
       }
     }
 

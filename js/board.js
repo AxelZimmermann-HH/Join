@@ -5,6 +5,8 @@ let tasksArray = [];
 let tasksKeys = [];
 
 currentTaskKey = 0;
+currentTask = {};
+let currentBoardCategory = "";
 
 
 /**
@@ -621,9 +623,14 @@ function getEditSubtasksHTML(taskSubtasks) {
 }
 
 
+
+
+
+
 function getEditContactsHTML(contacts) {
     contacts = contacts || {}; // Ensure contacts is an object
     let contactCount = Object.keys(contacts).length;
+    console.log(contacts);
   
     let contactsHTML = getFirstFourContacts(contacts);
     contactsHTML += getRestContacts(contactCount);
@@ -631,23 +638,13 @@ function getEditContactsHTML(contacts) {
     return contactsHTML;
 }
 
-function getAddContactsHTML(contacts, selectedContacts) {
-  contacts = contacts || {}; // Ensure contacts is an object
-  selectedContacts = selectedContacts || []; // Ensure selectedContacts is an array
-
-  let contactsHTML = getFirstFourAddContacts(contacts, selectedContacts);
-
-  return contactsHTML;
-}
-
-function getFirstFourAddContacts(contacts, selectedContacts) {
+function getFirstFourContacts(contacts) {
   let contactsHTML = "";
   let displayedContacts = 0;
-  let contactKeys = Object.keys(contacts);
 
-  for (let i = 0; i < contactKeys.length; i++) {
-    if (selectedContacts[i]) {
-      let contact = contacts[contactKeys[i]];
+  for (let key in contacts) {
+    if (contacts.hasOwnProperty(key)) {
+      let contact = contacts[key];
       let initials = getInitials(contact.name);
 
       if (displayedContacts < 4) {
@@ -666,44 +663,87 @@ function getFirstFourAddContacts(contacts, selectedContacts) {
   return contactsHTML;
 }
 
+function getRestContacts(contactCount) {
+  if (contactCount > 4) {
+      let remainingContacts = contactCount - 4;
+      return `
+      <div class="show-task-contact">
+          <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
+      </div>
+      `;
+  }
+  return "";
+}
 
-function getFirstFourContacts(contacts) {
-    let contactsHTML = "";
-    let displayedContacts = 0;
-  
-    for (let key in contacts) {
-      if (contacts.hasOwnProperty(key)) {
-        let contact = contacts[key];
-        let initials = getInitials(contact.name);
-  
-        if (displayedContacts < 4) {
-          contactsHTML += `
-            <div class="show-task-contact">
-                <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
-            </div>
-          `;
-          displayedContacts++;
-        } else {
-          break;
-        }
+
+
+async function getAddContactSiteHTML(selectedContacts) {
+  // contacts = contacts || {}; // Ensure contacts is an object
+  selectedContacts = selectedContacts || []; // Ensure selectedContacts is an array
+  let contactCount = Object.keys(selectedContacts).length;
+
+  let content = document.getElementById('add-task-contactsHTML');
+  content.innerHTML = '';
+  content.innerHTML += getFirstFourAddContacts(selectedContacts);
+  content.innerHTML += getRestAddContacts(contactCount);
+}
+
+
+
+function getAddContactsHTML(selectedContacts) {
+  // contacts = contacts || {}; // Ensure contacts is an object
+  selectedContacts = selectedContacts || []; // Ensure selectedContacts is an array
+  let contactCount = Object.keys(selectedContacts).length;
+
+  let contactsHTML = getFirstFourAddContacts(selectedContacts);
+  contactsHTML += getRestAddContacts(contactCount);
+
+  return contactsHTML;
+}
+
+function getFirstFourAddContacts(selectedContacts) {
+  let contactsHTML = "";
+  let displayedContacts = 0;
+  let contactKeys = Object.keys(contactsArray);
+  console.log(contactKeys);
+  console.log(contactsKeys);
+
+  for (let i = 0; i < contactsKeys.length; i++) {
+    if (selectedContacts[i]) {
+      let contact = contactsArray[i];
+      let initials = getInitials(contact.name);
+
+      if (displayedContacts < 4) {
+        contactsHTML += `
+          <div class="show-task-contact">
+              <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
+          </div>
+        `;
+        displayedContacts++;
+      } else {
+        break;
       }
     }
-  
-    return contactsHTML;
-}
-  
+  }
 
-function getRestContacts(contactCount) {
-    if (contactCount > 4) {
-        let remainingContacts = contactCount - 4;
-        return `
-        <div class="show-task-contact">
-            <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
-        </div>
-        `;
-    }
-    return "";
+  return contactsHTML;
 }
+
+function getRestAddContacts(contactCount) {
+  contactCount = selectedContacts.filter(contact => contact === true).length;
+  if (contactCount > 4) {
+      let remainingContacts = contactCount - 4;
+      return `
+      <div class="show-task-contact">
+          <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
+      </div>
+      `;
+  }
+  return "";
+}
+
+
+
 
 
 function openAddTask(boardCategory) {
@@ -723,7 +763,9 @@ function openAddTask(boardCategory) {
 
   content.innerHTML = "";
   content.innerHTML += generateAddTaskLayer(boardCategory, contactsHTML);
+  console.log(boardCategory);
   standardButton();
+  currentBoardCategory = boardCategory;
 }
 
 
