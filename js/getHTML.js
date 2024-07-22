@@ -1,11 +1,11 @@
 function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, totalSubtasks, completedSubtasks, progressPercentage) {
-    return `
+  return `
         <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
             <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
             <div class="task-on-board-headline">${task.title}</div>
             <div class="task-on-board-text">${task.description}</div>
             ${
-            totalSubtasks > 0
+              totalSubtasks > 0
                 ? `
                 <div class="task-on-board-subtasks">
                     <div class="progress-bar-container">
@@ -26,7 +26,7 @@ function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, 
 }
 
 function getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML) {
-    return `
+  return `
         <div class="show-task-firstrow">
             <div class="show-task-category ${categoryClass}">${task.task_category}</div>
             <div class="show-task-close" onclick="closeTask()">
@@ -65,9 +65,8 @@ function getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML) 
     `;
 }
 
-
 function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highImgSrc, mediumSelected, mediumImgSrc, lowSelected, lowImgSrc) {
-    return `
+  return `
         <div class="show-task-firstrow flex-end">
             <div class="show-task-close" onclick="closeTask()">
                 <img src="img/add-contact-close.svg" alt="">
@@ -123,8 +122,8 @@ function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highIm
     `;
 }
 
-function generateAddTaskLayer(boardCategory, contactsHTML) {
-    return `
+function generateAddTaskLayer(boardCategory) {
+  return `
         <div class="add-task-firstrow align-items-start">
             <h1 class="headline">Add Task</h1>
             <div class="show-task-close" onclick="closeTask()">
@@ -206,17 +205,54 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
     `;
 }
 
-
 function generateContact(contact) {
-    const initials = getInitials(contact.name);
-    return `
+  const initials = getInitials(contact.name);
+  return `
           <div class="task-on-board-contact" style="background-color: ${contact.color};">${initials}</div>
       `;
-  }
-  
-  
+}
+
 function generateRemainingContactsHTML(remainingContacts) {
-    return `
+  return `
         <div class="task-on-board-contact" style="background-color: white; color: black; border: 1px solid black;">+${remainingContacts}</div>
     `;
+}
+
+function newSubtaskHTML() {
+  return `<div id="closeAndCheck" class="closeAndCheck">
+    <img id="closeSubtask" onclick="closeSubtask()" src="add_task_img/close.svg" alt="" />
+    <div class="subtask-line"></div>
+    <img onclick="createSubtask()" id="checkSubtask" src="add_task_img/check.svg" alt="" />
+  </div>`;
+}
+
+function createSubtaskHTML(i, subtask) {
+  return `<div id="subtask-tasks${i}" class="subtasks-tasks">
+      <div>
+        <ul class="subtask-list">
+          <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
+        </ul>
+      </div>
+      <div class="subtask-list-icons">
+        <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="" />
+        <div class="subtask-line"></div>
+        <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
+      </div>
+    </div>`;
+}
+
+function renderSubtasksHTML(i, subtask) {
+  return `
+      <div id="subtask-tasks${i}" class="subtasks-tasks">
+        <div>
+          <ul class="subtask-list">
+            <li id="subtask-${i}" ondblclick="changeSubtask(${i})" class="subtask-list-element">${subtask.title}</li>
+          </ul>
+        </div>
+        <div class="subtask-list-icons">
+          <img id="edit-logo${i}" onclick="whichSourceSubtask(${i})" src="add_task_img/edit.svg" alt="Delete" />
+          <div class="subtask-line"></div>
+          <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
+        </div>
+      </div>`;
 }
