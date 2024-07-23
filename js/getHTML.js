@@ -1,9 +1,24 @@
+/**
+ * This function returns the code for task cards on board.html.
+ * @param {string} key - task key
+ * @param {string} categoryClass - board category
+ * @param {object} task - task object
+ * @param {number} i 
+ * @param {string} contactsHTML - HTML for the contact bubbles
+ * @param {string} prioSrc - name of the img used for priorise the task
+ * @param {number} totalSubtasks - all subtasks of the task
+ * @param {number} completedSubtasks - nubmer of checked subtasks
+ * @param {number} progressPercentage - totalSubtasks/completedSubtasks
+ * @returns code for the task cards on board.html
+ */
 function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, totalSubtasks, completedSubtasks, progressPercentage) {
+    let truncatedDescription = truncateDescription(task.description, 50);
+
   return `
         <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
             <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
             <div class="task-on-board-headline">${task.title}</div>
-            <div class="task-on-board-text">${task.description}</div>
+            <div class="task-on-board-text">${truncatedDescription}</div>
             ${
               totalSubtasks > 0
                 ? `
@@ -24,6 +39,10 @@ function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, 
         </div>
     `;
 }
+
+function truncateDescription(description, maxLength) {
+    return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
+  }
 
 function getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML) {
   return `
@@ -122,6 +141,12 @@ function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highIm
     `;
 }
 
+/**
+ * This function returns the code for the add task layer in board.html.
+ * @param {*} boardCategory - board category 
+ * @param {*} contactsHTML - HTML for the already added contacts rendered in the layer.
+ * @returns code for the add task layer in board.html
+ */
 function generateAddTaskLayer(boardCategory, contactsHTML) {
   return `
         <div class="add-task-firstrow align-items-start">
@@ -130,7 +155,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                     <img src="img/add-contact-close.svg" alt="">
                 </div>
         </div>
-        <div class="add-task-section scroll no-margin-left no-margin-top">
+        <div class="add-task-section scroll no-margin-left no-margin-bottom no-margin-top">
             
             <div class="left-section no-margin-left">
                 <p class="title-headline">Title<span class="span-red">*</span></p>
@@ -149,7 +174,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                 <div id="add-task-contactsHTML-layer"  class="edit-task-contacts">
                     ${contactsHTML}
                 </div>
-                <div class="required-text">
+                <div id="req-text-layer" class="required-text">
                     <p><span class="span-red">*</span>This field is required</p>
                 </div>
             </div>
@@ -205,6 +230,11 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
     `;
 }
 
+/**
+ * This function retruns the code for the contact bubbles in the task cards on board.html.
+ * @param {object} contact 
+ * @returns code for the contact bubbles in the task cards on board.html
+ */
 function generateContact(contact) {
   const initials = getInitials(contact.name);
   return `
@@ -212,12 +242,23 @@ function generateContact(contact) {
       `;
 }
 
+/**
+ * This function returns the code of the last contact bubble in the task cards on board.html, 
+ * which shows the number of the further contacts more than four.
+ * @param {number} remainingContacts - further contacts mor than four
+ * @returns code of the last contact bubble in the task cards on board.html
+ */
 function generateRemainingContactsHTML(remainingContacts) {
   return `
         <div class="task-on-board-contact" style="background-color: white; color: black; border: 1px solid black;">+${remainingContacts}</div>
     `;
 }
 
+/**
+ * This function returns the code of the icons shown wehn clicking on the plus for  new subtask
+ * in add_task.html and in the add task layer in board.html.
+ * @returns a close- and a check-img
+ */
 function newSubtaskHTML() {
   return `<div id="closeAndCheck" class="closeAndCheck">
     <img id="closeSubtask" onclick="closeSubtask()" src="add_task_img/close.svg" alt="" />
@@ -226,6 +267,13 @@ function newSubtaskHTML() {
   </div>`;
 }
 
+/**
+ * This function returns the code for a new added subtask as a list element in
+ * add_task.html and in the add task layer in board.html.
+ * @param {number} i 
+ * @param {object} subtask 
+ * @returns list-element with edit- and save-button
+ */
 function createSubtaskHTML(i, subtask) {
   return `<div id="subtask-tasks${i}" class="subtasks-tasks">
       <div>
@@ -241,6 +289,13 @@ function createSubtaskHTML(i, subtask) {
     </div>`;
 }
 
+/**
+ * This function returns the code for a new added subtask as a list element in
+ * add_task.html and in the add task layer in board.html.
+ * @param {number} i 
+ * @param {object} subtask 
+ * @returns list-element with edit- and save-button
+ */
 function renderSubtasksHTML(i, subtask) {
   return `
       <div id="subtask-tasks${i}" class="subtasks-tasks">

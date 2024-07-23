@@ -86,7 +86,8 @@ function login(event) {
     validateUser(email, password)
         .then((result) => {
             if (result.isAuthenticated) {
-                sessionStorage.setItem('userName', result.name); 
+                sessionStorage.setItem('userName', result.name);
+                localStorage.removeItem('greetingShown');   
                 goToSummary();
      
             } else {
@@ -132,6 +133,7 @@ document.getElementById('guestLoginButton').addEventListener('click', guestLogin
 
 function guestLogin(event) {
     event.preventDefault();
+    localStorage.removeItem('greetingShown'); 
     goToSummary();
     sessionStorage.setItem('userName', 'Guest');
 }

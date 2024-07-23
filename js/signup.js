@@ -95,7 +95,8 @@ function handleFormSubmit(event) {
 
     if (password !== confirmPassword) {
 
-        document.getElementById('wrongPasswordConteiner').innerHTML = `Your Passwords don't match. Try again.`
+        document.getElementById('wrongPasswordConteiner').innerHTML = `Your Passwords don't match. Try
+         again.`
         document.getElementById('confirm-conteiner').classList.add('signup-red')
        // alert('Passwords do not match!');
        return;

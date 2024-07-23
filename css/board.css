@@ -265,7 +265,10 @@
 
 .no-margin-left {
     margin-left: 0 !important;
-    
+}
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
 }
 
 .no-margin-top {
@@ -468,6 +471,10 @@
     left: 475px !important;
 }
 
+.mt10 {
+    margin-top: 110px !important;
+}
+
 .edit-task-contacts {
     padding-top: 8px;
     display: flex;
@@ -585,7 +592,7 @@
     }
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1360px) {
     .board-content {
         margin-left: 50px;
     }

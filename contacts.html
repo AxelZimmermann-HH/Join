@@ -34,7 +34,7 @@
 
   <div class="sidebar">
 
-    <img src="../img/logo.svg" alt="" class="sidebar-logo" />
+    <img onclick="goToSummary()" src="../img/logo.svg" alt="" class="sidebar-logo" />
     <div class="sidebar-menu">
       <a href="#" class="sidebar-links" onclick="goToSummary()" id="link-summary">
         <img src="../img/sidebar_summary.svg" alt="" />Summary
@@ -116,8 +116,8 @@
                 <img class="icon" src="img/add-contact-form-mail.svg" alt="email icon">
               </div>
               <div class="input-container">
-                <input placeholder="Phone" id="add-contact-phone" required type="number" pattern="^[0-9\(\)\-\s]+$"
-                  title="Please enter a valid phone number">
+                <input placeholder="Phone" id="add-contact-phone" required type="tel" pattern="^(\+49\s?\(?0?\)?\s?\d{3}\s?\d{1,}|^\d{4}\s?\d{1,})$" title="Please enter a valid phone number in one of the following formats: 01626963474, 0162 6963474, +49 162 6963474, +49 (0)162 6963474">
+
                 <img class="icon" src="img/add-contact-form-phone.svg" alt="phone icon">
               </div>
               <div class="button-group">
@@ -165,8 +165,7 @@
                 <img class="icon" src="img/add-contact-form-mail.svg" alt="email icon">
               </div>
               <div class="input-container">
-                <input placeholder="Phone" id="edit-contact-phone" required type="text" pattern="^[0-9\(\)\-\s]+$"
-                  title="Please enter a valid phone number">
+                <input placeholder="Phone" id="edit-contact-phone" required type="tel" pattern="^(\+49\s?\(?0?\)?\s?\d{3}\s?\d{1,}|^\d{4}\s?\d{1,})$" title="Please enter a valid phone number in one of the following formats: 01626963474, 0162 6963474, +49 162 6963474, +49 (0)162 6963474">
                 <img class="icon" src="img/add-contact-form-phone.svg" alt="phone icon">
               </div>
               <div class="button-group">

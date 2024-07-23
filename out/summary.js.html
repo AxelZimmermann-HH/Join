@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: summary.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: summary.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * This function initializes summary.html with body onload
+ */
+async function summaryInit() {
+    await fetchTasksJson();
+    generateCounts();
+    generateGreets();
+    generateUpcomingDate();
+    generateInitials();
+}
+
+/**
+ * This function generates the correct numbers in the fields counting tasks in the board categories.
+ */
+function generateCounts() {
+    let toDo = document.getElementById('toDoCount');
+    let done = document.getElementById('doneCount');
+    let inProgress = document.getElementById('inProgressCount');
+    let awaitFeedback = document.getElementById('awaitFeedbackCount');
+    let urgent = document.getElementById('urgentCount');
+    let allTasks = document.getElementById('allTasks');
+
+    toDo.innerHTML = ''
+    toDo.innerHTML = counter('to-do');
+
+    done.innerHTML = '';
+    done.innerHTML = counter('done');
+
+    inProgress.innerHTML = '';
+    inProgress.innerHTML = counter('in-progress');
+
+    awaitFeedback.innerHTML = '';
+    awaitFeedback.innerHTML = counter('await-feedback');
+
+    urgent.innerHTML = '';
+    urgent.innerHTML = countUrgentTasks();
+
+    allTasks.innerHTML = '';
+    allTasks.innerHTML = countAllTasks();
+}
+
+/**
+ * This function returns the number of tasks in the relevant boar category.
+ * @param {string} category 
+ * @returns number of tasks in the relevant boar category
+ */
+function counter(category) {
+    return tasksArray.filter(task => task.board_category === category).length;
+}
+
+/**
+ * This function returns the number of tasks with the prio urgent.
+ * @returns the number of tasks with the prio urgent
+ */
+function countUrgentTasks() {
+    return tasksArray.filter(task => task.prio === 'urgent').length;
+}
+
+/**
+ * This function returns the number of all tasks on the board.
+ * @returns the number of all tasks on the board
+ */
+function countAllTasks() {
+    return tasksArray.length;
+}
+
+/**
+ * This function generates the day time and shows the name of the logged in user.
+ */
+function generateGreets() {
+    let greetingTime = getGreeting();
+    let userName = sessionStorage.getItem('userName');
+    let content = document.getElementById('greeting-container');
+    if (userName === "Guest") {
+        content.innerHTML = '';
+        content.innerHTML = `&lt;span class="greet-text">Good ${greetingTime}&lt;/span>`
+    } else {
+        content.innerHTML = '';
+        content.innerHTML = `&lt;span class="greet-text">Good ${greetingTime},&lt;/span>
+          &lt;span class="greet-user-name">${userName}&lt;/span>
+          `;
+    }
+
+}
+
+/**
+ * This function returns the current day time.
+ * @returns the current day time
+ */
+function getGreeting() {
+    let now = new Date();
+    let hours = now.getHours();
+
+    if (hours >= 5 &amp;&amp; hours &lt; 12) {
+        return "morning";
+    } else if (hours >= 12 &amp;&amp; hours &lt; 18) {
+        return "afternoon";
+    } else if (hours >= 18 &amp;&amp; hours &lt; 22) {
+        return "evening";
+    } else {
+        return "night";
+    }
+}
+
+/**
+ * This function pushes the closest due date of all urgent tasks.
+ */
+function generateUpcomingDate() {
+    let content = document.getElementById('upcomingDate');
+    content.innerHTML = '';
+    content.innerHTML = getClosestUrgentDueDate();
+}
+
+/**
+ * This function returns the closest due date of all urgent tasks.
+ * @returns the closest due date of all urgent tasks
+ */
+function getClosestUrgentDueDate() {
+    let urgentTasks = tasksArray.filter(task => task.prio === 'urgent');
+
+    if (urgentTasks.length === 0) {
+        return null;
+    }
+
+    let currentDate = new Date();
+    let closestDate = null;
+    let minDifference = Infinity;
+
+    urgentTasks.forEach(task => {
+        let dueDate = new Date(task.due_date);
+        let difference = dueDate - currentDate;
+
+        if (difference >= 0 &amp;&amp; difference &lt; minDifference) {
+            minDifference = difference;
+            closestDate = dueDate;
+        }
+    });
+
+    if (closestDate) {
+        let options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return closestDate.toLocaleDateString('en-US', options);
+    } else {
+        return null;
+    }
+}
+
+/**
+ * This function handles the animation of the two relevant containers on mobile devices.
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.innerWidth &lt;= 800) {
+        const greetingContainer = document.querySelector('.greeting-container');
+        const summaryCardContainer = document.querySelector('.summary-card-container');
+        
+
+        if (!localStorage.getItem('greetingShown')) {
+            localStorage.setItem('greetingShown', 'true');
+            setTimeout(() => {
+                greetingContainer.classList.add('hidden');
+                setTimeout(() => {
+                    summaryCardContainer.classList.add('visible');                    
+                }, 1000);
+            }, 2000); 
+        } else {
+            summaryCardContainer.classList.add('visible');
+        }
+    } else {
+        document.querySelector('.summary-card-container').style.display = 'block';
+    }
+});
+
+
+
+
+
+
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#countAllTasks">countAllTasks</a></li><li><a href="global.html#countUrgentTasks">countUrgentTasks</a></li><li><a href="global.html#counter">counter</a></li><li><a href="global.html#generateCounts">generateCounts</a></li><li><a href="global.html#generateGreets">generateGreets</a></li><li><a href="global.html#generateUpcomingDate">generateUpcomingDate</a></li><li><a href="global.html#getClosestUrgentDueDate">getClosestUrgentDueDate</a></li><li><a href="global.html#getGreeting">getGreeting</a></li><li><a href="global.html#summaryInit">summaryInit</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jul 23 2024 08:06:42 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
