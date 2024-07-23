@@ -71,14 +71,21 @@ function generateGreets() {
     let greetingTime = getGreeting();
     let userName = sessionStorage.getItem('userName');
     let content = document.getElementById('greeting-container');
-    if (userName === "Guest") {
-        content.innerHTML = '';
-        content.innerHTML = `<span class="greet-text">Good ${greetingTime}</span>`
+    if (window.innerWidth <= 800) {
+        if (content) {
+            content.parentNode.removeChild(content);
+        }
     } else {
-        content.innerHTML = '';
-        content.innerHTML = `<span class="greet-text">Good ${greetingTime},</span>
+
+        if (userName === "Guest") {
+            content.innerHTML = '';
+            content.innerHTML = `<span class="greet-text">Good ${greetingTime}</span>`
+        } else {
+            content.innerHTML = '';
+            content.innerHTML = `<span class="greet-text">Good ${greetingTime},</span>
           <span class="greet-user-name">${userName}</span>
           `;
+        }
     }
 
 }
@@ -147,23 +154,24 @@ function getClosestUrgentDueDate() {
 /**
  * This function handles the animation of the two relevant containers on mobile devices.
  */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     if (window.innerWidth <= 800) {
         const greetingContainer = document.querySelector('.greeting-container');
         const summaryCardContainer = document.querySelector('.summary-card-container');
-        
+
 
         if (!localStorage.getItem('greetingShown')) {
             localStorage.setItem('greetingShown', 'true');
             setTimeout(() => {
                 greetingContainer.classList.add('hidden');
                 setTimeout(() => {
-                    summaryCardContainer.classList.add('visible');                    
+                    summaryCardContainer.classList.add('visible');
                 }, 1000);
-            }, 2000); 
+            }, 2000);
         } else {
             summaryCardContainer.classList.add('visible');
         }
+
     } else {
         document.querySelector('.summary-card-container').style.display = 'block';
     }

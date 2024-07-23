@@ -373,6 +373,7 @@ async function closeContactDropdown(contactDropdown) {
     } else {
       if (document.getElementById("add-task-contactsHTML-layer")) {
         showContactsInAddTaskLayer();
+        document.getElementById('req-text-layer').classList.add('mt10');
       } else {
         await saveEditContacts(currentTaskKey);
       }
