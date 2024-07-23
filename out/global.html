@@ -104,7 +104,7 @@
     
 
     
-    <h4 class="name" id="countAllTasks"><span class="type-signature"></span>countAllTasks<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addMouseDownListeners"><span class="type-signature">(async) </span>addMouseDownListeners<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -112,7 +112,7 @@
 
 
 <div class="description">
-    This function returns the number of all tasks on the board.
+    Adds event listeners for mouse down events to handle dropdown visibility.
 </div>
 
 
@@ -156,7 +156,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line63">line 63</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line347">line 347</a>
     </li></ul></dd>
     
 
@@ -181,16 +181,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    the number of all tasks on the board
-</div>
-
-
-
-    
 
 
 
@@ -202,7 +192,7 @@
     
 
     
-    <h4 class="name" id="countUrgentTasks"><span class="type-signature"></span>countUrgentTasks<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="addedToBoard"><span class="type-signature"></span>addedToBoard<span class="signature">()</span><span class="type-signature"> &rarr; {Promise}</span></h4>
     
 
     
@@ -210,7 +200,7 @@
 
 
 <div class="description">
-    This function returns the number of tasks with the prio urgent.
+    Animates the "Added to board" message and resolves the promise when the animation ends.
 </div>
 
 
@@ -254,7 +244,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line55">line 55</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line501">line 501</a>
     </li></ul></dd>
     
 
@@ -283,10 +273,22 @@
 
         
 <div class="param-desc">
-    the number of tasks with the prio urgent
+    - A promise that resolves when the animation ends.
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -300,7 +302,7 @@
     
 
     
-    <h4 class="name" id="counter"><span class="type-signature"></span>counter<span class="signature">(category)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="category"><span class="type-signature"></span>category<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -308,7 +310,95 @@
 
 
 <div class="description">
-    This function returns the number of tasks in the relevant boar category.
+    Toggles the visibility of the category dropdown and initializes its content.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line64">line 64</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="changeSubtask"><span class="type-signature"></span>changeSubtask<span class="signature">(i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Changes the subtask content to an editable state for a specific subtask.
 </div>
 
 
@@ -344,13 +434,13 @@
 
         <tr>
             
-                <td class="name"><code>category</code></td>
+                <td class="name"><code>i</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">number</span>
 
 
             
@@ -360,7 +450,7 @@
 
             
 
-            <td class="description last"></td>
+            <td class="description last">The index of the subtask to edit.</td>
         </tr>
 
     
@@ -401,7 +491,1347 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line47">line 47</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line197">line 197</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="changeSubtaskLayer"><span class="type-signature"></span>changeSubtaskLayer<span class="signature">(i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Changes the subtask layer to the edit state for a specific subtask.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The index of the subtask to edit.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line187">line 187</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="checkContacts"><span class="type-signature"></span>checkContacts<span class="signature">(i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Toggles the selection of a contact.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Index of the contact to be checked.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line393">line 393</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="clearButtons"><span class="type-signature"></span>clearButtons<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Clears the selection state of priority buttons.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line435">line 435</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="clearSubtasks"><span class="type-signature"></span>clearSubtasks<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Clears the subtasks array and re-renders the subtasks.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line449">line 449</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="clearTask"><span class="type-signature"></span>clearTask<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Clears the task input fields and resets the interface.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line412">line 412</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="closeSubtask"><span class="type-signature"></span>closeSubtask<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resets the subtask input field and updates the UI to hide the close subtask option.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createSubtask"><span class="type-signature"></span>createSubtask<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a new subtask and updates the subtask list UI.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line149">line 149</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="createTask"><span class="type-signature">(async) </span>createTask<span class="signature">(boardCategory)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Creates a new task and posts it to the board.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>boardCategory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The category of the board where the task will be added.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line517">line 517</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="deleteSubtask"><span class="type-signature"></span>deleteSubtask<span class="signature">(i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Deletes a subtask from the subtasks array and re-renders the subtasks.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Index of the subtask to be deleted.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line270">line 270</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="emptyCategory"><span class="type-signature"></span>emptyCategory<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Validates if the task category is selected and displays an error if not.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line458">line 458</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="emptyDate"><span class="type-signature"></span>emptyDate<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Displays the date picker and updates the date input style.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line490">line 490</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="emptyTitle"><span class="type-signature"></span>emptyTitle<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Validates if the title is provided and displays an error if not.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line474">line 474</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getSelectedPrio"><span class="type-signature"></span>getSelectedPrio<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Gets the selected priority level.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line572">line 572</a>
     </li></ul></dd>
     
 
@@ -430,10 +1860,22 @@
 
         
 <div class="param-desc">
-    number of tasks in the relevant boar category
+    - The selected priority level ("urgent", "medium", or "low").
 </div>
 
 
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+    </dd>
+</dl>
 
     
 
@@ -447,7 +1889,7 @@
     
 
     
-    <h4 class="name" id="generateCounts"><span class="type-signature"></span>generateCounts<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="highButton"><span class="type-signature"></span>highButton<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -455,7 +1897,7 @@
 
 
 <div class="description">
-    This function generates the correct numbers in the fields counting tasks in the board categories.
+    Highlights the high priority button, updates its image,and resets the medium and low priority buttons.
 </div>
 
 
@@ -499,7 +1941,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line15">line 15</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line20">line 20</a>
     </li></ul></dd>
     
 
@@ -535,7 +1977,7 @@
     
 
     
-    <h4 class="name" id="generateGreets"><span class="type-signature"></span>generateGreets<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="initializeAddTask"><span class="type-signature">(async) </span>initializeAddTask<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -543,7 +1985,7 @@
 
 
 <div class="description">
-    This function generates the day time and shows the name of the logged in user.
+    Initializes the add task process by fetching necessary data and setting up the interface.
 </div>
 
 
@@ -587,7 +2029,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line70">line 70</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line325">line 325</a>
     </li></ul></dd>
     
 
@@ -623,7 +2065,7 @@
     
 
     
-    <h4 class="name" id="generateUpcomingDate"><span class="type-signature"></span>generateUpcomingDate<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="lowButton"><span class="type-signature"></span>lowButton<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -631,7 +2073,7 @@
 
 
 <div class="description">
-    This function pushes the closest due date of all urgent tasks.
+    Highlights the low priority button, updates its image,and resets the high and medium priority buttons.
 </div>
 
 
@@ -675,7 +2117,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line108">line 108</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line50">line 50</a>
     </li></ul></dd>
     
 
@@ -711,7 +2153,7 @@
     
 
     
-    <h4 class="name" id="getClosestUrgentDueDate"><span class="type-signature"></span>getClosestUrgentDueDate<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="mediumButton"><span class="type-signature"></span>mediumButton<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -719,7 +2161,7 @@
 
 
 <div class="description">
-    This function returns the closest due date of all urgent tasks.
+    Highlights the medium priority button, updates its image,and resets the high and low priority buttons.
 </div>
 
 
@@ -763,7 +2205,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line118">line 118</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line35">line 35</a>
     </li></ul></dd>
     
 
@@ -788,16 +2230,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    the closest due date of all urgent tasks
-</div>
-
-
-
-    
 
 
 
@@ -809,7 +2241,7 @@
     
 
     
-    <h4 class="name" id="getGreeting"><span class="type-signature"></span>getGreeting<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="newSubtask"><span class="type-signature"></span>newSubtask<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -817,7 +2249,7 @@
 
 
 <div class="description">
-    This function returns the current day time.
+    Sets up the subtask input field to create a new subtask on Enter key press,hides the plus icon, and shows the close subtask option.
 </div>
 
 
@@ -861,7 +2293,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line90">line 90</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line117">line 117</a>
     </li></ul></dd>
     
 
@@ -886,16 +2318,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    the current day time
-</div>
-
-
-
-    
 
 
 
@@ -907,7 +2329,7 @@
     
 
     
-    <h4 class="name" id="summaryInit"><span class="type-signature">(async) </span>summaryInit<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="renderSubtasks"><span class="type-signature"></span>renderSubtasks<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -915,7 +2337,7 @@
 
 
 <div class="description">
-    This function initializes summary.html with body onload
+    Renders the list of subtasks in the UI.
 </div>
 
 
@@ -959,7 +2381,1122 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="summary.js.html">summary.js</a>, <a href="summary.js.html#line4">line 4</a>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line173">line 173</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="resetSelectedContacts"><span class="type-signature"></span>resetSelectedContacts<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resets the selected contacts array to all false values.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line278">line 278</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showContacts"><span class="type-signature"></span>showContacts<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Toggles the display of the contacts dropdown and shows the contacts in the add task section.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line334">line 334</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showContactsInAddTask"><span class="type-signature"></span>showContactsInAddTask<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Displays the contacts in the add task section.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line285">line 285</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="showContactsInEdit"><span class="type-signature"></span>showContactsInEdit<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Shows the contacts in the edit task section by reusing the add task contact display function.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line384">line 384</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="standardButton"><span class="type-signature"></span>standardButton<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Highlights the medium priority button and updates its image.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="technicalTask"><span class="type-signature"></span>technicalTask<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets the task category to "Technical Task" and hides the category dropdown.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line78">line 78</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateDateStyle"><span class="type-signature"></span>updateDateStyle<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the style of the date input field based on its value.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line98">line 98</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateSubtask"><span class="type-signature"></span>updateSubtask<span class="signature">(i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the content of a specific subtask.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The index of the subtask to update.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line247">line 247</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updateSubtaskLayer"><span class="type-signature"></span>updateSubtaskLayer<span class="signature">(i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the subtask layer to the default state for a specific subtask.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The index of the subtask to update.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line237">line 237</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="userStory"><span class="type-signature"></span>userStory<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets the task category to "User Story" and hides the category dropdown.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line88">line 88</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="whichSourceSubtask"><span class="type-signature"></span>whichSourceSubtask<span class="signature">(i)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Determines whether to update or change the subtask based on the current state.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>i</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The index of the subtask to check.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="add_task.js.html">add_task.js</a>, <a href="add_task.js.html#line224">line 224</a>
     </li></ul></dd>
     
 
@@ -1005,13 +3542,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#countAllTasks">countAllTasks</a></li><li><a href="global.html#countUrgentTasks">countUrgentTasks</a></li><li><a href="global.html#counter">counter</a></li><li><a href="global.html#generateCounts">generateCounts</a></li><li><a href="global.html#generateGreets">generateGreets</a></li><li><a href="global.html#generateUpcomingDate">generateUpcomingDate</a></li><li><a href="global.html#getClosestUrgentDueDate">getClosestUrgentDueDate</a></li><li><a href="global.html#getGreeting">getGreeting</a></li><li><a href="global.html#summaryInit">summaryInit</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addMouseDownListeners">addMouseDownListeners</a></li><li><a href="global.html#addedToBoard">addedToBoard</a></li><li><a href="global.html#category">category</a></li><li><a href="global.html#changeSubtask">changeSubtask</a></li><li><a href="global.html#changeSubtaskLayer">changeSubtaskLayer</a></li><li><a href="global.html#checkContacts">checkContacts</a></li><li><a href="global.html#clearButtons">clearButtons</a></li><li><a href="global.html#clearSubtasks">clearSubtasks</a></li><li><a href="global.html#clearTask">clearTask</a></li><li><a href="global.html#closeSubtask">closeSubtask</a></li><li><a href="global.html#createSubtask">createSubtask</a></li><li><a href="global.html#createTask">createTask</a></li><li><a href="global.html#deleteSubtask">deleteSubtask</a></li><li><a href="global.html#emptyCategory">emptyCategory</a></li><li><a href="global.html#emptyDate">emptyDate</a></li><li><a href="global.html#emptyTitle">emptyTitle</a></li><li><a href="global.html#getSelectedPrio">getSelectedPrio</a></li><li><a href="global.html#highButton">highButton</a></li><li><a href="global.html#initializeAddTask">initializeAddTask</a></li><li><a href="global.html#lowButton">lowButton</a></li><li><a href="global.html#mediumButton">mediumButton</a></li><li><a href="global.html#newSubtask">newSubtask</a></li><li><a href="global.html#renderSubtasks">renderSubtasks</a></li><li><a href="global.html#resetSelectedContacts">resetSelectedContacts</a></li><li><a href="global.html#showContacts">showContacts</a></li><li><a href="global.html#showContactsInAddTask">showContactsInAddTask</a></li><li><a href="global.html#showContactsInEdit">showContactsInEdit</a></li><li><a href="global.html#standardButton">standardButton</a></li><li><a href="global.html#technicalTask">technicalTask</a></li><li><a href="global.html#updateDateStyle">updateDateStyle</a></li><li><a href="global.html#updateSubtask">updateSubtask</a></li><li><a href="global.html#updateSubtaskLayer">updateSubtaskLayer</a></li><li><a href="global.html#userStory">userStory</a></li><li><a href="global.html#whichSourceSubtask">whichSourceSubtask</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jul 23 2024 08:06:42 GMT+0200 (Mitteleuropäische Sommerzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jul 23 2024 12:11:06 GMT+0200 (Mitteleuropäische Sommerzeit)
 </footer>
 
 <script> prettyPrint(); </script>
