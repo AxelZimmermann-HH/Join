@@ -188,7 +188,7 @@
   display: flex;
   margin-top: 80px;
   margin-left: 300px;
-  height: calc(100vh - 230px);
+  
 }
 
 .summary-card-medium-container {
@@ -591,11 +591,11 @@
 }
 
 .fadeOut {
-  animation: fadeOut 2s forwards;
+  animation: fadeOut 1s forwards;
 }
 
 .fadeIn {
-  animation: fadeIn 2s forwards;
+  animation: fadeIn 1s forwards;
 }
 
 
@@ -625,4 +625,15 @@
 
 .d-none {
   display: none;
+}
+
+.animation-screen {
+  position: absolute;
+  top: 441px;
+}
+
+.greeting-user-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
