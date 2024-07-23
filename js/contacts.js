@@ -215,10 +215,7 @@ function showContact(initials, contact, key) {
 } else {
     contentLibrary.classList.remove('d-none');
 }
-<<<<<<< HEAD
   contentLibrary.classList.add('d-none');
-=======
->>>>>>> ce6d5e796baf81fc13817a16c23338b215f444cf
 
   content.classList.remove('slide-in-right'); 
   void content.offsetWidth; 
@@ -228,14 +225,11 @@ function showContact(initials, contact, key) {
   
 }
 
-<<<<<<< HEAD
 
 /**
  * This function highlights a contact in the library when it is active.
  * @param {string} key - contact key
  */
-=======
->>>>>>> ce6d5e796baf81fc13817a16c23338b215f444cf
 function highlightContact(key) {
   let contacts = document.getElementsByClassName('contact');
 
