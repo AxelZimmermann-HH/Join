@@ -224,6 +224,11 @@ function showContact(initials, contact, key) {
 
 }
 
+
+/**
+ * This function highlights a contact in the library when it is active.
+ * @param {string} key - contact key
+ */
 function highlightContact(key) {
   let contacts = document.getElementsByClassName('contact');
 
