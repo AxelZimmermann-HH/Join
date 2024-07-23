@@ -76,9 +76,10 @@ function category() {
  * Sets the task category to "Technical Task" and hides the category dropdown.
  */
 function technicalTask() {
+  let category = document.getElementById("category");
   document.getElementById("task-category").innerHTML = "Technical Task";
-  document.getElementById("category").style.display = "none";
-  document.getElementById("category").innerHTML = "";
+  category.classList.add("d-none");
+  category.innerHTML = "";
   emptyCategory();
 }
 
@@ -86,9 +87,10 @@ function technicalTask() {
  * Sets the task category to "User Story" and hides the category dropdown.
  */
 function userStory() {
+  let category = document.getElementById("category");
   document.getElementById("task-category").innerHTML = "User Story";
-  document.getElementById("category").style.display = "none";
-  document.getElementById("category").innerHTML = "";
+  category.classList.add("d-none");
+  category.innerHTML = "";
   emptyCategory();
 }
 
@@ -381,20 +383,18 @@ async function closeContactDropdown(contactDropdown) {
 function showContactsInAddTaskLayer() {
   let contactsHTML = getAddContactsHTML(selectedContacts);
   let content = document.getElementById("show-task-inner-layer");
-  let tempDiv = document.createElement('div');
+  let tempDiv = document.createElement("div");
   tempDiv.innerHTML = contactsHTML;
-  
+
   let addTaskLayer = generateAddTaskLayer(currentBoardCategory, contactsHTML);
   let parser = new DOMParser();
-  let doc = parser.parseFromString(addTaskLayer, 'text/html');
+  let doc = parser.parseFromString(addTaskLayer, "text/html");
   let newContent = doc.getElementById("add-task-contactsHTML-layer").innerHTML;
-  
+
   content.querySelector("#add-task-contactsHTML-layer").innerHTML = newContent;
 
   standardButton();
 }
-
-
 
 /**
  * Shows the contacts in the edit task section by reusing the add task contact display function.
@@ -478,11 +478,21 @@ function emptyCategory() {
   let taskCategory = document.getElementById("task-category").innerText;
   let required = document.getElementById("category-required");
   if (taskCategory === "Select task category") {
-    taskCategoryInput.style.borderColor = "red";
-    required.innerHTML = `<div class="title-required">this field is required</div>`;
+    //   taskCategoryInput.style.borderColor = "red";
+    //   required.innerHTML = `<div class="title-required">this field is required</div>`;
   } else if (taskCategory === "User Story" || taskCategory === "Technical Task") {
     taskCategoryInput.style.borderColor = "#29abe2";
     required.innerHTML = "";
+  }
+}
+
+function emptyCategoryRequired() {
+  let taskCategoryInput = document.getElementById("category-input");
+  let taskCategory = document.getElementById("task-category").innerText;
+  let required = document.getElementById("category-required");
+  if (taskCategory === "Select task category") {
+    taskCategoryInput.style.borderColor = "red";
+    required.innerHTML = `<div class="title-required">this field is required</div>`;
   }
 }
 
@@ -542,7 +552,7 @@ async function createTask(boardCategory) {
   if (title === "" || dueDate === "" || taskCategory === "Select task category") {
     emptyDate();
     emptyTitle();
-    emptyCategory();
+    emptyCategoryRequired();
     return;
   }
 

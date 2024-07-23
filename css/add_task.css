@@ -14,6 +14,7 @@ body {
 .add-task-section {
   display: flex;
   margin-left: 324px;
+  margin-bottom: 100px;
 }
 .span-red {
   color: #ff8190;
@@ -788,7 +789,7 @@ ul {
   .right-section {
     margin-top: 0;
     margin-left: 450px;
-    height: 75vh;
+    height: 67vh;
   }
   .right-section-layer {
     margin-left: 0 !important;
@@ -838,12 +839,13 @@ ul {
     background-color: #f6f7f8;
     margin-left: -55px;
     height: 100px;
+    bottom: 80px;
     position: fixed;
     display: flex;
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 452px;
+    z-index: 1000;
   }
   .required-text-mobile-layer {
     background-color: white !important;
@@ -966,7 +968,6 @@ ul {
   .required-text-mobile {
     margin-left: -15px;
     height: 100px;
-    margin-bottom: 440px;
   }
   .clear-button {
     display: none;
