@@ -155,7 +155,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                     <img src="img/add-contact-close.svg" alt="">
                 </div>
         </div>
-        <div class="add-task-section scroll no-margin-left no-margin-top">
+        <div class="add-task-section scroll no-margin-left no-margin-bottom no-margin-top">
             
             <div class="left-section no-margin-left">
                 <p class="title-headline">Title<span class="span-red">*</span></p>
