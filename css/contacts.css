@@ -571,68 +571,6 @@ h3 {
         top: 80px;
     }
     header {
-<<<<<<< HEAD
-        padding: 20px 40px 20px 40px;
-    }
-
-    .header-content img {
-        display: block;
-    }
-
-    .header-content p {
-        display: none;
-    }
-
-    .header-user-name {
-        height: 40px;
-        width: 40px;
-    }
-
-    .sidebar {
-        top: auto;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 80px;
-        width: auto;
-        z-index: 101;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-
-    .sidebar-logo {
-        display: none;
-    }
-
-    .sidebar-menu {
-        flex-direction: row;
-        justify-content: space-around;
-        align-items: center;
-        width: 100%;
-        margin-bottom: 0;
-        height: 80px;
-    }
-
-    .sidebar-links {
-        flex-direction: column;
-        padding-left: 8px;
-        width: auto;
-        padding: 8px;
-        border-radius: 8px;
-    }
-
-    .sidebar-menu-bottom {
-        display: none;
-    }
-
-    .contacts-library {
-        left: 0;
-        top: 87px;
-=======
         padding: 20px 40px 20px 40px !important;
       }
       .header-content img {
@@ -692,14 +630,13 @@ h3 {
         left: 0px !important;
         top: 68px !important;
       }
->>>>>>> 4cbb059e6c765347c867825665d9d17c86d42005
     }
 
     .contact-details-container {
         left: 440px;
         top: 86px;
     }
-}
+
 
 @media (max-width: 600px) {
     .sidebar-links {
@@ -711,7 +648,6 @@ h3 {
         height: 20px;
     }
 
-<<<<<<< HEAD
     .add-contact-inner-layer {
         right: 38px;
         margin-right: 2px;
@@ -968,33 +904,3 @@ h3 {
         right: 239px;
     }
 }
-=======
-    @media (max-width: 740px) {
-        .contact-headline {
-            display: none;
-        }
-    }
-
-    @media (max-width: 460px) {
-      .contacts-library {
-        left: -45px !important;
-      }
-      .responsive-add-contact {
-        left: 250px;
-        top: 624px;
-      }
-      .contacts-list {
-        overflow: hidden;
-      }
-      .first-letter {
-        width: 300px;
-      }
-      .line {
-        width: 300px;
-      }
-     
- 
-    }
-    
-   
->>>>>>> 4cbb059e6c765347c867825665d9d17c86d42005

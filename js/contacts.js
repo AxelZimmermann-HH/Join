@@ -209,16 +209,12 @@ function showContact(initials, contact, key) {
   let content = document.getElementById('contact-profile');
   let contentLibrary = document.getElementById('contacts-library');
   content.innerHTML = '';
-<<<<<<< HEAD
   
   if (window.innerWidth <= 1120) {
     content2.classList.add('d-none');
 } else {
     content2.classList.remove('d-none');
 }
-=======
-  contentLibrary.classList.add('d-none');
->>>>>>> 4cbb059e6c765347c867825665d9d17c86d42005
 
   content.classList.remove('slide-in-right'); 
   void content.offsetWidth; 
@@ -228,14 +224,6 @@ function showContact(initials, contact, key) {
   
 }
 
-<<<<<<< HEAD
-
-=======
-/**
- * This function highlights a contact in the library when it is active.
- * @param {string} key - contact key
- */
->>>>>>> 4cbb059e6c765347c867825665d9d17c86d42005
 function highlightContact(key) {
   let contacts = document.getElementsByClassName('contact');
 
