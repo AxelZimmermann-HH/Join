@@ -1,4 +1,32 @@
-const CONTACTS_URL =
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: contacts.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: contacts.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const CONTACTS_URL =
   "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/contacts/";
 
 let contactsData = {}; 
@@ -30,9 +58,12 @@ async function fetchDataJson() {
     contactsArray = Object.values(contactsData);
     contactsKeys = Object.keys(contactsData);
     
+
+    // Kontakte und Schlüssel gemeinsam sortieren
     const sortedContacts = contactsArray.map((contact, index) => ({ contact, key: contactsKeys[index] }))
                                         .sort((a, b) => a.contact.name.split(' ')[0].localeCompare(b.contact.name.split(' ')[0]));
 
+    // Sortierte Kontakte und Schlüssel zuweisen
     contactsArray = sortedContacts.map(item => item.contact);
     contactsKeys = sortedContacts.map(item => item.key);
 
@@ -50,7 +81,7 @@ function createContactsList() {
   content.innerHTML = '';
   let currentLetter = '';
 
-  for (let i = 0; i < contactsArray.length; i++) {
+  for (let i = 0; i &lt; contactsArray.length; i++) {
       let contact = contactsArray[i];
       let key = contactsKeys[i];
       let nameParts = contact.name.split(' ');
@@ -60,8 +91,8 @@ function createContactsList() {
       if (firstLetter !== currentLetter) {
           currentLetter = firstLetter;
           content.innerHTML += `
-              <div class="first-letter">${currentLetter}</div>
-              <div class="line"></div>
+              &lt;div class="first-letter">${currentLetter}&lt;/div>
+              &lt;div class="line">&lt;/div>
           `;
       }
 
@@ -122,7 +153,7 @@ function contactAdded(newContact) {
 
   closeAddContactLayer();
 
-  let newKey = Object.keys(contactsData).find(key => contactsData[key].email === newContact.email && contactsData[key].name === newContact.name);
+  let newKey = Object.keys(contactsData).find(key => contactsData[key].email === newContact.email &amp;&amp; contactsData[key].name === newContact.name);
   let initials = newContact.name.split(' ')[0][0] + newContact.name.split(' ')[1][0];
   showContact(initials, newContact, newKey); 
 }
@@ -138,7 +169,7 @@ async function deleteContact(key) {
       method: "DELETE",
     });
     await response.json();
-    await contactsInit();
+    await contactsInit(); // Kontaktliste aktualisieren
 
     document.getElementById('contact-profile').innerHTML = '';
 
@@ -225,7 +256,7 @@ function showContact(initials, contact, key) {
 function highlightContact(key) {
   let contacts = document.getElementsByClassName('contact');
 
-  for (let j = 0; j < contacts.length; j++) {
+  for (let j = 0; j &lt; contacts.length; j++) {
       contacts[j].classList.remove('selected-contact');
   }
 
@@ -319,31 +350,31 @@ function handleAnimationEnd() {
  */
 function generateContactHTML(initials, contact, key) {
   return `
-      <div class="contact-profile-firstrow">
-        <div class="contact-letters-big" style="background-color: ${contact.color}">${initials}</div>
-        <div class="contact-profile-firstrow-right">
-          <h3>${contact.name}</h3>
-          <div class="contact-actions">
-            <a onclick='openEditContactLayer("${key}", "${contact.name}", "${contact.email}", "${contact.phone}")' class="contact-links">
-              <img class="contact-icon" src="img/contact-edit.svg" alt="">Edit
-            </a>
-            <a onclick="deleteContact('${key}')" class="contact-links">
-              <img class="contact-icon" src="img/contact-delete.svg" alt="">Delete
-            </a>
-          </div>
-        </div>
-      </div>
+      &lt;div class="contact-profile-firstrow">
+        &lt;div class="contact-letters-big" style="background-color: ${contact.color}">${initials}&lt;/div>
+        &lt;div class="contact-profile-firstrow-right">
+          &lt;h3>${contact.name}&lt;/h3>
+          &lt;div class="contact-actions">
+            &lt;a onclick='openEditContactLayer("${key}", "${contact.name}", "${contact.email}", "${contact.phone}")' class="contact-links">
+              &lt;img class="contact-icon" src="img/contact-edit.svg" alt="">Edit
+            &lt;/a>
+            &lt;a onclick="deleteContact('${key}')" class="contact-links">
+              &lt;img class="contact-icon" src="img/contact-delete.svg" alt="">Delete
+            &lt;/a>
+          &lt;/div>
+        &lt;/div>
+      &lt;/div>
 
-      <p class="padding-top-bottom-27">Contact Information</p>
+      &lt;p class="padding-top-bottom-27">Contact Information&lt;/p>
 
-      <div class="contact-channels">
-        <p>Email</p>
-        <a href="#">${contact.email}</a>
-      </div>
-      <div class="contact-channels">
-        <p>Phone</p>
-        <a class="black-link" href="#">${contact.phone}</a>
-      </div>
+      &lt;div class="contact-channels">
+        &lt;p>Email&lt;/p>
+        &lt;a href="#">${contact.email}&lt;/a>
+      &lt;/div>
+      &lt;div class="contact-channels">
+        &lt;p>Phone&lt;/p>
+        &lt;a class="black-link" href="#">${contact.phone}&lt;/a>
+      &lt;/div>
   `;
 }
 
@@ -356,13 +387,13 @@ function generateContactHTML(initials, contact, key) {
  */
 function generateDirectory(key, initials, contact) {
   return `
-          <div id="contact${key}" onclick='showContact("${initials}", ${JSON.stringify(contact)}, "${key}")' class="contact">
-              <div class="contact-letters" style="background-color: ${contact.color};">${initials}</div>
-              <div class="contact-data">
-                  <div class="contact-name">${contact.name}</div>
-                  <div class="contact-mail">${contact.email}</div>
-              </div>
-          </div>
+          &lt;div id="contact${key}" onclick='showContact("${initials}", ${JSON.stringify(contact)}, "${key}")' class="contact">
+              &lt;div class="contact-letters" style="background-color: ${contact.color};">${initials}&lt;/div>
+              &lt;div class="contact-data">
+                  &lt;div class="contact-name">${contact.name}&lt;/div>
+                  &lt;div class="contact-mail">${contact.email}&lt;/div>
+              &lt;/div>
+          &lt;/div>
       `;
 }
 
@@ -374,8 +405,30 @@ function generateDirectory(key, initials, contact) {
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
   let color = '#';
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i &lt; 6; i++) {
     color += letters[Math.floor(Math.random() * 16)];
   }
   return color;
-}
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#addContact">addContact</a></li><li><a href="global.html#closeAddContactLayer">closeAddContactLayer</a></li><li><a href="global.html#closeEditContactLayer">closeEditContactLayer</a></li><li><a href="global.html#contactAdded">contactAdded</a></li><li><a href="global.html#contactsInit">contactsInit</a></li><li><a href="global.html#createContactsList">createContactsList</a></li><li><a href="global.html#deleteContact">deleteContact</a></li><li><a href="global.html#fetchDataJson">fetchDataJson</a></li><li><a href="global.html#generateContactHTML">generateContactHTML</a></li><li><a href="global.html#generateDirectory">generateDirectory</a></li><li><a href="global.html#getRandomColor">getRandomColor</a></li><li><a href="global.html#handleAnimationEnd">handleAnimationEnd</a></li><li><a href="global.html#highlightContact">highlightContact</a></li><li><a href="global.html#openAddContactLayer">openAddContactLayer</a></li><li><a href="global.html#openEditContactLayer">openEditContactLayer</a></li><li><a href="global.html#postData">postData</a></li><li><a href="global.html#saveContact">saveContact</a></li><li><a href="global.html#showContact">showContact</a></li><li><a href="global.html#updateContact">updateContact</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.3</a> on Tue Jul 23 2024 07:55:14 GMT+0200 (Mitteleuropäische Sommerzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
