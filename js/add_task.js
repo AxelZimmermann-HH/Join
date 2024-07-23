@@ -350,24 +350,7 @@ async function addMouseDownListeners() {
     const categoryDropdown = document.querySelector("#category");
 
     if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
-      if (!contactDropdown.classList.contains("d-none")) {
-        contactDropdown.classList.add("d-none");
-
-        if (document.getElementById("add-task-contactsHTML")) {
-          await getAddContactSiteHTML(selectedContacts);
-          standardButton();
-        } else {
-          if (document.getElementById("add-task-contactsHTML-layer")) {
-            let contactsHTML = getAddContactsHTML(selectedContacts);
-            let content = document.getElementById("show-task-inner-layer");
-            content.innerHTML = "";
-            content.innerHTML += generateAddTaskLayer(currentBoardCategory, contactsHTML);
-            standardButton();
-          } else {
-            await saveEditContacts(currentTaskKey);
-          }
-        }
-      }
+      await closeContactDropdown(contactDropdown);
     }
 
     if (categoryDropdown && !categoryDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
@@ -377,6 +360,41 @@ async function addMouseDownListeners() {
     }
   });
 }
+
+async function closeContactDropdown(contactDropdown) {
+  if (!contactDropdown.classList.contains("d-none")) {
+    contactDropdown.classList.add("d-none");
+
+    if (document.getElementById("add-task-contactsHTML")) {
+      await getAddContactSiteHTML(selectedContacts);
+      standardButton();
+    } else {
+      if (document.getElementById("add-task-contactsHTML-layer")) {
+        showContactsInAddTaskLayer();
+      } else {
+        await saveEditContacts(currentTaskKey);
+      }
+    }
+  }
+}
+
+function showContactsInAddTaskLayer() {
+  let contactsHTML = getAddContactsHTML(selectedContacts);
+  let content = document.getElementById("show-task-inner-layer");
+  let tempDiv = document.createElement('div');
+  tempDiv.innerHTML = contactsHTML;
+  
+  let addTaskLayer = generateAddTaskLayer(currentBoardCategory, contactsHTML);
+  let parser = new DOMParser();
+  let doc = parser.parseFromString(addTaskLayer, 'text/html');
+  let newContent = doc.getElementById("add-task-contactsHTML-layer").innerHTML;
+  
+  content.querySelector("#add-task-contactsHTML-layer").innerHTML = newContent;
+
+  standardButton();
+}
+
+
 
 /**
  * Shows the contacts in the edit task section by reusing the add task contact display function.
