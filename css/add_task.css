@@ -382,6 +382,7 @@ ul {
   width: 440px;
   overflow: scroll;
   height: 240px;
+  z-index: 100;
 }
 .add-task-contacts-edit {
   position: relative !important;
@@ -485,7 +486,6 @@ ul {
   .category-options {
     width: 335px;
   }
- 
 }
 
 @media (max-width: 1090px) {
@@ -636,7 +636,7 @@ ul {
     font-size: 16px;
   }
   .add-task-contacts {
-    top: 605px;
+    top: 601px;
     width: 285px;
     height: 180px;
   }
@@ -688,7 +688,7 @@ ul {
 }
 @media (max-width: 700px) {
   .headline {
-    font-size: 40px;
+    font-size: 40px !important;
   }
   .parting-line {
     margin-left: 20px;
@@ -805,7 +805,7 @@ ul {
   }
   .add-task-contacts {
     width: 385px;
-    top: 588px;
+    top: 592px;
   }
   .add-task-contacts-layer {
     position: static !important;
@@ -843,7 +843,7 @@ ul {
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 440px;
+    margin-bottom: 452px;
   }
   .required-text-mobile-layer {
     background-color: white !important;
@@ -966,7 +966,7 @@ ul {
   .required-text-mobile {
     margin-left: -15px;
     height: 100px;
-    margin-bottom: 418px;
+    margin-bottom: 440px;
   }
   .clear-button {
     display: none;

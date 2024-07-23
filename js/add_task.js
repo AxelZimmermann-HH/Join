@@ -5,47 +5,62 @@ let currentTaskIndex = 0;
 const contactDropdown = document.getElementById("add-task-contacts");
 const categoryDropdown = document.getElementById("category");
 
+/**
+ * Highlights the medium priority button and updates its image.
+ */
 function standardButton() {
   document.getElementById("mediumButton").classList.add("selected-medium-button");
   document.getElementById("mediumButtonImg").src = "../add_task_img/medium-white.svg";
 }
 
+/**
+ * Highlights the high priority button, updates its image,
+ * and resets the medium and low priority buttons.
+ */
 function highButton() {
-  //select high Button
   document.getElementById("highButton").classList.add("selected-high-button");
   document.getElementById("highButtonImg").src = "../add_task_img/high-white.svg";
-  // remove medium Button
+
   document.getElementById("mediumButton").classList.remove("selected-medium-button");
   document.getElementById("mediumButtonImg").src = "../add_task_img/medium.svg";
-  //remove low Button
+
   document.getElementById("lowButton").classList.remove("selected-low-button");
   document.getElementById("lowButtonImg").src = "../add_task_img/low.svg";
 }
 
+/**
+ * Highlights the medium priority button, updates its image,
+ * and resets the high and low priority buttons.
+ */
 function mediumButton() {
-  //select medium Button
   document.getElementById("mediumButton").classList.add("selected-medium-button");
   document.getElementById("mediumButtonImg").src = "../add_task_img/medium-white.svg";
-  // remove high Button
+
   document.getElementById("highButton").classList.remove("selected-high-button");
   document.getElementById("highButtonImg").src = "../add_task_img/high.svg";
-  // remove low Button
+
   document.getElementById("lowButton").classList.remove("selected-low-button");
   document.getElementById("lowButtonImg").src = "../add_task_img/low.svg";
 }
 
+/**
+ * Highlights the low priority button, updates its image,
+ * and resets the high and medium priority buttons.
+ */
 function lowButton() {
-  //select low Button
   document.getElementById("lowButton").classList.add("selected-low-button");
   document.getElementById("lowButtonImg").src = "../add_task_img/low-white.svg";
-  // remove medium Button
+
   document.getElementById("mediumButton").classList.remove("selected-medium-button");
   document.getElementById("mediumButtonImg").src = "../add_task_img/medium.svg";
-  // remove high Button
+
   document.getElementById("highButton").classList.remove("selected-high-button");
   document.getElementById("highButtonImg").src = "../add_task_img/high.svg";
 }
 
+/**
+ * Toggles the visibility of the category dropdown and initializes its content.
+ */
 function category() {
   let categoryDropdown = document.getElementById("category");
   categoryDropdown.classList.toggle("d-none");
@@ -57,26 +72,33 @@ function category() {
   emptyCategory();
 }
 
+/**
+ * Sets the task category to "Technical Task" and hides the category dropdown.
+ */
 function technicalTask() {
-  // changing the innerHTML and close the window
   document.getElementById("task-category").innerHTML = "Technical Task";
   document.getElementById("category").style.display = "none";
   document.getElementById("category").innerHTML = "";
   emptyCategory();
 }
 
+/**
+ * Sets the task category to "User Story" and hides the category dropdown.
+ */
 function userStory() {
-  // changing the innerHTML and close the window
   document.getElementById("task-category").innerHTML = "User Story";
   document.getElementById("category").style.display = "none";
   document.getElementById("category").innerHTML = "";
   emptyCategory();
 }
 
+/**
+ * Updates the style of the date input field based on its value.
+ */
 function updateDateStyle() {
   let date = document.getElementById("date-input");
   let required = document.getElementById("date-required");
-  // checked if the date length is 0 or more
+
   if (date.value.length === 0) {
     document.getElementById("date-input").style.color = "#d1d1d1";
     date.style.borderColor = "red";
@@ -88,6 +110,10 @@ function updateDateStyle() {
   }
 }
 
+/**
+ * Sets up the subtask input field to create a new subtask on Enter key press,
+ * hides the plus icon, and shows the close subtask option.
+ */
 function newSubtask() {
   document.getElementById("subtask-field").addEventListener("keydown", function (press) {
     if (press.key === "Enter") {
@@ -104,6 +130,9 @@ function newSubtask() {
   document.getElementById("edit-subtask").innerHTML = newSubtaskHTML();
 }
 
+/**
+ * Resets the subtask input field and updates the UI to hide the close subtask option.
+ */
 function closeSubtask() {
   let input = document.getElementById("subtask-field");
   input.value = "";
@@ -114,14 +143,16 @@ function closeSubtask() {
   closeSubtask.classList.add("d-none");
 }
 
+/**
+ * Creates a new subtask and updates the subtask list UI.
+ */
 function createSubtask() {
   let input = document.getElementById("subtask-field");
 
   if (input.value.trim() === "") {
-    return; // Verlasse die Funktion, wenn das Eingabefeld leer ist
+    return;
   }
 
-  // Füge einen neuen Subtask mit Titel und completed-Status hinzu
   subtasks.push({ title: input.value, completed: false });
 
   let createSubtask = document.getElementById("create-subtask");
@@ -136,6 +167,9 @@ function createSubtask() {
   input.value = "";
 }
 
+/**
+ * Renders the list of subtasks in the UI.
+ */
 function renderSubtasks() {
   let createSubtask = document.getElementById("create-subtask");
   createSubtask.innerHTML = "";
@@ -146,12 +180,20 @@ function renderSubtasks() {
   }
 }
 
+/**
+ * Changes the subtask layer to the edit state for a specific subtask.
+ * @param {number} i - The index of the subtask to edit.
+ */
 function changeSubtaskLayer(i) {
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks");
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks:hover");
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks-edit");
 }
 
+/**
+ * Changes the subtask content to an editable state for a specific subtask.
+ * @param {number} i - The index of the subtask to edit.
+ */
 function changeSubtask(i) {
   let editLogo = document.getElementById(`edit-logo${i}`);
   let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
@@ -175,6 +217,10 @@ function changeSubtask(i) {
   `;
 }
 
+/**
+ * Determines whether to update or change the subtask based on the current state.
+ * @param {number} i - The index of the subtask to check.
+ */
 function whichSourceSubtask(i) {
   let editLogo = document.getElementById(`edit-logo${i}`);
   if (editLogo.src.endsWith("add_task_img/check.svg")) {
@@ -184,12 +230,20 @@ function whichSourceSubtask(i) {
   }
 }
 
+/**
+ * Updates the subtask layer to the default state for a specific subtask.
+ * @param {number} i - The index of the subtask to update.
+ */
 function updateSubtaskLayer(i) {
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks");
   document.getElementById(`subtask-tasks${i}`).classList.add("subtask-tasks:hover");
   document.getElementById(`subtask-tasks${i}`).classList.remove("subtask-tasks-edit");
 }
 
+/**
+ * Updates the content of a specific subtask.
+ * @param {number} i - The index of the subtask to update.
+ */
 function updateSubtask(i) {
   let editedSubtask = document.getElementById(`subtask-${i}`).innerText;
   let editSubtask = editedSubtask.trim();
@@ -209,15 +263,25 @@ function updateSubtask(i) {
   editLogo.src = "add_task_img/edit.svg";
 }
 
+/**
+ * Deletes a subtask from the subtasks array and re-renders the subtasks.
+ * @param {number} i - Index of the subtask to be deleted.
+ */
 function deleteSubtask(i) {
   subtasks.splice(i, 1);
   renderSubtasks();
 }
 
+/**
+ * Resets the selected contacts array to all false values.
+ */
 function resetSelectedContacts() {
   selectedContacts = new Array(contactsArray.length).fill(false);
 }
 
+/**
+ * Displays the contacts in the add task section.
+ */
 function showContactsInAddTask() {
   let userName = sessionStorage.getItem("userName");
 
@@ -255,23 +319,31 @@ function showContactsInAddTask() {
   });
 }
 
+/**
+ * Initializes the add task process by fetching necessary data and setting up the interface.
+ */
 async function initializeAddTask() {
   await fetchDataJson();
   generateInitials();
   standardButton();
 }
 
+/**
+ * Toggles the display of the contacts dropdown and shows the contacts in the add task section.
+ */
 function showContacts() {
   let contactDropdown = document.querySelector("#add-task-contacts");
   let categoryDropdown = document.querySelector("#category");
   contactDropdown.classList.toggle("d-none");
   showContactsInAddTask();
 }
-
 document.addEventListener("DOMContentLoaded", function () {
   addMouseDownListeners();
 });
 
+/**
+ * Adds event listeners for mouse down events to handle dropdown visibility.
+ */
 async function addMouseDownListeners() {
   document.addEventListener("mousedown", async function (event) {
     const contactDropdown = document.querySelector("#add-task-contacts");
@@ -280,9 +352,8 @@ async function addMouseDownListeners() {
     if (contactDropdown && !contactDropdown.contains(event.target) && !event.target.matches(".select-contact")) {
       if (!contactDropdown.classList.contains("d-none")) {
         contactDropdown.classList.add("d-none");
-        
+
         if (document.getElementById("add-task-contactsHTML")) {
-          // Ausführen, wenn das Element mit der ID "add-task-contactsHTML" im DOM ist
           await getAddContactSiteHTML(selectedContacts);
           standardButton();
         } else {
@@ -293,11 +364,8 @@ async function addMouseDownListeners() {
             content.innerHTML += generateAddTaskLayer(currentBoardCategory, contactsHTML);
             standardButton();
           } else {
-          // Ansonsten saveEditContacts oder der Standard-Fall
-          await saveEditContacts(currentTaskKey);
+            await saveEditContacts(currentTaskKey);
           }
-
-          
         }
       }
     }
@@ -310,12 +378,18 @@ async function addMouseDownListeners() {
   });
 }
 
-
+/**
+ * Shows the contacts in the edit task section by reusing the add task contact display function.
+ */
 function showContactsInEdit() {
   showContactsInAddTask();
   contactDropdown.classList.toggle("d-none");
 }
 
+/**
+ * Toggles the selection of a contact.
+ * @param {number} i - Index of the contact to be checked.
+ */
 function checkContacts(i) {
   let checkboxField = document.getElementById(`checkbox-field${i}`);
   let contactDiv = document.getElementById(`contacts-pos${i}`);
@@ -332,6 +406,9 @@ function checkContacts(i) {
   }
 }
 
+/**
+ * Clears the task input fields and resets the interface.
+ */
 function clearTask() {
   let description = document.getElementById("description-input");
   description.value = "";
@@ -352,6 +429,9 @@ function clearTask() {
   title.value = "";
 }
 
+/**
+ * Clears the selection state of priority buttons.
+ */
 function clearButtons() {
   document.getElementById("mediumButton").classList.remove("selected-medium-button");
   document.getElementById("mediumButtonImg").src = "../add_task_img/medium.svg";
@@ -363,12 +443,18 @@ function clearButtons() {
   document.getElementById("lowButtonImg").src = "../add_task_img/low.svg";
 }
 
+/**
+ * Clears the subtasks array and re-renders the subtasks.
+ */
 function clearSubtasks() {
   subtasks = [];
   renderSubtasks();
   standardButton();
 }
 
+/**
+ * Validates if the task category is selected and displays an error if not.
+ */
 function emptyCategory() {
   let taskCategoryInput = document.getElementById("category-input");
   let taskCategory = document.getElementById("task-category").innerText;
@@ -382,10 +468,13 @@ function emptyCategory() {
   }
 }
 
+/**
+ * Validates if the title is provided and displays an error if not.
+ */
 function emptyTitle() {
   let title = document.getElementById("title-input");
   let required = document.getElementById("title-required");
-  // checked if the title length is 0 or more
+
   if (title.value.length === 0) {
     title.style.borderColor = "red";
     required.innerHTML = `<div class="title-required">this field is required</div>`;
@@ -395,6 +484,9 @@ function emptyTitle() {
   }
 }
 
+/**
+ * Displays the date picker and updates the date input style.
+ */
 function emptyDate() {
   let date = document.getElementById("date-input");
   date.showPicker();
@@ -402,20 +494,26 @@ function emptyDate() {
   document.getElementById("date-input").addEventListener("change", updateDateStyle);
 }
 
+/**
+ * Animates the "Added to board" message and resolves the promise when the animation ends.
+ * @returns {Promise} - A promise that resolves when the animation ends.
+ */
 function addedToBoard() {
   return new Promise((resolve) => {
     let imgContainer = document.getElementById("added-to-board");
     imgContainer.classList.add("animate");
 
-    // Wait for the transition to end
     imgContainer.addEventListener("transitionend", function handler() {
-      // Remove event listener once the animation is done to avoid multiple triggers
       imgContainer.removeEventListener("transitionend", handler);
       resolve();
     });
   });
 }
 
+/**
+ * Creates a new task and posts it to the board.
+ * @param {string} boardCategory - The category of the board where the task will be added.
+ */
 async function createTask(boardCategory) {
   let description = document.getElementById("description-input").value;
   let dueDate = document.getElementById("date-input").value;
@@ -432,10 +530,9 @@ async function createTask(boardCategory) {
 
   await addedToBoard();
 
-  // Erstelle das contacts Objekt basierend auf ausgewählten Kontakten
   let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
     if (isSelected) {
-      acc[`contact${index + 1}`] = contactsArray[index]; // Hier wird das neue Objekt acc erstellt und ein Schlüssel vergeben.
+      acc[`contact${index + 1}`] = contactsArray[index];
     }
     return acc;
   }, {});
@@ -463,11 +560,15 @@ async function createTask(boardCategory) {
 
   goToBoard();
 
-  let dataFetched = await boardInit(); // Warten bis die Kontaktliste aktualisiert wurde
+  let dataFetched = await boardInit();
 
   subtasks = [];
 }
 
+/**
+ * Gets the selected priority level.
+ * @returns {string} - The selected priority level ("urgent", "medium", or "low").
+ */
 function getSelectedPrio() {
   if (document.getElementById("highButton").classList.contains("selected-high-button")) {
     return "urgent";
@@ -478,5 +579,5 @@ function getSelectedPrio() {
   if (document.getElementById("lowButton").classList.contains("selected-low-button")) {
     return "low";
   }
-  return "medium"; // Default value
+  return "medium";
 }
