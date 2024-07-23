@@ -1,7 +1,7 @@
 const CONTACTS_URL =
   "https://join-database-3d39f-default-rtdb.europe-west1.firebasedatabase.app/contacts/";
 
-let contactsData = {}; 
+let contactsData = {};
 let contactsArray = [];
 let contactsKeys = [];
 
@@ -29,16 +29,16 @@ async function fetchDataJson() {
     contactsData = responseToJson || {};
     contactsArray = Object.values(contactsData);
     contactsKeys = Object.keys(contactsData);
-    
+
     const sortedContacts = contactsArray.map((contact, index) => ({ contact, key: contactsKeys[index] }))
-                                        .sort((a, b) => a.contact.name.split(' ')[0].localeCompare(b.contact.name.split(' ')[0]));
+      .sort((a, b) => a.contact.name.split(' ')[0].localeCompare(b.contact.name.split(' ')[0]));
 
     contactsArray = sortedContacts.map(item => item.contact);
     contactsKeys = sortedContacts.map(item => item.key);
 
   } catch (error) {
     console.error("Error fetching data:", error);
-    return false; 
+    return false;
   }
 }
 
@@ -51,21 +51,21 @@ function createContactsList() {
   let currentLetter = '';
 
   for (let i = 0; i < contactsArray.length; i++) {
-      let contact = contactsArray[i];
-      let key = contactsKeys[i];
-      let nameParts = contact.name.split(' ');
-      let initials = nameParts[0][0] + nameParts[1][0];
-      let firstLetter = nameParts[0][0].toUpperCase();
+    let contact = contactsArray[i];
+    let key = contactsKeys[i];
+    let nameParts = contact.name.split(' ');
+    let initials = nameParts[0][0] + nameParts[1][0];
+    let firstLetter = nameParts[0][0].toUpperCase();
 
-      if (firstLetter !== currentLetter) {
-          currentLetter = firstLetter;
-          content.innerHTML += `
+    if (firstLetter !== currentLetter) {
+      currentLetter = firstLetter;
+      content.innerHTML += `
               <div class="first-letter">${currentLetter}</div>
               <div class="line"></div>
           `;
-      }
+    }
 
-      content.innerHTML += generateDirectory(key, initials, contact);
+    content.innerHTML += generateDirectory(key, initials, contact);
   }
 }
 
@@ -98,9 +98,9 @@ async function addContact() {
   let name = document.getElementById("add-contact-name").value;
   let mail = document.getElementById("add-contact-mail").value;
   let phone = document.getElementById("add-contact-phone").value;
-  let color = getRandomColor(); 
+  let color = getRandomColor();
 
-  let newContact = {email: mail, name: name, phone: phone, color: color};
+  let newContact = { email: mail, name: name, phone: phone, color: color };
   let postResponse = await postData("", newContact);
 
   let dataFetched = await contactsInit();
@@ -124,7 +124,7 @@ function contactAdded(newContact) {
 
   let newKey = Object.keys(contactsData).find(key => contactsData[key].email === newContact.email && contactsData[key].name === newContact.name);
   let initials = newContact.name.split(' ')[0][0] + newContact.name.split(' ')[1][0];
-  showContact(initials, newContact, newKey); 
+  showContact(initials, newContact, newKey);
 }
 
 
@@ -209,31 +209,31 @@ function showContact(initials, contact, key) {
   let content = document.getElementById('contact-profile');
   let contentLibrary = document.getElementById('contacts-library');
   content.innerHTML = '';
-  
-  if (window.innerWidth <= 1120) {
-    content2.classList.add('d-none');
-} else {
-    content2.classList.remove('d-none');
-}
 
-  content.classList.remove('slide-in-right'); 
-  void content.offsetWidth; 
+  if (window.innerWidth <= 1120) {
+    contentLibrary.classList.add('d-none');
+  } else {
+    contentLibrary.classList.remove('d-none');
+  }
+
+  content.classList.remove('slide-in-right');
+  void content.offsetWidth;
   content.classList.add('slide-in-right');
 
   content.innerHTML += generateContactHTML(initials, contact, key);
-  
+
 }
 
 function highlightContact(key) {
   let contacts = document.getElementsByClassName('contact');
 
   for (let j = 0; j < contacts.length; j++) {
-      contacts[j].classList.remove('selected-contact');
+    contacts[j].classList.remove('selected-contact');
   }
 
   let currentContact = document.getElementById(`contact${key}`);
   if (currentContact) {
-      currentContact.classList.add('selected-contact');
+    currentContact.classList.add('selected-contact');
   }
 }
 
@@ -241,13 +241,13 @@ function highlightContact(key) {
  * This function animates and opens the add contact layer.
  */
 function openAddContactLayer() {
-    document.getElementById('add-contact-layer').classList.remove('d-none');
-    let content = document.getElementById('add-contact-inner-layer');
+  document.getElementById('add-contact-layer').classList.remove('d-none');
+  let content = document.getElementById('add-contact-inner-layer');
 
-    content.classList.remove('slide-in-right');
-    content.classList.remove('slide-out-right');
-    void content.offsetWidth; 
-    content.classList.add('slide-in-right');
+  content.classList.remove('slide-in-right');
+  content.classList.remove('slide-out-right');
+  void content.offsetWidth;
+  content.classList.add('slide-in-right');
 }
 
 /**
@@ -259,32 +259,32 @@ function openAddContactLayer() {
  */
 function openEditContactLayer(key, name, email, phone) {
   document.getElementById('edit-contact-layer').classList.remove('d-none');
-    let content = document.getElementById('edit-contact-inner-layer');
+  let content = document.getElementById('edit-contact-inner-layer');
 
-    content.classList.remove('slide-in-right');
-    content.classList.remove('slide-out-right');
-    void content.offsetWidth; 
-    content.classList.add('slide-in-right');
+  content.classList.remove('slide-in-right');
+  content.classList.remove('slide-out-right');
+  void content.offsetWidth;
+  content.classList.add('slide-in-right');
 
-    document.getElementById('edit-contact-key').value = key;
-    document.getElementById('edit-contact-name').value = name;
-    document.getElementById('edit-contact-mail').value = email;
-    document.getElementById('edit-contact-phone').value = phone;
+  document.getElementById('edit-contact-key').value = key;
+  document.getElementById('edit-contact-name').value = name;
+  document.getElementById('edit-contact-mail').value = email;
+  document.getElementById('edit-contact-phone').value = phone;
 }
 
 /**
  * This function animates and hides the add contact layer.
  */
 function closeAddContactLayer() {
-    let contentLayer = document.getElementById('add-contact-layer');
-    let content = document.getElementById('add-contact-inner-layer');
+  let contentLayer = document.getElementById('add-contact-layer');
+  let content = document.getElementById('add-contact-inner-layer');
 
-    content.classList.remove('slide-out-right');
-    void content.offsetWidth; 
-    content.classList.add('slide-out-right');
-    
-    content.removeEventListener('animationend', handleAnimationEnd);
-    content.addEventListener('animationend', handleAnimationEnd, { once: true });
+  content.classList.remove('slide-out-right');
+  void content.offsetWidth;
+  content.classList.add('slide-out-right');
+
+  content.removeEventListener('animationend', handleAnimationEnd);
+  content.addEventListener('animationend', handleAnimationEnd, { once: true });
 }
 
 /**
@@ -295,9 +295,9 @@ function closeEditContactLayer() {
   let content = document.getElementById('edit-contact-inner-layer');
 
   content.classList.remove('slide-out-right');
-  void content.offsetWidth; 
+  void content.offsetWidth;
   content.classList.add('slide-out-right');
-  
+
   content.removeEventListener('animationend', handleAnimationEnd);
   content.addEventListener('animationend', handleAnimationEnd, { once: true });
 }
@@ -306,10 +306,10 @@ function closeEditContactLayer() {
  * This function only is responsible for hiding the add- and the edit contact layer.
  */
 function handleAnimationEnd() {
-    document.getElementById('add-contact-layer').classList.add('d-none');
-    document.getElementById('edit-contact-layer').classList.add('d-none');
-    
-    
+  document.getElementById('add-contact-layer').classList.add('d-none');
+  document.getElementById('edit-contact-layer').classList.add('d-none');
+
+
 }
 
 /**
