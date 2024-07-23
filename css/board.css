@@ -468,6 +468,10 @@
     left: 475px !important;
 }
 
+.mt10 {
+    margin-top: 110px !important;
+}
+
 .edit-task-contacts {
     padding-top: 8px;
     display: flex;

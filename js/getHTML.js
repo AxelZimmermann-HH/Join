@@ -12,11 +12,13 @@
  * @returns code for the task cards on board.html
  */
 function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, totalSubtasks, completedSubtasks, progressPercentage) {
+    let truncatedDescription = truncateDescription(task.description, 50);
+
   return `
         <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
             <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
             <div class="task-on-board-headline">${task.title}</div>
-            <div class="task-on-board-text">${task.description}</div>
+            <div class="task-on-board-text">${truncatedDescription}</div>
             ${
               totalSubtasks > 0
                 ? `
@@ -37,6 +39,10 @@ function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, 
         </div>
     `;
 }
+
+function truncateDescription(description, maxLength) {
+    return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
+  }
 
 function getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML) {
   return `
@@ -168,7 +174,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                 <div id="add-task-contactsHTML-layer"  class="edit-task-contacts">
                     ${contactsHTML}
                 </div>
-                <div class="required-text">
+                <div id="req-text-layer" class="required-text">
                     <p><span class="span-red">*</span>This field is required</p>
                 </div>
             </div>
