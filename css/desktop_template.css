@@ -230,7 +230,7 @@ header {
 
 @media (max-width: 600px) {
   .sidebar-links {
-    font-size: 12px;
+    font-size: 11px;
   }
   .sidebar-links img {
     width: 20px;

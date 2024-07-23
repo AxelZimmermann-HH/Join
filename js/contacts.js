@@ -174,15 +174,20 @@ function showContact(initials, contact, key) {
   let content2 = document.getElementById('contacts-library');
   content.innerHTML = '';
   
-  // IF display.with < XY
-  content2.classList.add('d-none');
+  if (window.innerWidth <= 1120) {
+    content2.classList.add('d-none');
+} else {
+    content2.classList.remove('d-none');
+}
 
   content.classList.remove('slide-in-right'); // Reset animation
   void content.offsetWidth; // Trigger reflow
   content.classList.add('slide-in-right');
 
   content.innerHTML += generateContactHTML(initials, contact, key);
+  
 }
+
 
 function highlightContact(key) {
   let contacts = document.getElementsByClassName('contact');
