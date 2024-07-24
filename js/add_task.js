@@ -426,21 +426,27 @@ function checkContacts(i) {
 }
 
 function clearContacts() {
+  let content = document.getElementById("add-task-contactsHTML");
+  if (!content) {
+    content = document.getElementById("add-task-contactsHTML-layer");
+  }
+
   for (let i in selectedContacts) {
     if (selectedContacts.hasOwnProperty(i) && selectedContacts[i]) {
       let checkboxField = document.getElementById(`checkbox-field${i}`);
       let contactDiv = document.getElementById(`contacts-pos${i}`);
-      let content = document.getElementById("add-task-contactsHTML");
 
       checkboxField.src = "add_task_img/checkbox-normal.svg";
       contactDiv.classList.remove("contacts-pos-highlight");
       contactDiv.classList.remove("no-hover");
       selectedContacts[i] = false;
-
-      content.innerHTML = "";
     }
   }
+
+  content.innerHTML = "";
 }
+
+
 
 /**
  * Clears the task input fields and resets the interface.
