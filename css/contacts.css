@@ -1119,12 +1119,9 @@ h3 {
         left: 290px !important;
     }
 
-    /* .contacts-list {
-        width: 112%;
-        position: relative !important;
-        top: -55px !important;
-        padding: 20px;
-    } */
+    .contacts-list {
+        overflow-x: hidden;
+    }
 
     .first-letter {
         line-height: 0px !important;
@@ -1148,11 +1145,11 @@ h3 {
         width: max-content;
     }
 
-    .contact-headline .subheadline {
+    /* .contact-headline .subheadline {
         top: 35px;
         right: 246px;
         font-size: 17px;
-    }
+    } */
 
     .contact-profile-firstrow-right h3 {
         font-size: 24px;
@@ -1170,7 +1167,16 @@ h3 {
         right: 177px;
     }
 
-    .contact-headline .subheadline {
+    /* .contact-headline .subheadline {
         right: 239px;
+    } */
+}
+
+@media (max-width: 350px) {
+    .contact-name {
+        font-size: 18px !important;
+    }
+    .contact-mail {
+        font-size: 14px !important;
     }
 }

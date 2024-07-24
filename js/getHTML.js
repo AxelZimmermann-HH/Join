@@ -202,7 +202,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                 <div id="category"></div>
                 <p class="subtasks">Subtasks</p>
                 <div class="subtask-layout">
-                    <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field">
+                    <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field border-grey">
                     <div class="d-none" id="edit-subtask"></div>
                     <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
                 </div>
