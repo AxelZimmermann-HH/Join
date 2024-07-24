@@ -363,6 +363,10 @@ async function addMouseDownListeners() {
   });
 }
 
+/**
+ * Closes the contact dropdown and performs necessary updates based on the current state.
+ * @param {HTMLElement} contactDropdown - The contact dropdown element to be closed.
+ */
 async function closeContactDropdown(contactDropdown) {
   if (!contactDropdown.classList.contains("d-none")) {
     contactDropdown.classList.add("d-none");
@@ -381,6 +385,9 @@ async function closeContactDropdown(contactDropdown) {
   }
 }
 
+/**
+ * Displays the contacts in the add task layer.
+ */
 function showContactsInAddTaskLayer() {
   let contactsHTML = getAddContactsHTML(selectedContacts);
   let content = document.getElementById("show-task-inner-layer");
@@ -425,6 +432,9 @@ function checkContacts(i) {
   }
 }
 
+/**
+ * Clears the selected contacts and resets the contact checkboxes in the add task section.
+ */
 function clearContacts() {
   let content = document.getElementById("add-task-contactsHTML");
   if (!content) {
@@ -445,8 +455,6 @@ function clearContacts() {
 
   content.innerHTML = "";
 }
-
-
 
 /**
  * Clears the task input fields and resets the interface.
