@@ -34,6 +34,8 @@ function countAllTasks() {
     return tasksArray.length;
 }
 
+
+
 function generateGreets() {
     let greetingTime = getGreeting();
     let userName = sessionStorage.getItem('userName');
@@ -117,8 +119,8 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (summaryCardContainer) {
                             summaryCardContainer.classList.add('visible');
                         }
-                    }, 1000); // Duration of fadeOut animation
-                }, 1000); // Display greeting for 1 second
+                    }, 1000); 
+                }, 1000); 
             }
         } else {
             if (summaryCardContainer) {
@@ -134,5 +136,30 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function logout() {
     localStorage.removeItem('greetingShown');
-    // Other logout logic
+    
 }
+
+let hasRefreshed = false;
+
+function checkWidthAndReload() {
+    const width = window.innerWidth;
+
+  
+    if (width >= 800 && width <= 810 && !hasRefreshed) {
+        hasRefreshed = true;
+        location.reload();
+    }
+
+   
+    if (width < 800 || width > 810) {
+        hasRefreshed = false;
+    }
+}
+
+window.addEventListener('resize', function() {
+    checkWidthAndReload();
+});
+
+window.addEventListener('load', function() {
+    checkWidthAndReload();
+});
