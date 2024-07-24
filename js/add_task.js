@@ -373,7 +373,7 @@ async function closeContactDropdown(contactDropdown) {
     } else {
       if (document.getElementById("add-task-contactsHTML-layer")) {
         showContactsInAddTaskLayer();
-        document.getElementById('req-text-layer').classList.add('mt10');
+        document.getElementById("req-text-layer").classList.add("mt10");
       } else {
         await saveEditContacts(currentTaskKey);
       }
@@ -425,6 +425,23 @@ function checkContacts(i) {
   }
 }
 
+function clearContacts() {
+  for (let i in selectedContacts) {
+    if (selectedContacts.hasOwnProperty(i) && selectedContacts[i]) {
+      let checkboxField = document.getElementById(`checkbox-field${i}`);
+      let contactDiv = document.getElementById(`contacts-pos${i}`);
+      let content = document.getElementById("add-task-contactsHTML");
+
+      checkboxField.src = "add_task_img/checkbox-normal.svg";
+      contactDiv.classList.remove("contacts-pos-highlight");
+      contactDiv.classList.remove("no-hover");
+      selectedContacts[i] = false;
+
+      content.innerHTML = "";
+    }
+  }
+}
+
 /**
  * Clears the task input fields and resets the interface.
  */
@@ -440,6 +457,7 @@ function clearTask() {
 
   clearButtons();
   clearSubtasks();
+  clearContacts();
 
   let taskCategory = document.getElementById("task-category");
   taskCategory.innerText = "Select task category";
