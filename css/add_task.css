@@ -854,7 +854,7 @@ ul {
     position: relative !important;
     margin-bottom: 0 !important;
     justify-content: space-between !important;
-    width: 275px !important;
+    width: 383px !important;
   }
   .required-text-mobile-layer p {
     font-size: 14px !important;
@@ -969,6 +969,9 @@ ul {
   .required-text-mobile {
     margin-left: -15px;
     height: 100px;
+  }
+  .required-text-mobile-layer {
+    width: 275px !important;
   }
   .clear-button {
     display: none;

@@ -641,6 +641,13 @@
 
 }
 
+@media (max-width: 581px) {
+    .bottom-0 {
+        bottom: 0 !important;
+        
+    }
+}
+
 @media (max-width: 400px) {
     .board-content {
         align-items: center;

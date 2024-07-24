@@ -1,9 +1,5 @@
 /* Reponsive add contact */
 @media(max-width:1120px) {
-    .responsive-add-contact {
-        display: block;
-        animation: slide-in-right 0.5s forwards;
-    }
 
     .button-add-contact {
         display: none;
@@ -98,7 +94,7 @@
         left: 21px;
     }
 
-    .button-dark {
+    .button-dark-contact {
         padding: 18px 18px 18px 4px;
         width: 202px;
         height: 51px;
@@ -110,7 +106,7 @@
         display: none !important;
     }
 
-    .button-dark img {
+    .button-dark-contact img {
         width: 24px;
         height: 24px;
         position: fixed;
