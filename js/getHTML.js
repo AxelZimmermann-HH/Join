@@ -213,7 +213,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                     <button onclick="createTask('${boardCategory}')" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
                 </div>
                 <div class="mobile-create">
-                <div class="required-text-mobile required-text-mobile-layer">
+                <div class="required-text-mobile bottom-0 required-text-mobile-layer">
                     <p><span class="span-red">*</span>This field is required</p>
                     <div>
                         <button onclick="createTask()" class="create-task-button-mobile create-task-button-mobile-layer">Create Task <img

@@ -229,7 +229,7 @@ function showContact(initials, contact, key) {
 window.addEventListener('resize', function() {
   let contentLibrary = document.getElementById('contacts-library');
 
-  if (isShowContactExecuted) { // Check if showContact was executed
+  if (isShowContactExecuted) {
     if (window.innerWidth > 1120) {
       contentLibrary.classList.remove('d-none');
     } else {
