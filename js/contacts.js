@@ -5,6 +5,8 @@ let contactsData = {};
 let contactsArray = [];
 let contactsKeys = [];
 
+let isShowContactExecuted = false;
+
 /**
  * This function initializes contacts.html with body onload.
  * @returns true
@@ -221,8 +223,20 @@ function showContact(initials, contact, key) {
   content.classList.add('slide-in-right');
 
   content.innerHTML += generateContactHTML(initials, contact, key);
-
+  isShowContactExecuted = true;
 }
+
+window.addEventListener('resize', function() {
+  let contentLibrary = document.getElementById('contacts-library');
+
+  if (isShowContactExecuted) { // Check if showContact was executed
+    if (window.innerWidth > 1120) {
+      contentLibrary.classList.remove('d-none');
+    } else {
+      contentLibrary.classList.add('d-none');
+    }
+  }
+});
 
 
 /**
