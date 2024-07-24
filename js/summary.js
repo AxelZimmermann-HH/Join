@@ -97,6 +97,9 @@ function getClosestUrgentDueDate() {
 document.addEventListener('DOMContentLoaded', function () {
     const animationScreen = document.getElementById('animationScreen');
     const summaryCardContainer = document.querySelector('.summary-card-container');
+    if (window.innerWidth >= 800) {
+        localStorage.setItem('greetingShown', 'true');
+    }
 
     if (window.innerWidth <= 800) {
         if (!localStorage.getItem('greetingShown')) {
@@ -126,6 +129,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (summaryCardContainer) {
                 summaryCardContainer.classList.add('visible');
             }
+            
         }
     } else {
         if (summaryCardContainer) {
@@ -145,13 +149,13 @@ function checkWidthAndReload() {
     const width = window.innerWidth;
 
   
-    if (width >= 800 && width <= 810 && !hasRefreshed) {
+    if (width >= 800 && width <= 800 && !hasRefreshed) {
         hasRefreshed = true;
         location.reload();
     }
 
    
-    if (width < 800 || width > 810) {
+    if (width < 800 || width > 800) {
         hasRefreshed = false;
     }
 }
