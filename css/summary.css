@@ -422,8 +422,9 @@
   }
 
   .summary-card-big {
-    width: 330px;
+    width: 380px;
     height: 150px;
+    text-align: center;
   }
 
   .summary-card-small {
