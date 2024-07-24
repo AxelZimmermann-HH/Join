@@ -46,7 +46,7 @@ function generateGreets() {
     } else {
         if (content) {
             content.innerHTML = userName === "Guest" 
-                ? `<span class="greet-text">Good ${greetingTime}</span>` 
+                ? `<span class="greet-text">Good ${greetingTime}!</span>` 
                 : `<span class="greet-text">Good ${greetingTime},</span>
                    <span class="greet-user-name">${userName}</span>`;
         }
