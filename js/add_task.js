@@ -546,9 +546,19 @@ function emptyTitle() {
 }
 
 /**
+ * Sets the minimum date of the input field with the ID 'date-input' to today's date.
+ * This ensures that the user can only select dates that are today or in the future.
+ */
+function futureDate() {
+  let today = new Date().toISOString().split("T")[0];
+  document.getElementById("date-input").setAttribute("min", today);
+}
+
+/**
  * Displays the date picker and updates the date input style.
  */
 function emptyDate() {
+  futureDate();
   let date = document.getElementById("date-input");
   date.showPicker();
   updateDateStyle();

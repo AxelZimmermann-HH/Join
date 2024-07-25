@@ -1,5 +1,6 @@
 body {
   background-color: #f6f7f8;
+  overflow-x: hidden;
 }
 .headline {
   font-size: 61px;
@@ -51,6 +52,10 @@ body {
   border: 1px solid #d1d1d1;
   padding: 18px 16px 18px 16px;
   gap: 10px;
+  font-family: "Inter", sans-serif;
+}
+.edit-task-contacts-site {
+  display: flex;
 }
 .show-task-contact-letters {
   width: 42px;
@@ -107,7 +112,6 @@ body {
 .right-section {
   margin-top: 155px;
   margin-left: 40px;
-  width: 440px;
 }
 
 .right-section-layer {
@@ -260,8 +264,7 @@ body {
   color: white;
   font-weight: 700;
 }
-.prio-buttons 
-.prio-buttons:hover {
+.prio-buttons .prio-buttons:hover {
   box-shadow: 0px 4px 4px 0px #00000040;
 }
 .selected-high-button {
@@ -822,6 +825,7 @@ ul {
   }
   .add-task-section {
     flex-direction: column;
+    margin-bottom: 300px;
   }
   .parting-line {
     display: none;
@@ -841,7 +845,7 @@ ul {
   .required-text-mobile {
     background-color: #f6f7f8;
     margin-left: -55px;
-    height: 100px;
+    height: 70px;
     bottom: 80px;
     position: fixed;
     display: flex;
@@ -961,6 +965,7 @@ ul {
   }
   .add-task-section {
     flex-direction: column;
+    display: flex;
   }
   .create-subtask {
     width: 272px;
