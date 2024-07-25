@@ -8,7 +8,6 @@ currentTaskKey = 0;
 currentTask = {};
 let currentBoardCategory = "";
 
-
 /**
  * This function initializes board.html. It is implemented on body onload.
  */
@@ -20,9 +19,8 @@ async function boardInit() {
   generateInitials();
 }
 
-
 /**
- * This function fetches all tasks dirctly from the TASK_URL defined in line 1. 
+ * This function fetches all tasks dirctly from the TASK_URL defined in line 1.
  * It saves the data first as objects, then as arrays for rendering, then the keys of the tasks, to identify them.
  * @returns false if there is an error in fetching.
  */
@@ -191,19 +189,19 @@ function handlePrio(prio) {
  * This function defines and calculates the variables needed for showing the subtask status on the cards on the board and then returns the card HTMLs.
  * @param {string} key - task key
  * @param {string} categoryClass - task.task_category
- * @param {string} task 
- * @param {number} i 
+ * @param {string} task
+ * @param {number} i
  * @param {string} contactsHTML - contact initials in the task cards
  * @param {string} prioSrc - source of the image used for prio status
  * @returns the HTML of the task cards
  */
 function generateTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc) {
-    let subtasks = task.subtasks || {};
-    let totalSubtasks = Object.keys(subtasks).length;
-    let completedSubtasks = Object.values(subtasks).filter((subtask) => subtask.completed).length;
-    let progressPercentage = totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
-  
-    return getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, totalSubtasks, completedSubtasks, progressPercentage);
+  let subtasks = task.subtasks || {};
+  let totalSubtasks = Object.keys(subtasks).length;
+  let completedSubtasks = Object.values(subtasks).filter((subtask) => subtask.completed).length;
+  let progressPercentage = totalSubtasks === 0 ? 0 : (completedSubtasks / totalSubtasks) * 100;
+
+  return getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, totalSubtasks, completedSubtasks, progressPercentage);
 }
 
 /**
@@ -246,7 +244,7 @@ function startDragging(key) {
 
 /**
  * This function enables dropping an element in the board.
- * @param {event} ev 
+ * @param {event} ev
  */
 function allowDrop(ev) {
   ev.preventDefault();
@@ -256,7 +254,7 @@ function allowDrop(ev) {
 
 /**
  * This function removes the hover-effekt during drag&drop.
- * @param {event} ev 
+ * @param {event} ev
  */
 function resetBackground(ev) {
   var taskArea = ev.currentTarget;
@@ -265,7 +263,7 @@ function resetBackground(ev) {
 
 /**
  * This ondrop-function changes the category of the relevant task and re-renders the board.
- * @param {string} category 
+ * @param {string} category
  */
 async function moveTo(category) {
   if (currentDraggedTaskKey) {
@@ -278,7 +276,7 @@ async function moveTo(category) {
 
 /**
  * Standard drop function
- * @param {event} ev 
+ * @param {event} ev
  * @param {string} category - new board category
  */
 function drop(ev, category) {
@@ -286,6 +284,35 @@ function drop(ev, category) {
   var taskArea = ev.currentTarget;
   taskArea.classList.remove("hover");
   moveTo(category);
+}
+let currentDraggedTaskKey = null;
+let currentTouchTask = null;
+let touchStartX = 0;
+let touchStartY = 0;
+
+function touchStart(ev, category) {
+  touchStartX = ev.touches[0].clientX;
+  touchStartY = ev.touches[0].clientY;
+  currentTouchTask = category;
+  ev.preventDefault();
+}
+
+function touchMove(ev) {
+  ev.preventDefault();
+}
+
+function touchEnd(ev, category) {
+  const touchEndX = ev.changedTouches[0].clientX;
+  const touchEndY = ev.changedTouches[0].clientY;
+
+  if (currentTouchTask) {
+    const elementFromPoint = document.elementFromPoint(touchEndX, touchEndY);
+    if (elementFromPoint && elementFromPoint.classList.contains("task-area")) {
+      moveTo(category);
+    }
+  }
+  currentTouchTask = null;
+  ev.preventDefault();
 }
 
 /**
@@ -351,7 +378,7 @@ async function deleteTask(key) {
 
 /**
  * This function shows tasks details when clicking on a task card on the board.
- * @param {string} key - task key 
+ * @param {string} key - task key
  */
 function openTask(key) {
   const task = tasksData[key];
@@ -384,7 +411,7 @@ function animateContent(content) {
 
 /**
  * This function calls the rendering of the task layer.
- * @param {id} content 
+ * @param {id} content
  * @param {object} task - tasksData[key], defined in openTask(key)
  * @param {strin} key - task key
  */
@@ -431,40 +458,40 @@ function updateContactsHeadline() {
 
 /**
  * This function renders the content of the task layer. It is called in updateContent(), which is called in openTask().
- * @param {object} task 
+ * @param {object} task
  * @param {string} key - task key
  * @returns the task layer HTML
  */
 function generateTaskLayer(task, key) {
-    let contacts = task.contacts || {};
-    let subtasks = task.subtasks || {};
-    let categoryClass = getCategoryClass(task.task_category);
+  let contacts = task.contacts || {};
+  let subtasks = task.subtasks || {};
+  let categoryClass = getCategoryClass(task.task_category);
 
-    initializeSelectedContacts(contactsArray);
+  initializeSelectedContacts(contactsArray);
 
-    let userName = sessionStorage.getItem('userName');
-    let contactsHTML = generateContactsInTaskLayer(task.contacts, userName);
-    let subtasksHTML = generateSubtasksInTaskLayer(subtasks, key);
+  let userName = sessionStorage.getItem("userName");
+  let contactsHTML = generateContactsInTaskLayer(task.contacts, userName);
+  let subtasksHTML = generateSubtasksInTaskLayer(subtasks, key);
 
-    return getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML);
+  return getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML);
 }
 
 /**
  * This function returns the correct task category. It is used in generateTaskLayer().
- * @param {sting} taskCategory - user-story or technical-task 
+ * @param {sting} taskCategory - user-story or technical-task
  * @returns returns the correct task category
  */
 function getCategoryClass(taskCategory) {
-    return taskCategory === 'User Story' ? 'user-story' : 'technical-task';
+  return taskCategory === "User Story" ? "user-story" : "technical-task";
 }
 
 /**
- * This function generates an array selectedContacts, which has the same length as contactsArray. 
+ * This function generates an array selectedContacts, which has the same length as contactsArray.
  * The array only includes true or false. It is important for editing specific task contacts.
  * @param {array} contactsArray - defined global in contacts.js
  */
 function initializeSelectedContacts(contactsArray) {
-    selectedContacts = new Array(contactsArray.length).fill(false);
+  selectedContacts = new Array(contactsArray.length).fill(false);
 }
 
 /**
@@ -474,55 +501,59 @@ function initializeSelectedContacts(contactsArray) {
  * @returns the contact bubbles HTMLs
  */
 function generateContactsInTaskLayer(contacts, userName) {
-    if (!contacts || typeof contacts !== 'object') {
-        return '';
-    }
+  if (!contacts || typeof contacts !== "object") {
+    return "";
+  }
 
-    return Object.values(contacts).map(contact => {
-        const contactIndex = contactsArray.findIndex(c => c.email === contact.email && c.name === contact.name);
+  return Object.values(contacts)
+    .map((contact) => {
+      const contactIndex = contactsArray.findIndex((c) => c.email === contact.email && c.name === contact.name);
 
-        if (contactIndex !== -1) {
-            selectedContacts[contactIndex] = true;
-        }
+      if (contactIndex !== -1) {
+        selectedContacts[contactIndex] = true;
+      }
 
-        let displayName = contact.name;
-        if (contact.name === userName) {
-            displayName += " (You)";
-        }
-        return `
+      let displayName = contact.name;
+      if (contact.name === userName) {
+        displayName += " (You)";
+      }
+      return `
             <div class="show-task-contact">
                 <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
                 <p>${displayName}</p>
             </div>
         `;
-    }).join('');
+    })
+    .join("");
 }
 
 /**
  * This function renders the existing subtask in the task layer if there are some.
- * @param {array} subtasks 
+ * @param {array} subtasks
  * @param {string} key - task key
  * @returns HTML of the subtasks in the task layer
  */
 function generateSubtasksInTaskLayer(subtasks, key) {
-    return Object.keys(subtasks).map(subtaskKey => {
-        const subtask = subtasks[subtaskKey];
-        return `
+  return Object.keys(subtasks)
+    .map((subtaskKey) => {
+      const subtask = subtasks[subtaskKey];
+      return `
             <div class="show-task-subtask" onclick="checkSubtask('${key}', '${subtaskKey}', this.querySelector('img'))">
-                <img src="/add_task_img/${subtask.completed ? 'subtasks_checked' : 'subtasks_notchecked'}.svg" alt="">
+                <img src="/add_task_img/${subtask.completed ? "subtasks_checked" : "subtasks_notchecked"}.svg" alt="">
                 <p>${subtask.title}</p>
             </div>
         `;
-    }).join('');
+    })
+    .join("");
 }
 
 /**
  * This function separates two words and takes the first letters of each as big letters.
- * @param {string} word 
+ * @param {string} word
  * @returns initials
  */
 function capitalize(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
+  return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
 /**
@@ -554,7 +585,6 @@ async function checkSubtask(taskKey, subtaskKey, imgElement) {
   }
 }
 
-  
 /**
  * This function is called in the task layer to switch to the edit mode.
  * @param {*} taskKey - task key
@@ -594,15 +624,15 @@ async function updateTask(key, updatedTask) {
  * @param {string} key - task key
  */
 function saveTaskChanges(key) {
-    const selectedContactsData = getSelectedContactsData();
-    const subtasksObj = getSubtasksObj();
-    const updatedTask = getUpdatedTask(selectedContactsData, subtasksObj);
-    
-    updateTask(key, updatedTask)
-      .then(() => {
-        handleTaskUpdateSuccess();
-      })
-      .catch((error) => console.error("Error updating task:", error));
+  const selectedContactsData = getSelectedContactsData();
+  const subtasksObj = getSubtasksObj();
+  const updatedTask = getUpdatedTask(selectedContactsData, subtasksObj);
+
+  updateTask(key, updatedTask)
+    .then(() => {
+      handleTaskUpdateSuccess();
+    })
+    .catch((error) => console.error("Error updating task:", error));
 }
 
 /**
@@ -616,30 +646,26 @@ async function saveEditContacts(key) {
     const updatedTask = getUpdatedTask(selectedContactsData, subtasksObj);
 
     await updateTask(key, updatedTask);
-    
-    
+
     await boardInit();
 
     showEditTask(currentTaskKey);
-    
-    
   } catch (error) {
     console.error("Error updating task:", error);
   }
 }
 
-  
 /**
  * This function filters all elements of selectedContacts which are true and returns them.
  * @returns true elements as objects
  */
 function getSelectedContactsData() {
-return selectedContacts.reduce((acc, isSelected, index) => {
+  return selectedContacts.reduce((acc, isSelected, index) => {
     if (isSelected) {
-    acc[`contact${index + 1}`] = contactsArray[index];
+      acc[`contact${index + 1}`] = contactsArray[index];
     }
     return acc;
-}, {});
+  }, {});
 }
 
 /**
@@ -647,13 +673,13 @@ return selectedContacts.reduce((acc, isSelected, index) => {
  * @returns relevant subtasks as objects.
  */
 function getSubtasksObj() {
-return subtasks.reduce((acc, subtask, index) => {
+  return subtasks.reduce((acc, subtask, index) => {
     acc[`subtask${index + 1}`] = {
-    title: subtask.title,
-    completed: subtask.completed,
+      title: subtask.title,
+      completed: subtask.completed,
     };
     return acc;
-}, {});
+  }, {});
 }
 
 /**
@@ -663,16 +689,16 @@ return subtasks.reduce((acc, subtask, index) => {
  * @returns updated task object
  */
 function getUpdatedTask(selectedContactsData, subtasksObj) {
-    return {
-        task_category: currentTask.task_category,
-        board_category: currentTask.board_category,
-        contacts: selectedContactsData,
-        subtasks: subtasksObj,
-        title: document.getElementById("edit-title-input").value,
-        description: document.getElementById("edit-description-input").value,
-        due_date: document.getElementById("edit-date-input").value,
-        prio: getSelectedPriority(),
-    };
+  return {
+    task_category: currentTask.task_category,
+    board_category: currentTask.board_category,
+    contacts: selectedContactsData,
+    subtasks: subtasksObj,
+    title: document.getElementById("edit-title-input").value,
+    description: document.getElementById("edit-description-input").value,
+    due_date: document.getElementById("edit-date-input").value,
+    prio: getSelectedPriority(),
+  };
 }
 
 /**
@@ -680,65 +706,65 @@ function getUpdatedTask(selectedContactsData, subtasksObj) {
  * @returns marked prio
  */
 function getSelectedPriority() {
-if (document.querySelector(".prio-buttons.selected-high-button")) {
+  if (document.querySelector(".prio-buttons.selected-high-button")) {
     return "urgent";
-} else if (document.querySelector(".prio-buttons.selected-medium-button")) {
+  } else if (document.querySelector(".prio-buttons.selected-medium-button")) {
     return "medium";
-} else if (document.querySelector(".prio-buttons.selected-low-button")) {
+  } else if (document.querySelector(".prio-buttons.selected-low-button")) {
     return "low";
-} else {
+  } else {
     return currentTask.prio;
-}
+  }
 }
 
 /**
  * This function defines the end of saveTaskChanges(). It closes the layer and renders the board.
  */
 function handleTaskUpdateSuccess() {
-closeTask();
-boardInit();
-subtasks = [];
+  closeTask();
+  boardInit();
+  subtasks = [];
 }
-  
+
 /**
  * This function generates the edit task layer.
- * @param {object} task 
+ * @param {object} task
  * @param {string} key - task key
  * @returns the HTML of the relevant edit task layer
- */  
+ */
 function generateEditTaskLayer(task, key) {
-    currentTask = task;
-    let contacts = task.contacts || {};
-    let taskSubtasks = task.subtasks || {};
+  currentTask = task;
+  let contacts = task.contacts || {};
+  let taskSubtasks = task.subtasks || {};
 
-    let contactsHTML = getEditContactsHTML(contacts);
-    let subtasksHTML = getEditSubtasksHTML(taskSubtasks);
+  let contactsHTML = getEditContactsHTML(contacts);
+  let subtasksHTML = getEditSubtasksHTML(taskSubtasks);
 
-    let highSelected = task.prio === "urgent" ? "selected-high-button" : "";
-    let highImgSrc = task.prio === "urgent" ? "add_task_img/high-white.svg" : "add_task_img/high.svg";
+  let highSelected = task.prio === "urgent" ? "selected-high-button" : "";
+  let highImgSrc = task.prio === "urgent" ? "add_task_img/high-white.svg" : "add_task_img/high.svg";
 
-    let mediumSelected = task.prio === "medium" ? "selected-medium-button" : "";
-    let mediumImgSrc = task.prio === "medium" ? "add_task_img/medium-white.svg" : "add_task_img/medium.svg";
+  let mediumSelected = task.prio === "medium" ? "selected-medium-button" : "";
+  let mediumImgSrc = task.prio === "medium" ? "add_task_img/medium-white.svg" : "add_task_img/medium.svg";
 
-    let lowSelected = task.prio === "low" ? "selected-low-button" : "";
-    let lowImgSrc = task.prio === "low" ? "add_task_img/low-white.svg" : "add_task_img/low.svg";
+  let lowSelected = task.prio === "low" ? "selected-low-button" : "";
+  let lowImgSrc = task.prio === "low" ? "add_task_img/low-white.svg" : "add_task_img/low.svg";
 
-    return getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highImgSrc, mediumSelected, mediumImgSrc, lowSelected, lowImgSrc);
+  return getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highImgSrc, mediumSelected, mediumImgSrc, lowSelected, lowImgSrc);
 }
 
 /**
  * This function renders the relevant subtasks in the edit task layer.
- * @param {array} taskSubtasks 
+ * @param {array} taskSubtasks
  * @returns the subtasks in a list which is editable.
  */
 function getEditSubtasksHTML(taskSubtasks) {
-    subtasks = [];
+  subtasks = [];
 
-    return Object.keys(taskSubtasks)
-        .map((subtaskKey) => {
-        let subtask = taskSubtasks[subtaskKey];
-        subtasks.push({ title: subtask.title, completed: subtask.completed });
-        return `
+  return Object.keys(taskSubtasks)
+    .map((subtaskKey) => {
+      let subtask = taskSubtasks[subtaskKey];
+      subtasks.push({ title: subtask.title, completed: subtask.completed });
+      return `
                 <div id="subtask-tasks${subtasks.length - 1}" class="subtasks-tasks">
                     <div>
                         <ul class="subtask-list">
@@ -752,29 +778,29 @@ function getEditSubtasksHTML(taskSubtasks) {
                     </div>
                 </div>
             `;
-        })
+    })
     .join("");
 }
 
 /**
- * This function renders the existing contact bubbles in the edit task layer. The first four contacts are shown with initials, 
+ * This function renders the existing contact bubbles in the edit task layer. The first four contacts are shown with initials,
  * followed by a bubble with the number of further connected contacts.
- * @param {array} contacts 
+ * @param {array} contacts
  * @returns the HTMLs of the contact bubbles and the number of the rest contacts.
  */
 function getEditContactsHTML(contacts) {
-    contacts = contacts || {};
-    let contactCount = Object.keys(contacts).length;
-  
-    let contactsHTML = getFirstFourContacts(contacts);
-    contactsHTML += getRestContacts(contactCount);
-  
-    return contactsHTML;
+  contacts = contacts || {};
+  let contactCount = Object.keys(contacts).length;
+
+  let contactsHTML = getFirstFourContacts(contacts);
+  contactsHTML += getRestContacts(contactCount);
+
+  return contactsHTML;
 }
 
 /**
  * This function renders the existing contact bubbles in the edit task layer. The first four contacts are shown with initials.
- * @param {array} contacts 
+ * @param {array} contacts
  * @returns the HTMLs of the first four contact bubbles
  */
 function getFirstFourContacts(contacts) {
@@ -804,13 +830,13 @@ function getFirstFourContacts(contacts) {
 
 /**
  * This function renders a bubble with the number of further connected contacts, if there are more than four.
- * @param {} contactCount 
+ * @param {} contactCount
  * @returns a bubble with the number of further connected contacts.
  */
 function getRestContacts(contactCount) {
   if (contactCount > 4) {
-      let remainingContacts = contactCount - 4;
-      return `
+    let remainingContacts = contactCount - 4;
+    return `
       <div class="show-task-contact">
           <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
       </div>
@@ -819,31 +845,29 @@ function getRestContacts(contactCount) {
   return "";
 }
 
-
 /**
  * This function has the same effect as getEditContactsHTML(), but handles the add task site. It is needed so it can be implemented on addEventListener,
  * when clicked aside of the dropdown.
- * @param {array} selectedContacts 
+ * @param {array} selectedContacts
  */
 async function getAddContactSiteHTML(selectedContacts) {
-  selectedContacts = selectedContacts || []; 
+  selectedContacts = selectedContacts || [];
   let contactCount = Object.keys(selectedContacts).length;
 
-  let content = document.getElementById('add-task-contactsHTML');
-  content.innerHTML = '';
+  let content = document.getElementById("add-task-contactsHTML");
+  content.innerHTML = "";
   content.innerHTML += getFirstFourAddContacts(selectedContacts);
   content.innerHTML += getRestAddContacts(contactCount);
 }
 
-
 /**
  * This function has the same effect as getEditContactsHTML(), but handles the add task layer. It is needed so it can be implemented on addEventListener,
  * when clicked aside of the dropdown.
- * @param {array} selectedContacts 
+ * @param {array} selectedContacts
  * @returns the HTMLs of the contact bubbles and the number of the rest contacts.
  */
 function getAddContactsHTML(selectedContacts) {
-  selectedContacts = selectedContacts || []; 
+  selectedContacts = selectedContacts || [];
   let contactCount = Object.keys(selectedContacts).length;
 
   let contactsHTML = getFirstFourAddContacts(selectedContacts);
@@ -853,10 +877,10 @@ function getAddContactsHTML(selectedContacts) {
 }
 
 /**
- * This function has the same effect as getFirstFourContacts(), but handles the add task site and the add task layer. 
+ * This function has the same effect as getFirstFourContacts(), but handles the add task site and the add task layer.
  * It is needed so it can be implemented on addEventListener,
  * when clicked aside of the dropdown.
- * @param {array} selectedContacts 
+ * @param {array} selectedContacts
  * @returns the first four contacts in bubbles
  */
 function getFirstFourAddContacts(selectedContacts) {
@@ -886,17 +910,17 @@ function getFirstFourAddContacts(selectedContacts) {
 }
 
 /**
- * This function has the same effect as getRestContacts(), but handles the add task site and the add task layer. 
+ * This function has the same effect as getRestContacts(), but handles the add task site and the add task layer.
  * It is needed so it can be implemented on addEventListener,
  * when clicked aside of the dropdown.
  * @param {number} contactCount - number of all selectedContacts which are true
  * @returns HTML of with a bubble including the rest contacts, if there are more than four.
  */
 function getRestAddContacts(contactCount) {
-  contactCount = selectedContacts.filter(contact => contact === true).length;
+  contactCount = selectedContacts.filter((contact) => contact === true).length;
   if (contactCount > 4) {
-      let remainingContacts = contactCount - 4;
-      return `
+    let remainingContacts = contactCount - 4;
+    return `
       <div class="show-task-contact">
           <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
       </div>
@@ -907,7 +931,7 @@ function getRestAddContacts(contactCount) {
 
 /**
  * This function opens the add task layer dependant to which board category the new task should be added.
- * @param {string} boardCategory 
+ * @param {string} boardCategory
  */
 function openAddTask(boardCategory) {
   resetSelectedContacts();
@@ -921,7 +945,7 @@ function openAddTask(boardCategory) {
   content.classList.add("slide-in-right");
 
   let contacts = {};
-  
+
   let contactsHTML = getAddContactsHTML(contacts);
 
   content.innerHTML = "";
@@ -945,7 +969,7 @@ function closeTask() {
   content.addEventListener(
     "animationend",
     () => {
-      content.style.height = ""; 
+      content.style.height = "";
       taskAnimationEnd();
     },
     { once: true }
