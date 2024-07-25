@@ -2,6 +2,8 @@ let subtasks = [];
 let selectedContacts = [];
 let currentTaskIndex = 0;
 
+//window.onload = futureDate;
+
 const contactDropdown = document.getElementById("add-task-contacts");
 const categoryDropdown = document.getElementById("category");
 
