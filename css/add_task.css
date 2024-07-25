@@ -14,8 +14,19 @@ body {
 }
 .add-task-section {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 960px;
   margin-left: 324px;
   margin-bottom: 100px;
+}
+.add-task-content {
+  display: flex;
+}
+.add-task-bottom {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 .span-red {
   color: #ff8190;
@@ -104,13 +115,11 @@ body {
   width: 480px !important;
 }
 .parting-line {
-  margin-top: 155px;
   margin-left: 40px;
   border: 1px solid #d1d1d1;
   height: 424px;
 }
 .right-section {
-  margin-top: 155px;
   margin-left: 40px;
 }
 
@@ -143,7 +152,7 @@ body {
 }
 .prio-buttons {
   cursor: pointer;
-  width: 100%;
+  width: 136px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -212,7 +221,7 @@ body {
   align-items: center;
   border: 1px solid #d1d1d1;
   outline: none;
-  width: 406px;
+  width: 354px;
   font-size: 20px;
   line-height: 24px;
   border-radius: 10px;
@@ -223,7 +232,7 @@ body {
   display: flex;
   justify-content: end;
   gap: 16px;
-  margin-top: 110px;
+  margin-top: 140px;
 }
 .clear-button {
   border-radius: 10px;
@@ -457,6 +466,9 @@ ul {
 }
 
 @media (max-width: 1300px) {
+  .add-task-bottom {
+    width: 750px;
+  }
   .title {
     width: 290px;
   }
@@ -495,6 +507,9 @@ ul {
 }
 
 @media (max-width: 1090px) {
+  .add-task-bottom {
+    width: 653px;
+  }
   .headline {
     font-size: 50px;
   }
@@ -541,11 +556,11 @@ ul {
 }
 
 @media (max-width: 1050px) {
-  .left-section {
-    margin-left: 400px;
-  }
   .add-task-section {
-    margin-left: -390px;
+    margin-left: 40px;
+  }
+  .add-task-bottom {
+    width: 850px;
   }
   .category-options {
     width: 385px;
@@ -600,11 +615,12 @@ ul {
   .right-section-layer {
     margin-left: 20px !important;
   }
-  .left-section {
-    margin-left: 450px;
-  }
+  
   .add-task-section {
-    margin-left: -390px;
+    margin-left: 40px;
+  }
+  .add-task-bottom {
+    width: 635px;
   }
   .category-options {
     width: 285px;
@@ -700,11 +716,12 @@ ul {
   .parting-line {
     margin-left: 20px;
   }
-  .left-section {
-    margin-left: 450px;
-  }
+  
   .add-task-section {
-    margin-left: -390px;
+    margin-left: 40px;
+  }
+  .add-task-bottom {
+    width: 512px;
   }
   .category-options {
     width: 235px;
@@ -792,10 +809,13 @@ ul {
   body {
     overflow-x: hidden;
   }
+  .add-task-content {
+    flex-direction: column;
+  }
   .right-section {
     margin-top: 0;
-    margin-left: 450px;
-    height: 62vh;
+    margin-left: 0;
+    
   }
   .right-section-layer {
     margin-left: 0 !important;
@@ -844,13 +864,11 @@ ul {
   }
   .required-text-mobile {
     background-color: #f6f7f8;
-    margin-left: -55px;
     height: 70px;
     bottom: 80px;
     position: fixed;
     display: flex;
     width: 100%;
-    justify-content: space-around;
     align-items: center;
     z-index: 1000;
   }
@@ -862,7 +880,7 @@ ul {
     justify-content: space-between !important;
     width: 383px !important;
   }
-  .required-text-mobile-layer p {
+  .required-text-mobile-layer p, .required-text-mobile p {
     font-size: 14px !important;
   }
   .create-task-button-mobile-layer {
@@ -890,17 +908,19 @@ ul {
     justify-content: center;
     align-items: center;
     border: 1px solid black;
-    padding: 16px;
+    padding: 10px;
     font-size: 21px;
     line-height: 25.2px;
     gap: 2px;
     cursor: pointer;
+    margin-left: 74px;
+  }
+  .add-task-bottom {
+    width: 400px;
   }
   .mobile-create {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
   }
   .title {
     width: 343px;
@@ -955,17 +975,16 @@ ul {
     gap: 8px;
   }
   .left-section {
-    margin-left: 410px;
+    
   }
   .right-section {
-    margin-left: 410px;
+    
   }
   .category-menu span {
     font-size: 16px;
   }
   .add-task-section {
-    flex-direction: column;
-    display: flex;
+    margin-left: 20px;
   }
   .create-subtask {
     width: 272px;
@@ -974,7 +993,6 @@ ul {
     font-size: 16px;
   }
   .required-text-mobile {
-    margin-left: -15px;
     height: 100px;
   }
   .required-text-mobile-layer {
@@ -995,6 +1013,7 @@ ul {
     padding: 8px;
     font-size: 14px;
     gap: 2px;
+    margin-left: 12px;
   }
   .required-text-mobile p {
     font-size: 14px;
