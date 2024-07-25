@@ -95,6 +95,7 @@ function checkBoxClicked() {
  * Handles the form submission for login.
  * @param {Event} event - The form submit event.
  */
+
 function login(event) {
     event.preventDefault();
 
@@ -106,21 +107,20 @@ function login(event) {
         localStorage.setItem('password', password);
     }
 
-    validateUser(email, password)
-        .then((result) => {
-            if (result.isAuthenticated) {
-                sessionStorage.setItem('userName', result.name);
-                localStorage.removeItem('greetingShown');   
-                goToSummary();
-            } else {
-                document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match'
-                document.getElementById('pasowrdConteiner').classList.add('login-red')
-            }
-        })
-        .catch(() => {
-            document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match'
-            document.getElementById('pasowrdConteiner').classList.add('login-red')
-        });
+    validateUser(email, password).then((result) => {
+        if (result.isAuthenticated) {
+            sessionStorage.setItem('userName', result.name);
+            localStorage.removeItem('greetingShown');
+            goToSummary();
+        } else {
+            handleError();
+        }
+    }).catch(handleError);
+    
+    function handleError() {
+        document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match';
+        document.getElementById('pasowrdConteiner').classList.add('login-red');
+    }
 }
 
 /**
