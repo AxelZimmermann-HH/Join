@@ -38,8 +38,6 @@ function init() {
  
     if (signupForm && signupButton && acceptPolicyImage) {
         setupFormSubmission(signupForm);
-    } else {
-        console.error('One or more elements not found in the DOM');       
     }
 }
 
@@ -76,34 +74,22 @@ function setupFormSubmission(form) {
  */
 function handleFormSubmit(event) {
     event.preventDefault();
-  
-    
+
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
     const confirmPassword = document.getElementById('confirmPassword').value;
 
-    if (!validateName(name)) {
-        alert('Please enter both your first and last name.');
-        return;
-    }
-
-    if (!validateEmail(email)) {
-        alert('Please enter a valid email address.');
-        return;
-    }
-
-    if (password !== confirmPassword) {
-
-        document.getElementById('wrongPasswordConteiner').innerHTML = `Your Passwords don't match. Try
-         again.`
-        document.getElementById('confirm-conteiner').classList.add('signup-red')
-       // alert('Passwords do not match!');
-       return;
-    }
-  
+    if (!validateName(name)) return alert('Please enter both your first and last name.');
+    if (!validateEmail(email)) return alert('Please enter a valid email address.');
+    if (password !== confirmPassword) return showPasswordError();
 
     signupUser(name, email, password);
+}
+
+function showPasswordError() {
+    document.getElementById('wrongPasswordConteiner').innerHTML = "Your Passwords don't match. Try again.";
+    document.getElementById('confirm-conteiner').classList.add('signup-red');
 }
 
 /**
@@ -143,8 +129,7 @@ function signupUser(name, email, password) {
         //alert('Signup successful!');
         signupSuccessfully()
     })
-    .catch((error) => {
-        console.error('Error pushing data to Firebase: ', error);
+    .catch(() => {
         alert('Error signing up, please try again.');
     });
 }
