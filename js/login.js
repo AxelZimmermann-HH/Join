@@ -1,7 +1,10 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-
+/**
+ * Firebase configuration object.
+ * @type {Object}
+ */
 const firebaseConfig = {
     apiKey: "AIzaSyBLwkvdC-k--cb_0Z5y83ZEtcbRiXMxxKE",
     authDomain: "join-23123.firebaseapp.com",
@@ -13,9 +16,21 @@ const firebaseConfig = {
     measurementId: "G-CFY9BZ9NV5"
 };
 
+/**
+ * Initializes Firebase app.
+ * @type {firebase.app.App}
+ */
 const app = initializeApp(firebaseConfig);
+
+/**
+ * Gets the database service for the default app or a given app.
+ * @type {firebase.database.Database}
+ */
 const database = getDatabase(app);
 
+/**
+ * Executes when the window loads.
+ */
 window.onload = function () {
     const rememberMe = localStorage.getItem('rememberMe');
     const checkbox = document.getElementById('checkbox');
@@ -33,31 +48,36 @@ window.onload = function () {
     init();
 };
 
+/**
+ * Initializes the sign-in form.
+ */
 function init() {
     const signinForm = document.getElementById('signinForm');
     const signinButton = document.getElementById('signinButton');
 
     if (signinForm && signinButton) {
         setupFormSubmission(signinForm);
-        console.log('Form and button found, event listener set up.');
-    } else {
-        console.error('One or more elements not found in the DOM');
-    }
+    } 
 }
 
+/**
+ * Sets up the form submission event listener.
+ * @param {HTMLFormElement} form - The form element to attach the event listener to.
+ */
 function setupFormSubmission(form) {
     form.addEventListener('submit', login);
-    console.log('Event listener for form submission added.');
 }
 
 document.getElementById('checkbox').addEventListener('click', checkBoxClicked);
 
+/**
+ * Handles the checkbox click event for remembering user credentials.
+ */
 function checkBoxClicked() {
     const checkbox = document.getElementById('checkbox');
     const rememberMe = localStorage.getItem('rememberMe');
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
-
     if (rememberMe === 'true') {
         checkbox.src = 'img/Rectangle1.png';
         localStorage.setItem('rememberMe', 'false');
@@ -71,9 +91,12 @@ function checkBoxClicked() {
     }
 }
 
+/**
+ * Handles the form submission for login.
+ * @param {Event} event - The form submit event.
+ */
 function login(event) {
     event.preventDefault();
-    console.log('Login function called.');
 
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
@@ -89,22 +112,23 @@ function login(event) {
                 sessionStorage.setItem('userName', result.name);
                 localStorage.removeItem('greetingShown');   
                 goToSummary();
-     
             } else {
-                //alert('Invalid email or password.');
                 document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match'
                 document.getElementById('pasowrdConteiner').classList.add('login-red')
-
             }
         })
-        .catch((error) => {
-            console.error('Error fetching user data:', error);
-           // alert('Error logging in, please try again.');
+        .catch(() => {
             document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match'
             document.getElementById('pasowrdConteiner').classList.add('login-red')
         });
 }
 
+/**
+ * Validates the user credentials against the Firebase database.
+ * @param {string} email - The user's email address.
+ * @param {string} password - The user's password.
+ * @returns {Promise<Object>} A promise that resolves to an object indicating if the user is authenticated and their name.
+ */
 function validateUser(email, password) {
     const usersRef = ref(database, 'users');
     return get(usersRef).then((snapshot) => {
@@ -116,24 +140,37 @@ function validateUser(email, password) {
                 }
             }
         }
-        return false;
-    }).catch((error) => {
-        console.error('Error fetching user data:', error);
-        return false;
+        return { isAuthenticated: false };
+    }).catch(() => {
+        return { isAuthenticated: false };
     });
 }
 
 document.getElementById('signupButton').addEventListener('click', goTosignup);
 
+/**
+ * Redirects the user to the signup page.
+ */
 function goTosignup() {
     window.location.href = 'signup.html';
 }
 
 document.getElementById('guestLoginButton').addEventListener('click', guestLogin);
 
+/**
+ * Handles the guest login event.
+ * @param {Event} event - The form submit event.
+ */
 function guestLogin(event) {
     event.preventDefault();
     localStorage.removeItem('greetingShown'); 
     goToSummary();
     sessionStorage.setItem('userName', 'Guest');
+}
+
+/**
+ * Redirects the user to the summary page.
+ */
+function goToSummary() {
+    window.location.href = 'summary.html';
 }

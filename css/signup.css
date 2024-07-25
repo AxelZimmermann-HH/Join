@@ -44,7 +44,7 @@ body {
     align-items: center;
     box-shadow: 0px 0px 10px 3px #00000014;
     background-color: #FFFFFF;
-    padding: 48px 88px 48px 88px;
+
     gap: 32px;
     border-radius: 30px;
     position: relative;
@@ -260,6 +260,21 @@ a {
     opacity: 1;
   }
 
+  @media (max-height: 700px) {
+    .signup-window {
+        gap: 16px !important;
+    }
+    .signup-form {
+        gap: 16px !important;  
+    }
+    .input-container {
+        gap: 12px !important;
+    }
+    .links-conteiner {
+        bottom: 2% !important;
+    }
+  }
+ 
   @media (max-width: 1000px) {
     .logo-image {
         height: 78.03px !important;
@@ -276,7 +291,7 @@ a {
         width: 322px !important;
     }
     .signup-window {
-        padding: 32px 0px 32px 0px !important;
+        
         width: 396px !important;
     }
     .signup-input {
@@ -348,5 +363,46 @@ input[type=password]::-ms-clear
     display: flex;
     width: 422px;
     margin-right: 32px;
+}
+
+.signup-window {
+    width: auto;
+    padding: 0px;
+}
+
+
+@media (min-width: 740px) {
+    .signup-window {
+        padding: 48px 115px;
+    }
+ 
+}
+
+@media (max-width: 740px) {
+    .signup-window {
+        width: 396px;
+        padding: 32px 0px;
+    }
+    .signup-form {
+        gap: 8px !important;
+    }
+    .signup-conteiner {
+        padding: 11px 12px 11px 12px;
+    }
+}
+
+@media (max-height: 740px) {
+    .signup-window {
+        padding: 16px 0px;
+        gap: 16px;
+    }
+}
+
+
+@media (max-width: 740px) and (max-height: 740px) {
+    .signup-window {
+        padding: 16px 0px;
+        gap: 16px;
+    }
 }
  

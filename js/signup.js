@@ -38,8 +38,6 @@ function init() {
  
     if (signupForm && signupButton && acceptPolicyImage) {
         setupFormSubmission(signupForm);
-    } else {
-        console.error('One or more elements not found in the DOM');       
     }
 }
 
@@ -143,8 +141,7 @@ function signupUser(name, email, password) {
         //alert('Signup successful!');
         signupSuccessfully()
     })
-    .catch((error) => {
-        console.error('Error pushing data to Firebase: ', error);
+    .catch(() => {
         alert('Error signing up, please try again.');
     });
 }
