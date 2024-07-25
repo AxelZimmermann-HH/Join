@@ -285,35 +285,6 @@ function drop(ev, category) {
   taskArea.classList.remove("hover");
   moveTo(category);
 }
-let currentDraggedTaskKey = null;
-let currentTouchTask = null;
-let touchStartX = 0;
-let touchStartY = 0;
-
-function touchStart(ev, category) {
-  touchStartX = ev.touches[0].clientX;
-  touchStartY = ev.touches[0].clientY;
-  currentTouchTask = category;
-  ev.preventDefault();
-}
-
-function touchMove(ev) {
-  ev.preventDefault();
-}
-
-function touchEnd(ev, category) {
-  const touchEndX = ev.changedTouches[0].clientX;
-  const touchEndY = ev.changedTouches[0].clientY;
-
-  if (currentTouchTask) {
-    const elementFromPoint = document.elementFromPoint(touchEndX, touchEndY);
-    if (elementFromPoint && elementFromPoint.classList.contains("task-area")) {
-      moveTo(category);
-    }
-  }
-  currentTouchTask = null;
-  ev.preventDefault();
-}
 
 /**
  * This function puts a single task attribute on firebase. It can be used for every attribute by choosing urlSuffix.
