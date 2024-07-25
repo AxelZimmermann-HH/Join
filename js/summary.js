@@ -144,24 +144,26 @@ function logout() {
 }
 
 let hasRefreshed = false;
+let lastWidth = window.innerWidth;
 
 function checkWidthAndReload() {
     const width = window.innerWidth;
 
-  
-    if (width >= 800 && width <= 800 && !hasRefreshed) {
+    // Check if the width is within the range and has not already refreshed
+    if (width >= 800 && width <= 810 && !hasRefreshed) {
         hasRefreshed = true;
         location.reload();
     }
 
-   
-    if (width < 800 || width > 800) {
-        hasRefreshed = false;
-    }
+    // Update the last width
+    lastWidth = width;
 }
 
 window.addEventListener('resize', function() {
-    checkWidthAndReload();
+    // Only check the width if it has changed significantly
+    if (Math.abs(window.innerWidth - lastWidth) >= 10 && !hasRefreshed) {
+        checkWidthAndReload();
+    }
 });
 
 window.addEventListener('load', function() {
