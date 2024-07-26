@@ -78,16 +78,25 @@ h3 {
 
   .privacy-policy {
     margin: 150px 20px 32px 80px;
+    position: relative;
+    top: -100px;
+    overflow-x: hidden;
   }
 
   .official-statement {
     margin-top: 6px;
-}
+  }
 }
 
 @media (max-width: 900px) {
   .titleFromPolicy h1 {
-    font-size: 54px;
+    font-size: 58px;
+  }
+
+  .privacy-policy {
+    position: relative;
+    top: -100px;
+    overflow-x: hidden;
   }
 }
 
@@ -100,6 +109,9 @@ h3 {
 @media (max-width: 570px) {
   .privacy-policy {
     margin: 150px 50px 32px 50px;
+    position: relative;
+    top: -100px;
+    overflow-x: hidden;
   }
 
   .titleFromPolicy h1 {
@@ -117,11 +129,12 @@ h3 {
 @media (max-width: 400px) {
   .privacy-policy {
     margin: 150px 21px 32px 20px;
+    position: relative;
+    top: -100px;
+    overflow-x: hidden;
   }
 
-  .title-policy h1 {
-    font-size: 24px;
-  }
+  
 
   .official-statement h2,
   .official-statement h3,
