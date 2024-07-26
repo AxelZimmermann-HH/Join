@@ -167,10 +167,3 @@ function guestLogin(event) {
     goToSummary();
     sessionStorage.setItem('userName', 'Guest');
 }
-
-/**
- * Redirects the user to the summary page.
- */
-function goToSummary() {
-    window.location.href = 'summary.html';
-}

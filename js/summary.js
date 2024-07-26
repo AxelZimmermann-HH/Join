@@ -19,7 +19,6 @@ function generateCounts() {
     let awaitFeedback = document.getElementById('awaitFeedbackCount');
     let urgent = document.getElementById('urgentCount');
     let allTasks = document.getElementById('allTasks');
-
     toDo.innerHTML = counter('to-do');
     done.innerHTML = counter('done');
     inProgress.innerHTML = counter('in-progress');
@@ -129,49 +128,50 @@ function getClosestUrgentDueDate() {
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
+/**
+ * Displays a greeting animation.
+ */
+function showGreeting() {
+    const animationScreen = document.getElementById('animationScreen');
+    let greetingTime = getGreeting();
+    let userName = sessionStorage.getItem('userName');
+    animationScreen.innerHTML = userName === "Guest" 
+        ? `<span class="greet-text">Good ${greetingTime}</span>` 
+        : `<div class="greeting-user-animation"><span class="greet-text">Good ${greetingTime},</span>
+           <span class="greet-user-name">${userName}</div></span>`;
+    animationScreen.classList.remove('hidden');
+    animationScreen.classList.add('fadeIn');
+    setTimeout(hideGreeting, 1000);
+}
+
+/**
+ * Hides the greeting animation.
+ */
+function hideGreeting() {
     const animationScreen = document.getElementById('animationScreen');
     const summaryCardContainer = document.querySelector('.summary-card-container');
-    if (window.innerWidth >= 800) {
-        localStorage.setItem('greetingShown', 'true');
-    }
+    animationScreen.classList.remove('fadeIn');
+    animationScreen.classList.add('fadeOut');
+    setTimeout(() => {
+        animationScreen.classList.add('hidden');
+        if (summaryCardContainer) summaryCardContainer.classList.add('visible');
+    }, 1000);
+}
 
-    if (window.innerWidth <= 800) {
-        if (!localStorage.getItem('greetingShown')) {
-            localStorage.setItem('greetingShown', 'true');
-            if (animationScreen) {
-                let greetingTime = getGreeting();
-                let userName = sessionStorage.getItem('userName');
-                animationScreen.innerHTML = userName === "Guest" 
-                    ? `<span class="greet-text">Good ${greetingTime}</span>` 
-                    : `<div class="greeting-user-animation"><span class="greet-text">Good ${greetingTime},</span>
-                       <span class="greet-user-name">${userName}</div></span>`;
-                       
-                animationScreen.classList.remove('hidden');
-                animationScreen.classList.add('fadeIn');
-                setTimeout(() => {
-                    animationScreen.classList.remove('fadeIn');
-                    animationScreen.classList.add('fadeOut');
-                    setTimeout(() => {
-                        animationScreen.classList.add('hidden');
-                        if (summaryCardContainer) {
-                            summaryCardContainer.classList.add('visible');
-                        }
-                    }, 1000); 
-                }, 1000); 
-            }
-        } else {
-            if (summaryCardContainer) {
-                summaryCardContainer.classList.add('visible');
-            }
-            
-        }
-    } else {
-        if (summaryCardContainer) {
-            summaryCardContainer.classList.add('visible');
-        }
-    }
-});
+/**
+ * Initializes the page based on window width.
+ */
+function initPage() {
+    const animationScreen = document.getElementById('animationScreen');
+    const summaryCardContainer = document.querySelector('.summary-card-container');
+    if (window.innerWidth >= 800) localStorage.setItem('greetingShown', 'true');
+    if (window.innerWidth <= 800 && !localStorage.getItem('greetingShown')) {
+        localStorage.setItem('greetingShown', 'true');
+        if (animationScreen) showGreeting();
+    } else if (summaryCardContainer) summaryCardContainer.classList.add('visible');
+}
+
+document.addEventListener('DOMContentLoaded', initPage);
 
 
 
