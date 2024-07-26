@@ -8,6 +8,8 @@ currentTaskKey = 0;
 currentTask = {};
 let currentBoardCategory = "";
 
+
+
 /**
  * This function initializes board.html. It is implemented on body onload.
  */
@@ -234,6 +236,42 @@ function checkAndAddNoTask() {
   });
 }
 
+
+
+let currentDraggedTaskKey = null;
+let currentTouchTask = null;
+let touchStartX = 0;
+let touchStartY = 0;
+
+function touchStart(ev, key) {
+  touchStartX = ev.touches[0].clientX;
+  touchStartY = ev.touches[0].clientY;
+  currentDraggedTaskKey = key;
+  ev.preventDefault();
+}
+
+function touchMove(ev) {
+  ev.preventDefault();
+}
+
+function touchEnd(ev) {
+  const touchEndX = ev.changedTouches[0].clientX;
+  const touchEndY = ev.changedTouches[0].clientY;
+
+  const elementFromPoint = document.elementFromPoint(touchEndX, touchEndY);
+  if (elementFromPoint && elementFromPoint.classList.contains("task-area")) {
+    const category = elementFromPoint.id;
+    moveTo(category);
+  }
+  currentDraggedTaskKey = null;
+  ev.preventDefault();
+}
+
+
+
+
+
+
 /**
  * This function starts the dragging activity on tasks on the board.
  * @param {string} key - task key
@@ -308,6 +346,16 @@ async function updateTaskAttribute(key, newBoardCategory, urlSuffix) {
     throw error;
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Standard function for posting tasks on firebase.
