@@ -409,6 +409,17 @@
   width: 24px;
 }
 
+.dragging {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.8;
+  z-index: 1000;
+}
+
+.task-area.hover {
+  background-color: grey;
+}
+
 .show-task-lastrow {
   display: flex;
   justify-content: flex-end;
