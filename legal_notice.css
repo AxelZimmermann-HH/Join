@@ -63,7 +63,7 @@ h3 {
 
 @media (max-width: 1050px) {
     .legal-notice {
-        margin: 80px 50px 32px 80px;
+        margin: 0px 50px 32px 80px;
     }
 
     .title h1 {
@@ -92,7 +92,7 @@ h3 {
 
 @media (max-width: 380px) {
     .legal-notice {
-        margin: 80px 10px 32px 10px;
+        margin: 0px 10px 32px 10px; 
     }
 
     .title h1 {
