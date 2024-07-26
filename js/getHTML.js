@@ -40,10 +40,25 @@ function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, 
     `;
 }
 
+/**
+ * This function ensures that the description only is less than 51 letters long on the task cards
+ * @param {string} description -description text
+ * @param {*} maxLength - max length 50
+ * @returns the description with max 50 letters
+ */
 function truncateDescription(description, maxLength) {
     return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
   }
 
+  /**
+   * This function shows the task details when clicking on the task card.   
+   * @param {object} task 
+   * @param {string} key - task key
+   * @param {string} categoryClass - board category
+   * @param {string} contactsHTML - HTML of the contact bubbles
+   * @param {string} subtasksHTML - HTML of the subtaskks
+   * @returns HTML of the task details
+   */
 function getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML) {
   return `
         <div class="show-task-firstrow">
@@ -84,6 +99,20 @@ function getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML) 
     `;
 }
 
+/**
+ * This function generates the edit task layer by onclick.
+ * @param {} task 
+ * @param {string} key - task key
+ * @param {string} contactsHTML - generates the HTML for the contact bubbles
+ * @param {string} subtasksHTML - generates the HTML for the subtasks to edit
+ * @param {string} highSelected - css-class for the button prio 
+ * @param {string} highImgSrc - src of the prio image
+ * @param {string} mediumSelected - css-class for the button prio 
+ * @param {string} mediumImgSrc - src of the prio image
+ * @param {string} lowSelected - css-class for the button prio 
+ * @param {string} lowImgSrc - src of the prio image
+ * @returns HTML of the edit task layer
+ */
 function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highImgSrc, mediumSelected, mediumImgSrc, lowSelected, lowImgSrc) {
   return `
         <div class="show-task-firstrow flex-end">
@@ -141,95 +170,13 @@ function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highIm
     `;
 }
 
+
 /**
  * This function returns the code for the add task layer in board.html.
  * @param {*} boardCategory - board category 
  * @param {*} contactsHTML - HTML for the already added contacts rendered in the layer.
  * @returns code for the add task layer in board.html
  */
-function generateAddTaskLayer2(boardCategory, contactsHTML) {
-  return `
-        <div class="add-task-firstrow align-items-start">
-            <h1 class="headline">Add Task</h1>
-            <div class="show-task-close" onclick="closeTask()">
-                    <img src="img/add-contact-close.svg" alt="">
-                </div>
-        </div>
-        <div class="add-task-section scroll no-margin-left no-margin-bottom no-margin-top">
-            
-            <div class="left-section no-margin-left">
-                <p class="title-headline">Title<span class="span-red">*</span></p>
-                <input class="title" id="title-input" onkeyup="emptyTitle()" required type="text"
-                    placeholder="Enter a title">
-                <span id="title-required"></span>
-                <p class="description">Description</p>
-                <textarea placeholder="Enter a Description" name="" id="description-input"></textarea>
-                <p class="assigned-to">Assigned to</p>
-
-                <div onclick="showContacts()" class="select-contact">
-                    <span>Select contact to assign</span>
-                    <img src="add_task_img/arrow-down.svg" alt="">
-                </div>
-                <div class="add-task-contacts add-task-contacts-layer d-none" id="add-task-contacts"></div>
-                <div id="add-task-contactsHTML-layer"  class="edit-task-contacts">
-                    ${contactsHTML}
-                </div>
-                <div id="req-text-layer" class="required-text">
-                    <p><span class="span-red">*</span>This field is required</p>
-                </div>
-            </div>
-            <div class="parting-line no-margin-top"></div>
-            <div class="right-section right-section-layer no-margin-top">
-                
-                <p>Due date<span class="span-red">*</span></p>
-                <input class="date-input" onclick="emptyDate()" id="date-input" required type="date">
-                <span id="date-required"></span>
-                <p class="prio">Prio</p>
-                <div class="buttons">
-                    <button id="highButton" onclick="highButton()" class="prio-buttons">Urgent <img id="highButtonImg"
-                            src="add_task_img/high.svg"></button>
-                    <button id="mediumButton" onclick="mediumButton()" class="prio-buttons">Medium <img id="mediumButtonImg"
-                            src="add_task_img/medium.svg"></button>
-                    <button id="lowButton" onclick="lowButton()" class="prio-buttons">Low <img id="lowButtonImg"
-                            src="add_task_img/low.svg"></button>
-                </div>
-                <p class="category">Category<span class="span-red">*</span></p>
-                <div id="category-input" onclick="category()" required class="category-menu">
-                    <span id="task-category">Select task category</span>
-                    <img src="add_task_img/arrow-down.svg" alt="">
-                </div>
-                <div id="category-required"></div>
-                <div id="category"></div>
-                <p class="subtasks">Subtasks</p>
-                <div class="subtask-layout">
-                    <input placeholder="add new subtask" onclick="newSubtask()" id="subtask-field" class="subtasks-field border-grey">
-                    <div class="d-none" id="edit-subtask"></div>
-                    <img onclick="newSubtask()" id="subtask-plus" class="subtask-plus" src="add_task_img/plus.svg" alt="">
-                </div>
-                <div class="create-subtask pos-relative-add" id="create-subtask"></div>
-
-                <div class="bottom-buttons">
-                    <button onclick="clearTask()" class="clear-button">Clear <img src="add_task_img/x.svg" alt=""></button>
-                    <button onclick="createTask('${boardCategory}')" class="create-task-button">Create Task <img src="add_task_img/check-white.svg" alt=""></button>
-                </div>
-                <div class="mobile-create">
-                <div class="required-text-mobile bottom-0 required-text-mobile-layer">
-                    <p><span class="span-red">*</span>This field is required</p>
-                    <div>
-                        <button onclick="createTask()" class="create-task-button-mobile create-task-button-mobile-layer">Create Task <img
-                                src="add_task_img/check-white.svg" alt=""></button>
-                    </div>
-                </div>
-            </div>
-            </div>
-            
-        </div>
-        <div id="added-to-board">
-            <img id="addedBoardImg" src="./add_task_img/Added to board.svg" alt="">
-        </div>
-    `;
-}
-
 function generateAddTaskLayer(boardCategory, contactsHTML) {
     return `
           <div class="add-task-section add-task-section-layer width-auto no-margin-left">
