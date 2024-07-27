@@ -226,6 +226,10 @@ header {
   .sidebar-menu-bottom {
     display: none;
   }
+
+  .user-content {
+    top: 86px;
+  }
 }
 
 @media (max-width: 600px) {

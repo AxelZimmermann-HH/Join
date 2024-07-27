@@ -38,7 +38,7 @@ h3 {
 
 .user-content {
     display: none;
-    position: absolute;
+    position: fixed;
     background-color: #2a3647;
     min-width: 140px;
     overflow: auto;
@@ -72,6 +72,10 @@ h3 {
 
     .text, .help-text {
         margin-top: 20px;
+    }
+
+    .user-content {
+        top: 86px;
     }
 }
 
