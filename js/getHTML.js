@@ -15,11 +15,11 @@ function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, 
   let truncatedDescription = truncateDescription(task.description, 50);
 
   return `
-        <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
+        <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board" data-key="${key}">
         
             <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
-             <button class="move-up" onclick="moveTask('up', 'task1')">↑</button>
-             <button class="move-down" onclick="moveTask('down', 'task1')">↓</button>
+             <button class="move-up" onclick="event.stopPropagation(); moveTask('up', '${key}')">↑</button>
+             <button class="move-down" onclick="event.stopPropagation(); moveTask('down', '${key}')">↓</button>
             <div class="task-on-board-headline">${task.title}</div>
             <div class="task-on-board-text">${truncatedDescription}</div>
             ${
@@ -50,9 +50,9 @@ function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, 
  * @returns the description with max 50 letters
  */
 function truncateDescription(description, maxLength) {
-    description = description || "";
-    return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
-  }
+  description = description || "";
+  return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
+}
 
 /**
  * This function shows the task details when clicking on the task card.

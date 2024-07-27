@@ -265,9 +265,9 @@ function resetBackground(ev) {
  * This ondrop-function changes the category of the relevant task and re-renders the board.
  * @param {string} category
  */
-async function moveTo(category) {
-  if (currentDraggedTaskKey) {
-    await updateTaskAttribute(currentDraggedTaskKey, category, "board_category");
+async function moveTo(category, taskKey) {
+  if (taskKey) {
+    await updateTaskAttribute(taskKey, category, "board_category");
     await fetchTasksJson();
     createTaskOnBoard();
     checkAndAddNoTask();
@@ -275,7 +275,7 @@ async function moveTo(category) {
 }
 
 async function moveToUp(category, key) {
-  if (category === 'to-do') {
+  if (category === "to-do") {
     await updateTaskAttribute(currentDraggedTaskKey, category, "board_category");
     await fetchTasksJson();
     createTaskOnBoard();
@@ -292,7 +292,7 @@ function drop(ev, category) {
   ev.preventDefault();
   var taskArea = ev.currentTarget;
   taskArea.classList.remove("hover");
-  moveTo(category);
+  moveTo(category, currentDraggedTaskKey);
 }
 
 /**
@@ -316,6 +316,25 @@ async function updateTaskAttribute(key, newBoardCategory, urlSuffix) {
     console.error("Error updating board category:", error);
     throw error;
   }
+}
+
+function moveTask(direction, taskKey) {
+  const categoryOrder = ["to-do", "in-progress", "await-feedback", "done"];
+
+  const taskElement = document.querySelector(`[data-key="${taskKey}"]`);
+  const currentCategoryElement = taskElement.closest(".task-area");
+  const currentCategory = currentCategoryElement.id;
+
+  let currentIndex = categoryOrder.indexOf(currentCategory);
+  if (direction === "up") {
+    currentIndex = currentIndex === 0 ? categoryOrder.length - 1 : currentIndex - 1;
+  } else if (direction === "down") {
+    currentIndex = currentIndex === categoryOrder.length - 1 ? 0 : currentIndex + 1;
+  }
+
+  const newCategory = categoryOrder[currentIndex];
+
+  moveTo(newCategory, taskKey);
 }
 
 /**
