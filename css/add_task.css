@@ -16,7 +16,6 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 960px;
   margin-left: 324px;
   margin-bottom: 100px;
 }
@@ -24,7 +23,6 @@ body {
   margin-left: 0;
   margin-bottom: 0;
   height: 100%;
-  
 }
 .width-auto {
   width: auto;
@@ -34,10 +32,9 @@ body {
 }
 .add-task-bottom {
   display: flex;
-  width: 100%;
+  width: 960px;
   justify-content: space-between;
 }
-
 .span-red {
   color: #ff8190;
 }
@@ -243,7 +240,6 @@ body {
   justify-content: end;
   gap: 16px;
   margin-top: 140px;
-
 }
 .bottom-buttons-layer {
   margin-top: 20px;
@@ -630,7 +626,7 @@ ul {
   }
 }
 
-@media (max-width: 870px) {
+@media (max-width: 900px) {
   .headline {
     font-size: 50px;
   }
@@ -640,7 +636,7 @@ ul {
   .right-section-layer {
     margin-left: 20px !important;
   }
-  
+
   .add-task-section {
     margin-left: 40px;
   }
@@ -741,7 +737,7 @@ ul {
   .parting-line {
     margin-left: 20px;
   }
-  
+
   .add-task-section {
     margin-left: 40px;
   }
@@ -840,7 +836,6 @@ ul {
   .right-section {
     margin-top: 0;
     margin-left: 0;
-    
   }
   .right-section-layer {
     margin-left: 0 !important;
@@ -908,7 +903,8 @@ ul {
     justify-content: space-between !important;
     width: 383px !important;
   }
-  .required-text-mobile-layer p, .required-text-mobile p {
+  .required-text-mobile-layer p,
+  .required-text-mobile p {
     font-size: 14px !important;
   }
   .create-task-button-mobile-layer {
