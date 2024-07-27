@@ -16,7 +16,10 @@ function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, 
 
   return `
         <div onclick="openTask('${key}')" draggable="true" ondragstart="startDragging('${key}')" class="task-on-board">
+        
             <div class="task-on-board-category ${categoryClass}">${task.task_category}</div>
+             <button class="move-up" onclick="moveTask('up', 'task1')">↑</button>
+             <button class="move-down" onclick="moveTask('down', 'task1')">↓</button>
             <div class="task-on-board-headline">${task.title}</div>
             <div class="task-on-board-text">${truncatedDescription}</div>
             ${

@@ -420,6 +420,20 @@
   background-color: grey;
 }
 
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.move-up,
+.move-down {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
 .show-task-lastrow {
   display: flex;
   justify-content: flex-end;
