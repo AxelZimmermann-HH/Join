@@ -47,6 +47,7 @@ function getTaskOnBoardHTML(key, categoryClass, task, i, contactsHTML, prioSrc, 
  * @returns the description with max 50 letters
  */
 function truncateDescription(description, maxLength) {
+    description = description || "";
     return description.length > maxLength ? description.substring(0, maxLength) + "..." : description;
   }
 
