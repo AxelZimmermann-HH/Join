@@ -274,6 +274,15 @@ async function moveTo(category) {
   }
 }
 
+async function moveToUp(category, key) {
+  if (category === 'to-do') {
+    await updateTaskAttribute(currentDraggedTaskKey, category, "board_category");
+    await fetchTasksJson();
+    createTaskOnBoard();
+    checkAndAddNoTask();
+  }
+}
+
 /**
  * Standard drop function
  * @param {event} ev
