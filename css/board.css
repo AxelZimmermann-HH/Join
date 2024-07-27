@@ -409,6 +409,31 @@
   width: 24px;
 }
 
+.dragging {
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.8;
+  z-index: 1000;
+}
+
+.task-area.hover {
+  background-color: grey;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.move-up,
+.move-down {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
 .show-task-lastrow {
   display: flex;
   justify-content: flex-end;
