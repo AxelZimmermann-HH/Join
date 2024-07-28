@@ -45,7 +45,7 @@ body {
     align-items: center;
 }
 
-@media (max-height: 700px) {
+@media (max-height: 900px) {
     .login-window {
         margin-top: 56px !important;
         gap: 16px !important;
@@ -94,7 +94,7 @@ body {
     }
 }
 
-@media (max-height: 700px) {
+@media (max-height: 900px) {
     .login-window {
         padding: 16px 0px;
         gap: 16px;
@@ -102,7 +102,7 @@ body {
 }
 
 
-@media (max-width: 720px) and (max-height: 700px) {
+@media (max-width: 720px) and (max-height: 900px) {
     .login-window {
         padding: 16px 0px;
         gap: 16px;
