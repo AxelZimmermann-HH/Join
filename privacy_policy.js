@@ -1,5 +1,4 @@
 
-
 /**
  * Toggles the display of the user content menu.
  * If the user content is currently displayed, it hides it.
