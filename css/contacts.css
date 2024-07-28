@@ -584,55 +584,12 @@ h3 {
         bottom: 80px;
     }
     
-    .header-content img {
-        display: block !important;
-    }
-    .header-content p {
-        display: none !important;
-    }
-    .header-user-name {
-        height: 40px !important;
-        width: 40px !important;
-    }
-    .sidebar {
-        top: auto !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0;
-        height: 80px !important;
-        width: auto !important;
-        z-index: 101 !important;
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: space-between !important;
-        align-items: center !important;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-    }
-    .sidebar-logo {
-        display: none !important;
-    }
-    .sidebar-menu {
-        flex-direction: row !important;
-        justify-content: space-around !important;
-        align-items: center !important;
-        width: 100% !important;
-        margin-bottom: 0 !important;
-        height: 80px !important;
-    }
-    .sidebar-links {
-        flex-direction: column !important;
-        padding-left: 8px !important;
-        width: auto !important;
-        padding: 8px !important;
-        border-radius: 8px !important;
-    }
-    .sidebar-menu-bottom {
-        display: none !important;
-    }
-    
     .contact-details-container {
         left: 440px;
+        top: 86px;
+    }
+
+    .user-content {
         top: 86px;
     }
 }

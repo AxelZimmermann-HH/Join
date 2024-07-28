@@ -207,35 +207,15 @@ async function updateContact(key, updatedContact) {
  */
 function showContact(initials, contact, key) {
   highlightContact(key);
-
-  let content = document.getElementById('contact-profile');
-  let contentLibrary = document.getElementById('contacts-library');
-  content.innerHTML = '';
-
-  if (window.innerWidth <= 1120) {
-    contentLibrary.classList.add('d-none');
-  } else {
-    contentLibrary.classList.remove('d-none');
-  }
-
-  content.classList.remove('slide-in-right');
-  void content.offsetWidth;
-  content.classList.add('slide-in-right');
-
-  content.innerHTML += generateContactHTML(initials, contact, key);
-  isShowContactExecuted = true;
+  let content = document.getElementById('contact-profile'), contentLibrary = document.getElementById('contacts-library');
+  content.innerHTML = '', window.innerWidth <= 1120 ? contentLibrary.classList.add('d-none') : contentLibrary.classList.remove('d-none');
+  content.classList.remove('slide-in-right'), void content.offsetWidth, content.classList.add('slide-in-right');
+  content.innerHTML += generateContactHTML(initials, contact, key), isShowContactExecuted = true;
 }
 
 window.addEventListener('resize', function() {
   let contentLibrary = document.getElementById('contacts-library');
-
-  if (isShowContactExecuted) {
-    if (window.innerWidth > 1120) {
-      contentLibrary.classList.remove('d-none');
-    } else {
-      contentLibrary.classList.add('d-none');
-    }
-  }
+  if (isShowContactExecuted) window.innerWidth > 1120 ? contentLibrary.classList.remove('d-none') : contentLibrary.classList.add('d-none');
 });
 
 
