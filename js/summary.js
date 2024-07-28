@@ -60,19 +60,10 @@ function generateGreets() {
     let greetingTime = getGreeting();
     let userName = sessionStorage.getItem('userName');
     let content = document.getElementById('greeting-container');
-    
-    if (window.innerWidth <= 800) {
-        if (content) {
-            content.parentNode.removeChild(content);
-        }
-    } else {
-        if (content) {
-            content.innerHTML = userName === "Guest" 
-                ? `<span class="greet-text">Good ${greetingTime}!</span>` 
-                : `<span class="greet-text">Good ${greetingTime},</span>
+    content.innerHTML = userName === "Guest"
+        ? `<span class="greet-text">Good ${greetingTime}!</span>`
+        : `<span class="greet-text">Good ${greetingTime},</span>
                    <span class="greet-user-name">${userName}</span>`;
-        }
-    }
 }
 
 /**
@@ -135,11 +126,11 @@ function showGreeting() {
     const animationScreen = document.getElementById('animationScreen');
     let greetingTime = getGreeting();
     let userName = sessionStorage.getItem('userName');
-    animationScreen.innerHTML = userName === "Guest" 
-        ? `<span class="greet-text">Good ${greetingTime}</span>` 
+    animationScreen.innerHTML = userName === "Guest"
+        ? `<span class="greet-text">Good ${greetingTime}</span>`
         : `<div class="greeting-user-animation"><span class="greet-text">Good ${greetingTime},</span>
            <span class="greet-user-name">${userName}</div></span>`;
-    animationScreen.classList.remove('hidden');
+    animationScreen.classList.remove('d-none');
     animationScreen.classList.add('fadeIn');
     setTimeout(hideGreeting, 1000);
 }
@@ -164,46 +155,24 @@ function hideGreeting() {
 function initPage() {
     const animationScreen = document.getElementById('animationScreen');
     const summaryCardContainer = document.querySelector('.summary-card-container');
-    if (window.innerWidth >= 800) localStorage.setItem('greetingShown', 'true');
-    if (window.innerWidth <= 800 && !localStorage.getItem('greetingShown')) {
+    if (window.innerWidth >= 800) {
         localStorage.setItem('greetingShown', 'true');
-        if (animationScreen) showGreeting();
-    } else if (summaryCardContainer) summaryCardContainer.classList.add('visible');
+        summaryCardContainer.classList.add('visible');
+    } else {
+        if (!localStorage.getItem('greetingShown')) {
+            localStorage.setItem('greetingShown', 'true');
+            showGreeting();
+        } else {
+            summaryCardContainer.classList.add('visible');
+        }
+    }
 }
 
 document.addEventListener('DOMContentLoaded', initPage);
 
-
-
 function logout() {
-    localStorage.removeItem('greetingShown');  
+    localStorage.removeItem('greetingShown');
 }
 
-let hasRefreshed = false;
-let lastWidth = window.innerWidth;
 
 
-
-function checkWidthAndReload() {
-    const width = window.innerWidth;
-
-    // Check if the width is within the range and has not already refreshed
-    if (width >= 800 && width <= 810 && !hasRefreshed) {
-        hasRefreshed = true;
-        location.reload();
-    }
-
-    // Update the last width
-    lastWidth = width;
-}
-
-window.addEventListener('resize', function() {
-    // Only check the width if it has changed significantly
-    if (Math.abs(window.innerWidth - lastWidth) >= 10 && !hasRefreshed) {
-        checkWidthAndReload();
-    }
-});
-
-window.addEventListener('load', function() {
-    checkWidthAndReload();
-});
