@@ -37,7 +37,7 @@ function openTask(key) {
    * This function calls the rendering of the task layer.
    * @param {id} content
    * @param {object} task - tasksData[key], defined in openTask(key)
-   * @param {strin} key - task key
+   * @param {string} key - task key
    */
   function updateContent(content, task, key) {
     content.innerHTML = "";

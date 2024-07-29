@@ -1,4 +1,6 @@
-// Import the functions you need from the SDKs you need
+/**
+* Import the functions you need from the SDKs you need
+*/
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
@@ -17,11 +19,11 @@ const firebaseConfig = {
   function navigateBack() {
     window.location.href = 'index.html';
 }
-
-// Add the event listener for the arrow container
+/**
+* Add the event listener for the arrow container
+*/
 document.getElementById('backArrow').addEventListener('click', navigateBack);
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
 const database = getDatabase(app);
