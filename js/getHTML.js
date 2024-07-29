@@ -363,3 +363,59 @@ function renderSubtasksHTML(i, subtask) {
         </div>
       </div>`;
 }
+
+/**
+ * This function returns the HTML for the contact details if it is clicked.
+ * @param {string} initials
+ * @param {object} contact
+ * @param {string} key - contact key
+ * @returns code for the contact details if it is clicked
+ */
+function generateContactHTML(initials, contact, key) {
+  return `
+        <div class="contact-profile-firstrow">
+          <div class="contact-letters-big" style="background-color: ${contact.color}">${initials}</div>
+          <div class="contact-profile-firstrow-right">
+            <h3>${contact.name}</h3>
+            <div class="contact-actions">
+              <a onclick='openEditContactLayer("${key}", "${contact.name}", "${contact.email}", "${contact.phone}")' class="contact-links">
+                <img class="contact-icon" src="img/contact-edit.svg" alt="">Edit
+              </a>
+              <a onclick="deleteContact('${key}')" class="contact-links">
+                <img class="contact-icon" src="img/contact-delete.svg" alt="">Delete
+              </a>
+            </div>
+          </div>
+        </div>
+  
+        <p class="padding-top-bottom-27">Contact Information</p>
+  
+        <div class="contact-channels">
+          <p>Email</p>
+          <a href="#">${contact.email}</a>
+        </div>
+        <div class="contact-channels">
+          <p>Phone</p>
+          <a class="black-link" href="#">${contact.phone}</a>
+        </div>
+    `;
+}
+
+/**
+ * This function returns the code of a contact rendered in the library.
+ * @param {string} key - contact key
+ * @param {string} initials
+ * @param {object} contact
+ * @returns the code of a contact rendered in the library
+ */
+function generateDirectory(key, initials, contact) {
+  return `
+            <div id="contact${key}" onclick='showContact("${initials}", ${JSON.stringify(contact)}, "${key}")' class="contact">
+                <div class="contact-letters" style="background-color: ${contact.color};">${initials}</div>
+                <div class="contact-data">
+                    <div class="contact-name">${contact.name}</div>
+                    <div class="contact-mail">${contact.email}</div>
+                </div>
+            </div>
+        `;
+}
