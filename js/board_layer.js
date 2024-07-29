@@ -301,3 +301,5 @@ function taskAnimationEnd() {
     document.getElementById("show-task-layer").classList.add("d-none");
     document.getElementById("board-content").classList.remove('background-noscroll');
 }
+
+

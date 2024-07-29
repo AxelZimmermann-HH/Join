@@ -548,28 +548,4 @@ function generateDirectory(key, initials, contact) {
         `;
 }
 
-/**
- * This function returns the HTML code for add task contacts.
- * @param {object} contact 
- * @param {number} i 
- * @param {string} userName 
- * @returns HTML code for add task contacts
- */
-function generateContactHTML(contact, i, userName) {
-    let checkboxSrc = selectedContacts[i] ? "add_task_img/checkbox-normal-checked.svg" : "add_task_img/checkbox-normal.svg";
-  
-    let displayName = contact.name;
-    if (contact.name === userName) {
-      displayName += " (You)";
-    }
-  
-    return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
-              <div class="show-task-contact-add-task">
-                  <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-                  <p>${displayName}</p>
-              </div>
-              <div class="checkbox">
-                  <img id="checkbox-field${i}" src="${checkboxSrc}" alt="">
-              </div>
-          </div>`;
-  }
+
