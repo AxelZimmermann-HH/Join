@@ -141,7 +141,7 @@ function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highIm
             </div>
             <div class="edit-task-element">
                 <p>Priority</p>
-                <div class="buttons">
+                <div class="buttons gap-8px">
                     <button id="highButton" onclick="highButton()" class="prio-buttons pb-edit prio-buttons-shadow ${highSelected}">Urgent <img id="highButtonImg" src="${highImgSrc}"></button>
                     <button id="mediumButton" onclick="mediumButton()" class="prio-buttons pb-edit prio-buttons-shadow ${mediumSelected}">Medium <img id="mediumButtonImg" src="${mediumImgSrc}"></button>
                     <button id="lowButton" onclick="lowButton()" class="prio-buttons pb-edit prio-buttons-shadow ${lowSelected}">Low <img id="lowButtonImg" src="${lowImgSrc}"></button>
@@ -204,7 +204,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                     <span>Select contact to assign</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
-                <div class="add-task-contacts d-none" id="add-task-contacts">
+                <div class="add-task-contacts pos-relative-add-contacts d-none" id="add-task-contacts">
 
                 </div>
                 <div id="add-task-contactsHTML" class="edit-task-contacts-site">

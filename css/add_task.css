@@ -118,9 +118,6 @@ body {
 .select-contact:hover {
   border: 1px solid #ababab;
 }
-.select-contact-edit {
-  width: 480px !important;
-}
 .parting-line {
   margin-left: 40px;
   border: 1px solid #d1d1d1;
@@ -467,6 +464,9 @@ ul {
   max-height: 100px;
   width: 440px !important;
 }
+.pos-relative-add-contacts {
+  position: initial !important;
+}
 .show-task-contact-add-task p {
   padding-bottom: 0 !important;
 }
@@ -699,9 +699,6 @@ ul {
   }
 }
 @media (max-width: 800px) {
-  .select-contact-edit {
-    width: 200px !important;
-  }
   .select-contact-edit span {
     font-size: 12px !important;
   }
