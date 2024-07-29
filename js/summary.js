@@ -95,11 +95,9 @@ function generateUpcomingDate() {
 function getClosestUrgentDueDate() {
     let urgentTasks = tasksArray.filter(task => task.prio === 'urgent');
     if (urgentTasks.length === 0) return '';
-
     let currentDate = new Date();
     let closestDate = null;
     let minDifference = Infinity;
-
     urgentTasks.forEach(task => {
         let dueDate = new Date(task.due_date);
         let difference = dueDate - currentDate;
@@ -108,7 +106,6 @@ function getClosestUrgentDueDate() {
             closestDate = dueDate;
         }
     });
-
     if (closestDate) {
         let options = { year: 'numeric', month: 'long', day: 'numeric' };
         return closestDate.toLocaleDateString('en-US', options);

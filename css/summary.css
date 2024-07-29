@@ -387,6 +387,7 @@
 @media (max-width: 580px) {
   .summary-main-container {
     margin-left: 0px;
+    padding: 5px 5px !important;
   }
 
   .title-contact {
@@ -614,6 +615,7 @@
     display: none;
     opacity: 0;
     transition: opacity 1s ease-in-out;
+
   }
 
   .summary-card-container.visible {
@@ -643,7 +645,16 @@
 
 @media (max-height: 700px) {
   .summary-main-container {
-    margin-top: 0px !important;
+    margin: 0 !important;
+ 
+  }
+  
+}
+
+@media (max-height: 700px) {
+  .animation-screen  {
+    top: 300px !important;
+ 
   }
   
 }

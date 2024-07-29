@@ -60,7 +60,7 @@ function init() {
     } 
 }
 
-/**
+/**0
  * Sets up the form submission event listener.
  * @param {HTMLFormElement} form - The form element to attach the event listener to.
  */
@@ -92,36 +92,58 @@ function checkBoxClicked() {
 }
 
 /**
- * Handles the form submission for login.
- * @param {Event} event - The form submit event.
+ * Handles the login form submission.
+ * 
+ * @param {Event} event - The form submission event.
  */
-
 function login(event) {
     event.preventDefault();
-
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
-
-    if (localStorage.getItem('rememberMe') === 'true') {
-        localStorage.setItem('email', email);
-        localStorage.setItem('password', password);
-    }
-
-    validateUser(email, password).then((result) => {
-        if (result.isAuthenticated) {
-            sessionStorage.setItem('userName', result.name);
-            localStorage.removeItem('greetingShown');
-            goToSummary();
-        } else {
-            handleError();
-        }
-    }).catch(handleError);
     
-    function handleError() {
-        document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match';
-        document.getElementById('pasowrdConteiner').classList.add('login-red');
+    if (localStorage.getItem('rememberMe') === 'true') {
+        storeCredentials(email, password);
     }
+
+    validateUser(email, password).then(result => {
+        if (result.isAuthenticated) {
+            handleSuccess(result.name);
+        } else {
+            showError();
+        }
+    }).catch(showError);
 }
+
+/**
+ * Stores the user's credentials in local storage.
+ * 
+ * @param {string} email - The user's email.
+ * @param {string} password - The user's password.
+ */
+function storeCredentials(email, password) {
+    localStorage.setItem('email', email);
+    localStorage.setItem('password', password);
+}
+
+/**
+ * Handles successful authentication.
+ * 
+ * @param {string} userName - The authenticated user's name.
+ */
+function handleSuccess(userName) {
+    sessionStorage.setItem('userName', userName);
+    localStorage.removeItem('greetingShown');
+    goToSummary();
+}
+
+/**
+ * Displays an error message indicating incorrect password.
+ */
+function showError() {
+    document.getElementById('wrongPasswordConteiner').innerHTML = 'Ups! your password don’t match';
+    document.getElementById('pasowrdConteiner').classList.add('login-red');
+}
+
 
 /**
  * Validates the user credentials against the Firebase database.
