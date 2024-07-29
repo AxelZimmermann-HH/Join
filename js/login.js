@@ -167,6 +167,7 @@ function validateUser(email, password) {
         return { isAuthenticated: false };
     });
 }
+
 /**
  * onclick function signupButton.
  */

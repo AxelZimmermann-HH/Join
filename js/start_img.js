@@ -16,9 +16,9 @@ function updateImageSource() {
         document.body.style.backgroundColor = '#F6F7F8';
         startingScreen.style.left = '583px';
         startingScreen.style.top = '345px';
-   
     }
 }
+
 window.addEventListener('resize', updateImageSource);
 window.addEventListener('load', updateImageSource);
 

@@ -4,7 +4,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyBLwkvdC-k--cb_0Z5y83ZEtcbRiXMxxKE",
     authDomain: "join-23123.firebaseapp.com",
@@ -15,19 +14,20 @@ const firebaseConfig = {
     appId: "1:801789402962:web:d84538bda53119e058e48b",
     measurementId: "G-CFY9BZ9NV5"
   };
+
 /**
  * Navigates the browser window to the 'index.html' page.
  */
   function navigateBack() {
     window.location.href = 'index.html';
 }
+
 /**
 * Add the event listener for the arrow container
 */
 document.getElementById('backArrow').addEventListener('click', navigateBack);
 
 const app = initializeApp(firebaseConfig);
-
 const database = getDatabase(app);
 
 document.addEventListener('DOMContentLoaded', init);
@@ -66,10 +66,7 @@ function toggleCheckboxImage() {
  * @param {HTMLFormElement} form - The signup form element.
  */
 function setupFormSubmission(form) {
-
     form.addEventListener('submit', handleFormSubmit);
-
-
 }
 
 /**
@@ -90,6 +87,7 @@ function handleFormSubmit(event) {
 
     signupUser(name, email, password);
 }
+
 /**
  * Displays a password mismatch error message and applies a CSS class for error styling.
  */
@@ -142,7 +140,6 @@ function signupUser(name, email, password) {
 /**
  * Displays a success message and redirects to the homepage after a delay.
  */
-
 function signupSuccessfully() {
     const successMessage = document.getElementById('successMessage');
     successMessage.classList.add('show');
@@ -151,7 +148,7 @@ function signupSuccessfully() {
       successMessage.classList.remove('show');
       window.location.href = 'index.html';
     }, 3000);
-  };
-  // Expose toggleCheckboxImage to the global window object
+};
+
 window.toggleCheckboxImage = toggleCheckboxImage;
 

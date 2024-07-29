@@ -2,8 +2,6 @@ let subtasks = [];
 let selectedContacts = [];
 let currentTaskIndex = 0;
 
-//window.onload = futureDate;
-
 const contactDropdown = document.getElementById("add-task-contacts");
 const categoryDropdown = document.getElementById("category");
 
@@ -152,16 +150,12 @@ function closeSubtask() {
  */
 function createSubtask() {
   let input = document.getElementById("subtask-field");
-
   if (input.value.trim() === "") {
     return;
   }
-
   subtasks.push({ title: input.value, completed: false });
-
   let createSubtask = document.getElementById("create-subtask");
   createSubtask.innerHTML = "";
-
   for (let i = 0; i < subtasks.length; i++) {
     let subtask = subtasks[i];
     if (input.value != "") {
@@ -204,16 +198,13 @@ function changeSubtask(i) {
   let required = document.getElementById("subtask-required");
   let redBorder = document.getElementById(`subtask-tasks${i}`);
   editLogo.src = "add_task_img/check.svg";
-
   if (editedSubtask === "") {
     required.innerHTML = "";
     redBorder.style.borderBottom = "1px solid #29abe2";
   }
-
   changeSubtaskLayer(i);
   let createSubtask = document.getElementById(`subtask-${i}`);
   let currentText = subtasks[i].title;
-
   createSubtask.innerHTML = `
     <div class="subtask-edit">
       <div contenteditable="true" id="subtask-${i}" class="subtask-edit-div">${currentText}</div>
@@ -256,13 +247,10 @@ function updateSubtask(i) {
   if (editSubtask === "") {
     required.innerHTML = `<div class="title-required">fill out subtask</div>`;
     redBorder.style.borderBottom = "1px solid #ff8190";
-  }
-  updateSubtaskLayer(i);
+  } updateSubtaskLayer(i);
   subtasks[i].title = editedSubtask;
-
   let createSubtask = document.getElementById(`subtask-${i}`);
   createSubtask.innerHTML = `${editedSubtask}`;
-
   let editLogo = document.getElementById(`edit-logo${i}`);
   editLogo.src = "add_task_img/edit.svg";
 }
@@ -292,29 +280,15 @@ function showContactsInAddTask() {
   let userName = sessionStorage.getItem("userName");
 
   let contactsAddTask = contactsArray
-    .map((contact, i) => {
-      let checkboxSrc = selectedContacts[i] ? "add_task_img/checkbox-normal-checked.svg" : "add_task_img/checkbox-normal.svg";
-
-      let displayName = contact.name;
-      if (contact.name === userName) {
-        displayName += " (You)";
-      }
-      return `<div id="contacts-pos${i}" onclick="checkContacts(${i})" class="contacts-pos">
-              <div class="show-task-contact-add-task">
-                  <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
-                  <p>${displayName}</p>
-              </div>
-              <div class="checkbox">
-                  <img id="checkbox-field${i}" src="${checkboxSrc}" alt="">
-              </div>
-          </div>`;
-    })
-
+    .map((contact, i) => generateContactHTML(contact, i, userName))
     .join("");
+
   let content = document.getElementById("add-task-contacts");
   content.innerHTML = contactsAddTask;
   checkbox();
 }
+
+
 
 /**
  * Updates the checkbox status and highlights the selected contacts in the "Add Task" section.
@@ -474,20 +448,15 @@ function clearContacts() {
 function clearTask() {
   let description = document.getElementById("description-input");
   description.value = "";
-
   let dueDate = document.getElementById("date-input");
   dueDate.value = "";
   dueDate.style.color = "#d1d1d1";
-
   document.getElementById("add-task-contacts").classList.add("d-none");
-
   clearButtons();
   clearSubtasks();
   clearContacts();
-
   let taskCategory = document.getElementById("task-category");
   taskCategory.innerText = "Select task category";
-
   let title = document.getElementById("title-input");
   title.value = "";
 }
@@ -523,8 +492,7 @@ function emptyCategory() {
   let taskCategory = document.getElementById("task-category").innerText;
   let required = document.getElementById("category-required");
   if (taskCategory === "Select task category") {
-    //   taskCategoryInput.style.borderColor = "red";
-    //   required.innerHTML = `<div class="title-required">this field is required</div>`;
+
   } else if (taskCategory === "User Story" || taskCategory === "Technical Task") {
     taskCategoryInput.style.borderColor = "#29abe2";
     required.innerHTML = "";

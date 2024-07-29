@@ -154,8 +154,15 @@ function initPage() {
     }
 }
 
+/**
+ * This function runs initPage when DOM is loaded.
+ */
 document.addEventListener('DOMContentLoaded', initPage);
 
+
+/**
+ * This function removes local storage item greetingShown.
+ */
 function logout() {
     localStorage.removeItem('greetingShown');
 }
