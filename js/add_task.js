@@ -284,7 +284,9 @@ function resetSelectedContacts() {
 }
 
 /**
- * Displays the contacts in the add task section.
+ * Generates and displays the list of contacts in the "Add Task" section.
+ * It fetches the user's name from the session storage, creates the HTML content
+ * for each contact, and updates the DOM.
  */
 function showContactsInAddTask() {
   let userName = sessionStorage.getItem("userName");
@@ -307,11 +309,19 @@ function showContactsInAddTask() {
               </div>
           </div>`;
     })
-    .join("");
 
+    .join("");
   let content = document.getElementById("add-task-contacts");
   content.innerHTML = contactsAddTask;
+  checkbox();
+}
 
+/**
+ * Updates the checkbox status and highlights the selected contacts in the "Add Task" section.
+ * It iterates over the contacts, checking if the checkbox is selected, and updates the
+ * checkbox image and highlights the contact if selected.
+ */
+function checkbox() {
   contactsArray.forEach((contact, i) => {
     let checkboxField = document.getElementById(`checkbox-field${i}`);
     let contactDiv = document.getElementById(`contacts-pos${i}`);
@@ -521,6 +531,11 @@ function emptyCategory() {
   }
 }
 
+/**
+ * Checks if the task category is not selected and indicates that the category field is required.
+ * If the task category is "Select task category", the border color of the input field is changed to red
+ * and a required message is displayed.
+ */
 function emptyCategoryRequired() {
   let taskCategoryInput = document.getElementById("category-input");
   let taskCategory = document.getElementById("task-category").innerText;
@@ -584,56 +599,97 @@ function addedToBoard() {
 }
 
 /**
- * Creates a new task and posts it to the board.
- * @param {string} boardCategory - The category of the board where the task will be added.
+ * Validates the task input fields to ensure they are not empty.
+ * Calls helper functions to indicate required fields if validation fails.
+ *
+ * @returns {Promise<boolean>} Returns a promise that resolves to true if validation passes, otherwise false.
  */
-async function createTask(boardCategory) {
-  let description = document.getElementById("description-input").value;
-  let dueDate = document.getElementById("date-input").value;
-  let prio = getSelectedPrio();
-  let taskCategory = document.getElementById("task-category").innerText;
+async function validateTaskInputs() {
   let title = document.getElementById("title-input").value;
+  let dueDate = document.getElementById("date-input").value;
+  let taskCategory = document.getElementById("task-category").innerText;
 
   if (title === "" || dueDate === "" || taskCategory === "Select task category") {
     emptyDate();
     emptyTitle();
     emptyCategoryRequired();
-    return;
+    return false;
   }
+  return true;
+}
 
-  await addedToBoard();
-
-  let selectedContactsData = selectedContacts.reduce((acc, isSelected, index) => {
+/**
+ * Collects the data of selected contacts.
+ *
+ * @returns {Object} An object containing the selected contacts data.
+ */
+function getSelectedContactsData() {
+  return selectedContacts.reduce((acc, isSelected, index) => {
     if (isSelected) {
       acc[`contact${index + 1}`] = contactsArray[index];
     }
     return acc;
   }, {});
+}
 
-  let subtasksObj = subtasks.reduce((acc, subtask, index) => {
+/**
+ * Collects the data of subtasks.
+ *
+ * @returns {Object} An object containing the subtasks data.
+ */
+function getSubtasksData() {
+  return subtasks.reduce((acc, subtask, index) => {
     acc[`subtask${index + 1}`] = {
       title: subtask.title,
       completed: subtask.completed,
     };
     return acc;
   }, {});
+}
 
-  let newTask = {
+/**
+ * Builds a new task object with the provided board category and input data.
+ *
+ * @param {string} boardCategory - The category of the board to which the task belongs.
+ * @returns {Object} A new task object with all the required properties.
+ */
+function buildNewTask(boardCategory) {
+  let description = document.getElementById("description-input").value;
+  let dueDate = document.getElementById("date-input").value;
+  let prio = getSelectedPrio();
+  let taskCategory = document.getElementById("task-category").innerText;
+  let title = document.getElementById("title-input").value;
+
+  return {
     board_category: boardCategory,
-    contacts: selectedContactsData,
+    contacts: getSelectedContactsData(),
     description: description,
     due_date: dueDate,
     prio: prio,
-    subtasks: subtasksObj,
+    subtasks: getSubtasksData(),
     task_category: taskCategory,
     title: title,
   };
+}
 
+/**
+ * Creates a new task, adding it to the board if the input validation passes.
+ *
+ * @param {string} boardCategory - The category of the board to which the task will be added.
+ * @returns {Promise<void>} A promise that resolves when the task creation process is complete.
+ */
+async function createTask(boardCategory) {
+  if (!(await validateTaskInputs())) {
+    return;
+  }
+
+  await addedToBoard();
+
+  let newTask = buildNewTask(boardCategory);
   let postResponse = await postTask("", newTask);
 
   goToBoard();
-
-  let dataFetched = await boardInit();
+  await boardInit();
 
   subtasks = [];
 }
