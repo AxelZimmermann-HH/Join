@@ -469,8 +469,9 @@ input[type=password]::-ms-clear {
     cursor: pointer;
 }
 
-@media (max-height: 900px) {
-    .login-window {
 
+@media (max-height: 900px) {
+    .wrong-password {
+        margin-top: -15px;
     }
 }
