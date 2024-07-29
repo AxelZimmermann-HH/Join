@@ -274,15 +274,6 @@ async function moveTo(category, taskKey) {
   }
 }
 
-async function moveToUp(category, key) {
-  if (category === "to-do") {
-    await updateTaskAttribute(currentDraggedTaskKey, category, "board_category");
-    await fetchTasksJson();
-    createTaskOnBoard();
-    checkAndAddNoTask();
-  }
-}
-
 /**
  * Standard drop function
  * @param {event} ev
@@ -384,7 +375,8 @@ function openTask(key) {
   currentTaskKey = key;
   showTaskLayer();
   let content = document.getElementById("show-task-inner-layer");
-  animateContent(content);
+  let background = document.getElementById("board-content");
+  animateContent(content, background);
   updateContent(content, task, key);
   updateHeadlineVisibility();
 }
@@ -400,12 +392,13 @@ function showTaskLayer() {
  * This function animates the slide-in-and-out of the task layer. It is used in openTask(key).
  * @param {id} content - show-task-inner-layer, defined in openTask(key)
  */
-function animateContent(content) {
+function animateContent(content, background) {
   content.classList.remove("width-auto");
   content.classList.remove("slide-in-right");
   content.classList.remove("slide-out-right");
   void content.offsetWidth;
   content.classList.add("slide-in-right");
+  background.classList.add('background-noscroll');
 }
 
 /**
@@ -980,4 +973,5 @@ function closeTask() {
  */
 function taskAnimationEnd() {
   document.getElementById("show-task-layer").classList.add("d-none");
+  document.getElementById("board-content").classList.remove('background-noscroll');
 }
