@@ -15,7 +15,9 @@ const firebaseConfig = {
     appId: "1:801789402962:web:d84538bda53119e058e48b",
     measurementId: "G-CFY9BZ9NV5"
   };
-
+/**
+ * Navigates the browser window to the 'index.html' page.
+ */
   function navigateBack() {
     window.location.href = 'index.html';
 }
@@ -88,7 +90,9 @@ function handleFormSubmit(event) {
 
     signupUser(name, email, password);
 }
-
+/**
+ * Displays a password mismatch error message and applies a CSS class for error styling.
+ */
 function showPasswordError() {
     document.getElementById('wrongPasswordConteiner').innerHTML = "Your Passwords don't match. Try again.";
     document.getElementById('confirm-conteiner').classList.add('signup-red');
