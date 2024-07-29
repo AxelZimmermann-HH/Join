@@ -3,7 +3,6 @@ const CONTACTS_URL = "https://join-database-3d39f-default-rtdb.europe-west1.fire
 let contactsData = {};
 let contactsArray = [];
 let contactsKeys = [];
-
 let isShowContactExecuted = false;
 
 /**
@@ -30,11 +29,9 @@ async function fetchDataJson() {
     contactsData = responseToJson || {};
     contactsArray = Object.values(contactsData);
     contactsKeys = Object.keys(contactsData);
-
     const sortedContacts = contactsArray
       .map((contact, index) => ({ contact, key: contactsKeys[index] }))
       .sort((a, b) => a.contact.name.split(" ")[0].localeCompare(b.contact.name.split(" ")[0]));
-
     contactsArray = sortedContacts.map((item) => item.contact);
     contactsKeys = sortedContacts.map((item) => item.key);
   } catch (error) {
@@ -58,17 +55,30 @@ function createContactsList() {
     let initials = nameParts[0][0] + nameParts[1][0];
     let firstLetter = nameParts[0][0].toUpperCase();
 
-    if (firstLetter !== currentLetter) {
-      currentLetter = firstLetter;
-      content.innerHTML += `
-              <div class="first-letter">${currentLetter}</div>
-              <div class="line"></div>
-          `;
-    }
+    currentLetter = addLetterSection(content, currentLetter, firstLetter);
 
     content.innerHTML += generateDirectory(key, initials, contact);
   }
 }
+
+/**
+ * This function returns the bubbles in the contact list.
+ * @param {string} content - ID of the list
+ * @param {string} currentLetter 
+ * @param {string} firstLetter 
+ * @returns the bubbles in the contact list
+ */
+function addLetterSection(content, currentLetter, firstLetter) {
+  if (firstLetter !== currentLetter) {
+    currentLetter = firstLetter;
+    content.innerHTML += `
+            <div class="first-letter">${currentLetter}</div>
+            <div class="line"></div>
+        `;
+  }
+  return currentLetter;
+}
+
 
 /**
  * Standard function for posting new contacts onto database.
@@ -80,9 +90,7 @@ async function postData(path = "", data = {}) {
   try {
     let response = await fetch(CONTACTS_URL + path + ".json", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: {"Content-Type": "application/json",},
       body: JSON.stringify(data),
     });
     return await response.json();
@@ -154,22 +162,27 @@ async function saveContact() {
   let name = document.getElementById("edit-contact-name").value;
   let email = document.getElementById("edit-contact-mail").value;
   let phone = document.getElementById("edit-contact-phone").value;
-
   let currentContact = contactsData[key];
   let color = currentContact.color;
   let updatedContact = { email, name, phone, color };
-
   try {
     await updateContact(key, updatedContact);
     await contactsInit();
-
     closeEditContactLayer();
-
-    let initials = name.split(" ")[0][0] + name.split(" ")[1][0];
-    showContact(initials, updatedContact, key);
+    displayUpdatedContact(name, updatedContact, key);
   } catch (error) {
-    console.error("Error updating contact:", error);
-  }
+    console.error("Error updating contact:", error);}
+}
+
+/**
+ * This function shows the contact details after editing a contact.
+ * @param {string} name 
+ * @param {object} updatedContact 
+ * @param {string} key 
+ */
+function displayUpdatedContact(name, updatedContact, key) {
+  let initials = name.split(" ")[0][0] + name.split(" ")[1][0];
+  showContact(initials, updatedContact, key);
 }
 
 /**
@@ -183,8 +196,7 @@ async function updateContact(key, updatedContact) {
     let response = await fetch(CONTACTS_URL + key + ".json", {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json",
-      },
+        "Content-Type": "application/json",},
       body: JSON.stringify(updatedContact),
     });
     return await response.json();
@@ -210,6 +222,9 @@ function showContact(initials, contact, key) {
   (content.innerHTML += generateContactHTML(initials, contact, key)), (isShowContactExecuted = true);
 }
 
+/**
+ * This function ensures that the content library is shown in the correct situations in responsive layout.
+ */
 window.addEventListener("resize", function () {
   let contentLibrary = document.getElementById("contacts-library");
   if (isShowContactExecuted) window.innerWidth > 1120 ? contentLibrary.classList.remove("d-none") : contentLibrary.classList.add("d-none");

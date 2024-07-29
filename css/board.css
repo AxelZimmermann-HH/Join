@@ -331,7 +331,6 @@
 
 .show-task-scroll {
   overflow-y: scroll;
-  max-height: 500px;
   border-top: 3px solid lightgray;
   padding-top: 10px;
 }
