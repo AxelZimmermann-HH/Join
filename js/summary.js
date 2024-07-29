@@ -99,6 +99,8 @@ function getClosestUrgentDueDate() {
     let closestDate = null;
     let minDifference = Infinity;
     urgentTasks.forEach(task => {
+    if (!urgentTasks.length) return '';
+    let closestDate = urgentTasks.reduce((acc, task) => {
         let dueDate = new Date(task.due_date);
         let difference = dueDate - currentDate;
         if (difference >= 0 && difference < minDifference) {
@@ -112,6 +114,10 @@ function getClosestUrgentDueDate() {
     } else {
         return '';
     }
+        let diff = dueDate - new Date();
+        return (diff >= 0 && diff < acc.diff) ? { date: dueDate, diff: diff } : acc;
+    }, { date: null, diff: Infinity }).date;
+    return closestDate ? closestDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
 }
 
 

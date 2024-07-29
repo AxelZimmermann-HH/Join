@@ -104,6 +104,46 @@ function getTaskLayerHTML(task, key, categoryClass, contactsHTML, subtasksHTML) 
 }
 
 /**
+ * This function returns the HTML code of the contact bubbles in the task layer and is used in the function
+ * generateContactsInTaskLayer.
+ * @param {string} contact 
+ * @param {string} userName 
+ * @returns the HTML code of the contact bubbles in the task layer.
+ */
+function getContactHTMLInTaskLayer(contact, userName) {
+    let displayName = contact.name;
+    if (contact.name === userName) {
+      displayName += " (You)";
+    }
+    return `
+          <div class="show-task-contact">
+              <div class="show-task-contact-letters" style="background-color: ${contact.color};">${getInitials(contact.name)}</div>
+              <p>${displayName}</p>
+          </div>
+      `;
+}
+
+/**
+ * This function renders the existing subtask in the task layer if there are some.
+ * @param {array} subtasks
+ * @param {string} key - task key
+ * @returns HTML of the subtasks in the task layer
+ */
+function generateSubtasksInTaskLayer(subtasks, key) {
+    return Object.keys(subtasks)
+      .map((subtaskKey) => {
+        const subtask = subtasks[subtaskKey];
+        return `
+              <div class="show-task-subtask" onclick="checkSubtask('${key}', '${subtaskKey}', this.querySelector('img'))">
+                  <img src="/add_task_img/${subtask.completed ? "subtasks_checked" : "subtasks_notchecked"}.svg" alt="">
+                  <p>${subtask.title}</p>
+              </div>
+          `;
+      })
+      .join("");
+}
+
+/**
  * This function generates the edit task layer by onclick.
  * @param {} task
  * @param {string} key - task key
@@ -141,7 +181,7 @@ function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highIm
             </div>
             <div class="edit-task-element">
                 <p>Priority</p>
-                <div class="buttons">
+                <div class="buttons gap-8px">
                     <button id="highButton" onclick="highButton()" class="prio-buttons pb-edit prio-buttons-shadow ${highSelected}">Urgent <img id="highButtonImg" src="${highImgSrc}"></button>
                     <button id="mediumButton" onclick="mediumButton()" class="prio-buttons pb-edit prio-buttons-shadow ${mediumSelected}">Medium <img id="mediumButtonImg" src="${mediumImgSrc}"></button>
                     <button id="lowButton" onclick="lowButton()" class="prio-buttons pb-edit prio-buttons-shadow ${lowSelected}">Low <img id="lowButtonImg" src="${lowImgSrc}"></button>
@@ -175,6 +215,60 @@ function getEditHTML(task, key, contactsHTML, subtasksHTML, highSelected, highIm
 }
 
 /**
+ * This function generates HTML for a single subtask in the edit layer.
+ * @param {Object} subtask - The subtask object containing title and completed status.
+ * @param {number} index - The index of the subtask in the subtasks array.
+ * @returns {string} The HTML string for the subtask.
+ */
+function getSubtaskHTML(subtask, index) {
+    return `
+      <div id="subtask-tasks${index}" class="subtasks-tasks">
+          <div>
+              <ul class="subtask-list">
+                  <li id="subtask-${index}" ondblclick="changeSubtask(${index})" class="subtask-list-element">${subtask.title}</li>
+              </ul>
+          </div>
+          <div class="subtask-list-icons">
+              <img id="edit-logo${index}" onclick="whichSourceSubtask(${index})" src="add_task_img/edit.svg" alt="" />
+              <div class="subtask-line"></div>
+              <img onclick="deleteSubtask(${index})" src="add_task_img/delete.svg" alt="" />
+          </div>
+      </div>
+    `;
+}
+
+/**
+ * This function returns the HTML of the first four contacts in edit task layer.
+ * @param {object} contact 
+ * @returns HTML of the first four contacts in edit task layer
+ */
+function getContactHTML(contact) {
+    let initials = getInitials(contact.name);
+    return `
+      <div class="show-task-contact">
+          <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
+      </div>
+    `;
+}
+
+/**
+ * This function renders a bubble with the number of further connected contacts, if there are more than four.
+ * @param {} contactCount
+ * @returns a bubble with the number of further connected contacts.
+ */
+function getRestContacts(contactCount) {
+    if (contactCount > 4) {
+      let remainingContacts = contactCount - 4;
+      return `
+        <div class="show-task-contact">
+            <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
+        </div>
+        `;
+    }
+    return "";
+}
+
+/**
  * This function returns the code for the add task layer in board.html.
  * @param {*} boardCategory - board category
  * @param {*} contactsHTML - HTML for the already added contacts rendered in the layer.
@@ -204,7 +298,7 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
                     <span>Select contact to assign</span>
                     <img src="add_task_img/arrow-down.svg" alt="">
                 </div>
-                <div class="add-task-contacts d-none" id="add-task-contacts">
+                <div class="add-task-contacts pos-relative-add-contacts d-none" id="add-task-contacts">
 
                 </div>
                 <div id="add-task-contactsHTML" class="edit-task-contacts-site">
@@ -281,6 +375,40 @@ function generateAddTaskLayer(boardCategory, contactsHTML) {
     </div>
       `;
 }
+
+/**
+ * This function returns a single contact bubble in add task layer when checked. 
+ * @param {object} contact 
+ * @returns a single contact bubble in add task layer when checke
+ */
+function getContactHTMLInAddTaskLayer(contact) {
+    let initials = getInitials(contact.name);
+    return `
+      <div class="show-task-contact">
+          <div class="show-task-contact-letters" style="background-color: ${contact.color};">${initials}</div>
+      </div>
+    `;
+  }
+
+/**
+ * This function has the same effect as getRestContacts(), but handles the add task site and the add task layer.
+ * It is needed so it can be implemented on addEventListener,
+ * when clicked aside of the dropdown.
+ * @param {number} contactCount - number of all selectedContacts which are true
+ * @returns HTML of with a bubble including the rest contacts, if there are more than four.
+ */
+function getRestAddContacts(contactCount) {
+    contactCount = selectedContacts.filter((contact) => contact === true).length;
+    if (contactCount > 4) {
+      let remainingContacts = contactCount - 4;
+      return `
+        <div class="show-task-contact">
+            <div class="show-task-contact-letters" style="background-color: white; color: black; border: 2px solid black;">+${remainingContacts}</div>
+        </div>
+        `;
+    }
+    return "";
+  }
 
 /**
  * This function retruns the code for the contact bubbles in the task cards on board.html.
@@ -362,4 +490,60 @@ function renderSubtasksHTML(i, subtask) {
           <img onclick="deleteSubtask(${i})" src="add_task_img/delete.svg" alt="" />
         </div>
       </div>`;
+}
+
+/**
+ * This function returns the HTML for the contact details if it is clicked.
+ * @param {string} initials
+ * @param {object} contact
+ * @param {string} key - contact key
+ * @returns code for the contact details if it is clicked
+ */
+function generateContactHTML(initials, contact, key) {
+  return `
+        <div class="contact-profile-firstrow">
+          <div class="contact-letters-big" style="background-color: ${contact.color}">${initials}</div>
+          <div class="contact-profile-firstrow-right">
+            <h3>${contact.name}</h3>
+            <div class="contact-actions">
+              <a onclick='openEditContactLayer("${key}", "${contact.name}", "${contact.email}", "${contact.phone}")' class="contact-links">
+                <img class="contact-icon" src="img/contact-edit.svg" alt="">Edit
+              </a>
+              <a onclick="deleteContact('${key}')" class="contact-links">
+                <img class="contact-icon" src="img/contact-delete.svg" alt="">Delete
+              </a>
+            </div>
+          </div>
+        </div>
+  
+        <p class="padding-top-bottom-27">Contact Information</p>
+  
+        <div class="contact-channels">
+          <p>Email</p>
+          <a href="#">${contact.email}</a>
+        </div>
+        <div class="contact-channels">
+          <p>Phone</p>
+          <a class="black-link" href="#">${contact.phone}</a>
+        </div>
+    `;
+}
+
+/**
+ * This function returns the code of a contact rendered in the library.
+ * @param {string} key - contact key
+ * @param {string} initials
+ * @param {object} contact
+ * @returns the code of a contact rendered in the library
+ */
+function generateDirectory(key, initials, contact) {
+  return `
+            <div id="contact${key}" onclick='showContact("${initials}", ${JSON.stringify(contact)}, "${key}")' class="contact">
+                <div class="contact-letters" style="background-color: ${contact.color};">${initials}</div>
+                <div class="contact-data">
+                    <div class="contact-name">${contact.name}</div>
+                    <div class="contact-mail">${contact.email}</div>
+                </div>
+            </div>
+        `;
 }
