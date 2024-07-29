@@ -167,7 +167,9 @@ function validateUser(email, password) {
         return { isAuthenticated: false };
     });
 }
-
+/**
+ * onclick function signupButton.
+ */
 document.getElementById('signupButton').addEventListener('click', goTosignup);
 
 /**
